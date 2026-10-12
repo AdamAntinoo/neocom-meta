@@ -9,7 +9,7 @@ Agent configuration lives in `neocom-meta` (`neocom/neocom-meta`). Product repos
 
 | Folder | Role |
 | --- | --- |
-| `neocom-meta` | Docs, conventions, Cursor rules and subagents (submodule) |
+| `neocom-meta` | Docs, programme definition, Cursor rules/skills, `02.SOURCES`, and subagents (submodule) |
 | `neocom-front` | Frontend application — Angular specialist agent ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) (submodule) |
 | `neocom-back` | Backend application (when present; expected as a submodule) |
 
@@ -34,9 +34,16 @@ Use these project subagents proactively:
 
 - `/neocom-front` — Angular UI and client work in `neocom-front` (Angular specialist)
 - `/neocom-back` — API and server work in `neocom-back`
-- `/neocom-meta` — docs and agent config in `neocom-meta`
+- `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
+- `/neocom-git` — commits, PRs, releases, promotions, and submodule pointer updates (VCS only)
+- `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
+- `/spec-registration` — Spec Registration: atomic L1 + L2 → OpenSpec at `neocom/openspec`
 - `/verifier` — readonly check after work is claimed done
 
 Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front.
 
 When `neocom-front` is missing or empty, use the recorded front stack (do not re-ask). When `neocom-back` is missing or empty, ask which backend stack and repository to use before scaffolding.
+
+Requirements flow: `/spec-collect` then, if L1 is atomic enough, `/spec-registration`. See `.cursor/rules/neocom-spec-pipeline.mdc`.
+
+Programme docs: keep `01.PROGRAMME-DEFINITION/` current (architecture + active features such as Initialization and Login) as inputs and development produce durable decisions.
