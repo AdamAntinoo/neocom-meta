@@ -48,9 +48,25 @@ graphify install --project --platform cursor
 graphify .
 ```
 
+### Documentation / token maps from URLs
+
+Graphify can fetch documentation URLs into a local corpus and build a knowledge graph (token / concept map):
+
+```bash
+cd neocom-meta/02.SOURCES
+graphify add "https://example.com/docs" --dir raw
+graphify .
+graphify god-nodes --graph graphify-out/graph.json
+graphify query "your question" --graph graphify-out/graph.json
+```
+
+Use this with the `extract-requirements-from-urls` skill and the catalog in `02.SOURCES/SOURCES.md`. Keep extracted human-readable requirements under `02.SOURCES/extracted/`.
+
 ## Agent guidance
 
 - Prefer OpenSpec when the user wants a reviewable plan or change proposal before implementation.
-- Prefer Graphify when navigating or explaining cross-folder structure and relationships under `neocom/`.
+- Prefer Graphify when navigating or explaining cross-folder structure and relationships under `neocom/`, and when mapping documentation corpora under `neocom-meta/02.SOURCES`.
+- Prefer `/neocom-meta` + `extract-requirements-from-urls` when reading NestJS / EVE Online SSO sources for requirements.
+- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/spec-registration` to register atomic L1/L2 into OpenSpec.
 - Do not re-install these tools on every task; only install or re-init when missing or when the user asks.
 - Product code still belongs in `neocom-front` / `neocom-back`; agent config and docs in `neocom-meta`. Tool artifacts at the `neocom` root are shared ecosystem config.

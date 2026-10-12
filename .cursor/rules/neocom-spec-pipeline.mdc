@@ -1,0 +1,30 @@
+---
+description: Spec Collect and Spec Registration requirements pipeline
+alwaysApply: true
+---
+
+# NEOCOM spec pipeline
+
+Requirement collection is an agent process owned by `/neocom-meta`.
+
+```text
+02.SOURCES  --/spec-collect-->  L1 (05.REQUIREMENTS-DECOMPOSITION/L1)
+L1 + L2     --/spec-registration-->  OpenSpec (neocom/openspec)  [only if L1 atomic enough]
+inputs + development  -->  01.PROGRAMME-DEFINITION (architecture, active features)
+```
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `/spec-collect` | Process `02.SOURCES`; generate/refresh L1 requirements list |
+| `/spec-registration` | If L1 is atomic enough, process L1 + L2 and register into OpenSpec |
+
+Skills live under `.cursor/skills/spec-collect` and `.cursor/skills/spec-registration`. Slash stubs live under `.cursor/commands/`.
+
+## Rules
+
+- Spec Collect does not write OpenSpec changes.
+- Spec Registration does not invent requirements; it registers atomic L1 (+ L2 detail) into `neocom/openspec/`.
+- Product implementation stays out of these commands (use `/opsx-apply` and domain agents later).
+- When collect/registration or development clarifies architecture or features, update `01.PROGRAMME-DEFINITION/` (e.g. `ARCHITECTURE/`, `FEATURES/`).
