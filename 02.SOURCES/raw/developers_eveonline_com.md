@@ -1,0 +1,15 @@
+---
+source_url: "https://developers.eveonline.com/"
+type: webpage
+title: "EVE: Developers"
+captured_at: 2026-10-12T09:43:05.641787+00:00
+contributor: "unknown"
+---
+
+# EVE: Developers
+
+Source: https://developers.eveonline.com/
+
+---
+
+EVE: Developers Login Blog Documentation Applications Community Showcase Login Get Started Create your application now Manage Manage Applications By: The ESI Development Team Published: 2026-08-18 SKINR on ESI: color outside the lines Somewhere in New Eden, a SKINR creator is nudging a pattern half a degree to the left until it sits exactly right; a ship undocks wearing the finished design; and a SKINdustrialist makes a decent chunk of PLEX selling it to excited capsuleers. SKINR and the Paragon Hub have enabled these activities since the Equinox expansion, and starting today, so does ESI. By: The ESI Development Team Published: 2026-08-04 Military Campaigns on ESI: joining the war effort Cradle of War brought Military Campaigns to New Eden: faction-wide efforts, built from objectives that any capsuleer can commit to and contribute to. Six new routes cover the state of every campaign in New Eden and your own part in it, while the static data export supplies the definitions behind those campaigns. By: The ESI Development Team Published: 2026-07-21 A splash of color: Corporation Palette and a few fresh fields Corporations have a look: their logo, their colors, and the way they present themselves across New Eden. Up until now, only some of that information was available via ESI, so third-party tools were limited in displaying that identity. By: The ESI Development Team Published: 2026-07-14 Goodbye Swagger: removing the last remnants It&#x27;s time to kick off the removal of our remaining Swagger specs, completing the move to OpenAPI By: The ESI Development Team Published: 2026-06-09 Cradle of War on ESI: character titles and achievements Cradle of War launches today, bringing Military Campaigns, new ships, starter space in Exordium, a new epic arc, and titles and achievements. Pursue new goals, track your progress with achievement scores, and unlock titles you can display across New Eden. By: The ESI Development Team Published: 2026-05-19 Equinox on ESI: structures, sovereignty, and access lists Equinox reshaped nullsec — new structures, new colony resources, and a lot more. ESI is catching up. New routes cover the latest Upwell deployables, Access Lists get a read API, and sovereignty data is easier to work with than before. The static data export picks up a few related files as well. More Blog Posts Follow EVE Online Play EVE Online Play for Free Download the Game Upgrade to Omega System Requirements Starter Guide for Beginners Return to EVE Recover Account Current Players Account management Support Forums Developers Recruit a Friend Redeem a Code Character Transfer 3rd Party Retailers PLEX For Good Worlds of EVE EVE Universe EVE Fanfest Merch Project Discovery Site Info About Fenris Terms of Service Privacy Policy Vulnerability Disclosure Policy Website Terms of Use RSS Feed

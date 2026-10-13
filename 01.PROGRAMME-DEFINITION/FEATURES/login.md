@@ -30,3 +30,4 @@ Allow a user to authenticate to NEOCOM using **EVE Online SSO**, with the **auth
 - Prefer updating this file when login UX, redirect URIs, scopes, or token storage decisions are made.
 - Cite L1 IDs and OpenSpec change names here after `/spec-registration`.
 - Keep extracted SSO notes under `02.SOURCES/extracted/` and promote durable decisions into this feature doc.
+- **2026-10-12**: Source extract completed — raw corpus under `02.SOURCES/raw/`; human notes at `02.SOURCES/extracted/eve-developers.md`, `eve-sso.md`, `eve-sso-pkce.md` (plus Nest candidate `nestjs.md`). Graphify semantic map blocked (no LLM API key); `02.SOURCES/graphify-out/` has cache only until a keyed `graphify .` run. L1 still owned by `/spec-collect`.

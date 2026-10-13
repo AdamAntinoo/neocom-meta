@@ -1,0 +1,11 @@
+{
+  "name": "neocom-meta",
+  "private": true,
+  "description": "NEOCOM programme docs, agents, and local infrastructure bootstrap scripts",
+  "scripts": {
+    "k8s:start": "bash scripts/k8s/start.sh",
+    "k8s:dashboard": "bash scripts/k8s/dashboard.sh",
+    "k8s:status": "bash scripts/k8s/status.sh",
+    "k8s:stop": "bash scripts/k8s/stop.sh"
+  }
+}
