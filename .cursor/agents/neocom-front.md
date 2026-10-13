@@ -26,11 +26,23 @@ Expected local path: `neocom/neocom-front` (sibling of `neocom-meta` under the `
 
 Do not substitute another frontend framework, language, unit runner, or acceptance stack unless the user changes this decision in `neocom-meta`.
 
+## Feature branches
+
+When applying an OpenSpec feature, work on `features/<feature-name>` created from `develop`. Do not commit that work on `main`. Branch creation and the pull request into `develop` belong to `/neocom-git` via `/feature-delivery`.
+
 ## Scope
 
 - Angular components, templates, styles, modules/routes, services, and client state.
 - Keep Vitest unit specs and Cypress + Cucumber acceptance coverage in sync with user-visible behavior.
 - When the app exists and a change is user-visible, verify with unit tests and, for acceptance-level flows, Cypress/Cucumber (or browser when those are not yet runnable).
+
+## Page pattern
+
+From `front-dashboard` (DASH-007, DASH-008). Apply this on every page:
+
+- The `header` section stays at the top. When the page has an exception, show `exception` under `header`. How the exception is passed is not defined yet.
+- A panel box uses the class `panel-` plus a colour (`panel-white`, `panel-blue`, `panel-green`).
+- A section lays out as a row or a column, and that choice sets the gap.
 
 ## Patterns (to be added)
 

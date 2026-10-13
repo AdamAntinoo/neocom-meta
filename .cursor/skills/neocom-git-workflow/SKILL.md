@@ -13,6 +13,10 @@ Primary entry: **`/neocom-git`** agent. This skill is the detailed playbook (sla
 
 VCS only — do not implement product features.
 
+## Templates first
+
+Before a commit, branch, or pull request, read `neocom-meta/.cursor/templates/`. If the user has stored an example there, use it. When the user provides a new example in the conversation, append it to the matching template file and use it from then on.
+
 ## Commit workflow
 
 1. Orient in the correct repo (parent `neocom` or a submodule cwd):
@@ -48,16 +52,17 @@ EOF
 
 5. Verify with `git status`.
 
-**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked or when `/neocom-git` is invoked to commit.
+**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked, when `/neocom-git` is invoked to commit, or when an OpenSpec feature apply is in progress. That apply instructs this agent to commit on `feature/<feature>` from `develop`.
 
 ## PR workflow
 
 1. Parallel: status, diff, upstream tracking, `git log` + `git diff [base]...HEAD`
 2. `git push -u origin HEAD` if no upstream
-3. `gh pr create`:
+3. Base branch for a completed feature is `develop`
+4. `gh pr create` with base `develop`. If `.cursor/templates/pull-requests.md` has a user example, use that title and body.
 
 ```bash
-gh pr create --title "type(scope): summary or branch purpose" --body "$(cat <<'EOF'
+gh pr create --base develop --title "type(scope): summary or branch purpose" --body "$(cat <<'EOF'
 ## Summary
 - What changed and why
 - Submodules / OpenSpec changes included: …
@@ -68,7 +73,7 @@ EOF
 )"
 ```
 
-4. Return the PR URL.
+5. Return the PR URL. Do not merge; the user validates the pull request.
 
 ### Submodule coordination
 
@@ -80,7 +85,10 @@ EOF
 
 | Item | Convention |
 | --- | --- |
-| Branches | `feat/…` (or `feature/…` when user-mandated), `fix/…`, `release/x.y.z` |
+| Integration | `develop` (do not branch feature work from `main` while `develop` is the integration branch) |
+| Feature | `feature/<feature-name>` created from `develop`. See `.cursor/templates/branch-names.md` |
+| Fix | `fix/…` from `develop` |
+| Release | `release/x.y.z` |
 | Tags | `vX.Y.Z` (only when user requests a release tag) |
 
 **Checklist before tagging / promoting:**

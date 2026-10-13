@@ -1,22 +1,22 @@
 ---
 name: spec-registration
 description: >-
-  Spec Registration — when L1 requirements are atomic enough, process L1 and L2
-  under 05.REQUIREMENTS-DECOMPOSITION and register them into OpenSpec at the
-  neocom root. Use when the user runs /spec-registration.
+  Spec Registration — place reviewed L1 and L2 requirements into OpenSpec.
+  Used by Register Requirements (/neo:register-spec). Also use when the user
+  runs /spec-registration.
 disable-model-invocation: true
 ---
 
 # Spec Registration
 
-Agent command that **registers** collected requirements into OpenSpec for project advancement. Run only after Spec Collect (or an equivalent L1 set) exists.
+Processing steps for **Register Requirements** (`/neo:register-spec`). The review pass is `.cursor/skills/register-requirements/SKILL.md`. This skill registers the reviewed notes into OpenSpec.
 
 ## Preconditions
 
-1. Read `05.REQUIREMENTS-DECOMPOSITION/L1/REQUIREMENTS.md`.
-2. Proceed only if readiness is `ready` or `partial` **and** the user wants that slice registered. If `not-ready`, stop and tell them to run `/spec-collect` (or refine L1) first.
-3. Read all relevant L2 files under `05.REQUIREMENTS-DECOMPOSITION/L2/` (e.g. `INFRASTRUCTURE-SPECS.md` and any others present).
-4. OpenSpec root is the parent `neocom/` repo (`neocom/openspec/`), not inside `neocom-meta`.
+1. Read `05.REQUIREMENTS-DECOMPOSITION/L1/REQUIREMENTS.md` and every L2 file, including nested system folders (`L2/FRONT/`, `L2/DOMAIN/`, and later `L2/BACK/`, `L2/CICD/`).
+2. Also process any section headed `UNREGISTERED REQUIREMENTS`, even when L1 readiness is `not-ready`. Those notes are user-written requirements. Do not wait for Spec Collect to register them.
+3. For an L1-only slice with no unregistered notes, proceed when readiness is `ready` or `partial` and the user wants that slice. If there is nothing to register, stop.
+4. OpenSpec root is `neocom-meta` (`openspec/` in this repository).
 
 ## Goal
 
@@ -24,37 +24,43 @@ Turn atomic L1 (+ supporting L2) into OpenSpec artifacts so later `/opsx-propose
 
 ## Steps
 
-1. **Select the slice**
-   - Prefer IDs marked `atomic-ready`.
-   - If the user named IDs or a domain, use that subset.
+1. **Place unregistered requirements**
+   - Find every heading `UNREGISTERED REQUIREMENTS` under `05.REQUIREMENTS-DECOMPOSITION/`.
+   - For each bullet, choose the system (`front`, `infra`, `cicd`, `back`, `domain`, or a system the user names) and the feature.
+   - If the note is in the wrong file, move it to `L2/<SYSTEM>/<feature-file>.md` (create the file). Keep infrastructure rows that belong in `L2/INFRASTRUCTURE-SPECS.md` in that register.
+   - Give a stable id, status `pending`, then `registered` after the OpenSpec change exists.
+   - Leave the heading in place and empty.
+
+2. **Select the slice**
+   - Include the items just placed, plus L2 rows still `pending`, plus L1 ids marked `atomic-ready`.
+   - If the user named ids or a feature, use that subset.
    - Skip items that are still `draft` unless the user overrides.
 
-2. **Confirm OpenSpec root**
-   - From `neocom/`: run `openspec list --json` and confirm `"root"` is set.
-   - If missing, stop and ask the user to init OpenSpec at the neocom root (do not create it as a side effect).
+3. **Confirm OpenSpec root**
+   - From `neocom-meta/`: run `npx openspec list --json` and confirm `"root"` is this repository.
+   - If missing, stop and ask the user to init OpenSpec here (do not create it as a side effect).
 
-3. **Register into OpenSpec**
-   For each coherent capability slice:
-   - Create or update an OpenSpec **change** whose proposal and specs are derived from the selected L1 statements and any matching L2 detail.
-   - Prefer the project’s existing OpenSpec workflow:
-     - `openspec new change "<kebab-name>"` when creating a new change, then author artifacts per `openspec instructions`, **or**
-     - follow `/opsx-propose` guidance when proposing a full change in one pass.
-   - Delta specs under `openspec/changes/<change>/specs/<capability>/spec.md` must map clearly to L1 IDs (cite `L1-XXX` in the requirement text).
-   - Keep L2 infrastructure/detail in `design.md` or capability specs as appropriate; do not invent infra not present in L1/L2 or sources.
+4. **Register into OpenSpec**
+   For each feature:
+   - Change name: `<system>-<feature>` (hyphens only; the CLI rejects `/`).
+   - Delta spec path: `openspec/changes/<system>-<feature>/specs/<system>/<feature>/spec.md`.
+   - Create with `openspec new change "<system>-<feature>"`, then author proposal, specs, design, and tasks.
+   - Cite L1 ids when they exist. Cite L2 ids (`PILOT-001`, `INFRA-010`, `DOMAIN-001`, …) when L1 has no row yet.
+   - Do not invent behavior that is not in the L1 or L2 text.
 
-4. **Traceability**
+5. **Traceability**
    - In the OpenSpec proposal (or a short `neocom-meta` note under `05.REQUIREMENTS-DECOMPOSITION/`), record which L1 IDs were registered and the OpenSpec change name(s).
    - Update L1 status for registered items to `registered` (add that status if missing).
    - Update matching feature docs under `01.PROGRAMME-DEFINITION/FEATURES/` with L1 IDs and OpenSpec change names.
 
-5. **Boundaries**
+6. **Boundaries**
    - Do not implement product code in front/back from this command.
    - Do not edit `neocom-front` / `neocom-back` application sources.
-   - Meta writes stay under `neocom-meta` except OpenSpec artifacts under `neocom/openspec/`.
+   - Meta writes, including OpenSpec artifacts, stay under `neocom-meta`.
 
 ## Return to user
 
 1. Whether the atomicity gate passed
-2. OpenSpec change name(s) and paths under `neocom/openspec/`
+2. OpenSpec change name(s) and paths under `openspec/`
 3. L1 IDs registered vs skipped
-4. Next step hint: `/opsx-apply` (or review proposal) when ready to implement
+4. Next step hint: `/feature-delivery` when the user wants that feature applied on `features/<feature>` from `develop`

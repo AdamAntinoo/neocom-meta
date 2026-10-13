@@ -8,14 +8,14 @@ Use with `/spec-registration` to promote **pending** rows into OpenSpec. Do not 
 | `registered` | Already in an OpenSpec change |
 | `pending` | Redacted here; **not** yet processed into OpenSpec |
 
-Owning docs/submodules: `neocom-meta` (this file), `neocom-front` (toolchain + local run), parent `neocom` (clone, OpenSpec root, future CI).
+Owning docs: `neocom-meta` (this file and `openspec/`), `neocom-front` (toolchain + local run).
 
 ---
 
 ## A. Toolchain (front) — registered in OpenSpec
 
 OpenSpec change: `front-infrastructure` → capability `front-toolchain`
-(`neocom/openspec/changes/front-infrastructure/`)
+(`openspec/changes/front-infrastructure/`)
 
 | ID | Status | Requirement |
 | --- | --- | --- |
@@ -30,76 +30,87 @@ OpenSpec change: `front-infrastructure` → capability `front-toolchain`
 
 ---
 
-## B. Installation — pending OpenSpec
+## B. Installation — registered in OpenSpec
 
-Redacted from programme README / Initialization; not yet in OpenSpec.
+OpenSpec change: `infra-developer-install` → `specs/infra/developer-install/spec.md`
 
 | ID | Status | Area | Requirement |
 | --- | --- | --- | --- |
-| INFRA-010 | pending | Install | Parent repo is obtained with **git clone --recurse-submodules** of `https://github.com/AdamAntinoo/neocom.git` (or equivalent `git submodule update --init --recursive` after a plain clone) |
-| INFRA-011 | pending | Install | Required submodules for front work are present: **`neocom-meta`**, **`neocom-front`** |
-| INFRA-012 | pending | Install | Developer installs **nvm**, then installs Node from `neocom-front/.nvmrc` and creates/updates alias **`neocom`** before front install |
-| INFRA-013 | pending | Install | Front dependencies are installed with **`npm install`** under `neocom-front` while `nvm use neocom` is active |
-| INFRA-014 | pending | Install | **WireMock** is available for local front `dev` (standalone JAR or Docker per project docs); stub root and start command are documented in parent/`neocom-front` README when stubs land |
-| INFRA-015 | pending | Install | **`neocom-back` is not required** to install or run front `dev` |
-| INFRA-016 | pending | Install | Optional tooling for spec work (OpenSpec CLI, Graphify) is documented separately and is not a blocker for front UI install |
+| INFRA-010 | registered | Install | Parent repo is obtained with **git clone --recurse-submodules** of `https://github.com/AdamAntinoo/neocom.git` (or equivalent `git submodule update --init --recursive` after a plain clone) |
+| INFRA-011 | registered | Install | Required submodules for front work are present: **`neocom-meta`**, **`neocom-front`** |
+| INFRA-012 | registered | Install | Developer installs **nvm**, then installs Node from `neocom-front/.nvmrc` and creates/updates alias **`neocom`** before front install |
+| INFRA-013 | registered | Install | Front dependencies are installed with **`npm install`** under `neocom-front` while `nvm use neocom` is active |
+| INFRA-014 | registered | Install | **WireMock** is available for local front `dev` (standalone JAR or Docker per project docs); stub root and start command are documented in parent/`neocom-front` README when stubs land |
+| INFRA-015 | registered | Install | **`neocom-back` is not required** to install or run front `dev` |
+| INFRA-016 | registered | Install | Optional tooling for spec work (OpenSpec CLI, Graphify) is documented separately and is not a blocker for front UI install |
 
 ---
 
-## C. Infrastructure configuration — pending OpenSpec
+## C. Infrastructure configuration — registered in OpenSpec
+
+OpenSpec change: `infra-local-config` → `specs/infra/local-config/spec.md`
 
 | ID | Status | Area | Requirement |
 | --- | --- | --- | --- |
-| INFRA-020 | pending | Config | Front **dev** configuration points HTTP clients at the **WireMock** base URL (not `neocom-back`) |
-| INFRA-021 | pending | Config | WireMock **port**, **mappings/stub directory**, and npm/scripts (or compose) for start are pinned in `neocom-front` once stubs exist |
-| INFRA-022 | pending | Config | Front serve URL for local UI remains the Angular CLI default unless documented otherwise (typically `http://localhost:4200`) |
-| INFRA-023 | pending | Config | Environment / configuration files for `dev` (and later `staging` / `prod`) are owned by the relevant submodule and named consistently; secrets are never committed |
-| INFRA-024 | pending | Config | Parent `neocom` tracks product folders as **git submodules**; SHA pins are updated when releasing coordinated changes |
-| INFRA-025 | pending | Config | On hosts where `sass-embedded` cannot run (e.g. macOS before 14), front scripts may set **`NG_BUILD_SASS_EMBEDDED=0`** so builds use pure-JS Sass; this is an allowed local/CI workaround until the runner OS is upgraded |
-| INFRA-026 | pending | Config | Programme architecture and bootstrap docs stay under `neocom-meta/01.PROGRAMME-DEFINITION/` and stay aligned with this L2 register |
+| INFRA-020 | registered | Config | Front **dev** configuration points HTTP clients at the **WireMock** base URL (not `neocom-back`) |
+| INFRA-021 | registered | Config | WireMock **port**, **mappings/stub directory**, and npm/scripts (or compose) for start are pinned in `neocom-front` once stubs exist |
+| INFRA-022 | registered | Config | Front serve URL for local UI remains the Angular CLI default unless documented otherwise (typically `http://localhost:4200`) |
+| INFRA-023 | registered | Config | Environment / configuration files for `dev` (and later `staging` / `prod`) are owned by the relevant submodule and named consistently; secrets are never committed |
+| INFRA-024 | registered | Config | Parent `neocom` tracks product folders as **git submodules**; SHA pins are updated when releasing coordinated changes |
+| INFRA-025 | registered | Config | On hosts where `sass-embedded` cannot run (e.g. macOS before 14), front scripts may set **`NG_BUILD_SASS_EMBEDDED=0`** so builds use pure-JS Sass; this is an allowed local/CI workaround until the runner OS is upgraded |
+| INFRA-026 | registered | Config | Programme architecture and bootstrap docs stay under `neocom-meta/01.PROGRAMME-DEFINITION/` and stay aligned with this L2 register |
 
 ---
 
-## D. CI / CD — pending OpenSpec
+## D. CI / CD — registered in OpenSpec
 
-Not yet designed in detail; register intent here for later Spec Registration.
+OpenSpec change: `cicd-pipeline` → `specs/cicd/pipeline/spec.md`
 
 | ID | Status | Area | Requirement |
 | --- | --- | --- | --- |
-| INFRA-030 | pending | CI | CI runs on the parent and/or submodule remotes with a **documented Node version** matching `.nvmrc` / engines (prefer the `neocom` pin **24.21.0**) |
-| INFRA-031 | pending | CI | Front CI SHALL run **unit tests** (`npm test` / Vitest, non-watch) on every relevant PR |
-| INFRA-032 | pending | CI | Front CI SHALL run **lint/format checks** once those scripts are defined in `neocom-front` |
-| INFRA-033 | pending | CI | Front CI SHALL produce a **production build** (`npm run build`) and fail the pipeline on build errors |
-| INFRA-034 | pending | CI | Acceptance (**Cypress + Cucumber**) SHALL run in CI on a defined job (PR and/or main); app serve + WireMock (or equivalent mocks) MUST be started for that job |
-| INFRA-035 | pending | CI | CI MUST NOT require a live `neocom-back` for front-only pipelines; use WireMock or committed stubs |
-| INFRA-036 | pending | CD | Deployment targets, environments, and promotion rules (dev to staging to prod) SHALL be defined before first CD pipeline; until then CD is out of scope for implementation |
-| INFRA-037 | pending | CD | Artifacts published by CD (front static assets, later back images) SHALL be versioned and traceable to a git SHA (parent and/or submodule) |
-| INFRA-038 | pending | CI/CD | Pipeline definitions live in-repo (e.g. GitHub Actions under the owning repo); exact workflow files are chosen at Spec Registration time |
-| INFRA-039 | pending | CI/CD | Secrets for CI/CD use the host's secret store (e.g. GitHub Actions secrets); no credentials in git |
+| INFRA-030 | registered | CI | CI runs on the parent and/or submodule remotes with a **documented Node version** matching `.nvmrc` / engines (prefer the `neocom` pin **24.21.0**) |
+| INFRA-031 | registered | CI | Front CI SHALL run **unit tests** (`npm test` / Vitest, non-watch) on every relevant PR |
+| INFRA-032 | registered | CI | Front CI SHALL run **lint/format checks** once those scripts are defined in `neocom-front` |
+| INFRA-033 | registered | CI | Front CI SHALL produce a **production build** (`npm run build`) and fail the pipeline on build errors |
+| INFRA-034 | registered | CI | Acceptance (**Cypress + Cucumber**) SHALL run in CI on a defined job (PR and/or main); app serve + WireMock (or equivalent mocks) MUST be started for that job |
+| INFRA-035 | registered | CI | CI MUST NOT require a live `neocom-back` for front-only pipelines; use WireMock or committed stubs |
+| INFRA-036 | registered | CD | Deployment targets, environments, and promotion rules (dev to staging to prod) SHALL be defined before first CD pipeline; until then CD is out of scope for implementation |
+| INFRA-037 | registered | CD | Artifacts published by CD (front static assets, later back images) SHALL be versioned and traceable to a git SHA (parent and/or submodule) |
+| INFRA-038 | registered | CI/CD | Pipeline definitions live in-repo (e.g. GitHub Actions under the owning repo); exact workflow files are chosen at Spec Registration time |
+| INFRA-039 | registered | CI/CD | Secrets for CI/CD use the host's secret store (e.g. GitHub Actions secrets); no credentials in git |
 
 ### Implementation notes
 
 - Initial GitHub Actions workflow exists at `neocom-front/.github/workflows/build.yml`.
 - It compiles the Angular app (`npm ci` + `npm run build`) using Node from `.nvmrc`.
 - Addresses intent of INFRA-030 (Node pin), INFRA-033 (production build), INFRA-035 (no live back), INFRA-038 (in-repo Actions).
-- Rows INFRA-030…039 remain Status `pending` until `/spec-registration` into OpenSpec.
-- Unit/e2e/lint CI jobs still not added (INFRA-031, 032, 034).
-- Local Kubernetes is the deployment target; `neocom-meta` package scripts `k8s:start` / `k8s:dashboard` bootstrap the local cluster (still pending OpenSpec).
+- Rows INFRA-030…039 are registered in OpenSpec change `cicd-pipeline`.
+- Unit/e2e/lint CI jobs are specified (INFRA-031, 032, 034) and are not implemented yet.
+- Local Kubernetes is the deployment target; `neocom-meta` package scripts `k8s:start` / `k8s:dashboard` bootstrap the local cluster (recorded on `cicd-pipeline`).
 
 ---
 
-## E. Registration backlog
+## E. Registration map
 
-Promote **pending** IDs via `/spec-registration` into one or more OpenSpec changes, for example:
+| OpenSpec change | Capability path | IDs |
+| --- | --- | --- |
+| `front-infrastructure` | `front-toolchain` | INFRA-001 … INFRA-008 |
+| `infra-developer-install` | `infra/developer-install` | INFRA-010 … INFRA-016 |
+| `infra-local-config` | `infra/local-config` | INFRA-020 … INFRA-026 |
+| `cicd-pipeline` | `cicd/pipeline` | INFRA-030 … INFRA-039 |
+| `infra-style-modules` | `infra/style-modules` | INFRA-040 |
 
-| Suggested OpenSpec capability / change | Candidate IDs |
-| --- | --- |
-| `front-toolchain` (already exists — archive/apply as needed) | INFRA-001 … INFRA-008 |
-| `developer-install` (new) | INFRA-010 … INFRA-016 |
-| `local-infra-config` (new) | INFRA-020 … INFRA-026 |
-| `ci-cd` (new) | INFRA-030 … INFRA-039 |
+---
 
-After registration, set each row's **Status** to `registered` and cite the OpenSpec change name here.
+## F. Styles — registered in OpenSpec
+
+OpenSpec change: `infra-style-modules` → `specs/infra/style-modules/spec.md`
+
+| ID | Status | Area | Requirement |
+| --- | --- | --- | --- |
+| INFRA-040 | registered | Styles | Application stylesheets SHALL use the Sass module system (`@use` and `@forward`). They SHALL NOT use `@import`. Angular's global style loader still emits `@import 'src/styles.scss'`; that deprecation id is silenced in the front build until `@angular/build` stops emitting it |
+
+The domain-repository note that was in UNREGISTERED REQUIREMENTS now lives in `L2/DOMAIN/01.NEOCOM-DOMAIN.md` (`domain-module`).
 
 ## UNREGISTERED REQUIREMENTS
-* There is a new repository https://github.com/AdamAntinoo/neocom-domain.git to be added as a submodule and where domain objects should be declared. This repository is a node component that will be used to deeclare typescript classes and other components that belong to the business domain of the neocom project. This module should be included into the front and back by package dependencies so probably it should be published into npm
+

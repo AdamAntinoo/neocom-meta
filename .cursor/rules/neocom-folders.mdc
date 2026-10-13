@@ -11,6 +11,8 @@ Agent configuration lives in `neocom-meta` (`neocom/neocom-meta`). Product repos
 | --- | --- |
 | `neocom-meta` | Docs, programme definition, Cursor rules/skills, `02.SOURCES`, and subagents (submodule) |
 | `neocom-front` | Frontend application — Angular specialist agent ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) (submodule) |
+| `neocom-domain` | Business-domain TypeScript library — Node library agent ([AdamAntinoo/neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git)) |
+| `neocom-esi` | ESI TypeScript library and tools ([AdamAntinoo/neocom-esi](https://github.com/AdamAntinoo/neocom-esi.git)). Releases: `npm run release`, commits via `/neocom-git` |
 | `neocom-back` | Backend application (when present; expected as a submodule) |
 
 ## Front stack
@@ -33,17 +35,20 @@ See `.cursor/rules/neocom-ecosystem-tools.mdc` for install and usage notes.
 Use these project subagents proactively:
 
 - `/neocom-front` — Angular UI and client work in `neocom-front` (Angular specialist)
+- `/neocom-domain` — Node library, GitVersion, and npm publish in `neocom-domain`
 - `/neocom-back` — API and server work in `neocom-back`
 - `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
-- `/neocom-git` — commits, PRs, releases, promotions, and submodule pointer updates (VCS only)
+- `/neocom-git` — commits, PRs, releases, and promotions. OpenSpec feature apply commits on `feature/<feature>` from `develop`. `neocom-esi` releases go through `npm run release`
 - `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
-- `/spec-registration` — Spec Registration: atomic L1 + L2 → OpenSpec at `neocom/openspec`
+- `/neo:register-spec` — Register Requirements: review new L1/L2 notes, then register them in OpenSpec
+- `/spec-registration` — same registration workflow as `/neo:register-spec`
+- `/feature-delivery` — branch `features/<feature>` from `develop`, then pull request into `develop` after validation and archive
 - `/verifier` — readonly check after work is claimed done
 
 Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front.
 
 When `neocom-front` is missing or empty, use the recorded front stack (do not re-ask). When `neocom-back` is missing or empty, ask which backend stack and repository to use before scaffolding.
 
-Requirements flow: `/spec-collect` then, if L1 is atomic enough, `/spec-registration`. See `.cursor/rules/neocom-spec-pipeline.mdc`.
+Requirements flow: `/spec-collect`, then `/neo:register-spec` for new requirements, then `/feature-delivery` when applying a feature. See `.cursor/rules/neocom-spec-pipeline.mdc`.
 
 Programme docs: keep `01.PROGRAMME-DEFINITION/` current (architecture + active features such as Initialization and Login) as inputs and development produce durable decisions.

@@ -15,6 +15,10 @@ Expected local path: sibling of `neocom-meta` under the `neocom` root (`neocom/n
 - Write and edit files only under `neocom-back`.
 - Do not change `neocom-meta` or `neocom-front`. If the task needs those folders, stop and report what the parent should delegate instead.
 
+## Feature branches
+
+When applying an OpenSpec feature, work on `features/<feature-name>` created from `develop`. Branch creation and the pull request into `develop` belong to `/neocom-git` via `/feature-delivery`.
+
 ## Scope
 
 - HTTP API, persistence, and auth boundaries.
