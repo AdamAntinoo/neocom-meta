@@ -18,7 +18,7 @@ Bring the NEOCOM application and supporting programme configuration to a usable 
 - Frontend app scaffold on latest Angular + TypeScript with Vitest and Cypress + Cucumber available for later acceptance work.
 - Local **dev** front run uses **WireMock** for mocked APIs; `neocom-back` is not required in this mode.
 - Programme documentation and agent/spec pipeline available under `neocom-meta`.
-- OpenSpec and Graphify available at the ecosystem root for subsequent spec and map work.
+- OpenSpec and Graphify live in `neocom-meta` for subsequent spec and map work.
 - Clear first-run / bootstrap path documented for developers in the parent README (clone → submodule update → install → WireMock → front `dev`).
 
 ## Out of scope (for now)

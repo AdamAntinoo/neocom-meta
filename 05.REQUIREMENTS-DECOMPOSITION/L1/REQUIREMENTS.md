@@ -12,4 +12,7 @@
 
 ## Open questions
 
-- Spec Collect has not been run yet.
+- Spec Collect has not been run yet. Current L2 files were registered into OpenSpec without L1 IDs.
+
+## UNREGISTERED REQUIREMENTS
+

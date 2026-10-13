@@ -50,6 +50,7 @@ Process documentation at `02.SOURCES` and generate / refresh the **L1** requirem
 
 5. **L2**
    - Do not rewrite L2 during Spec Collect unless the user asks. L2 (`05.REQUIREMENTS-DECOMPOSITION/L2/`) is refined later and consumed by Spec Registration.
+   - Keep any `UNREGISTERED REQUIREMENTS` heading. Spec Collect does not move those notes; `/spec-registration` does.
 
 6. **Programme definition**
    - If collection clarifies architecture or active features, update `01.PROGRAMME-DEFINITION/` (link new L1 IDs on feature docs such as Login and Initialization when applicable).

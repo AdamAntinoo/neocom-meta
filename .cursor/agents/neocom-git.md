@@ -16,6 +16,8 @@ You coordinate **VCS only** for the NEOCOM ecosystem. You do **not** implement p
 | Parent `neocom` | Ecosystem root; submodule SHA pins; OpenSpec at `openspec/`; shared tooling |
 | `neocom-meta` | Docs, agents, rules, skills, sources (submodule) |
 | `neocom-front` | Frontend app (submodule) |
+| `neocom-domain` | Node library of business-domain types (independent clone) |
+| `neocom-esi` | Node library of ESI classes and tools (independent clone). Releases use `npm run release` |
 | `neocom-back` | Backend app when present (submodule) |
 
 Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), release notes, promotion tracking, submodule pointer updates.
@@ -93,10 +95,15 @@ EOF
 
 | Kind | Convention |
 | --- | --- |
-| Feature | `feat/…` (also `feature/…` when user-mandated; e.g. Initialization → `feature/initialization`) |
-| Fix | `fix/…` |
+| Integration | `develop` |
+| Feature | `feature/<feature-name>` from `develop` (user example in `.cursor/templates/branch-names.md`) |
+| Fix | `fix/…` from `develop` |
 | Release | `release/x.y.z` |
 | Tags | `vX.Y.Z` |
+
+Completed features merge only by a pull request **into `develop`**, which the user validates. Do not merge unless the user asks. If `develop` is missing, stop and ask; do not substitute `main`.
+
+Read `.cursor/templates/` before writing a commit message, branch name, or pull request body. A stored user example overrides the fallback in that file. When the user gives a new example, record it there before the next commit or pull request.
 
 **Promotion notes:** track `dev → staging → prod` only when those environments are defined (see L2 `INFRA-036`). Until then, CD promotion is out of scope for implementation — record planned steps in PR/release notes without inventing hosts or pipelines.
 

@@ -1,15 +1,11 @@
 ---
-description: OpenSpec and Graphify ecosystem tooling at the neocom root
+description: OpenSpec and Graphify tooling in neocom-meta
 alwaysApply: true
 ---
 
 # NEOCOM ecosystem tools
 
-OpenSpec and Graphify are part of the NEOCOM workspace at the ecosystem root:
-
-`neocom/` (parent of `neocom-meta`, `neocom-front`, `neocom-back`)
-
-`neocom-meta` and `neocom-front` are git submodules of that parent; keep them synchronized via the parent's submodule pointers (`git submodule update --init --recursive`).
+OpenSpec and Graphify live in `neocom-meta`. Product repositories are independent clones.
 
 Agents should treat these as installed workspace tooling, not optional add-ons.
 
@@ -17,15 +13,12 @@ Agents should treat these as installed workspace tooling, not optional add-ons.
 
 Spec-driven change workflow for AI coding tools. Docs: https://openspec.dev/docs/installation · https://openspec.dev/docs/cli
 
-**Requires Node.js 20.19.0+.**
+**Requires Node.js 20.19.0+.** The CLI is a devDependency of this repository. Changes and specs are under `openspec/`.
 
 ```bash
-# Install CLI (once per machine)
-npm install -g @fission-ai/openspec@latest
-
-# Initialize at neocom root (Cursor)
-cd /path/to/neocom
-openspec init --tools cursor
+cd neocom-meta
+npm install
+npx openspec list --json
 ```
 
 After init, use the generated Cursor skills/commands (e.g. propose / apply / archive flows under the `opsx` or `openspec-*` names printed by init). Refresh with `openspec update` when the CLI upgrades.
@@ -35,17 +28,15 @@ After init, use the generated Cursor skills/commands (e.g. propose / apply / arc
 Code-knowledge graph for Cursor. Package name is `graphifyy` (double y); CLI command is `graphify`.
 
 ```bash
-# Install CLI (prefer uv)
-uv tool install graphifyy
-# alternatives: pipx install graphifyy  OR  pip install graphifyy
+# Project install inside neocom-meta
+cd neocom-meta
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python graphifyy
+.venv/bin/graphify install --project --platform cursor
 
-# Wire into Cursor at neocom root
-cd /path/to/neocom
-graphify install --platform cursor
-graphify install --project --platform cursor
-
-# Optional: build initial graph
-graphify .
+# Rebuild the graph (AST; semantic pass runs when an LLM key is set)
+.venv/bin/graphify extract . --force
+.venv/bin/graphify extract ../neocom-front --out ../neocom-front --force
 ```
 
 ### Documentation / token maps from URLs
@@ -67,6 +58,6 @@ Use this with the `extract-requirements-from-urls` skill and the catalog in `02.
 - Prefer OpenSpec when the user wants a reviewable plan or change proposal before implementation.
 - Prefer Graphify when navigating or explaining cross-folder structure and relationships under `neocom/`, and when mapping documentation corpora under `neocom-meta/02.SOURCES`.
 - Prefer `/neocom-meta` + `extract-requirements-from-urls` when reading NestJS / EVE Online SSO sources for requirements.
-- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/spec-registration` to register atomic L1/L2 into OpenSpec.
+- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/neo:register-spec` (Register Requirements) to review and register new L1/L2 notes into OpenSpec under `<system>/<feature>`; prefer `/feature-delivery` to apply a feature on `features/<feature>` from `develop`.
 - Do not re-install these tools on every task; only install or re-init when missing or when the user asks.
 - Product code still belongs in `neocom-front` / `neocom-back`; agent config and docs in `neocom-meta`. Tool artifacts at the `neocom` root are shared ecosystem config.

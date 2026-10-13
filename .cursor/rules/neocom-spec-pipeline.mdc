@@ -1,5 +1,5 @@
 ---
-description: Spec Collect and Spec Registration requirements pipeline
+description: Spec Collect, Spec Registration, and feature delivery pipeline
 alwaysApply: true
 ---
 
@@ -9,8 +9,12 @@ Requirement collection is an agent process owned by `/neocom-meta`.
 
 ```text
 02.SOURCES  --/spec-collect-->  L1 (05.REQUIREMENTS-DECOMPOSITION/L1)
-L1 + L2     --/spec-registration-->  OpenSpec (neocom/openspec)  [only if L1 atomic enough]
-inputs + development  -->  01.PROGRAMME-DEFINITION (architecture, active features)
+L1 + L2 UNREGISTERED REQUIREMENTS
+            --/neo:register-spec-->  openspec/changes/<system>-<feature>/
+                                      specs/<system>/<feature>/spec.md
+registered feature
+            --apply on features/<feature> from develop-->
+            --validate + archive-->  pull request into develop
 ```
 
 ## Commands
@@ -18,13 +22,41 @@ inputs + development  -->  01.PROGRAMME-DEFINITION (architecture, active feature
 | Command | Purpose |
 | --- | --- |
 | `/spec-collect` | Process `02.SOURCES`; generate/refresh L1 requirements list |
-| `/spec-registration` | If L1 is atomic enough, process L1 + L2 and register into OpenSpec |
+| `/neo:register-spec` | **Register Requirements.** Review new L1/L2 notes, then place and register them in OpenSpec |
+| `/spec-registration` | Same registration workflow as `/neo:register-spec` |
+| `/feature-delivery` | Apply one registered feature on `features/<feature>` from `develop`, then open a pull request into `develop` after validation and archive |
+| `/neocom-git` | Commits, branches, and pull requests. Follow recorded templates under `.cursor/templates/` |
 
-Skills live under `.cursor/skills/spec-collect` and `.cursor/skills/spec-registration`. Slash stubs live under `.cursor/commands/`.
+Skills live under `.cursor/skills/`. Slash stubs live under `.cursor/commands/`.
+
+## Systems and features
+
+OpenSpec change names are `<system>-<feature>` (lowercase, numbers, hyphens). The CLI rejects slashes in the change name. The delta spec path is `specs/<system>/<feature>/spec.md`.
+
+Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the user names. The feature is the name being applied, for example `pilot` → change `front-pilot`, branch `features/pilot`.
+
+## Intake
+
+New requirements are written by the user under a heading exactly named `UNREGISTERED REQUIREMENTS` in an L1 or L2 file. On processing:
+
+1. Move each item into the file for its system and feature. Create that file when it does not exist.
+2. Give it a stable id and leave the `UNREGISTERED REQUIREMENTS` heading empty.
+3. Register it in the matching OpenSpec change. Do not invent behavior that the note does not state.
+
+## Feature delivery
+
+- Integration branch: `develop`.
+- Work branch: `features/<feature-name>`, created from `develop`, in the repo that owns the code.
+- If `develop` does not exist, stop and ask. Do not branch from `main` or from another feature branch.
+- After the code is validated, the feature is complete, and the OpenSpec change is archived and applied to the main specs, open a pull request into `develop` for the user to validate. Do not merge it unless the user asks.
+
+## Templates
+
+When the user provides an example commit message, branch name, or pull request body, store it under `neocom-meta/.cursor/templates/` and use that example on later actions. Do not keep a second style beside a recorded example.
 
 ## Rules
 
 - Spec Collect does not write OpenSpec changes.
-- Spec Registration does not invent requirements; it registers atomic L1 (+ L2 detail) into `neocom/openspec/`.
-- Product implementation stays out of these commands (use `/opsx-apply` and domain agents later).
-- When collect/registration or development clarifies architecture or features, update `01.PROGRAMME-DEFINITION/` (e.g. `ARCHITECTURE/`, `FEATURES/`).
+- Spec Registration does not invent requirements.
+- Product implementation stays out of `/spec-collect` and `/spec-registration`.
+- When collect, registration, or development clarifies architecture or features, update `01.PROGRAMME-DEFINITION/`.
