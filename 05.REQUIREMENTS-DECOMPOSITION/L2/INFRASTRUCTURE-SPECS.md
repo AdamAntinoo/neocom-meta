@@ -77,6 +77,15 @@ Not yet designed in detail; register intent here for later Spec Registration.
 | INFRA-038 | pending | CI/CD | Pipeline definitions live in-repo (e.g. GitHub Actions under the owning repo); exact workflow files are chosen at Spec Registration time |
 | INFRA-039 | pending | CI/CD | Secrets for CI/CD use the host's secret store (e.g. GitHub Actions secrets); no credentials in git |
 
+### Implementation notes
+
+- Initial GitHub Actions workflow exists at `neocom-front/.github/workflows/build.yml`.
+- It compiles the Angular app (`npm ci` + `npm run build`) using Node from `.nvmrc`.
+- Addresses intent of INFRA-030 (Node pin), INFRA-033 (production build), INFRA-035 (no live back), INFRA-038 (in-repo Actions).
+- Rows INFRA-030…039 remain Status `pending` until `/spec-registration` into OpenSpec.
+- Unit/e2e/lint CI jobs still not added (INFRA-031, 032, 034).
+- Local Kubernetes is the deployment target; `neocom-meta` package scripts `k8s:start` / `k8s:dashboard` bootstrap the local cluster (still pending OpenSpec).
+
 ---
 
 ## E. Registration backlog
@@ -91,3 +100,6 @@ Promote **pending** IDs via `/spec-registration` into one or more OpenSpec chang
 | `ci-cd` (new) | INFRA-030 … INFRA-039 |
 
 After registration, set each row's **Status** to `registered` and cite the OpenSpec change name here.
+
+## UNREGISTERED REQUIREMENTS
+* There is a new repository https://github.com/AdamAntinoo/neocom-domain.git to be added as a submodule and where domain objects should be declared. This repository is a node component that will be used to deeclare typescript classes and other components that belong to the business domain of the neocom project. This module should be included into the front and back by package dependencies so probably it should be published into npm
