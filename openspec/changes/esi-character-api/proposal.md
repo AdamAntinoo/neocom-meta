@@ -2,19 +2,18 @@
 
 ## Why
 
-Character data from EVE Online should come from the published Character API instead of hand-written endpoint calls. The generated types belong in `neocom-esi` so `neocom-front` can depend on the published package.
+ESI-001, ESI-002, ESI-003, and ESI-004 are cancelled. `neocom-esi` no longer keeps a generated Character API. High-level data comes from `@lgriffin/esi.ts`.
 
 ## What Changes
 
-- Generate TypeScript DTO classes for the EVE Online Character API (28 operations) from its OpenAPI document
-- Place that generated code in `neocom-esi` at `src/esi-api/characters`
-- Publish those DTOs, and the higher-level DTOs or business objects a service composes from them, on `neocom-esi`
+- Remove the OpenAPI document and the code generated from it (ESI-011)
+- Keep a service that publishes higher-level objects on `neocom-esi` (ESI-005)
 
 ## Capabilities
 
 ### New Capabilities
 
-- `esi/character-api`: Generated ESI character DTOs and the domain objects composed from them
+- `esi/character-api`: High-level ESI data in `neocom-esi`, without the generated Character API
 
 ### Modified Capabilities
 
@@ -23,5 +22,4 @@ Character data from EVE Online should come from the published Character API inst
 ## Impact
 
 - Owner: **`neocom-esi`**
-- Consumer: **`neocom-front`**, through the published package
-- Out of scope: SSO, the Image Server, the Static Data Export, and ESI APIs other than the Character API
+- Out of scope: SSO, the Image Server, and the Static Data Export

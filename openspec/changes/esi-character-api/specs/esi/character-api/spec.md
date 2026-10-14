@@ -2,36 +2,18 @@
 
 ## Purpose
 
-TypeScript DTOs for the EVE Online Character API, generated into `neocom-esi` and published for `neocom-front`. Source: `L2/ESI/ESI-SPECS.md`.
+`neocom-esi` drops the generated Character API and uses `@lgriffin/esi.ts` for high-level data. ESI-001, ESI-002, ESI-003, and ESI-004 are cancelled. Source: `L2/ESI/ESI-SPECS.md`.
 
 ## ADDED Requirements
 
-### Requirement: Character API lives in the domain package
+### Requirement: Remove generated Character API code
 
-The Character API implementation SHALL live in `neocom-esi` under `src/esi-api/characters` (ESI-001).
+`neocom-esi` SHALL remove the OpenAPI document and the code generated from it. The library SHALL focus on high-level data based on `@lgriffin/esi.ts` (ESI-011).
 
-#### Scenario: Source location
+#### Scenario: Generated Character API code is gone
 
-- **WHEN** the Character API types are added
-- **THEN** they are under `neocom-esi/src/esi-api/characters`
-
-### Requirement: Generate from the Character API OpenAPI
-
-The generator input SHALL be the EVE Online Character API OpenAPI document, which declares 28 operations, at https://raw.githubusercontent.com/api-evangelist/eve-online/refs/heads/main/openapi/eve-online-character-api-openapi.yml (ESI-002). The agent MAY use openapi-generator to produce the TypeScript DTO classes (ESI-003).
-
-#### Scenario: DTOs come from that document
-
-- **WHEN** the character DTO classes are generated
-- **THEN** their source is that OpenAPI document
-
-### Requirement: Publish generated DTOs to the front
-
-Generated code SHALL be registered under `src/esi-api/characters` and made available to `neocom-front` by publishing `neocom-esi` (ESI-004).
-
-#### Scenario: Front depends on the published package
-
-- **WHEN** `neocom-front` needs a Character API DTO
-- **THEN** it obtains it from the published `neocom-esi` package
+- **WHEN** `neocom-esi` is built for high-level ESI data
+- **THEN** the OpenAPI document and the code generated from it are not part of the package
 
 ### Requirement: Compose higher-level domain objects
 
