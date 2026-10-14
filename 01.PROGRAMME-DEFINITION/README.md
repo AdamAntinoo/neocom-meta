@@ -4,7 +4,7 @@ Living programme documentation for NEOCOM. During development and spec processin
 
 | Path | Contents |
 | --- | --- |
-| `ARCHITECTURE/` | Repository and system architecture |
+| `ARCHITECTURE/` | Repository and system architecture, including versioned business objects |
 | `FEATURES/` | Active and planned features |
 
 ## How this relates to other trees
