@@ -7,8 +7,12 @@ Index of features recognized in the programme. Update this file when a feature b
 | Initialization | active (recorded) | [initialization.md](./initialization.md) | front, back, meta |
 | Login | active (recorded) | [login.md](./login.md) | front, back |
 | Pilot | recorded | [pilot.md](./pilot.md) | front, domain |
+| Pilot panel | recorded | [pilot-panel.md](./pilot-panel.md) | front |
+| Backend hexagonal | recorded | [back-hexagonal.md](./back-hexagonal.md) | neocom-back |
+| ESI login | recorded | [esi-login.md](./esi-login.md) | neocom-esi |
 | Universe | recorded | [universe.md](./universe.md) | front, domain |
 | ESI character API | recorded | [esi-character-api.md](./esi-character-api.md) | domain, front |
+| ESI client | recorded | [esi-client.md](./esi-client.md) | neocom-esi |
 | neocom-domain | recorded | [neocom-domain.md](./neocom-domain.md) | domain, front, back |
 | Developer install | recorded | OpenSpec `infra-developer-install` | meta, front |
 | Local config | recorded | OpenSpec `infra-local-config` | front, meta |
