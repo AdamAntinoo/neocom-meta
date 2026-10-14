@@ -1,8 +1,8 @@
-# esi/client Specification
+# back/esi-client Specification
 
 ## Purpose
 
-Use `@lgriffin/esi.ts` in `neocom-esi`. References to `esijs` are removed. Source: `L2/ESI/ESI-CLIENT.md`.
+Use `@lgriffin/esi.ts` in `neocom-back`. References to `esijs` are removed. Source: `L2/ESI/ESI-CLIENT.md`.
 
 ## ADDED Requirements
 
@@ -22,16 +22,16 @@ The documentation for `@lgriffin/esi.ts` SHALL be downloaded (ESI-007).
 
 #### Scenario: Documentation is obtained
 
-- **WHEN** `@lgriffin/esi.ts` is taken into `neocom-esi`
+- **WHEN** `@lgriffin/esi.ts` is taken into `neocom-back`
 - **THEN** its documentation has been downloaded
 
-### Requirement: Install @lgriffin/esi.ts into neocom-esi
+### Requirement: Install @lgriffin/esi.ts into neocom-back
 
-`@lgriffin/esi.ts` SHALL be installed into `neocom-esi` (ESI-008).
+`@lgriffin/esi.ts` SHALL be installed into `neocom-back` (ESI-008).
 
-#### Scenario: The package is a neocom-esi dependency
+#### Scenario: The package is a neocom-back dependency
 
-- **WHEN** `neocom-esi` dependencies are installed
+- **WHEN** `neocom-back` dependencies are installed
 - **THEN** `@lgriffin/esi.ts` is one of them
 
 ### Requirement: Keep documentation links in neocom-esi
@@ -45,9 +45,9 @@ The documentation for `@lgriffin/esi.ts` SHALL be downloaded (ESI-007).
 
 ### Requirement: ESI requirements are implemented in neocom-esi
 
-Requirements that concern ESI SHALL be implemented in `neocom-esi` (ESI-010).
+ESI-010 is cancelled. This change SHALL NOT require a requirement that concerns ESI to be implemented in `neocom-esi`.
 
 #### Scenario: An ESI requirement has a home
 
 - **WHEN** a requirement concerns ESI
-- **THEN** its implementation is in `neocom-esi`
+- **THEN** ESI-010 does not place that implementation in `neocom-esi`
