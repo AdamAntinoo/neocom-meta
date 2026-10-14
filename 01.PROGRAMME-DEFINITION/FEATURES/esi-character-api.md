@@ -2,6 +2,6 @@
 
 Status: recorded. OpenSpec change: `esi-character-api`.
 
-TypeScript DTOs for the EVE Online Character API (28 operations) are generated into `neocom-esi` at `src/esi-api/characters` and published for `neocom-front`. A service composes higher-level DTOs or business objects from those generated classes.
+ESI-001, ESI-002, ESI-003, and ESI-004 are cancelled. `neocom-esi` removes the OpenAPI document and the code generated from it. High-level data is based on `@lgriffin/esi.ts`. A service still publishes higher-level objects on `neocom-esi`.
 
-Source: `05.REQUIREMENTS-DECOMPOSITION/L2/ESI/ESI-SPECS.md` (ESI-001 … ESI-005).
+Source: `05.REQUIREMENTS-DECOMPOSITION/L2/ESI/ESI-SPECS.md` (ESI-005, ESI-011).
