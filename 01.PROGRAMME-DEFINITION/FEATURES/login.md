@@ -3,31 +3,34 @@
 | Field | Value |
 | --- | --- |
 | ID | `FEAT-LOGIN` |
-| Status | recorded (active in programme definition) |
-| Owners | `neocom-front`, `neocom-back` (auth boundaries) |
-| Related L1 | *(to be linked after `/spec-collect`)* |
-| Sources | https://developers.eveonline.com/ · https://developers.eveonline.com/docs/services/sso/ · https://developers.eveonline.com/docs/services/sso/#authorization-code-with-pkce |
+| Status | registered in OpenSpec |
+| Owners | `neocom-front`, `neocom-back` (ESI-012 may touch `neocom-esi`) |
+| Related L2 | `L2/FRONT/06.LOGIN.md`, `L2/BACK/BACK-LOGIN.md`, `L2/ESI/ESI-SSO.md`, `L2/ESI/ESI-LOGIN.md`, INFRA-041…042 |
+| OpenSpec | `login` (capabilities `front/login`, `back/login`, `esi/sso`, `esi/login`); related `infra-sso-config` |
+| Sources | https://developers.eveonline.com/docs/services/sso/ |
 
 ## Intent
 
-Allow a user to authenticate to NEOCOM using **EVE Online SSO**, with the **authorization code flow and PKCE** as the documented secure path for public/native clients.
+Authenticate to NEOCOM with **EVE Online SSO**. The app path is **Authorization Code** (`esi/sso` + front and back login). The ESI tool PKCE note (ESI-012) lives in the same OpenSpec change as capability `esi/login`.
 
-## In scope (initial)
+## Capabilities in `openspec/changes/login/`
 
-- User can start login from the Angular front (`neocom-front`).
-- Authorization uses EVE SSO authorization code + PKCE per CCP developer documentation.
-- Tokens and session handling respect SSO service constraints (scopes, redirect URIs, token lifetime) once detailed in L1/L2.
-- Backend (when present) owns server-side auth boundaries; front owns UI and client-side PKCE participation as appropriate for the chosen architecture.
+| Spec | L2 IDs |
+| --- | --- |
+| `specs/front/login/spec.md` | LOGIN-001 … LOGIN-008 |
+| `specs/back/login/spec.md` | BACK-014 … BACK-017 |
+| `specs/esi/sso/spec.md` | ESI-013, ESI-014 |
+| `specs/esi/login/spec.md` | ESI-012 |
 
-## Out of scope (for now)
+## Out of scope
 
-- Non-EVE identity providers.
-- Full character/corporation authorization matrix beyond what Login needs to establish a session.
-- Implementation details not yet backed by Spec Collect / OpenSpec artifacts.
+- Non-EVE identity providers
+- Full character/corporation authorization matrix beyond establishing a session
+- Env / Kubernetes secret wiring (`infra-sso-config`)
 
-## Notes from development
+## Notes
 
-- Prefer updating this file when login UX, redirect URIs, scopes, or token storage decisions are made.
-- Cite L1 IDs and OpenSpec change names here after `/spec-registration`.
-- Keep extracted SSO notes under `02.SOURCES/extracted/` and promote durable decisions into this feature doc.
-- **2026-10-12**: Source extract completed — raw corpus under `02.SOURCES/raw/`; human notes at `02.SOURCES/extracted/eve-developers.md`, `eve-sso.md`, `eve-sso-pkce.md` (plus Nest candidate `nestjs.md`). Graphify semantic map blocked (no LLM API key); `02.SOURCES/graphify-out/` has cache only until a keyed `graphify .` run. L1 still owned by `/spec-collect`.
+- Former OpenSpec changes `front-login`, `back-login`, `esi-sso`, and `esi-login` were merged into `login`.
+- Callback URL for dev-watch: `http://localhost:6001/app/login-callback`
+- Client id (public): `4664722d6bd0415683a04519e738a5fc`. Client secret is not written in specs.
+- Delivery branch: `feature/login` from `develop`

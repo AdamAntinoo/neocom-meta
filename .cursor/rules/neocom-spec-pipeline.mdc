@@ -9,13 +9,16 @@ Requirement collection is an agent process owned by `/neocom-meta`.
 
 ```text
 02.SOURCES  --/spec-collect-->  L1 (05.REQUIREMENTS-DECOMPOSITION/L1)
-L1 + L2 UNREGISTERED REQUIREMENTS
-            --/neo:register-spec-->  openspec/changes/<system>-<feature>/
+L1          --/neo:extract-l2--> L2/NN.EPIC-NAME/{front,back,cicd,architecture,common}.md
+L2 UNREGISTERED REQUIREMENTS
+            --/neo:spec-evolution--> openspec/changes/<system>-<feature>/
                                       specs/<system>/<feature>/spec.md
 registered feature
             --apply commits on feature/<feature> from develop-->
+            --other features stay open on their own branches-->
+            --rebase onto another feature only to use its code-->
             --user reviews and tests-->
-            --pull request into develop-->
+            --one pull request into develop can carry several features-->
             --next apply is a new branch from develop-->
             --archive-->  pull request from develop into main
 ```
@@ -24,10 +27,13 @@ registered feature
 
 | Command | Purpose |
 | --- | --- |
+| `/epic` | Open an epic. The prompt is the name, then the goals. The L1 file is `L1/NN.EPIC-NAME.md`, numbered automatically from `01` |
+| `/neocom-methodology` | Design, spec, develop, test, and deploy across repositories. An epic is an L1 file; an open epic extracts to `L2/NN.EPIC-NAME/` with slice files |
 | `/spec-collect` | Process `02.SOURCES`; generate/refresh L1 requirements list |
-| `/neo:register-spec` | **Register Requirements.** Review new L1/L2 notes, then place and register them in OpenSpec |
-| `/spec-registration` | Same registration workflow as `/neo:register-spec` |
-| `/feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop` and commit. The user reviews and tests. Then open a pull request into `develop`. Archive opens a pull request from `develop` into `main` |
+| `/neo:extract-l2` | Convert L1 epics into `L2/NN.EPIC-NAME/` slice files (`front`, `back`, `cicd`, `architecture`, `common`). Skip passages the current L2 tree already holds |
+| `/neo:spec-evolution` | Review L2 notes and move them into OpenSpec. Optional L2 paths limit the run to those files |
+| `/neocom-code` | Implement product code and apply a registered OpenSpec change. Git stays with `/neocom-git` |
+| `/feature-delivery` | Apply a registered feature on `feature/<feature>` from `develop` and commit. Several features can be open. Rebase when one needs another's code. One pull request into `develop` can carry several features. Archive opens a pull request from `develop` into `main` |
 | `/neocom-git` | Commits, branches, and pull requests. Follow recorded templates under `.cursor/templates/` |
 | `/neo:pr` | Commit pending work and prepare pull requests. `/neo:pr <project>` selects one active repository; no project applies to `neocom-meta`, `neocom-front`, and `neocom-back` |
 
@@ -41,22 +47,26 @@ Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the us
 
 ## Intake
 
-New requirements are written by the user under a heading exactly named `UNREGISTERED REQUIREMENTS` in an L1 or L2 file. On processing:
+`/neo:extract-l2` reads L1 only and writes new notes under `UNREGISTERED REQUIREMENTS` in slice files under `L2/NN.EPIC-NAME/`. It treats the current L2 tree as the record of work already generated: that epic directory, `L2/<SYSTEM>/`, `L2/DOMAIN/MODELS/`, and `L2/INFRASTRUCTURE-SPECS.md`. A passage already stated there is reported and not written again.
+
+`/neo:spec-evolution` reads L2 only. Optional arguments are L2 file paths; when given, only those files are processed. New requirements wait under a heading exactly named `UNREGISTERED REQUIREMENTS` in an L2 file. On processing:
 
 1. Move each item into the file for its system and feature. Create that file when it does not exist.
 2. Give it a stable id and leave the `UNREGISTERED REQUIREMENTS` heading empty.
 3. Register it in the matching OpenSpec change. Do not invent behavior that the note does not state.
-4. Query `neocom-meta/graphify-out/graph.json` for an existing requirements or OpenSpec file that already states the same behavior, and extend that change. Ignore nodes that are not those files. The note text still decides the requirement.
+4. Query `neocom-meta/graphify-out/graph.json` for an existing L2 or OpenSpec file that already states the same behavior. Ignore nodes that are not those files. The note text still decides the requirement. When that file already states the same behavior, or a very similar one, move the note under the heading `DUPLICATED` and do not register it.
+5. Ignore every note under `DUPLICATED` when processing an L2 file.
 
 ## Feature delivery
 
 - Integration branch: `develop`.
-- Work branch: `feature/<feature-name>`, created from `develop`, in the repo that owns the code.
-- If `develop` does not exist, stop and ask. Do not branch from `main` or from another feature branch.
+- Work branch: `feature/<feature-name>`, created from `develop`, in the repo that owns the code. Several of these branches can be open.
+- If `develop` does not exist, stop and ask. Do not create a feature branch from `main` or from another feature branch.
+- Rebase onto another open feature only when this feature needs that code. Otherwise rebase onto `develop` before the pull request. Ask before a force push. Do not force-push `develop` or `main`.
 - Apply commits on that feature branch, then stops. The user reviews the changes and tests.
-- After the user accepts that review, open a pull request into `develop`. Do not merge it unless the user asks.
-- The next apply creates a new `feature/<feature-name>` from `develop`.
-- When the OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Do not merge it unless the user asks.
+- After the user accepts that review, open a pull request into `develop`. Several reviewed features can share one pull request: stack them and open it from the tip. Do not merge it unless the user asks.
+- The next apply creates a new `feature/<feature-name>` from `develop`. Do not implement it on the previous feature branch.
+- When the OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Title it `Release-` plus GitVersion `MajorMinorPatch`. Do not merge it unless the user asks.
 
 ## Templates
 
@@ -65,6 +75,7 @@ When the user provides an example commit message, branch name, or pull request b
 ## Rules
 
 - Spec Collect does not write OpenSpec changes.
-- Spec Registration does not invent requirements.
-- Product implementation stays out of `/spec-collect` and `/spec-registration`.
+- Extract L2 does not write OpenSpec changes and does not place notes in `L2/<SYSTEM>/`.
+- Spec Registration does not read L1 and does not invent requirements.
+- Product implementation stays out of `/spec-collect`, `/neo:extract-l2`, and `/neo:spec-evolution`.
 - When collect, registration, or development clarifies architecture or features, update `01.PROGRAMME-DEFINITION/`.

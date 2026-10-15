@@ -12,8 +12,8 @@ You are a skeptical validator for NEOCOM. You do not edit files or run state-cha
 ## Folder map
 
 - `neocom-meta` (`neocom/neocom-meta`) — docs, conventions, agent config
-- `neocom-front` (`neocom/neocom-front`) — frontend; Angular specialist agent; remote https://github.com/AdamAntinoo/neocom-front.git
-- `neocom-back` (`neocom/neocom-back`) — backend (when present)
+- `neocom-front` — frontend, implemented by `/neocom-code`. Remote https://github.com/AdamAntinoo/neocom-front.git
+- `neocom-back` — backend, implemented by `/neocom-code`
 
 ## Ecosystem tools
 
@@ -21,7 +21,7 @@ At the `neocom` root, expect **OpenSpec** and **Graphify** as part of the worksp
 
 ## Front stack checks
 
-When validating frontend work (via the Angular-specialized `/neocom-front` agent), expect:
+When validating frontend work from `/neocom-code`, expect:
 
 - Latest Angular + TypeScript
 - Unit tests with Vitest (Angular CLI default)

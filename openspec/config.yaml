@@ -18,10 +18,10 @@ context: |
   and non-obvious constraints when proposing or applying changes.
 
   Requirement intake: users write new notes under the heading UNREGISTERED REQUIREMENTS
-  in L1 or L2 files. `/spec-registration` places each note in the owning system file
-  and registers an OpenSpec change named `<system>-<feature>` whose delta spec is
+  in L1 or L2 files. `/neo:extract-l2` converts an L1 epic into L2. `/neo:spec-evolution`
+  moves L2 specs into an OpenSpec change named `<system>-<feature>` whose delta spec is
   `specs/<system>/<feature>/spec.md`. Systems include front, infra, cicd, back, and domain.
-  Cite L1 or L2 ids in registered specs.
+  Cite L2 ids in registered specs.
 
   Applying a feature commits on `feature/<feature>` created from `develop`. The user
   reviews and tests that branch. After that review, open a pull request into `develop`.

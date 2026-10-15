@@ -9,4 +9,4 @@ Run the **Spec Collect** workflow.
 
 Follow the project skill at `.cursor/skills/spec-collect/SKILL.md` in `neocom-meta`.
 
-Process documents at `02.SOURCES` and generate or refresh the L1 requirements list at `05.REQUIREMENTS-DECOMPOSITION/L1/`. Use `extract-requirements-from-urls` and Graphify when fetching documentation. Do not register into OpenSpec; if L1 is atomic-ready, tell the user to run `/spec-registration`.
+Process documents at `02.SOURCES` and generate or refresh the L1 requirements list at `05.REQUIREMENTS-DECOMPOSITION/L1/`. Use `extract-requirements-from-urls` and Graphify when fetching documentation. Do not register into OpenSpec. When the L1 epic is ready, tell the user to run `/neo:extract-l2`, then `/neo:spec-evolution` to move the L2 specs into OpenSpec.

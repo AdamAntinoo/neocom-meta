@@ -1,16 +1,17 @@
 ---
 name: feature-delivery
 description: >-
-  Apply one registered OpenSpec feature on feature/<feature> from develop
-  and commit it. The user reviews and tests before the pull request into
-  develop. Use when the user runs /feature-delivery or asks to apply a
-  registered feature to code.
+  Apply a registered OpenSpec feature on feature/<feature> from develop
+  and commit it. Several features can be open. Rebase when one needs
+  another's code. One pull request into develop can carry several features.
+  Use when the user runs /feature-delivery or asks to apply a registered
+  feature to code.
 disable-model-invocation: true
 ---
 
 # Feature delivery
 
-Turns one registered OpenSpec feature into commits on `feature/<feature-name>` from `develop`. The user reviews and tests those commits before any pull request.
+Turns a registered OpenSpec feature into commits on `feature/<feature-name>` from `develop`. Other feature branches may already be open. The user reviews and tests those commits before any pull request. Section 5.9 of `README.md` is the rule for keeping those branches apart.
 
 ## Preconditions
 
@@ -27,12 +28,13 @@ Turns one registered OpenSpec feature into commits on `feature/<feature-name>` f
 
 2. **Branch**
    - In the active repository that owns the code (`neocom-meta`, `neocom-front`, or `neocom-back`):
-   - `git checkout develop` then `git checkout -b feature/<feature-name>`.
+   - Create `feature/<feature-name>` from `develop`. Other `feature/*` branches may already exist. Do not create this one from them or from `main`.
    - Delegate the git commands to `/neocom-git`.
+   - When this feature needs code that is only on another open feature branch, ask `/neocom-git` to rebase this branch onto that one after the branch exists. Do not edit the same files on two branches that both still start from `develop`.
 
 3. **Apply**
    - Implement only that change's tasks.
-   - Delegate product work to `/neocom-front`, `/neocom-back`, or `/neocom-meta` by folder.
+   - Delegate the implementation to `/neocom-code`. Docs and spec registration stay with `/neocom-meta`.
    - This apply is the instruction to commit. Delegate the commit to `/neocom-git`. Commit only on `feature/<feature-name>`, not on `develop` or `main`.
    - Message shape comes from `.cursor/templates/commit-messages.md` when the user has stored an example; otherwise Conventional Commits in the git skill.
    - For `neocom-esi`, `npm run release` builds, tests, publishes, and commits on that feature branch. It does not open the pull request.
@@ -45,10 +47,11 @@ Turns one registered OpenSpec feature into commits on `feature/<feature-name>` f
 
 5. **Pull request into `develop`**
    - Only after the user says the review and testing are done, delegate to `/neocom-git`.
-   - Open a pull request from `feature/<feature-name>` **into `develop`**.
+   - Rebase a feature with no dependency onto the current `develop`. Rebase a dependent feature onto its provider only after that provider has been rebased onto `develop`. If the branch is already on the remote, ask before a force push.
+   - Open a pull request **into `develop`**. The user may put several reviewed features in that one pull request: stack them in dependency order and open it from the tip. Name every feature.
    - Title and body come from `.cursor/templates/pull-requests.md` when a user example is stored there.
    - Do not merge unless the user asks.
-   - The next OpenSpec apply creates a new branch from `develop`. Do not reuse this feature branch.
+   - The next OpenSpec apply creates a new branch from `develop`. Do not implement the next feature by adding commits on this one.
 
 6. **Archive**
    - Archive is a later step, when the user archives the OpenSpec change.

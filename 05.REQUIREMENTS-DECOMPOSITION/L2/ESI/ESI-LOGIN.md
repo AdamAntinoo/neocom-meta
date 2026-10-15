@@ -1,7 +1,7 @@
 # ESI login
 
 System: `esi`. Feature: `login`.
-OpenSpec change: `esi-login` → `specs/esi/login/spec.md`.
+OpenSpec change: `login` → `specs/esi/login/spec.md`.
 
 | ID | Status | Requirement |
 | --- | --- | --- |
