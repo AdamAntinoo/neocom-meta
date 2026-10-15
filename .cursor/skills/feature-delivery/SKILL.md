@@ -56,7 +56,7 @@ Turns a registered OpenSpec feature into commits on `feature/<feature-name>` fro
 
 6. **Archive**
    - Archive is a later step, when the user archives the OpenSpec change.
-   - That archive instructs `/neocom-git` to open a pull request from `develop` into `main` for review and approval. Do not merge it.
+   - That archive instructs `/neocom-git` to open a pull request from `develop` into `main` for review and approval. The title is `Release-` plus GitVersion `MajorMinorPatch`. Do not merge it.
 
 ## Return to user
 
