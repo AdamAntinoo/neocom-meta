@@ -17,16 +17,18 @@ Expected local path: sibling of `neocom-meta` under the `neocom` root (`neocom/n
 
 ## Feature branches
 
-When applying an OpenSpec feature, work on `features/<feature-name>` created from `develop`. Branch creation and the pull request into `develop` belong to `/neocom-git` via `/feature-delivery`.
+When applying an OpenSpec feature, work on `feature/<feature-name>` created from `develop`. `/neocom-git` commits that branch. The pull request into `develop` waits until the user has reviewed and tested.
 
 ## Scope
 
 - HTTP API, persistence, and auth boundaries.
 - Prefer verifying with the project's existing tests or a minimal request against a running local server when one is already set up.
 
-## Empty folder
+## Stack
 
-If `neocom-back` is missing or has no app scaffold yet, do not invent a stack or generate a project. Stop and ask the user which backend stack (and repository) to use.
+NestJS. The application scaffold is already in this repository. Node is the nvm alias `neocom` (`.nvmrc`). Tests run with Vitest (`npm test`, `npm run test:e2e`).
+
+If the repository is missing, stop and ask. Do not generate a second scaffold.
 
 ## Return to parent
 

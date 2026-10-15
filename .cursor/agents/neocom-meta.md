@@ -33,7 +33,7 @@ Requirement collection is an agent process:
 
 1. **`/spec-collect`** (Spec Collect) — process `02.SOURCES` (use `extract-requirements-from-urls` + Graphify when needed) and generate the L1 requirements list under `05.REQUIREMENTS-DECOMPOSITION/L1/`.
 2. **`/neo:register-spec`** (Register Requirements) — review every `UNREGISTERED REQUIREMENTS` section, place each note in the owning system file, then register it in OpenSpec as `<system>-<feature>` with specs at `specs/<system>/<feature>/`. `/spec-registration` is the same workflow.
-3. **`/feature-delivery`** — apply one registered feature on `features/<feature>` from `develop`, then open a pull request into `develop` after validation and archive. Git operations go to `/neocom-git`.
+3. **`/feature-delivery`** — apply one registered feature on `feature/<feature>` from `develop` and commit through `/neocom-git`. The user reviews and tests. Then `/neocom-git` opens a pull request into `develop`. Archiving the change opens a pull request from `develop` into `main`.
 
 During Spec Collect, Spec Registration, and ongoing development, update `01.PROGRAMME-DEFINITION/` when architecture or active features change (do not invent unbacked behavior).
 
@@ -46,7 +46,8 @@ Follow `.cursor/skills/spec-collect/SKILL.md` and `.cursor/skills/register-requi
 - `.cursor/skills/register-requirements/SKILL.md` — Register Requirements (`/neo:register-spec`)
 - `.cursor/skills/spec-registration/SKILL.md` — Spec Registration steps used by Register Requirements
 - `.cursor/skills/neocom-git-workflow/SKILL.md` — git commit/PR/release playbook (runtime: `/neocom-git`)
-- `.cursor/skills/feature-delivery/SKILL.md` — apply a registered feature and open the `develop` pull request
+- `.cursor/skills/neo-pr/SKILL.md` — `/neo:pr` commits and prepares pull requests for one project, or for every repository
+- `.cursor/skills/feature-delivery/SKILL.md` — apply a registered feature, commit, and wait for review before the `develop` pull request
 - `.cursor/templates/` — user examples for commit messages, branch names, and pull requests
 
 ## Return to parent

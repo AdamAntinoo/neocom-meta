@@ -8,12 +8,12 @@ Shared business-domain module. Source: `L2/DOMAIN/01.NEOCOM-DOMAIN.md` (moved fr
 
 ### Requirement: Domain submodule
 
-The repository https://github.com/AdamAntinoo/neocom-domain.git SHALL be added as a submodule, and domain objects SHALL be declared there (DOMAIN-001).
+DOMAIN-001 is cancelled. This change SHALL NOT require https://github.com/AdamAntinoo/neocom-domain.git to be added as a submodule.
 
 #### Scenario: Submodule is present
 
-- **WHEN** a developer clones `neocom` with submodules
-- **THEN** `neocom-domain` is present and tracks that remote
+- **WHEN** a developer looks for where domain objects are declared
+- **THEN** DOMAIN-001 does not require the `neocom-domain` git submodule
 
 ### Requirement: Node TypeScript domain package
 

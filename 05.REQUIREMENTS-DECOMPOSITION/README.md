@@ -13,7 +13,7 @@ New requirements are written under a heading named `UNREGISTERED REQUIREMENTS`. 
 
 1. `/spec-collect` — process `02.SOURCES` → update `L1/`
 2. `/neo:register-spec` — Register Requirements: review and process every `UNREGISTERED REQUIREMENTS` section into OpenSpec
-3. `/feature-delivery` — apply a registered feature on `features/<feature>` from `develop`, then open a pull request into `develop` after validation and archive
+3. `/feature-delivery` — apply a registered feature on `feature/<feature>` from `develop` and commit. The user reviews and tests. Then open a pull request into `develop`. Archive opens a pull request from `develop` into `main`
 
 ## Registered from the current L2 set
 

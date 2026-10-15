@@ -52,14 +52,14 @@ EOF
 
 5. Verify with `git status`.
 
-**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked, when `/neocom-git` is invoked to commit, or when an OpenSpec feature apply is in progress. That apply instructs this agent to commit on `feature/<feature>` from `develop`.
+**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked, when `/neocom-git` or `/neo:pr` is invoked to commit, or when an OpenSpec feature apply is in progress. That apply instructs this agent to commit on `feature/<feature>` created from `develop`. `/neo:pr` also prepares the pull request; see `.cursor/skills/neo-pr/SKILL.md`.
 
 ## PR workflow
 
 1. Parallel: status, diff, upstream tracking, `git log` + `git diff [base]...HEAD`
 2. `git push -u origin HEAD` if no upstream
-3. Base branch for a completed feature is `develop`
-4. `gh pr create` with base `develop`. If `.cursor/templates/pull-requests.md` has a user example, use that title and body.
+3. After an OpenSpec apply, do not open a pull request. The user reviews the branch and tests first.
+4. When the user says that review and testing are done, `gh pr create` with base `develop` and head `feature/<feature-name>`. If `.cursor/templates/pull-requests.md` has a user example, use that title and body.
 
 ```bash
 gh pr create --base develop --title "type(scope): summary or branch purpose" --body "$(cat <<'EOF'
@@ -73,7 +73,9 @@ EOF
 )"
 ```
 
-5. Return the PR URL. Do not merge; the user validates the pull request.
+5. Return the PR URL. Do not merge.
+6. The next OpenSpec apply creates a new `feature/<name>` from `develop`. Do not stack it on the feature branch that already has a pull request.
+7. When the OpenSpec change is archived, open a separate pull request from `develop` into `main` for review and approval. Do not merge it.
 
 ### Submodule coordination
 
@@ -99,6 +101,12 @@ EOF
 - [ ] No secrets in tree or CI config (`INFRA-039`)
 
 **Promotions:** note `dev → staging → prod` only when defined. Pending L2 `INFRA-036` … `INFRA-039` — do not invent undeclared deploy targets or CD pipelines until Spec Registration defines them.
+
+## Versioning
+
+`/neocom-git` owns Node library versions. The package version is GitVersion `MajorMinorPatch` (`X.Y.Z`). Do not store `SemVer` in `package.json`; that variable adds a branch pre-release label.
+
+Before a release, review `version:sync` and any `scripts/release.mjs`. Both must call `gitversion /nocache /showvariable MajorMinorPatch`. Correct a script that still uses `SemVer`. Do not use `npm version`.
 
 ## Examples
 

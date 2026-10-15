@@ -13,8 +13,11 @@ L1 + L2 UNREGISTERED REQUIREMENTS
             --/neo:register-spec-->  openspec/changes/<system>-<feature>/
                                       specs/<system>/<feature>/spec.md
 registered feature
-            --apply on features/<feature> from develop-->
-            --validate + archive-->  pull request into develop
+            --apply commits on feature/<feature> from develop-->
+            --user reviews and tests-->
+            --pull request into develop-->
+            --next apply is a new branch from develop-->
+            --archive-->  pull request from develop into main
 ```
 
 ## Commands
@@ -24,8 +27,9 @@ registered feature
 | `/spec-collect` | Process `02.SOURCES`; generate/refresh L1 requirements list |
 | `/neo:register-spec` | **Register Requirements.** Review new L1/L2 notes, then place and register them in OpenSpec |
 | `/spec-registration` | Same registration workflow as `/neo:register-spec` |
-| `/feature-delivery` | Apply one registered feature on `features/<feature>` from `develop`, then open a pull request into `develop` after validation and archive |
+| `/feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop` and commit. The user reviews and tests. Then open a pull request into `develop`. Archive opens a pull request from `develop` into `main` |
 | `/neocom-git` | Commits, branches, and pull requests. Follow recorded templates under `.cursor/templates/` |
+| `/neo:pr` | Commit pending work and prepare pull requests. `/neo:pr <project>` selects one repository; no project applies to every repository |
 
 Skills live under `.cursor/skills/`. Slash stubs live under `.cursor/commands/`.
 
@@ -33,7 +37,7 @@ Skills live under `.cursor/skills/`. Slash stubs live under `.cursor/commands/`.
 
 OpenSpec change names are `<system>-<feature>` (lowercase, numbers, hyphens). The CLI rejects slashes in the change name. The delta spec path is `specs/<system>/<feature>/spec.md`.
 
-Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the user names. The feature is the name being applied, for example `pilot` → change `front-pilot`, branch `features/pilot`.
+Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the user names. The feature is the name being applied, for example `pilot` → change `front-pilot`, branch `feature/pilot`.
 
 ## Intake
 
@@ -42,13 +46,17 @@ New requirements are written by the user under a heading exactly named `UNREGIST
 1. Move each item into the file for its system and feature. Create that file when it does not exist.
 2. Give it a stable id and leave the `UNREGISTERED REQUIREMENTS` heading empty.
 3. Register it in the matching OpenSpec change. Do not invent behavior that the note does not state.
+4. Query `neocom-meta/graphify-out/graph.json` for an existing requirements or OpenSpec file that already states the same behavior, and extend that change. Ignore nodes that are not those files. The note text still decides the requirement.
 
 ## Feature delivery
 
 - Integration branch: `develop`.
-- Work branch: `features/<feature-name>`, created from `develop`, in the repo that owns the code.
+- Work branch: `feature/<feature-name>`, created from `develop`, in the repo that owns the code.
 - If `develop` does not exist, stop and ask. Do not branch from `main` or from another feature branch.
-- After the code is validated, the feature is complete, and the OpenSpec change is archived and applied to the main specs, open a pull request into `develop` for the user to validate. Do not merge it unless the user asks.
+- Apply commits on that feature branch, then stops. The user reviews the changes and tests.
+- After the user accepts that review, open a pull request into `develop`. Do not merge it unless the user asks.
+- The next apply creates a new `feature/<feature-name>` from `develop`.
+- When the OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Do not merge it unless the user asks.
 
 ## Templates
 
