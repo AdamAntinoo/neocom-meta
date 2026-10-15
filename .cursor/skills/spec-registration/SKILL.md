@@ -30,6 +30,7 @@ Turn atomic L1 (+ supporting L2) into OpenSpec artifacts so later `/opsx-propose
    - If the note is in the wrong file, move it to `L2/<SYSTEM>/<feature-file>.md` (create the file). Keep infrastructure rows that belong in `L2/INFRASTRUCTURE-SPECS.md` in that register.
    - Give a stable id, status `pending`, then `registered` after the OpenSpec change exists.
    - Leave the heading in place and empty.
+   - Before creating a new change, run the Graphify check in `.cursor/skills/register-requirements/SKILL.md`. Extend an existing change only when a returned node `src` is an OpenSpec change or an L2 file that already states the same behavior. Ignore every other node.
 
 2. **Select the slice**
    - Include the items just placed, plus L2 rows still `pending`, plus L1 ids marked `atomic-ready`.
@@ -63,4 +64,4 @@ Turn atomic L1 (+ supporting L2) into OpenSpec artifacts so later `/opsx-propose
 1. Whether the atomicity gate passed
 2. OpenSpec change name(s) and paths under `openspec/`
 3. L1 IDs registered vs skipped
-4. Next step hint: `/feature-delivery` when the user wants that feature applied on `features/<feature>` from `develop`
+4. Next step hint: `/feature-delivery` when the user wants that feature applied on `feature/<feature>` from `develop`

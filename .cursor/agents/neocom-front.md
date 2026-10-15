@@ -28,7 +28,7 @@ Do not substitute another frontend framework, language, unit runner, or acceptan
 
 ## Feature branches
 
-When applying an OpenSpec feature, work on `features/<feature-name>` created from `develop`. Do not commit that work on `main`. Branch creation and the pull request into `develop` belong to `/neocom-git` via `/feature-delivery`.
+When applying an OpenSpec feature, work on `feature/<feature-name>` created from `develop`. Do not commit that work on `main`. `/neocom-git` commits that branch. The pull request into `develop` waits until the user has reviewed and tested.
 
 ## Scope
 

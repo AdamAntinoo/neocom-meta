@@ -2,7 +2,7 @@
 
 ## Approach
 
-- Clone `neocom-domain` as a submodule of the parent `neocom` repo (DOMAIN-001).
+- DOMAIN-001 is cancelled. This change does not require `neocom-domain` to be a git submodule.
 - The repository is a Node package of TypeScript domain types (DOMAIN-002).
 - Front and back depend on the published npm package rather than a relative path copy (DOMAIN-003).
 

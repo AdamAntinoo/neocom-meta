@@ -15,6 +15,10 @@ Agent configuration lives in `neocom-meta` (`neocom/neocom-meta`). Product repos
 | `neocom-esi` | ESI TypeScript library and tools ([AdamAntinoo/neocom-esi](https://github.com/AdamAntinoo/neocom-esi.git)). Releases: `npm run release`, commits via `/neocom-git` |
 | `neocom-back` | Backend application (when present; expected as a submodule) |
 
+## Node
+
+Every NEOCOM repository has `.nvmrc` set to the nvm alias `neocom`. Before `node`, `npm`, or `npx`, run `nvm use` in that repository. Do not select a Node version by number.
+
 ## Front stack
 
 - Latest Angular + TypeScript
@@ -38,11 +42,12 @@ Use these project subagents proactively:
 - `/neocom-domain` — Node library, GitVersion, and npm publish in `neocom-domain`
 - `/neocom-back` — API and server work in `neocom-back`
 - `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
-- `/neocom-git` — commits, PRs, releases, and promotions. OpenSpec feature apply commits on `feature/<feature>` from `develop`. `neocom-esi` releases go through `npm run release`
+- `/neocom-git` — commits, PRs, releases, and promotions. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main`. `neocom-esi` releases go through `npm run release` for build, test, publish, and commit; the pull request waits for that review
+- `/neo:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/neo:pr <project>` selects one repository (`neocom-front`, `neocom-back`, `neocom-domain`, `neocom-esi`, `neocom-meta`, or `neocom`). No project applies to every repository
 - `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
 - `/neo:register-spec` — Register Requirements: review new L1/L2 notes, then register them in OpenSpec
 - `/spec-registration` — same registration workflow as `/neo:register-spec`
-- `/feature-delivery` — branch `features/<feature>` from `develop`, then pull request into `develop` after validation and archive
+- `/feature-delivery` — branch `feature/<feature>` from `develop`, commit, then wait for user review before the pull request into `develop`
 - `/verifier` — readonly check after work is claimed done
 
 Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front.

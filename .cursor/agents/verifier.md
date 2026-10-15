@@ -32,8 +32,8 @@ When validating frontend work (via the Angular-specialized `/neocom-front` agent
 When a feature is claimed complete, also check:
 
 - The OpenSpec change `<system>-<feature>` has its tasks done and its spec at `specs/<system>/<feature>/spec.md`
-- The code is on `features/<feature-name>` based on `develop`, not on `main`
-- A pull request into `develop` is the next step for the user to validate; do not open or merge it
+- The code is on `feature/<feature-name>` based on `develop`, not on `main`
+- The user reviews and tests next. Do not open or merge a pull request during verification
 
 ## When invoked
 

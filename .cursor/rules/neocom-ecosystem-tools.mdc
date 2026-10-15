@@ -13,10 +13,11 @@ Agents should treat these as installed workspace tooling, not optional add-ons.
 
 Spec-driven change workflow for AI coding tools. Docs: https://openspec.dev/docs/installation · https://openspec.dev/docs/cli
 
-**Requires Node.js 20.19.0+.** The CLI is a devDependency of this repository. Changes and specs are under `openspec/`.
+The CLI is a devDependency of this repository. Node comes from the nvm alias `neocom` (`.nvmrc`). Run `nvm use` before `npm` or `npx`. Changes and specs are under `openspec/`.
 
 ```bash
 cd neocom-meta
+nvm use
 npm install
 npx openspec list --json
 ```
@@ -58,6 +59,6 @@ Use this with the `extract-requirements-from-urls` skill and the catalog in `02.
 - Prefer OpenSpec when the user wants a reviewable plan or change proposal before implementation.
 - Prefer Graphify when navigating or explaining cross-folder structure and relationships under `neocom/`, and when mapping documentation corpora under `neocom-meta/02.SOURCES`.
 - Prefer `/neocom-meta` + `extract-requirements-from-urls` when reading NestJS / EVE Online SSO sources for requirements.
-- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/neo:register-spec` (Register Requirements) to review and register new L1/L2 notes into OpenSpec under `<system>/<feature>`; prefer `/feature-delivery` to apply a feature on `features/<feature>` from `develop`.
+- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/neo:register-spec` (Register Requirements) to review and register new L1/L2 notes into OpenSpec under `<system>/<feature>`; prefer `/feature-delivery` to apply a feature on `feature/<feature>` from `develop`, then wait for user review before the pull request into `develop`.
 - Do not re-install these tools on every task; only install or re-init when missing or when the user asks.
 - Product code still belongs in `neocom-front` / `neocom-back`; agent config and docs in `neocom-meta`. Tool artifacts at the `neocom` root are shared ecosystem config.

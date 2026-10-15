@@ -6,7 +6,7 @@ Business types such as Pilot must live in one Node module shared by the front an
 
 ## What Changes
 
-- Add https://github.com/AdamAntinoo/neocom-domain.git as a git submodule
+- DOMAIN-001 is cancelled. The git submodule is not required
 - Declare NEOCOM business-domain TypeScript classes and related components in that repository
 - Publish the package to npm so `neocom-front` and `neocom-back` depend on it
 

@@ -16,7 +16,7 @@ The parent `neocom` repo still lists those paths in `.gitmodules`.
 
 ## Versioning
 
-Node libraries use GitVersion 5.12 in continuous deployment mode. `main` increments the minor version on each commit. The version-source tag is `vX.Y.Z`. `npm run version:sync` writes GitVersion `SemVer` into `package.json`. Do not use `npm version`; it creates a second tag.
+Node libraries use GitVersion 5.12 in continuous deployment mode. `main` increments the minor version on each commit. The version-source tag is `vX.Y.Z`. `/neocom-git` owns the package version: `version:sync` and release scripts write GitVersion `MajorMinorPatch` (`X.Y.Z`) into `package.json`. Do not write `SemVer`; it adds a branch pre-release label. Do not use `npm version`; it creates a second tag.
 
 | Package | Previous npm version | Version-source tag |
 | --- | --- | --- |

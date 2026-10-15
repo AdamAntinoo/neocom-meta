@@ -24,6 +24,23 @@ Starts the review of new requirements and then registers them. Do not implement 
    - Whether an OpenSpec change already covers it. Do not register a duplicate.
 4. If a note is too ambiguous to choose a system or feature, ask before writing. Do not invent behavior the note does not state.
 
+## Graphify
+
+Use the meta graph only to notice an existing requirement or OpenSpec change. It does not choose the system or the feature, and it does not add behavior.
+
+When `neocom-meta/graphify-out/graph.json` exists, after the note is read and before a new change is created:
+
+```bash
+cd neocom-meta
+graphify query "<subject of the note>" --graph graphify-out/graph.json
+```
+
+Keep a node only when its `src` is under `openspec/changes/` or `05.REQUIREMENTS-DECOMPOSITION/` and that file already states the same behavior. Extend that change instead of registering a duplicate.
+
+Ignore every other node. A query also returns code, tests, and unrelated proposals. If no source path qualifies, or `graph.json` is missing, decide from the note and the requirement files.
+
+Do not rebuild the graph in this command. `graphify update` is AST-only and does not index these markdown specs.
+
 Show this review before writing files: each note, its system, its feature, and its destination.
 
 ## Process
