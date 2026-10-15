@@ -1,0 +1,10 @@
+name: Front production build
+description: Production build of neocom-front. No live neocom-back is required.
+runs:
+  using: composite
+  steps:
+    - name: Build
+      shell: bash
+      env:
+        NG_BUILD_SASS_EMBEDDED: "0"
+      run: npm run build
