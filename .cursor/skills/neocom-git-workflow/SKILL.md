@@ -1,8 +1,8 @@
 ---
 name: neocom-git-workflow
 description: >-
-  NEOCOM git workflow templates for Conventional Commits, PRs, submodule
-  pointer updates, and release checklists. Use when /neocom-git-workflow is
+  NEOCOM git workflow templates for Conventional Commits, PRs, and release
+  checklists. Each repository is an independent project. Use when /neocom-git-workflow is
   invoked or when /neocom-git needs detailed commit/PR/release steps.
 disable-model-invocation: true
 ---
@@ -19,7 +19,7 @@ Before a commit, branch, or pull request, read `neocom-meta/.cursor/templates/`.
 
 ## Commit workflow
 
-1. Orient in the correct repo (parent `neocom` or a submodule cwd):
+1. Orient in the repository that owns the change:
    - `git status`
    - `git diff` and `git diff --staged`
    - `git log` (recent style)
@@ -77,11 +77,9 @@ EOF
 6. The next OpenSpec apply creates a new `feature/<name>` from `develop`. Do not stack it on the feature branch that already has a pull request.
 7. When the OpenSpec change is archived, open a separate pull request from `develop` into `main` for review and approval. Do not merge it.
 
-### Submodule coordination
+### Independent repositories
 
-1. Commit (+ PR) in the **child** submodule first
-2. In parent `neocom`, update the submodule pointer as a **separate** commit/PR (`chore(root): bump neocom-<name> pointer` or similar)
-3. Never bundle unrelated product edits into a pointer-only PR
+Each repository is its own project. The parent `neocom` repository is deprecated. Do not update a submodule pointer. A commit and its pull request stay in the repository that owns the change.
 
 ## Release / promotion
 
@@ -97,7 +95,7 @@ EOF
 
 - [ ] Relevant tests green (or deferred with reason)
 - [ ] OpenSpec change status noted
-- [ ] Parent submodule SHAs synced for coordinated releases
+- [ ] The release stays inside the repository that owns it
 - [ ] No secrets in tree or CI config (`INFRA-039`)
 
 **Promotions:** note `dev → staging → prod` only when defined. Pending L2 `INFRA-036` … `INFRA-039` — do not invent undeclared deploy targets or CD pipelines until Spec Registration defines them.
@@ -117,9 +115,9 @@ Local UI must not depend on neocom-back during scaffolding.
 ```
 
 ```text
-chore(root): bump neocom-meta submodule pointer
+docs(meta): record that each repository is an independent project
 
-Pick up neocom-git agent and commit conventions.
+The parent neocom repository is deprecated.
 ```
 
 ```text

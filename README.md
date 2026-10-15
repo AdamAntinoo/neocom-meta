@@ -2,122 +2,147 @@
 
 Onboarding and documentation root for NEOCOM. This repository holds the agent configuration, programme documentation, and specs.
 
-Product repositories are independent clones. The parent `neocom` checkout is not required to install or run the ecosystem.
+Each repository is one independent project. The parent `neocom` repository is deprecated.
+
+## Active projects
 
 | Repository | Purpose |
 | --- | --- |
-| [neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git) | This repo: onboarding, programme docs, Cursor agents |
-| [neocom-front](https://github.com/AdamAntinoo/neocom-front.git) | Angular 22 frontend |
-| [neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git) | Business-domain TypeScript package |
-| `neocom-back` | Backend API (not required for front `dev`) |
+| [neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git) | This repo: onboarding, programme docs, Cursor agents, OpenSpec, Graphify |
+| [neocom-front](https://github.com/AdamAntinoo/neocom-front.git) | Angular frontend. The dev server proxies pilot requests to `neocom-back` |
+| [neocom-back](https://github.com/AdamAntinoo/neocom-back.git) | NestJS API. Public pilot data is read from ESI through `@lgriffin/esi.ts` |
+
+Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git) and [neocom-esi](https://github.com/AdamAntinoo/neocom-esi.git). They are not required to run or integration-test the service chain.
 
 ## Documentation
 
 | Path | What it holds |
 | --- | --- |
-| `01.PROGRAMME-DEFINITION/` | Architecture and active features (Initialization, Login, and the rest of the programme) |
+| `01.PROGRAMME-DEFINITION/` | Architecture and active features |
 | `05.REQUIREMENTS-DECOMPOSITION/` | L1 and L2 requirements |
 | `openspec/` | Registered and applied OpenSpec changes |
-| `.cursor/` | Cursor agents, commands, and conventions |
+| `.cursor/agents/` | Project agents |
+| `.cursor/commands/` | Slash commands |
+| `.cursor/skills/` | Workflows those commands follow |
 
-Spec intake:
+## Commands and skills
 
-- `/spec-collect` — sources → L1 requirements
-- `/spec-registration` — atomic L1/L2 → OpenSpec
-- `/neo:register-spec` — review notes under `UNREGISTERED REQUIREMENTS` and register them
+| Command | Skill | What it does |
+| --- | --- | --- |
+| `/spec-collect` | `spec-collect` | Turn `02.SOURCES` into L1 requirements |
+| | `extract-requirements-from-urls` | Fetch documentation URLs into `02.SOURCES/extracted` and a Graphify map |
+| `/neo:register-spec` | `register-requirements`, `spec-registration` | Review new L1/L2 notes and register them in OpenSpec |
+| `/spec-registration` | `spec-registration` | Same registration workflow as `/neo:register-spec` |
+| `/feature-delivery` | `feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop`, then commit |
+| `/neocom-git-workflow` | `neocom-git-workflow` | Commit, branch, and pull-request playbook for `/neocom-git` |
+| `/neo:pr` | `neo-pr` | Commit pending work and prepare pull requests. No project means the three active repositories. `/neo:pr neocom-front` selects one |
 
-OpenSpec changes and the Graphify knowledge graph are kept with this documentation set.
+OpenSpec also provides `/opsx-explore`, `/opsx-propose`, `/opsx-apply`, `/opsx-update`, `/opsx-sync`, and `/opsx-archive`, with matching skills under `.cursor/skills/`.
+
+Agents for the active projects are `/neocom-meta`, `/neocom-front`, `/neocom-back`, and `/neocom-git`. `/verifier` checks work after it is claimed done.
+
+Feature delivery commits on `feature/<feature-name>` created from `develop`. If that branch does not exist, create it. The pull request into `develop` waits until you have reviewed and tested. `/neo:pr` is the request to commit and prepare that pull request. It does not merge.
 
 ---
 
 ## Part 1 — For developers
 
-Local **dev** runs the Angular front against **WireMock**. The front does **not** call `neocom-back` in this mode: HTTP dependencies are mocked.
+Local integration runs the whole service chain: the Angular front calls `neocom-back`, and the back reads public ESI data. The pilot panel is the path to exercise: `GET /v1/pilots/93813310`.
+
+WireMock remains available for front routes that are still mocked (`/api`, `/nin/v1`, `/esi/v1`). The pilot chain does not need it.
 
 ### Prerequisites
 
 - Git
-- [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager)
-- Java (for WireMock standalone) **or** Docker if you run WireMock in a container
-- Optional: [OpenSpec](https://openspec.dev/docs/installation) / Graphify only if you work on specs or knowledge graphs
+- [nvm](https://github.com/nvm-sh/nvm)
+- Network access so `neocom-back` can reach ESI
+- Optional: Java or Docker only when you also start WireMock
+- Optional: OpenSpec and Graphify when you work on specs or knowledge graphs in this repository
 
 ### 1. Download the repositories
+
+Clone the active projects as siblings:
 
 ```bash
 git clone https://github.com/AdamAntinoo/neocom-meta.git
 git clone https://github.com/AdamAntinoo/neocom-front.git
-git clone https://github.com/AdamAntinoo/neocom-domain.git
+git clone https://github.com/AdamAntinoo/neocom-back.git
 ```
 
-Clone them as siblings when a front test needs the domain checkout beside `neocom-front`.
+### 2. Node version
 
-### 2. Node version (nvm + `neocom` alias)
-
-`neocom-front` uses **Angular 22**, which requires Node `^22.22.3 || ^24.15.0 || >=26.0.0`. The front repo pins **24.21.0** in `.nvmrc`.
+Every active repository has `.nvmrc` set to the nvm alias `neocom`. Before `node`, `npm`, or `npx`, run `nvm use` in that repository.
 
 ```bash
 cd neocom-front
-nvm install          # installs the version from .nvmrc (24.21.0)
-nvm alias neocom 24.21.0
-nvm use neocom
-node -v              # expect v24.21.0
+nvm use
+node -v
 ```
-
-Use `nvm use neocom` whenever you work on NEOCOM so the shell matches the project Node.
 
 ### 3. Install
 
 ```bash
-cd neocom-front
-nvm use neocom
+cd neocom-back
+nvm use
+npm install
+
+cd ../neocom-front
+nvm use
 npm install
 ```
 
-WireMock stubs for local front `dev` are in `neocom-front/support/wiremock`.
+In `neocom-back`, copy `.env.example` to `.env` when that file is missing. The example sets `PORT=3000`.
+
+### 4. Start the service chain
+
+Start the back first. It listens on port 3000 and uses `@lgriffin/esi.ts` for public character, corporation, portrait, race, ancestry, and bloodline data.
 
 ```bash
-# Example — standalone JAR
-# java -jar wiremock-standalone.jar --port 8080 --root-dir neocom-front/support/wiremock
-
-# Example — Docker
-# docker run --rm -p 8080:8080 -v "$PWD/neocom-front/support/wiremock:/home/wiremock" wiremock/wiremock:latest
-```
-
-Backend (`neocom-back`) is **not** required for the front **dev** configuration.
-
-### 4. Start local services (dev)
-
-1. **Start WireMock** on port 8080 with stub root `neocom-front/support/wiremock` (front points at WireMock, e.g. `http://localhost:8080`).
-2. **Start the Angular front** in **dev**:
-
-```bash
-cd neocom-front
-nvm use neocom
+cd neocom-back
+nvm use
 npm run start:dev
 ```
 
-3. Open the URL printed by the Angular CLI (typically `http://localhost:4200`).
-
-| Process | Needed for front `dev`? | Role |
-| --- | --- | --- |
-| WireMock | **Yes** | Mocks backend HTTP APIs |
-| `neocom-front` (`dev`) | **Yes** | Angular 22 + TypeScript UI |
-| `neocom-back` | **No** | Real API — not used in front `dev` |
-
-### 5. Tests (front)
+Start the front. The dev server listens on `127.0.0.1:4200` and proxies `/v1/pilots` to `http://127.0.0.1:3000`.
 
 ```bash
 cd neocom-front
-nvm use neocom
-npm test          # Vitest
-npm run e2e       # Cypress + Cucumber (serve the app first for local runs)
+nvm use
+npm run start:dev
 ```
+
+Open `http://127.0.0.1:4200/app/dashboard`. The pilot panel loads pilot `93813310` from the back.
+
+| Process | Role in the chain |
+| --- | --- |
+| `neocom-back` (`npm run start:dev`) | API on port 3000. Reads public ESI |
+| `neocom-front` (`npm run start:dev`) | UI on `http://127.0.0.1:4200/app/`. Proxies `/v1/pilots` to the back |
+| ESI | Reached by the back through `@lgriffin/esi.ts`. No separate ESI process |
+| WireMock on port 8080 | Only for front routes that are still mocked |
+
+### 5. Tests
+
+Unit and end-to-end tests stay inside each repository:
+
+```bash
+cd neocom-back
+nvm use
+npm test
+npm run test:e2e
+
+cd ../neocom-front
+nvm use
+npm test
+npm run e2e
+```
+
+Integration across the chain is the running dashboard: the pilot panel shows the public pilot returned by `neocom-back` from ESI. With both processes up, `GET http://127.0.0.1:4200/v1/pilots/93813310` is the same request the panel makes.
 
 ---
 
 ## Local Kubernetes
 
-Deployment targets a **local Kubernetes** cluster. From this repository:
+Cluster scripts in this repository start a local Kubernetes cluster. They do not deploy the front, the back, or the ESI client. Use the service chain above for integration testing.
 
 ```bash
 npm run k8s:start       # prefer minikube; else Docker Desktop / kind guidance
@@ -126,4 +151,4 @@ npm run k8s:status      # kubectl cluster-info + nodes
 npm run k8s:stop        # minikube stop / kind delete (Docker Desktop: UI)
 ```
 
-Scripts live under `scripts/k8s/` and detect the stack at runtime. No Helm charts or app deploy manifests yet.
+Scripts live under `scripts/k8s/`. No Helm charts or app deploy manifests yet.

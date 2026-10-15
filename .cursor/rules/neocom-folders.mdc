@@ -5,15 +5,17 @@ alwaysApply: true
 
 # NEOCOM workspace
 
-Agent configuration lives in `neocom-meta` (`neocom/neocom-meta`). Product repos are **git submodules** of the parent `neocom` repo; the parent tracks their SHAs via submodule pointers and stays synchronized with `git submodule update --init --recursive` (or clone with `--recurse-submodules`).
+Each repository is one independent project. The parent `neocom` repository is deprecated. Do not treat the others as its submodules, and do not update submodule pointers.
+
+Active projects:
 
 | Folder | Role |
 | --- | --- |
-| `neocom-meta` | Docs, programme definition, Cursor rules/skills, `02.SOURCES`, and subagents (submodule) |
-| `neocom-front` | Frontend application — Angular specialist agent ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) (submodule) |
-| `neocom-domain` | Business-domain TypeScript library — Node library agent ([AdamAntinoo/neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git)) |
-| `neocom-esi` | ESI TypeScript library and tools ([AdamAntinoo/neocom-esi](https://github.com/AdamAntinoo/neocom-esi.git)). Releases: `npm run release`, commits via `/neocom-git` |
-| `neocom-back` | Backend application (when present; expected as a submodule) |
+| `neocom-meta` | Docs, programme definition, Cursor rules/skills, `02.SOURCES`, OpenSpec, and subagents ([AdamAntinoo/neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git)) |
+| `neocom-front` | Frontend application — Angular specialist agent ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) |
+| `neocom-back` | Backend application — API and server agent ([AdamAntinoo/neocom-back](https://github.com/AdamAntinoo/neocom-back.git)) |
+
+Left aside for now: `neocom`, `neocom-domain`, and `neocom-esi`.
 
 ## Node
 
@@ -27,7 +29,7 @@ Every NEOCOM repository has `.nvmrc` set to the nvm alias `neocom`. Before `node
 
 ## Ecosystem tools
 
-At the `neocom` root (parent of `neocom-meta`, `neocom-front`, `neocom-back`):
+In `neocom-meta`:
 
 - **OpenSpec** — spec-driven planning and change workflow (`openspec` CLI; Cursor integration via `openspec init --tools cursor`)
 - **Graphify** — code-knowledge graph for Cursor (`graphify` CLI from package `graphifyy`)
@@ -42,8 +44,8 @@ Use these project subagents proactively:
 - `/neocom-domain` — Node library, GitVersion, and npm publish in `neocom-domain`
 - `/neocom-back` — API and server work in `neocom-back`
 - `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
-- `/neocom-git` — commits, PRs, releases, and promotions. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main`. `neocom-esi` releases go through `npm run release` for build, test, publish, and commit; the pull request waits for that review
-- `/neo:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/neo:pr <project>` selects one repository (`neocom-front`, `neocom-back`, `neocom-domain`, `neocom-esi`, `neocom-meta`, or `neocom`). No project applies to every repository
+- `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main`
+- `/neo:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/neo:pr <project>` selects one active repository (`neocom-meta`, `neocom-front`, or `neocom-back`). No project applies to those three active repositories. `neocom`, `neocom-domain`, and `neocom-esi` stay aside
 - `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
 - `/neo:register-spec` — Register Requirements: review new L1/L2 notes, then register them in OpenSpec
 - `/spec-registration` — same registration workflow as `/neo:register-spec`

@@ -29,7 +29,7 @@ registered feature
 | `/spec-registration` | Same registration workflow as `/neo:register-spec` |
 | `/feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop` and commit. The user reviews and tests. Then open a pull request into `develop`. Archive opens a pull request from `develop` into `main` |
 | `/neocom-git` | Commits, branches, and pull requests. Follow recorded templates under `.cursor/templates/` |
-| `/neo:pr` | Commit pending work and prepare pull requests. `/neo:pr <project>` selects one repository; no project applies to every repository |
+| `/neo:pr` | Commit pending work and prepare pull requests. `/neo:pr <project>` selects one active repository; no project applies to `neocom-meta`, `neocom-front`, and `neocom-back` |
 
 Skills live under `.cursor/skills/`. Slash stubs live under `.cursor/commands/`.
 

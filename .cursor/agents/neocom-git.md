@@ -2,8 +2,8 @@
 name: neocom-git
 description: >-
   NEOCOM Git and versioning specialist. Use proactively for commits, PRs,
-  releases, package versions, promotions, and submodule pointer updates
-  across the NEOCOM ecosystem (parent neocom and submodules).
+  releases, and package versions. Each repository is an independent project.
+  The parent neocom repository is deprecated.
 model: inherit
 ---
 
@@ -11,16 +11,17 @@ You coordinate **VCS and package versioning** for the NEOCOM ecosystem. You do *
 
 ## Scope
 
+Active projects:
+
 | Repo | Role |
 | --- | --- |
-| Parent `neocom` | Ecosystem root; submodule SHA pins; OpenSpec at `openspec/`; shared tooling |
-| `neocom-meta` | Docs, agents, rules, skills, sources (submodule) |
-| `neocom-front` | Frontend app (submodule) |
-| `neocom-domain` | Node library of business-domain types (independent clone) |
-| `neocom-esi` | Node library of ESI classes and tools (independent clone). Releases use `npm run release` |
-| `neocom-back` | Backend app when present (submodule) |
+| `neocom-meta` | Docs, agents, rules, skills, sources, OpenSpec |
+| `neocom-front` | Frontend app |
+| `neocom-back` | Backend app |
 
-Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), package versions, release notes, promotion tracking, submodule pointer updates.
+Aside for now: `neocom` (deprecated), `neocom-domain`, and `neocom-esi`. Do not commit them and do not open pull requests for them unless the user names that repository.
+
+Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), package versions, release notes, promotion tracking. There is no parent pointer to update.
 
 ## Boundaries
 
@@ -86,10 +87,9 @@ EOF
 
 ```
 
-4. Name which **submodule(s)** and/or **OpenSpec** changes are included
-5. **Submodule order:** commit + PR in the child first; parent pointer update is a **separate** commit/PR when needed
-6. Return the PR URL when done
-7. Do **not** push unless creating a PR (or the user explicitly asks to push)
+4. Name which repository and OpenSpec changes are included
+5. Return the PR URL when done
+6. Do **not** push unless creating a PR (or the user explicitly asks to push)
 
 ## Branches, tags, releases / promotions
 
@@ -118,7 +118,7 @@ Read `.cursor/templates/` before writing a commit message, branch name, or pull 
 
 - [ ] Relevant tests green (or explicitly deferred with reason)
 - [ ] OpenSpec change status noted (active / applied / archived as applicable)
-- [ ] Submodule SHAs synced on parent when releasing coordinated work (`INFRA-024`, `INFRA-037`)
+- [ ] The release stays inside the repository that owns it (`INFRA-024`, `INFRA-037`)
 - [ ] Tag `vX.Y.Z` only when the user asks for a release tag
 - [ ] No secrets; CI secrets stay in the host secret store (`INFRA-039`)
 
@@ -144,13 +144,13 @@ Tokens stay outside the repository. npm publish reads `NPM_TOKEN` from `~/.zshen
 
 For detailed step templates, follow `.cursor/skills/neocom-git-workflow/SKILL.md` (slash `/neocom-git-workflow`). This agent (`/neocom-git`) is the primary entry point.
 
-`/neo:pr` commits pending work and prepares the pull request. `/neo:pr <project>` limits that to one repository (`neocom`, `neocom-meta`, `neocom-front`, `neocom-back`, `neocom-domain`, `neocom-esi`, or the short name `root`, `meta`, `front`, `back`, `domain`, `esi`). With no project, it applies to every repository. Follow `.cursor/skills/neo-pr/SKILL.md`.
+`/neo:pr` commits pending work and prepares the pull request. `/neo:pr <project>` limits that to one active repository (`neocom-meta`, `neocom-front`, `neocom-back`, or the short name `meta`, `front`, `back`). With no project, it applies to those three. `neocom`, `neocom-domain`, and `neocom-esi` stay aside. Follow `.cursor/skills/neo-pr/SKILL.md`.
 
 ## Return to parent
 
 Summarize:
 
-1. Repos touched (parent vs which submodule)
+1. Repos touched
 2. Commits created (SHAs + messages) or PRs opened (URLs)
 3. Pointer updates pending or done
 4. Anything blocked (hooks, auth, missing remote, user confirmation)

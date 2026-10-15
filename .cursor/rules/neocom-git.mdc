@@ -1,7 +1,8 @@
 ---
 description: >-
-  NEOCOM Conventional Commits, PR, and submodule git safety. Apply when
-  committing, opening PRs, tagging releases, or updating submodule pointers.
+  NEOCOM Conventional Commits and pull requests. Each repository is an
+  independent project. The parent neocom repository is deprecated. Apply when
+  committing, opening PRs, or tagging releases.
 alwaysApply: false
 ---
 
@@ -31,11 +32,11 @@ Scopes (examples): `front`, `meta`, `back`, `openspec`, `root`, `infra`, `login`
 
 - `gh pr create` with **Summary** + **Test plan**
 - Push `-u` when needed; title mirrors conventional style or branch purpose
-- Name included submodules / OpenSpec changes
-- Child submodule commit/PR first; parent pointer update as a separate commit/PR
+- Name the repository and any OpenSpec changes
+- Do not update a submodule pointer. `neocom` is deprecated
 
 ## Releases
 
 - Branches: `feat/…` (or `feature/…` when user-mandated), `fix/…`, `release/x.y.z`; tags: `vX.Y.Z`
-- Checklist: tests green, OpenSpec status noted, submodule SHAs synced
+- Checklist: tests green, OpenSpec status noted, release stays in the owning repository
 - Align with L2 `INFRA-036`…`INFRA-039`; do not invent undeclared deploy targets

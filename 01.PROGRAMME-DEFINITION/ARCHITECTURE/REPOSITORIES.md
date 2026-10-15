@@ -1,43 +1,33 @@
 # Architecture — repositories
 
-Status: draft (based on repos already defined in the NEOCOM workspace)
+Status: each repository is one independent project. The parent `neocom` repository is deprecated.
 
-## Parent
+## Active projects
+
+| Repo | Remote | Role | Stack (current) |
+| --- | --- | --- | --- |
+| `neocom-meta` | https://github.com/AdamAntinoo/neocom-meta.git | Agent config, programme docs, sources, requirements, OpenSpec, Graphify | Docs + Cursor agents/skills/commands |
+| `neocom-front` | https://github.com/AdamAntinoo/neocom-front.git | User-facing application | **Angular 22.2.x** + TypeScript; Vitest; Cypress + Cucumber; Node via nvm alias **`neocom`** |
+| `neocom-back` | https://github.com/AdamAntinoo/neocom-back.git | HTTP API | NestJS |
+
+## Aside for now
 
 | Repo | Remote | Role |
 | --- | --- | --- |
-| `neocom` | https://github.com/AdamAntinoo/neocom.git | Ecosystem root: OpenSpec, Graphify, shared Cursor tooling; tracks product folders as **git submodules** |
-
-Clone with submodules:
-
-```bash
-git clone --recurse-submodules https://github.com/AdamAntinoo/neocom.git
-```
-
-## Submodules / product folders
-
-| Folder | Remote | Role | Stack (current) |
-| --- | --- | --- | --- |
-| `neocom-meta` | https://github.com/AdamAntinoo/neocom-meta.git | Agent config, programme docs, sources, requirements decomposition | Docs + Cursor agents/skills/commands |
-| `neocom-front` | https://github.com/AdamAntinoo/neocom-front.git | User-facing application | **Angular 22.2.x** + TypeScript; Vitest; Cypress + Cucumber; Node via nvm alias **`neocom`** (`.nvmrc` → 24.21.0) |
-| `neocom-back` | *(planned)* | HTTP API, persistence, auth boundaries | Stack not decided yet; NestJS appears in `02.SOURCES` as a candidate reference |
-| `neocom-domain` | https://github.com/AdamAntinoo/neocom-domain.git | Business-domain TypeScript package. Submodule is registered. npm publish and app dependencies are not done yet | Node + TypeScript |
-| `neocom-esi` | https://github.com/AdamAntinoo/neocom-esi.git | ESI classes and tools. Character API DTOs live here. `npm run release` builds, tests, publishes, commits, and opens or updates the pull request | Node + TypeScript |
+| `neocom` | https://github.com/AdamAntinoo/neocom.git | Deprecated. Do not use it as a parent, and do not update submodule pointers. |
+| `neocom-domain` | https://github.com/AdamAntinoo/neocom-domain.git | Business-domain TypeScript package. Leave aside. |
+| `neocom-esi` | https://github.com/AdamAntinoo/neocom-esi.git | ESI classes and tools. Leave aside. |
 
 ## Relationships
 
 ```text
-neocom (parent)
-├── openspec/          OpenSpec root
-├── .cursor/           shared OpenSpec/Graphify Cursor wiring
-├── neocom-meta/       submodule — programme + agents + requirements
-├── neocom-front/      submodule — Angular UI
-├── neocom-domain/     submodule — TypeScript domain package
-└── neocom-back/       future submodule — API
+neocom-meta     independent project — programme, agents, OpenSpec
+neocom-front    independent project — Angular UI
+neocom-back     independent project — API
 ```
 
-- Parent pins submodule SHAs; sync with `git submodule update --init --recursive`.
-- Product code stays in the owning submodule; meta does not implement front/back features.
+- A change stays in the repository that owns it. There is no parent checkout to pin the others.
+- Meta does not implement front or back features.
 - Spec pipeline: `02.SOURCES` → `/spec-collect` → L1 → (if atomic) `/spec-registration` → `openspec/`.
 - Programme docs (this tree) capture architecture and **active features** as the project advances.
 
@@ -45,7 +35,7 @@ neocom (parent)
 
 - **WireMock** mocks backend HTTP APIs.
 - `neocom-front` in the **dev** configuration talks to WireMock only; it does **not** use `neocom-back`.
-- Developer clone / install / start steps: [`README.md`](../../../README.md).
+- Developer clone, install, and start steps live in the `neocom-front` repository.
 
 ## Cross-cutting tools
 
@@ -57,6 +47,5 @@ neocom (parent)
 
 ## Open architecture decisions
 
-- Backend stack and `neocom-back` remote not finalized.
+- `neocom-back` is an active independent project. Deployment topology (hosts, environments) is not defined yet — see L2 when filled.
 - Exact WireMock port, stub directory, and npm scripts: pin in `neocom-front` when scaffolded.
-- Exact deployment topology (hosts, environments) not defined yet — see L2 when filled.
