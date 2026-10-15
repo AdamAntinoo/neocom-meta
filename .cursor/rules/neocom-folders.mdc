@@ -12,8 +12,8 @@ Active projects:
 | Folder | Role |
 | --- | --- |
 | `neocom-meta` | Docs, programme definition, Cursor rules/skills, `02.SOURCES`, OpenSpec, and subagents ([AdamAntinoo/neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git)) |
-| `neocom-front` | Frontend application — Angular specialist agent ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) |
-| `neocom-back` | Backend application — API and server agent ([AdamAntinoo/neocom-back](https://github.com/AdamAntinoo/neocom-back.git)) |
+| `neocom-front` | Frontend application ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) |
+| `neocom-back` | Backend application ([AdamAntinoo/neocom-back](https://github.com/AdamAntinoo/neocom-back.git)) |
 
 Left aside for now: `neocom`, `neocom-domain`, and `neocom-esi`.
 
@@ -40,22 +40,21 @@ See `.cursor/rules/neocom-ecosystem-tools.mdc` for install and usage notes.
 
 Use these project subagents proactively:
 
-- `/neocom-front` — Angular UI and client work in `neocom-front` (Angular specialist)
-- `/neocom-domain` — Node library, GitVersion, and npm publish in `neocom-domain`
-- `/neocom-back` — API and server work in `neocom-back`
+- `/neocom-methodology` — design, spec, develop, test, and deploy across repositories. Epics start at L1. See section 5 of `README.md`
+- `/neocom-code` — product code and OpenSpec application in `neocom-front`, `neocom-back`, and, when named, `neocom-domain`
 - `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
 - `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main`
 - `/neo:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/neo:pr <project>` selects one active repository (`neocom-meta`, `neocom-front`, or `neocom-back`). No project applies to those three active repositories. `neocom`, `neocom-domain`, and `neocom-esi` stay aside
 - `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
-- `/neo:register-spec` — Register Requirements: review new L1/L2 notes, then register them in OpenSpec
-- `/spec-registration` — same registration workflow as `/neo:register-spec`
-- `/feature-delivery` — branch `feature/<feature>` from `develop`, commit, then wait for user review before the pull request into `develop`
+- `/neo:extract-l2` — Convert L1 epics into `L2/NN.EPIC-NAME/` slice files. The current L2 tree marks what is already generated
+- `/neo:spec-evolution` — review L2 notes and move them into OpenSpec; optional L2 paths limit the run to those files
+- `/feature-delivery` — branch `feature/<feature>` from `develop`, commit, then wait for user review before the pull request into `develop`. Several features can be open, rebase when one needs another, and share one pull request. See section 5.9 of `README.md`
 - `/verifier` — readonly check after work is claimed done
 
 Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front.
 
 When `neocom-front` is missing or empty, use the recorded front stack (do not re-ask). When `neocom-back` is missing or empty, ask which backend stack and repository to use before scaffolding.
 
-Requirements flow: `/spec-collect`, then `/neo:register-spec` for new requirements, then `/feature-delivery` when applying a feature. See `.cursor/rules/neocom-spec-pipeline.mdc`.
+Requirements flow: `/neocom-methodology` for an epic, then `/spec-collect`, then `/neo:extract-l2` from L1 into L2, then `/neo:spec-evolution` to move those L2 notes into OpenSpec, then `/feature-delivery` when applying a feature. See `.cursor/rules/neocom-spec-pipeline.mdc` and section 5 of `README.md`.
 
 Programme docs: keep `01.PROGRAMME-DEFINITION/` current (architecture + active features such as Initialization and Login) as inputs and development produce durable decisions.

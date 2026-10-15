@@ -50,7 +50,7 @@ Process documentation at `02.SOURCES` and generate / refresh the **L1** requirem
 
 5. **L2**
    - Do not rewrite L2 during Spec Collect unless the user asks. L2 (`05.REQUIREMENTS-DECOMPOSITION/L2/`) is refined later and consumed by Spec Registration.
-   - Keep any `UNREGISTERED REQUIREMENTS` heading. Spec Collect does not move those notes; `/spec-registration` does.
+   - Keep any `UNREGISTERED REQUIREMENTS` heading. Spec Collect does not move those notes. `/neo:extract-l2` converts an L1 epic into L2, and `/neo:spec-evolution` moves L2 specs into OpenSpec.
 
 6. **Programme definition**
    - If collection clarifies architecture or active features, update `01.PROGRAMME-DEFINITION/` (link new L1 IDs on feature docs such as Login and Initialization when applicable).
@@ -81,4 +81,4 @@ Process documentation at `02.SOURCES` and generate / refresh the **L1** requirem
 1. Paths updated under `02.SOURCES/` and `05.REQUIREMENTS-DECOMPOSITION/L1/`
 2. Count of L1 items by status
 3. Spec Registration readiness verdict and why
-4. If ready, tell them to run `/spec-registration`
+4. If ready, tell them to run `/neo:extract-l2`, then `/neo:spec-evolution` to move the L2 specs into OpenSpec

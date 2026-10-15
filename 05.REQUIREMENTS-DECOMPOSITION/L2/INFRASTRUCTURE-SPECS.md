@@ -1,7 +1,7 @@
 # L2 — Infrastructure specs
 
 Living L2 register for infrastructure, installation, configuration, and CI/CD.
-Use with `/spec-registration` to promote **pending** rows into OpenSpec. Do not invent product behavior here.
+Use with `/neo:spec-evolution` to promote **pending** rows into OpenSpec. Do not invent product behavior here.
 
 | Legend | Meaning |
 | --- | --- |
@@ -99,6 +99,7 @@ OpenSpec change: `cicd-pipeline` → `specs/cicd/pipeline/spec.md`
 | `infra-local-config` | `infra/local-config` | INFRA-020 … INFRA-026 |
 | `cicd-pipeline` | `cicd/pipeline` | INFRA-030 … INFRA-039 |
 | `infra-style-modules` | `infra/style-modules` | INFRA-040 |
+| `infra-sso-config` | `infra/sso-config` | INFRA-041 … INFRA-042 |
 
 ---
 
@@ -111,6 +112,19 @@ OpenSpec change: `infra-style-modules` → `specs/infra/style-modules/spec.md`
 | INFRA-040 | registered | Styles | Application stylesheets SHALL use the Sass module system (`@use` and `@forward`). They SHALL NOT use `@import`. Angular's global style loader still emits `@import 'src/styles.scss'`; that deprecation id is silenced in the front build until `@angular/build` stops emitting it |
 
 The domain-repository note that was in UNREGISTERED REQUIREMENTS now lives in `L2/DOMAIN/01.NEOCOM-DOMAIN.md` (`domain-module`).
+
+---
+
+## G. SSO configuration — registered in OpenSpec
+
+OpenSpec change: `infra-sso-config` → `specs/infra/sso-config/spec.md`.
+
+Moved here from `L2/01.EPIC-LOGIN-PROCEDURE/common.md` and `architecture.md`.
+
+| ID | Status | Area | Requirement |
+| --- | --- | --- | --- |
+| INFRA-041 | registered | Config | The environment variables for this login are `EVE_SSO_CLIENT_ID`, `EVE_SSO_CLIENT_SECRET`, `EVE_SSO_CALLBACK_URL`, and `EVE_SSO_SCOPES`. The front configuration file for the environment holds the client id and the client secret. The back reads those values when it exchanges the authorization code. `EVE_SSO_CALLBACK_URL` is used by the back and must match the registered callback. `EVE_SSO_SCOPES` is used by the front and the back: the registered scope names, separated by spaces, with no wildcard |
+| INFRA-042 | registered | Config | When deployment is ready, the client id and the client secret come from Kubernetes secrets into the same front configuration entries used locally. On local development those values are written in the front configuration file and are not secured |
 
 ## UNREGISTERED REQUIREMENTS
 

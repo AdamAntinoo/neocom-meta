@@ -1,0 +1,7 @@
+# EPIC-001 - LOGIN PROCEDURE — front
+
+Extracted from `L1/01.EPIC-LOGIN-PROCEDURE.md`.
+
+Placed requirements: `L2/FRONT/06.LOGIN.md` (LOGIN-001 … LOGIN-008).
+
+## UNREGISTERED REQUIREMENTS

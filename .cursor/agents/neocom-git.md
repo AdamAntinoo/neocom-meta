@@ -76,7 +76,7 @@ EOF
 
 1. Parallel orient: `git status`, `git diff`, tracking/`git status -sb`, `git log` and `git diff [base]...HEAD`
 2. Push with `-u` when the branch has no upstream
-3. Create with `gh pr create` — title mirrors conventional style or summarizes branch purpose; body:
+3. Create with `gh pr create`. A pull request into `develop` uses a Conventional Commit title or the branch purpose. A pull request from `develop` into `main` is a release: its title is `Release-` plus GitVersion `MajorMinorPatch` (`X.Y.Z`), for example `Release-0.1.0`. Body:
 
 ```markdown
 ## Summary
@@ -105,10 +105,22 @@ If `develop` is missing, stop and ask. Do not substitute `main`. Do not merge a 
 
 ### OpenSpec feature flow
 
-1. **Apply.** Commit the affected repository on `feature/<feature-name>` created from `develop`. Do not commit that work on `develop` or `main`. Do not open a pull request yet.
+1. **Apply.** Several features can be open. Commit each one on its own `feature/<feature-name>` created from `develop`. Do not commit that work on `develop` or `main`. Do not create the branch from another feature branch or from `main`. Do not open a pull request yet.
 2. **User review.** Stop. The user reviews the branch and runs the testing they want.
-3. **Pull request into `develop`.** After the user says that review and testing are done, open a pull request from `feature/<feature-name>` into `develop`. The next OpenSpec apply starts a new `feature/<name>` from `develop`. Do not continue the next feature on the previous feature branch.
-4. **Archive.** When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Do not merge it.
+3. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code. Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
+4. **Pull request into `develop`.** After the user says that review and testing are done, open a pull request into `develop`. One pull request can contain several features: stack them in dependency order and open it from the tip. Name every feature in the pull request. The next feature still starts as a new branch from `develop`. Do not implement it by adding commits on the previous feature branch.
+5. **Archive.** When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Title it `Release-<MajorMinorPatch>`. Do not merge it.
+
+### Release pull request title
+
+Calculate the version before creating or retitling that pull request. Do not push the calculation and do not leave it on the local `main` branch.
+
+1. Add a temporary worktree at `origin/main` and check out a branch named `main` there.
+2. Merge `origin/develop` with `--no-ff`.
+3. In that worktree run `gitversion /nocache /showvariable MajorMinorPatch`.
+4. Remove the worktree and restore the local `main` pointer to the commit it had before the calculation.
+
+The title is `Release-` immediately followed by that value. Use `MajorMinorPatch` only. Do not put the `SemVer` pre-release label in the title.
 
 Read `.cursor/templates/` before writing a commit message, branch name, or pull request body. A stored user example overrides the fallback in that file. When the user gives a new example, record it there before the next commit or pull request.
 
@@ -126,7 +138,20 @@ Align wording with pending L2 IDs `INFRA-030` … `INFRA-039` without registerin
 
 ## Versioning
 
-This agent owns version numbers for the Node libraries (`neocom-domain`, `neocom-esi`). Library agents do not keep a second scheme.
+This agent owns version numbers for the Node libraries (`neocom-domain`, `neocom-esi`). `/neocom-code` does not keep a second scheme.
+
+`neocom-domain` uses the same continuous deployment mode. The last package on npm is **0.29.2**. This repository counts from **`v0.30.0`**. Do not recreate `0.29.2` and do not move `v0.30.0`. On `main`, a commit after `v0.30.0` is `0.31.0`, then `0.32.0`.
+
+Publish `neocom-domain` only when the user asks:
+
+1. `npm run version:sync`
+2. `npm run distribute` (test, then build `dist/`)
+3. `npm publish` (the package `files` field ships `dist/` only)
+4. When `HEAD` is not already tagged `v<MajorMinorPatch>`, create that annotated tag so the next calculation counts from the version just published. Do not push the tag unless the user asks.
+
+```bash
+git tag -a "v$(gitversion /nocache /showvariable MajorMinorPatch)" -m "Version source for GitVersion"
+```
 
 The package version is GitVersion **MajorMinorPatch** only: `X.Y.Z`. Do not write GitVersion `SemVer` into `package.json` or into a release script. `SemVer` adds a branch pre-release label such as `0.2.0-character-api.1`.
 

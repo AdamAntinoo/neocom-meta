@@ -6,6 +6,8 @@ After the user reviews and tests an applied feature, open a pull request from `f
 
 When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Do not merge it unless the user asks.
 
+The title of a pull request from `develop` into `main` is `Release-` plus the GitVersion `MajorMinorPatch` that merging `develop` into `main` generates. Example: `Release-0.1.0`. Calculate it with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary branch named `main` after merging `origin/develop`. Restore the local `main` pointer and do not push that merge.
+
 ## Fallback body
 
 Use the user example below. A pull request body lists the features the branch includes.

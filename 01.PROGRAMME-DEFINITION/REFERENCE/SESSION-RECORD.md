@@ -31,7 +31,7 @@ New Node packages test with `node --test` (`node:test` and `node:assert/strict`)
 
 ## Requirements intake
 
-The command is `/neo:register-spec` (file `.cursor/commands/neo:register-spec.md`). It reviews every `UNREGISTERED REQUIREMENTS` section, places each note in the system file, and registers an OpenSpec change `<system>-<feature>`.
+That run used `/neo:register-spec`. The same review and move into OpenSpec is now `/neo:spec-evolution`. It reviews every `UNREGISTERED REQUIREMENTS` section in L2, places each note in the system file, and registers an OpenSpec change `<system>-<feature>`.
 
 Registered from that run:
 

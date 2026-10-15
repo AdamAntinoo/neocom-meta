@@ -28,7 +28,7 @@ neocom-back     independent project — API
 
 - A change stays in the repository that owns it. There is no parent checkout to pin the others.
 - Meta does not implement front or back features.
-- Spec pipeline: `02.SOURCES` → `/spec-collect` → L1 → (if atomic) `/spec-registration` → `openspec/`.
+- Spec pipeline: `02.SOURCES` → `/spec-collect` → L1 → `/neo:extract-l2` → L2 → `/neo:spec-evolution` → `openspec/`.
 - Programme docs (this tree) capture architecture and **active features** as the project advances.
 
 ## Local development (front `dev`)
