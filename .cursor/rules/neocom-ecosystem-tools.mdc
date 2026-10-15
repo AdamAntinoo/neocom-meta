@@ -1,0 +1,64 @@
+---
+description: OpenSpec and Graphify tooling in neocom-meta
+alwaysApply: true
+---
+
+# NEOCOM ecosystem tools
+
+OpenSpec and Graphify live in `neocom-meta`. Product repositories are independent clones.
+
+Agents should treat these as installed workspace tooling, not optional add-ons.
+
+## OpenSpec
+
+Spec-driven change workflow for AI coding tools. Docs: https://openspec.dev/docs/installation · https://openspec.dev/docs/cli
+
+The CLI is a devDependency of this repository. Node comes from the nvm alias `neocom` (`.nvmrc`). Run `nvm use` before `npm` or `npx`. Changes and specs are under `openspec/`.
+
+```bash
+cd neocom-meta
+nvm use
+npm install
+npx openspec list --json
+```
+
+After init, use the generated Cursor skills/commands (e.g. propose / apply / archive flows under the `opsx` or `openspec-*` names printed by init). Refresh with `openspec update` when the CLI upgrades.
+
+## Graphify
+
+Code-knowledge graph for Cursor. Package name is `graphifyy` (double y); CLI command is `graphify`.
+
+```bash
+# Project install inside neocom-meta
+cd neocom-meta
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python graphifyy
+.venv/bin/graphify install --project --platform cursor
+
+# Rebuild the graph (AST; semantic pass runs when an LLM key is set)
+.venv/bin/graphify extract . --force
+.venv/bin/graphify extract ../neocom-front --out ../neocom-front --force
+```
+
+### Documentation / token maps from URLs
+
+Graphify can fetch documentation URLs into a local corpus and build a knowledge graph (token / concept map):
+
+```bash
+cd neocom-meta/02.SOURCES
+graphify add "https://example.com/docs" --dir raw
+graphify .
+graphify god-nodes --graph graphify-out/graph.json
+graphify query "your question" --graph graphify-out/graph.json
+```
+
+Use this with the `extract-requirements-from-urls` skill and the catalog in `02.SOURCES/SOURCES.md`. Keep extracted human-readable requirements under `02.SOURCES/extracted/`.
+
+## Agent guidance
+
+- Prefer OpenSpec when the user wants a reviewable plan or change proposal before implementation.
+- Prefer Graphify when navigating or explaining cross-folder structure and relationships under `neocom/`, and when mapping documentation corpora under `neocom-meta/02.SOURCES`.
+- Prefer `/neocom-meta` + `extract-requirements-from-urls` when reading NestJS / EVE Online SSO sources for requirements.
+- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/neo:register-spec` (Register Requirements) to review and register new L1/L2 notes into OpenSpec under `<system>/<feature>`; prefer `/feature-delivery` to apply a feature on `feature/<feature>` from `develop`, then wait for user review before the pull request into `develop`.
+- Do not re-install these tools on every task; only install or re-init when missing or when the user asks.
+- Product code still belongs in `neocom-front` / `neocom-back`; agent config and docs in `neocom-meta`. Tool artifacts at the `neocom` root are shared ecosystem config.

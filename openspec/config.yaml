@@ -1,0 +1,57 @@
+schema: spec-driven
+
+# Project context — constraints agents cannot infer from code alone.
+context: |
+  NEOCOM product repositories are independent clones: `neocom-front`, `neocom-domain`,
+  and (future) `neocom-back`. The parent `neocom` checkout is not required.
+
+  Agent configuration, programme docs, OpenSpec, and Graphify live in `neocom-meta`.
+  Product application code lives only in the owning repository (`neocom-front`, `neocom-domain`, `neocom-back`).
+  `neocom-meta` must not implement product features.
+
+  Front stack: latest Angular + TypeScript; unit tests with Vitest; acceptance with Cypress + Cucumber.
+
+  OpenSpec is installed in this repository (`neocom-meta`). Do not re-install it on every task.
+
+  Specs and requirements decomposition docs live under `neocom-meta`
+  (e.g. `05.REQUIREMENTS-DECOMPOSITION/`). Prefer those as the source of truth for scope
+  and non-obvious constraints when proposing or applying changes.
+
+  Requirement intake: users write new notes under the heading UNREGISTERED REQUIREMENTS
+  in L1 or L2 files. `/spec-registration` places each note in the owning system file
+  and registers an OpenSpec change named `<system>-<feature>` whose delta spec is
+  `specs/<system>/<feature>/spec.md`. Systems include front, infra, cicd, back, and domain.
+  Cite L1 or L2 ids in registered specs.
+
+  Applying a feature commits on `feature/<feature>` created from `develop`. The user
+  reviews and tests that branch. After that review, open a pull request into `develop`.
+  The next apply starts a new branch from `develop`. Archiving the change opens a
+  pull request from `develop` into `main` for review and approval. Do not merge
+  either pull request unless the user asks.
+
+# Per-artifact rules
+rules:
+  proposal:
+    - Always state what is out of scope
+    - Keep proposals concise; focus on intent, constraints, and boundaries across repositories
+    - Name which repository owns the work (meta / front / domain / back)
+  tasks:
+    - Break work into small, independently verifiable tasks
+    - Keep each task inside a single owning repository when possible
+    - Prefer tasks that a specialist agent (/neocom-front, /neocom-back, /neocom-meta) can finish in one pass
+
+# Per-operation guidance
+operations:
+  apply:
+    guidance:
+      - Respect repository boundaries; never implement frontend features in meta/back or backend features in meta/front
+      - Prefer delegating to /neocom-front, /neocom-back, /neocom-meta for owned work and /verifier after claimed completion
+      - Keep product changes inside the owning repository. OpenSpec and programme docs stay in neocom-meta.
+      - Applying a feature instructs /neocom-git to commit on feature/<feature> created from develop. Do not commit that work on develop or main. Do not open a pull request during apply.
+      - Stop after the commit so the user can review the branch and test. The pull request into develop waits until the user says that review is done.
+      - The next OpenSpec apply creates a new feature/<name> from develop. Do not continue on the previous feature branch.
+      - For neocom-esi, npm run release builds, tests, publishes, and commits on that feature branch. Leave the pull request until the user finishes review.
+  archive:
+    guidance:
+      - Summarize which repository changed
+      - After the change is archived, /neocom-git opens a pull request from develop into main for review and approval. Do not merge it.

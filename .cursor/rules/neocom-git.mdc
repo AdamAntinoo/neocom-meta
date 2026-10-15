@@ -1,0 +1,42 @@
+---
+description: >-
+  NEOCOM Conventional Commits and pull requests. Each repository is an
+  independent project. The parent neocom repository is deprecated. Apply when
+  committing, opening PRs, or tagging releases.
+alwaysApply: false
+---
+
+# NEOCOM Git conventions
+
+Primary owner: `/neocom-git`. Detail skill: `/neocom-git-workflow`. `/neo:pr` commits and prepares pull requests for one project, or for every repository when no project is given.
+
+## Commits
+
+```text
+<type>(<scope>): <short summary>
+
+<optional body — why>
+
+<optional footer>
+```
+
+Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `build`, `ci`, `style`, `perf`, `revert`  
+Scopes (examples): `front`, `meta`, `back`, `openspec`, `root`, `infra`, `login`, `init`
+
+- Imperative mood; body explains **why**
+- HEREDOC for `git commit -m`; no secrets
+- Commit only when asked, when `/neo:pr` is invoked, or when `/neocom-git` is invoked to commit
+- No amend unless user rules allow; no force push to main/master; never update git config
+
+## PRs
+
+- `gh pr create` with **Summary** + **Test plan**
+- Push `-u` when needed; title mirrors conventional style or branch purpose
+- Name the repository and any OpenSpec changes
+- Do not update a submodule pointer. `neocom` is deprecated
+
+## Releases
+
+- Branches: `feat/…` (or `feature/…` when user-mandated), `fix/…`, `release/x.y.z`; tags: `vX.Y.Z`
+- Checklist: tests green, OpenSpec status noted, release stays in the owning repository
+- Align with L2 `INFRA-036`…`INFRA-039`; do not invent undeclared deploy targets

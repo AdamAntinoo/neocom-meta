@@ -1,0 +1,5 @@
+.DS_Store
+.venv/
+02.SOURCES/graphify-out/cache/
+node_modules/
+graphify-out/
