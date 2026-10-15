@@ -31,7 +31,9 @@ Scopes (examples): `front`, `meta`, `back`, `openspec`, `root`, `infra`, `login`
 ## PRs
 
 - `gh pr create` with **Summary** + **Test plan**
-- Push `-u` when needed; title mirrors conventional style or branch purpose
+- Push `-u` when needed
+- A pull request into `develop` uses a Conventional Commit title or the branch purpose
+- A pull request from `develop` into `main` is titled `Release-` plus GitVersion `MajorMinorPatch` (`Release-0.1.0`). Calculate it with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary `main` checkout after merging `develop`. Do not push that merge
 - Name the repository and any OpenSpec changes
 - Do not update a submodule pointer. `neocom` is deprecated
 

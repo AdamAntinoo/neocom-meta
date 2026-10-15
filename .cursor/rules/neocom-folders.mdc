@@ -43,7 +43,7 @@ Use these project subagents proactively:
 - `/neocom-methodology` — design, spec, develop, test, and deploy across repositories. Epics start at L1. See section 5 of `PROGRAMME.md`
 - `/neocom-code` — product code and OpenSpec application in `neocom-front`, `neocom-back`, and, when named, `neocom-domain`
 - `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
-- `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main`
+- `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main` titled `Release-` plus GitVersion `MajorMinorPatch`
 - `/neo:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/neo:pr <project>` selects one active repository (`neocom-meta`, `neocom-front`, or `neocom-back`). No project applies to those three active repositories. `neocom`, `neocom-domain`, and `neocom-esi` stay aside
 - `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
 - `/neo:extract-l2` — Convert L1 epics into `L2/NN.EPIC-NAME/` slice files. The current L2 tree marks what is already generated

@@ -75,7 +75,19 @@ EOF
 
 5. Return the PR URL. Do not merge.
 6. The next OpenSpec apply creates a new `feature/<name>` from `develop`. Do not stack it on the feature branch that already has a pull request.
-7. When the OpenSpec change is archived, open a separate pull request from `develop` into `main` for review and approval. Do not merge it.
+7. When the OpenSpec change is archived, open a separate pull request from `develop` into `main` for review and approval. Do not merge it. Its title is `Release-` plus GitVersion `MajorMinorPatch`.
+
+### Title for `develop` into `main`
+
+A pull request into `develop` keeps a Conventional Commit title. A pull request from `develop` into `main` is a release. Title it `Release-<MajorMinorPatch>`, for example `Release-0.1.0`.
+
+Calculate that value on a branch named `main` after merging `origin/develop` into `origin/main` in a temporary worktree:
+
+```bash
+gitversion /nocache /showvariable MajorMinorPatch
+```
+
+Remove the worktree and restore the local `main` pointer afterwards. Do not push that merge. Use `MajorMinorPatch` only. Do not put a `SemVer` pre-release label in the title.
 
 ### Independent repositories
 
