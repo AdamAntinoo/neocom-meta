@@ -1,8 +1,9 @@
 ---
 name: neo-pr
 description: >-
-  Commit pending work and prepare pull requests for one NEOCOM project, or
-  for every repository when no project is given. Use when /neo:pr is invoked.
+  Commit pending work and prepare pull requests for one active project, or
+  for neocom-meta, neocom-front, and neocom-back when no project is given.
+  Use when /neo:pr is invoked.
 disable-model-invocation: true
 ---
 
@@ -18,18 +19,15 @@ The text after `/neo:pr` is the project.
 
 | Argument | Repository |
 | --- | --- |
-| `neocom`, `root` | Parent `neocom` |
 | `neocom-meta`, `meta` | `neocom-meta` |
 | `neocom-front`, `front` | `neocom-front` |
 | `neocom-back`, `back` | `neocom-back` |
-| `neocom-domain`, `domain` | `neocom-domain` |
-| `neocom-esi`, `esi` | `neocom-esi` |
 
-No argument means every repository in that table. Skip a folder that is missing or is not a git checkout, and say which one was skipped.
+No argument means those three active repositories. Each one is an independent project. Skip a folder that is missing or is not a git checkout, and say which one was skipped.
+
+`neocom` is deprecated. `neocom-domain` and `neocom-esi` are aside. If the argument names one of those, stop that repository and report that it is aside. Do not commit it and do not open a pull request for it.
 
 An unknown argument stops the command. Do not guess a repository.
-
-When every repository is selected, prepare the child repositories first. The parent `neocom` pointer update is a separate commit and pull request after those children.
 
 ## For each selected repository
 

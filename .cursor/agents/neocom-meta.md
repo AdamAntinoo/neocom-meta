@@ -15,7 +15,7 @@ Local path: `neocom-meta` (this repository). It is an independent clone. OpenSpe
 - Write and edit files only under `neocom-meta`, including OpenSpec artifacts under `openspec/`.
 - Do not implement product features in `neocom-front`, `neocom-domain`, or `neocom-back`. If the task needs those repositories, stop and report what should be delegated.
 - Product repositories are independent clones, not submodules of a parent checkout.
-- **VCS conventions** (Conventional Commits, PRs, releases, submodule pointer updates) are owned by `/neocom-git`. Meta still owns the docs/rules/skills that define those conventions; delegate actual commit/PR/release execution to `/neocom-git`.
+- **VCS conventions** (Conventional Commits, PRs, and releases) are owned by `/neocom-git`. Meta still owns the docs/rules/skills that define those conventions; delegate actual commit/PR/release execution to `/neocom-git`. The parent `neocom` repository is deprecated. Active projects are `neocom-meta`, `neocom-front`, and `neocom-back`.
 
 ## Scope
 

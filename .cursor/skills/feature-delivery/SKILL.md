@@ -26,7 +26,7 @@ Turns one registered OpenSpec feature into commits on `feature/<feature-name>` f
    - If `.cursor/templates/branch-names.md` records a user example, follow that example instead.
 
 2. **Branch**
-   - In the repo that owns the code (`neocom-front`, `neocom-back`, `neocom-domain`, `neocom-esi`, `neocom-meta`, or the parent):
+   - In the active repository that owns the code (`neocom-meta`, `neocom-front`, or `neocom-back`):
    - `git checkout develop` then `git checkout -b feature/<feature-name>`.
    - Delegate the git commands to `/neocom-git`.
 
