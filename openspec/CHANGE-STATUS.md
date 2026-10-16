@@ -1,4 +1,4 @@
-# OpenSpec features
+# OpenSpec change status
 
 Manual register of OpenSpec changes in this repository. OpenSpec itself does not require this file; it is for programme tracking.
 

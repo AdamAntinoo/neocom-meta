@@ -21,3 +21,7 @@ feature/<feature-name>
 ```
 
 Recorded from the request that OpenSpec feature execution commit on `feature/<feature>`, created from `develop`. Example: `feature/character-api`.
+
+## After creating a `neocom-front` branch
+
+First task: set the app version to GitVersion `MajorMinorPatch` in `package.json`, both environment `appVersion` fields, and the loading text in `src/index.html`. Owned by `/neocom-git`.

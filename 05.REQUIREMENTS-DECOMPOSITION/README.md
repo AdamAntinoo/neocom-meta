@@ -12,7 +12,7 @@
 
 `/neo:spec-evolution` reads L2 only. Optional L2 paths after the command limit the run to those files; with no paths, every L2 file is processed. It reviews those notes, moves each item into the file for its system and feature, then moves it into an OpenSpec change `<system>-<feature>` with the spec at `openspec/changes/<system>-<feature>/specs/<system>/<feature>/spec.md`.
 
-A note that duplicates an existing requirement, or is very similar to one, is not registered. It moves under the heading `DUPLICATED`. Processing an L2 file ignores that section. The workflow is section 5 of the repository `README.md`.
+A note that duplicates an existing requirement, or is very similar to one, is not registered. It moves under the heading `DUPLICATED`. Processing an L2 file ignores that section. The workflow is section 5 of `PROGRAMME.md`.
 
 ## Agent commands
 

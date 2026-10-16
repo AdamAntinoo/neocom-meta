@@ -25,7 +25,7 @@ Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), packag
 
 ## Boundaries
 
-- Do not edit product application code to “fix” features; only git metadata, commit messages, PR bodies, tags, and pointer SHAs.
+- Do not edit product application code to “fix” features; only git metadata, commit messages, PR bodies, tags, pointer SHAs, and the **version fields** listed under Feature branch version bump (front).
 - Do not invent undeclared deploy targets. Align promotions with pending L2 CI/CD (`INFRA-036` … `INFRA-039`); until CD is defined, document intent only — do not implement pipelines or invent staging/prod hosts.
 - Never update git config. Never force-push `main`/`master`. Never skip hooks unless the user explicitly allows it.
 - Commit **only** when the user asks, when `/neo:pr` is invoked, or when this agent is explicitly invoked to create a commit.
@@ -103,9 +103,33 @@ EOF
 
 If `develop` is missing, stop and ask. Do not substitute `main`. Do not merge a pull request unless the user asks.
 
+### Feature branch version bump (front)
+
+When creating a new `feature/<feature-name>` (or `fix/…`) branch in **`neocom-front`**, the **first task** after the branch exists is to set the application version to GitVersion **MajorMinorPatch** (`X.Y.Z`). Do this before any other feature work on that branch.
+
+```bash
+cd neocom-front
+nvm use
+VERSION="$(gitversion /nocache /showvariable MajorMinorPatch)"
+npm pkg set "version=${VERSION}"
+```
+
+Write that same `VERSION` into:
+
+| File | Field / place |
+| --- | --- |
+| `package.json` | `"version"` |
+| `src/environments/environment.development.ts` | `appVersion` |
+| `src/environments/environment.ts` | `appVersion` |
+| `src/index.html` | the loading message under `app-root` (include the version in that text, for example `LOADING NEOCOM APPLICATION 0.1.0...`) |
+
+Use `MajorMinorPatch` only. Do not write GitVersion `SemVer` (no branch pre-release label). Do not use `npm version`. Commit the version bump on the new branch (alone or with the first feature commit, as the apply flow requires).
+
+Other repositories do not use these front paths. For `neocom-back` or `neocom-meta`, create the branch from `develop` without this front version step unless that repository has its own recorded version files.
+
 ### OpenSpec feature flow
 
-1. **Apply.** Several features can be open. Commit each one on its own `feature/<feature-name>` created from `develop`. Do not commit that work on `develop` or `main`. Do not create the branch from another feature branch or from `main`. Do not open a pull request yet.
+1. **Apply.** Several features can be open. Commit each one on its own `feature/<feature-name>` created from `develop`. Do not commit that work on `develop` or `main`. Do not create the branch from another feature branch or from `main`. For `neocom-front`, run the Feature branch version bump first. Do not open a pull request yet.
 2. **User review.** Stop. The user reviews the branch and runs the testing they want.
 3. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code. Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
 4. **Pull request into `develop`.** After the user says that review and testing are done, open a pull request into `develop`. One pull request can contain several features: stack them in dependency order and open it from the tip. Name every feature in the pull request. The next feature still starts as a new branch from `develop`. Do not implement it by adding commits on the previous feature branch.
@@ -155,11 +179,14 @@ git tag -a "v$(gitversion /nocache /showvariable MajorMinorPatch)" -m "Version s
 
 The package version is GitVersion **MajorMinorPatch** only: `X.Y.Z`. Do not write GitVersion `SemVer` into `package.json` or into a release script. `SemVer` adds a branch pre-release label such as `0.2.0-character-api.1`.
 
+On a new **`neocom-front`** feature branch, that same `MajorMinorPatch` value is written into `package.json`, both environment `appVersion` fields, and the `index.html` loading message (see Feature branch version bump above).
+
 Before a release, and whenever a version script is added or edited, review the scripts and correct them when they do not match:
 
 - `package.json` `version:sync` is `npm pkg set version=$(gitversion /nocache /showvariable MajorMinorPatch)`
 - `scripts/release.mjs`, when the package has one, reads `MajorMinorPatch` for the figlet header, the commit message, and the pull request
 - `package.json` `"version"` is `X.Y.Z`
+- For `neocom-front`, `appVersion` in `environment.ts` / `environment.development.ts` and the version in `src/index.html` match that `package.json` version
 
 Do not use `npm version`; it creates a second git tag. Version-source tags stay `vX.Y.Z`. Do not hand-edit the version except to bring a file back to `MajorMinorPatch` after a bad sync.
 
