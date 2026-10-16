@@ -38,5 +38,6 @@ Scopes (examples): `front`, `meta`, `back`, `openspec`, `root`, `infra`, `login`
 ## Releases
 
 - Branches: `feat/…` (or `feature/…` when user-mandated), `fix/…`, `release/x.y.z`; tags: `vX.Y.Z`
+- On a new **`neocom-front`** `feature/…` branch, first set GitVersion `MajorMinorPatch` in `package.json`, both `appVersion` env fields, and the `index.html` loading message
 - Checklist: tests green, OpenSpec status noted, release stays in the owning repository
 - Align with L2 `INFRA-036`…`INFRA-039`; do not invent undeclared deploy targets

@@ -40,7 +40,7 @@ See `.cursor/rules/neocom-ecosystem-tools.mdc` for install and usage notes.
 
 Use these project subagents proactively:
 
-- `/neocom-methodology` — design, spec, develop, test, and deploy across repositories. Epics start at L1. See section 5 of `README.md`
+- `/neocom-methodology` — design, spec, develop, test, and deploy across repositories. Epics start at L1. See section 5 of `PROGRAMME.md`
 - `/neocom-code` — product code and OpenSpec application in `neocom-front`, `neocom-back`, and, when named, `neocom-domain`
 - `/neocom-meta` — docs, agent config, sources, and spec pipeline in `neocom-meta`
 - `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main`
@@ -48,13 +48,13 @@ Use these project subagents proactively:
 - `/spec-collect` — Spec Collect: `02.SOURCES` → L1 under `05.REQUIREMENTS-DECOMPOSITION`
 - `/neo:extract-l2` — Convert L1 epics into `L2/NN.EPIC-NAME/` slice files. The current L2 tree marks what is already generated
 - `/neo:spec-evolution` — review L2 notes and move them into OpenSpec; optional L2 paths limit the run to those files
-- `/feature-delivery` — branch `feature/<feature>` from `develop`, commit, then wait for user review before the pull request into `develop`. Several features can be open, rebase when one needs another, and share one pull request. See section 5.9 of `README.md`
+- `/feature-delivery` — branch `feature/<feature>` from `develop`, commit, then wait for user review before the pull request into `develop`. Several features can be open, rebase when one needs another, and share one pull request. See section 5.9 of `PROGRAMME.md`
 - `/verifier` — readonly check after work is claimed done
 
 Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front.
 
 When `neocom-front` is missing or empty, use the recorded front stack (do not re-ask). When `neocom-back` is missing or empty, ask which backend stack and repository to use before scaffolding.
 
-Requirements flow: `/neocom-methodology` for an epic, then `/spec-collect`, then `/neo:extract-l2` from L1 into L2, then `/neo:spec-evolution` to move those L2 notes into OpenSpec, then `/feature-delivery` when applying a feature. See `.cursor/rules/neocom-spec-pipeline.mdc` and section 5 of `README.md`.
+Requirements flow: `/neocom-methodology` for an epic, then `/spec-collect`, then `/neo:extract-l2` from L1 into L2, then `/neo:spec-evolution` to move those L2 notes into OpenSpec, then `/feature-delivery` when applying a feature. See `.cursor/rules/neocom-spec-pipeline.mdc` and section 5 of `PROGRAMME.md`.
 
 Programme docs: keep `01.PROGRAMME-DEFINITION/` current (architecture + active features such as Initialization and Login) as inputs and development produce durable decisions.

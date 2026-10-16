@@ -31,11 +31,11 @@ Local path: `neocom-meta` (this repository). It is an independent clone. OpenSpe
 
 Requirement collection is an agent process:
 
-1. **`/neocom-methodology`** — design, spec, develop, test, and deploy. An epic is `05.REQUIREMENTS-DECOMPOSITION/L1/<short-name>.md`. Follow section 5 of `README.md`.
+1. **`/neocom-methodology`** — design, spec, develop, test, and deploy. An epic is `05.REQUIREMENTS-DECOMPOSITION/L1/<short-name>.md`. Follow section 5 of `PROGRAMME.md`.
 2. **`/spec-collect`** (Spec Collect) — process `02.SOURCES` (use `extract-requirements-from-urls` + Graphify when needed) and generate the L1 requirements list under `05.REQUIREMENTS-DECOMPOSITION/L1/`.
 3. **`/neo:extract-l2`** — read L1 only and convert each epic into `L2/NN.EPIC-NAME/` with slice files (`front.md`, `back.md`, `cicd.md`, `architecture.md`, `common.md` when needed). The current L2 tree marks passages already generated. Those are reported and not written again.
 4. **`/neo:spec-evolution`** — read L2 only. Optional L2 paths limit the run to those files; with no paths, every L2 file is processed. Review each scoped `UNREGISTERED REQUIREMENTS` section, place each note in the owning system file, and move it into OpenSpec as `<system>-<feature>` with specs at `specs/<system>/<feature>/`. Skip every note under `DUPLICATED`. A duplicate or very similar note moves there and is not registered. Do not read L1.
-5. **`/feature-delivery`** — apply a registered feature on `feature/<feature>` from `develop` and commit through `/neocom-git`. Several features can be open. Rebase when one needs another's code. After review, one pull request into `develop` can carry several features. Archiving the change opens a pull request from `develop` into `main`. Section 5.9 of `README.md`.
+5. **`/feature-delivery`** — apply a registered feature on `feature/<feature>` from `develop` and commit through `/neocom-git`. Several features can be open. Rebase when one needs another's code. After review, one pull request into `develop` can carry several features. Archiving the change opens a pull request from `develop` into `main`. Section 5.9 of `PROGRAMME.md`.
 
 During Spec Collect, Spec Registration, and ongoing development, update `01.PROGRAMME-DEFINITION/` when architecture or active features change (do not invent unbacked behavior).
 

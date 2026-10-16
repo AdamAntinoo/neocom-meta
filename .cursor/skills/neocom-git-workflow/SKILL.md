@@ -91,6 +91,17 @@ Each repository is its own project. The parent `neocom` repository is deprecated
 | Release | `release/x.y.z` |
 | Tags | `vX.Y.Z` (only when user requests a release tag) |
 
+### New feature branch in `neocom-front`
+
+After `feature/<feature-name>` exists from `develop`, **before** other feature work:
+
+1. `VERSION="$(gitversion /nocache /showvariable MajorMinorPatch)"` (with `nvm use` in that repo)
+2. `npm pkg set "version=${VERSION}"`
+3. Set `appVersion: '<VERSION>'` in `src/environments/environment.development.ts` and `src/environments/environment.ts`
+4. Put that version in the `src/index.html` loading message under `app-root` (for example `LOADING NEOCOM APPLICATION 0.1.0...`)
+
+Use `MajorMinorPatch` only. Do not write `SemVer`.
+
 **Checklist before tagging / promoting:**
 
 - [ ] Relevant tests green (or deferred with reason)

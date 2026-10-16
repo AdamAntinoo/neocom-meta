@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 # Feature delivery
 
-Turns a registered OpenSpec feature into commits on `feature/<feature-name>` from `develop`. Other feature branches may already be open. The user reviews and tests those commits before any pull request. Section 5.9 of `README.md` is the rule for keeping those branches apart.
+Turns a registered OpenSpec feature into commits on `feature/<feature-name>` from `develop`. Other feature branches may already be open. The user reviews and tests those commits before any pull request. Section 5.9 of `PROGRAMME.md` is the rule for keeping those branches apart.
 
 ## Preconditions
 
@@ -30,6 +30,7 @@ Turns a registered OpenSpec feature into commits on `feature/<feature-name>` fro
    - In the active repository that owns the code (`neocom-meta`, `neocom-front`, or `neocom-back`):
    - Create `feature/<feature-name>` from `develop`. Other `feature/*` branches may already exist. Do not create this one from them or from `main`.
    - Delegate the git commands to `/neocom-git`.
+   - For **`neocom-front`**, the first task after the branch exists is the version bump: GitVersion `MajorMinorPatch` into `package.json`, `src/environments/environment.development.ts` (`appVersion`), `src/environments/environment.ts` (`appVersion`), and the loading message in `src/index.html`. See `/neocom-git` Feature branch version bump.
    - When this feature needs code that is only on another open feature branch, ask `/neocom-git` to rebase this branch onto that one after the branch exists. Do not edit the same files on two branches that both still start from `develop`.
 
 3. **Apply**
