@@ -99,7 +99,8 @@ OpenSpec change: `cicd-pipeline` → `specs/cicd/pipeline/spec.md`
 | `infra-local-config` | `infra/local-config` | INFRA-020 … INFRA-026 |
 | `cicd-pipeline` | `cicd/pipeline` | INFRA-030 … INFRA-039 |
 | `infra-style-modules` | `infra/style-modules` | INFRA-040 |
-| `infra-sso-config` | `infra/sso-config` | INFRA-041 … INFRA-042 |
+| `nestjs-sso-config` | `back/nestjs-sso-config` | INFRA-041 … INFRA-042 |
+| `infra-async-persistence` | `infra/async-persistence` | INFRA-050 … INFRA-055 |
 
 ---
 
@@ -117,7 +118,7 @@ The domain-repository note that was in UNREGISTERED REQUIREMENTS now lives in `L
 
 ## G. SSO configuration — registered in OpenSpec
 
-OpenSpec change: `infra-sso-config` → `specs/infra/sso-config/spec.md`.
+OpenSpec change: `nestjs-sso-config` → `specs/back/nestjs-sso-config/spec.md`.
 
 Moved here from `L2/01.EPIC-LOGIN-PROCEDURE/common.md` and `architecture.md`.
 
@@ -125,6 +126,21 @@ Moved here from `L2/01.EPIC-LOGIN-PROCEDURE/common.md` and `architecture.md`.
 | --- | --- | --- | --- |
 | INFRA-041 | registered | Config | The environment variables for this login are `EVE_SSO_CLIENT_ID`, `EVE_SSO_CLIENT_SECRET`, `EVE_SSO_CALLBACK_URL`, and `EVE_SSO_SCOPES`. The front configuration file for the environment holds the client id and the client secret. The back reads those values when it exchanges the authorization code. `EVE_SSO_CALLBACK_URL` is used by the back and must match the registered callback. `EVE_SSO_SCOPES` is used by the front and the back: the registered scope names, separated by spaces, with no wildcard |
 | INFRA-042 | registered | Config | When deployment is ready, the client id and the client secret come from Kubernetes secrets into the same front configuration entries used locally. On local development those values are written in the front configuration file and are not secured |
+
+## H. Async persistence (PostgreSQL / Redis) — registered in OpenSpec
+
+OpenSpec change: `infra-async-persistence` → `specs/infra/async-persistence/spec.md`.
+
+Source: `L2/02.EPIC-ANGULAR-CODIFICATION.async-infra.md` (EPIC-002). Companion: `front-async-sse`, `back-async-sse`.
+
+| ID | Status | Area | Requirement |
+| --- | --- | --- | --- |
+| INFRA-050 | applying | Async | The asynchronous workflow needs a durable database for extended and calculated data and a way to run background enrichment (provision alongside front/back library work owned by `front-async-sse` / `back-async-sse`). Local compose: `infra/docker-compose.async-persistence.yml`. |
+| INFRA-051 | applying | Persistence | Persist extended and calculated results that must not be recomputed on every page open (for example blueprint manufacture index, expanded BOM cost fields, enrichment status, timestamps for staleness). Durable application storage, distinct from the front adapter cache and from any short-lived HTTP/CDN cache. Record shape: `infra/async-persistence.md`. |
+| INFRA-052 | applying | Persistence | Database contents at least: scope key (e.g. pilot id), node identity, simplified fields, calculated fields, readiness/completion state, `updatedAt` / staleness markers, and enough payload to rebuild a viewer node without calling ESI again when fresh. Operations: read list for HTTP response; upsert one item when background work finishes; query incomplete or stale items for the worker. |
+| INFRA-053 | applying | Persistence | A relational database is required. Prefer PostgreSQL unless programme infra already standardises another engine. Access from Nest via an official or Nest-supported ORM/query layer (package chosen at design time). Schema and migrations live in `neocom-back` (or a shared infra repo if adopted later). |
+| INFRA-054 | applying | Provision | Provision PostgreSQL (persistence) and Redis (queue and optional pub/sub for SSE fan-out). Config/secrets for DB and Redis in back environments; SSE URL/base path in front environments. Documented in `infra/async-persistence.md`. |
+| INFRA-055 | applying | Checklist | Checklist: PostgreSQL (or approved equivalent) provisioned for processed/calculated node data; Nest persistence module + migrations for list/item records and staleness fields; Redis + BullMQ (or approved queue) for one-by-one background enrichment; Nest `@Sse()` endpoints per list scope with Redis pub/sub if multiple replicas; front adapter with HTTP + cache + authenticated SSE consumer; front panel wiring for in-place SSE merge; DB/Redis secrets in back envs; SSE base path in front envs. See `infra/async-persistence.md`. |
 
 ## UNREGISTERED REQUIREMENTS
 
