@@ -26,7 +26,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
 | `login` | front/login, back/login, esi/sso, esi/login | 13/13 | applying | `feature/login` in front and back. Tasks complete; ESI-012 marked fulfilled outside this apply. Meta work on `feature/agents`. Ready for review / `/git:pr` then archive |
-| `back-nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `infra-sso-config` |
+| `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
 | `front-infrastructure` | front / toolchain | 8/8 | applying | Spec path `front-toolchain`. Branch `feature/infrastructure` from `develop` @ `90a9e42`. WireMock stubs + `npm run wiremock`; Vitest 23/23; Cypress `app.feature` smoke 2/2. Ready for user review (no PR yet) |
 | `front-pilot` | front / pilot | 4/5 | registered | |
 | `front-pilot-panel` | front / pilot-panel | 0/4 | registered | |
@@ -39,11 +39,11 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `infra-developer-install` | infra / developer-install | 0/4 | registered | |
 | `infra-local-config` | infra / local-config | 0/7 | registered | |
 | `cicd-pipeline` | cicd / pipeline | 0/8 | registered | |
-| `front-angular-structure` | front / angular-structure | 0/7 | registered | EPIC-002; STRUCT-001…007; `L2/FRONT/07.ANGULAR-STRUCTURE.md` |
-| `front-node-render` | front / node-render | 0/7 | registered | EPIC-002; NODE-001…017; `L2/FRONT/08.NODE-RENDER.md` |
-| `front-async-sse` | front / async-sse | 0/7 | registered | EPIC-002; FASSE-001…010; companion `back-async-sse` / `infra-async-persistence` |
-| `back-async-sse` | back / async-sse | 0/7 | registered | EPIC-002; BASSE-001…012; Nest list + BullMQ + `@Sse()` |
-| `infra-async-persistence` | infra / async-persistence | 0/4 | registered | EPIC-002; INFRA-050…055; PostgreSQL + Redis provision |
+| `front-angular-structure` | front / angular-structure | 7/7 | applying | EPIC-002; STRUCT-001…007. Branch `feature/angular-structure` from `develop` @ `6bc6535`. Ready for user review (no PR) |
+| `front-node-render` | front / node-render | 7/7 | applying | EPIC-002; NODE-001…017. Branch `feature/node-render` rebased onto `feature/angular-structure` @ `28b8334`. Ready for user review (no PR) |
+| `front-async-sse` | front / async-sse | 7/7 | applying | EPIC-002; FASSE-001…010. Branch `feature/async-sse` rebased onto `feature/node-render` @ `96dcabd`. Ready for user review (no PR) |
+| `back-async-sse` | back / async-sse | 7/7 | applying | EPIC-002; BASSE-001…012. Branch `feature/async-sse` from `develop` @ `6a030c1`. In-memory default; TypeORM/BullMQ when `DATABASE_URL`/`REDIS_URL` set. Ready for user review (no PR) |
+| `infra-async-persistence` | infra / async-persistence | 4/4 | applying | EPIC-002; INFRA-050…055. Docs + `infra/docker-compose.async-persistence.yml` on `feature/agents`. Companion front/back applying |
 
 Delta specs usually live at `changes/<system>-<feature>/specs/<system>/<feature>/spec.md`. A multi-system feature may use one change folder (for example `changes/login/`) with several capability specs underneath.
 
