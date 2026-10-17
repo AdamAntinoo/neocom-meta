@@ -6,7 +6,7 @@
 | Status | registered in OpenSpec |
 | Owners | `neocom-front`, `neocom-back` (ESI-012 may touch `neocom-esi`) |
 | Related L2 | `L2/FRONT/06.LOGIN.md`, `L2/BACK/BACK-LOGIN.md`, `L2/ESI/ESI-SSO.md`, `L2/ESI/ESI-LOGIN.md`, INFRA-041…042 |
-| OpenSpec | `login` (capabilities `front/login`, `back/login`, `esi/sso`, `esi/login`); related `infra-sso-config` |
+| OpenSpec | `login` (capabilities `front/login`, `back/login`, `esi/sso`, `esi/login`); related `nestjs-sso-config` |
 | Sources | https://developers.eveonline.com/docs/services/sso/ |
 
 ## Intent
@@ -26,7 +26,7 @@ Authenticate to NEOCOM with **EVE Online SSO**. The app path is **Authorization 
 
 - Non-EVE identity providers
 - Full character/corporation authorization matrix beyond establishing a session
-- Env / Kubernetes secret wiring (`infra-sso-config`)
+- Env / Kubernetes secret wiring (`nestjs-sso-config`, NestJS Config)
 
 ## Notes
 

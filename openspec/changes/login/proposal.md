@@ -27,6 +27,6 @@ NEOCOM login spans the front, the back, and the ESI SSO contract. Those pieces w
 ## Impact
 
 - Owning repositories: **`neocom-front`**, **`neocom-back`**; ESI tool notes may touch **`neocom-esi`** for ESI-012
-- Related OpenSpec (stays separate): `infra-sso-config` (INFRA-041…042)
+- Related OpenSpec (stays separate): `nestjs-sso-config` (INFRA-041…042)
 - Delivery branch: `feature/login` from `develop`
 - Supersedes the former change folders `front-login`, `back-login`, `esi-sso`, and `esi-login`

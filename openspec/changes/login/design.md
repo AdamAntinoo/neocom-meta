@@ -22,7 +22,7 @@ One OpenSpec change holds every login capability. Delta specs keep their origina
 | Change name | `login` (one feature, several capability specs) |
 | Primary flow for the app | Authorization Code (`esi/sso` + front/back login) |
 | PKCE note | Kept under `esi/login` inside this change |
-| Env / k8s secrets | Still `infra-sso-config` |
+| Env / k8s secrets | Still `nestjs-sso-config` (NestJS Config) |
 | Delivery branch | `feature/login` from `develop` |
 
 ## Risks

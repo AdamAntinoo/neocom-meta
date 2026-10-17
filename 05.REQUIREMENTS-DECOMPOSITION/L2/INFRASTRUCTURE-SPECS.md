@@ -101,6 +101,7 @@ OpenSpec change: `cicd-pipeline` → `specs/cicd/pipeline/spec.md`
 | `infra-style-modules` | `infra/style-modules` | INFRA-040 |
 | `nestjs-sso-config` | `back/nestjs-sso-config` | INFRA-041 … INFRA-042 |
 | `infra-async-persistence` | `infra/async-persistence` | INFRA-050 … INFRA-055 |
+| `infra-test-commands` | `infra/test-commands` | INFRA-060 … INFRA-064 |
 
 ---
 
@@ -141,6 +142,20 @@ Source: `L2/02.EPIC-ANGULAR-CODIFICATION.async-infra.md` (EPIC-002). Companion: 
 | INFRA-053 | applying | Persistence | A relational database is required. Prefer PostgreSQL unless programme infra already standardises another engine. Access from Nest via an official or Nest-supported ORM/query layer (package chosen at design time). Schema and migrations live in `neocom-back` (or a shared infra repo if adopted later). |
 | INFRA-054 | applying | Provision | Provision PostgreSQL (persistence) and Redis (queue and optional pub/sub for SSE fan-out). Config/secrets for DB and Redis in back environments; SSE URL/base path in front environments. Documented in `infra/async-persistence.md`. |
 | INFRA-055 | applying | Checklist | Checklist: PostgreSQL (or approved equivalent) provisioned for processed/calculated node data; Nest persistence module + migrations for list/item records and staleness fields; Redis + BullMQ (or approved queue) for one-by-one background enrichment; Nest `@Sse()` endpoints per list scope with Redis pub/sub if multiple replicas; front adapter with HTTP + cache + authenticated SSE consumer; front panel wiring for in-place SSE merge; DB/Redis secrets in back envs; SSE base path in front envs. See `infra/async-persistence.md`. |
+
+## I. Testing command catalog — registered in OpenSpec
+
+OpenSpec change: `infra-test-commands` → `specs/infra/test-commands/spec.md`.
+
+Source: `L2/03.EPIC-TESTING.command-catalog.md` (EPIC-003).
+
+| ID | Status | Area | Requirement |
+| --- | --- | --- | --- |
+| INFRA-060 | registered | Test commands | There SHALL be a **catalog of stable, common testing commands** shared across NEOCOM projects. Names SHALL be **short and clear**. |
+| INFRA-061 | registered | Test commands | Front and back MAY differ in how each command is implemented, but the catalog names and intent SHALL stay the same so agents and developers use one vocabulary. |
+| INFRA-062 | registered | Test commands | The catalog SHALL cover separately: **TDD** (unit testing — project unit runner, e.g. Vitest on front and back); **BDD** (acceptance testing — Cypress with Gherkin); **SDD** (integration / full automated UI testing — defined later; SHALL cover cross-cutting automated UI tests beyond acceptance scenarios). |
+| INFRA-063 | registered | Test commands | Each catalog entry SHALL include the **environment setup** required to run that layer (for example Node/nvm, WireMock or mocks, app under test, Cypress binary). |
+| INFRA-064 | registered | Test commands | There SHALL also be a command that runs **all testing layers in sequence** (TDD, then BDD, then SDD when defined), after applying the setup each layer needs. |
 
 ## UNREGISTERED REQUIREMENTS
 

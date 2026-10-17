@@ -1,7 +1,0 @@
-# EPIC-001 - LOGIN PROCEDURE — back
-
-Extracted from `L1/01.EPIC-LOGIN-PROCEDURE.md`.
-
-Placed requirements: `L2/BACK/BACK-LOGIN.md` (BACK-014 … BACK-017).
-
-## UNREGISTERED REQUIREMENTS

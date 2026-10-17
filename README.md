@@ -29,19 +29,19 @@ Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain
 
 | Command | Skill | What it does |
 | --- | --- | --- |
-| `/spec-collect` | `spec-collect` | Turn `02.SOURCES` into L1 requirements |
-| | `extract-requirements-from-urls` | Fetch documentation URLs into `02.SOURCES/extracted` and a Graphify map |
-| `/neo:register-spec` | `register-requirements`, `spec-registration` | Review new L1/L2 notes and register them in OpenSpec |
-| `/spec-registration` | `spec-registration` | Same registration workflow as `/neo:register-spec` |
+| `/epic` | `epic` | Author an L1 epic under `05.REQUIREMENTS-DECOMPOSITION/L1/` |
+| `/neo:extract-l2` | `extract-l2` | Convert L1 epics into epic-named L2 files |
+| `/neo:spec-evolution` | `spec-registration` | Review L2 notes and register them in OpenSpec |
 | `/feature-delivery` | `feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop`, then commit |
 | `/neocom-git-workflow` | `neocom-git-workflow` | Commit, branch, and pull-request playbook for `/neocom-git` |
-| `/neo:pr` | `neo-pr` | Commit pending work and prepare pull requests. No project means the three active repositories. `/neo:pr neocom-front` selects one |
+| `/git:commit` | `git-commit` | Commit all pending changes on one repository's current branch. `/git:commit neocom-front` requires a project |
+| `/git:pr` | `git-pr` | Commit pending work and prepare pull requests. No project means the three active repositories. `/git:pr neocom-front` selects one |
 
 OpenSpec also provides `/opsx-explore`, `/opsx-propose`, `/opsx-apply`, `/opsx-update`, `/opsx-sync`, and `/opsx-archive`, with matching skills under `.cursor/skills/`.
 
 Agents for the active projects are `/neocom-meta`, `/neocom-front`, `/neocom-back`, and `/neocom-git`. `/verifier` checks work after it is claimed done.
 
-Feature delivery commits on `feature/<feature-name>` created from `develop`. If that branch does not exist, create it. The pull request into `develop` waits until you have reviewed and tested. `/neo:pr` is the request to commit and prepare that pull request. It does not merge.
+Feature delivery commits on `feature/<feature-name>` created from `develop`. If that branch does not exist, create it. The pull request into `develop` waits until you have reviewed and tested. `/git:commit <project>` commits pending work on the current branch. `/git:pr` is the request to commit and prepare that pull request. It does not merge.
 
 ## Configuration
 
@@ -54,17 +54,18 @@ NEOCOM project code is **60**. A service port is that code, then the setup digit
 | Service `1` | `neocom-front` |
 | Service `2` | `neocom-back` |
 
-| Setup | Front | Back |
-| --- | --- | --- |
-| Dev watch | **6001** | **6002** |
-| Stable testing | **6011** | **6012** |
+| Setup | Front | Back | Postgres | Redis |
+| --- | --- | --- | --- | --- |
+| Dev watch | **6001** | **6002** | **6003** | **6004** |
+| Stable testing | **6011** | **6012** | **6013** | **6014** |
 
-Use one setup for both services. The front proxy for `/v1/pilots` in `neocom-front/config/backends.json` must target the back port of that same setup.
+Use one setup for both services. The front proxy for `/v1/pilots` in `neocom-front/config/backends.json` must target the back port of that same setup. After the back port, Postgres takes the next number and Redis the one after that.
 
 | Setup | Where the port is set |
 | --- | --- |
-| Dev watch, back | `PORT=6002` in `neocom-back/.env` (copied from `.env.example`) |
+| Dev watch, back | `PORT=6002` in `neocom-back/.env.application` |
 | Dev watch, front | `npm run start:dev -- --port 6001` |
+| Dev watch, Postgres / Redis | `neocom-back/tools/docker` host ports `6003` / `6004`; `DATABASE_URL` / `REDIS_URL` in `.env.async` |
 | Stable, back | `PORT=6012` |
 | Stable, front | `server.port` in `neocom-front/config/backends.json` is `6011`. The `/v1/pilots` route targets `http://127.0.0.1:6012` |
 
@@ -118,7 +119,7 @@ nvm use
 npm install
 ```
 
-In `neocom-back`, copy `.env.example` to `.env` when that file is missing. For the dev-watch setup set `PORT=6002`.
+In `neocom-back`, set `PORT=6002` in `.env.application` for the dev-watch setup.
 
 ### 4. Start the service chain
 

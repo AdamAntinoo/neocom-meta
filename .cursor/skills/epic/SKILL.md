@@ -36,11 +36,24 @@ Write the file in this shape. The title is the epic id, then ` - `, then the epi
 
 ```markdown
 # EPIC-001 - LOGIN PROCEDURE
+
+## Spec traceability
+
+| Field | Value |
+| --- | --- |
+| Status | `none` |
+| L2 | |
+| OpenSpec changes | |
+| Skip | |
+| Index | `L1/TRACEABILITY.md` |
+
 ## Goals
 The goal of this epic is to define the login procedure for the application.
 ```
 
 `## Goals` holds the description from the prompt, unchanged.
+
+Also add a row to `L1/TRACEABILITY.md` with status `none`. Agents update both when `/neo:extract-l2`, `/neo:spec-evolution`, apply, or archive touch this epic.
 
 ## Later prompts
 

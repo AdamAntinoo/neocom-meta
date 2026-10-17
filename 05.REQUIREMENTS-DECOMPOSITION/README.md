@@ -2,13 +2,15 @@
 
 | Level | Path | Role |
 | --- | --- | --- |
-| Programme | `../01.PROGRAMME-DEFINITION/` | Architecture and active features (updated from inputs + development) |
-| Sources | `../02.SOURCES/` | External docs and extracted notes |
-| L1 | `L1/NN.EPIC-NAME.md` | One file per epic, opened by `/epic`. `NN` starts at `01`. `EPIC-NAME` is `EPIC-` plus the uppercase name |
-| L2 epic | `L2/NN.EPIC-NAME/` | Extraction of one open epic. Slice files: `front.md`, `back.md`, `cicd.md`, `architecture.md`, `common.md` when needed. New notes sit under `UNREGISTERED REQUIREMENTS` |
+| Programme | `../01.PROGRAMME-DEFINITION/` | Architecture and active features (updated from L1/L2 + development) |
+| L1 | `L1/NN.EPIC-NAME.md` | One file per epic, opened by `/epic`. `NN` starts at `01`. Each epic has `## Spec traceability` linking L2 and OpenSpec |
+| L1 index | `L1/TRACEABILITY.md` | Epic → OpenSpec status index; agents skip `applied` / `archived` material on later extract/register |
+| L2 epic extract | `L2/NN.EPIC-NAME.md` or `L2/NN.EPIC-NAME.<group>.md` | Extraction of one open epic. Epic stem in the file name for traceability. One or more files by topic. New notes sit under `UNREGISTERED REQUIREMENTS` |
 | L2 | `L2/<system>/` | Decomposed specs by system (`FRONT`, `DOMAIN`, infrastructure, CI/CD) used in **Spec Registration** |
 
-`/neo:extract-l2` reads L1 only and writes new notes under `UNREGISTERED REQUIREMENTS` in the matching slice under `L2/NN.EPIC-NAME/`. The L2 tree already on disk is the record of generated work. A passage that is already in an epic slice, a system file, `L2/DOMAIN/MODELS/`, or `L2/INFRASTRUCTURE-SPECS.md` is not written again. A passage that spans repositories goes in `common.md` when it is one shared contract, or is duplicated into each owning slice when each repository has a distinct implementable part.
+L1 is authored with `/epic` (and refined in the epic file). There is no `/spec-collect` step and no `02.SOURCES` intake into L1.
+
+`/neo:extract-l2` reads L1 only and writes new notes under `UNREGISTERED REQUIREMENTS` in epic-named L2 files. It does not force an epic directory or a per-repository split. The L2 tree already on disk is the record of generated work. A passage that is already in an epic-named file, a legacy epic directory, a system file, `L2/DOMAIN/MODELS/`, or `L2/INFRASTRUCTURE-SPECS.md` is not written again.
 
 `/neo:spec-evolution` reads L2 only. Optional L2 paths after the command limit the run to those files; with no paths, every L2 file is processed. It reviews those notes, moves each item into the file for its system and feature, then moves it into an OpenSpec change `<system>-<feature>` with the spec at `openspec/changes/<system>-<feature>/specs/<system>/<feature>/spec.md`.
 
@@ -16,8 +18,8 @@ A note that duplicates an existing requirement, or is very similar to one, is no
 
 ## Agent commands
 
-1. `/spec-collect` — process `02.SOURCES` → update `L1/`
-2. `/neo:extract-l2` — convert L1 epics into `L2/NN.EPIC-NAME/` slice files, skipping passages the L2 tree already holds
+1. `/epic` — author or extend an L1 epic under `L1/`
+2. `/neo:extract-l2` — convert L1 into epic-named L2 file(s). No args: pending epics; args: only those epics. Skip passages the L2 tree already holds
 3. `/neo:spec-evolution` — review L2 `UNREGISTERED REQUIREMENTS` and move them into OpenSpec. Optional L2 paths limit the run to those files
 4. `/feature-delivery` — apply a registered feature on `feature/<feature>` from `develop` and commit. The user reviews and tests. Then open a pull request into `develop`. Archive opens a pull request from `develop` into `main`
 
@@ -37,6 +39,6 @@ A note that duplicates an existing requirement, or is very similar to one, is no
 | `cicd-pipeline` | cicd | pipeline | INFRA-030…039 |
 | `infra-style-modules` | infra | style-modules | INFRA-040 |
 | `login` | front, back, esi | login / sso | `L2/FRONT/06.LOGIN.md`, `L2/BACK/BACK-LOGIN.md`, `L2/ESI/ESI-SSO.md`, `L2/ESI/ESI-LOGIN.md` |
-| `infra-sso-config` | infra | sso-config | INFRA-041…042 |
+| `nestjs-sso-config` | back | nestjs-sso-config | INFRA-041…042 |
 
-L1 has no collected items yet. These changes cite L2 IDs.
+OpenSpec changes cite L2 IDs. L1 epics record the same linkage under `## Spec traceability` and in `L1/TRACEABILITY.md` so a later `/neo:extract-l2` or `/neo:spec-evolution` skips passages already processed or applied.

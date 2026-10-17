@@ -1,15 +1,15 @@
 ---
-description: Spec Collect, Spec Registration, and feature delivery pipeline
+description: Spec Registration and feature delivery pipeline (L1 authored via epic)
 alwaysApply: true
 ---
 
 # NEOCOM spec pipeline
 
-Requirement collection is an agent process owned by `/neocom-meta`.
+Requirement collection is an agent process owned by `/neocom-meta`. L1 epics are authored with `/epic` (and refined in place). There is no `/spec-collect` step and no `02.SOURCES` intake into L1.
 
 ```text
-02.SOURCES  --/spec-collect-->  L1 (05.REQUIREMENTS-DECOMPOSITION/L1)
-L1          --/neo:extract-l2--> L2/NN.EPIC-NAME/{front,back,cicd,architecture,common}.md
+/epic  -->  L1 (05.REQUIREMENTS-DECOMPOSITION/L1)
+L1          --/neo:extract-l2--> L2/NN.EPIC-NAME.md and/or L2/NN.EPIC-NAME.<group>.md
 L2 UNREGISTERED REQUIREMENTS
             --/neo:spec-evolution--> openspec/changes/<system>-<feature>/
                                       specs/<system>/<feature>/spec.md
@@ -28,14 +28,14 @@ registered feature
 | Command | Purpose |
 | --- | --- |
 | `/epic` | Open an epic. The prompt is the name, then the goals. The L1 file is `L1/NN.EPIC-NAME.md`, numbered automatically from `01` |
-| `/neocom-methodology` | Design, spec, develop, test, and deploy across repositories. An epic is an L1 file; an open epic extracts to `L2/NN.EPIC-NAME/` with slice files |
-| `/spec-collect` | Process `02.SOURCES`; generate/refresh L1 requirements list |
-| `/neo:extract-l2` | Convert L1 epics into `L2/NN.EPIC-NAME/` slice files (`front`, `back`, `cicd`, `architecture`, `common`). Skip passages the current L2 tree already holds |
+| `/neocom-methodology` | Design, spec, develop, test, and deploy across repositories. An epic is an L1 file; extract yields epic-named L2 file(s) |
+| `/neo:extract-l2` | Convert L1 epics into epic-named L2 files. No args: pending epics; args: only those epics. Skip passages the L2 tree already holds |
 | `/neo:spec-evolution` | Review L2 notes and move them into OpenSpec. Optional L2 paths limit the run to those files |
 | `/neocom-code` | Implement product code and apply a registered OpenSpec change. Git stays with `/neocom-git` |
 | `/feature-delivery` | Apply a registered feature on `feature/<feature>` from `develop` and commit. Several features can be open. Rebase when one needs another's code. One pull request into `develop` can carry several features. Archive opens a pull request from `develop` into `main` |
 | `/neocom-git` | Commits, branches, and pull requests. Follow recorded templates under `.cursor/templates/` |
-| `/neo:pr` | Commit pending work and prepare pull requests. `/neo:pr <project>` selects one active repository; no project applies to `neocom-meta`, `neocom-front`, and `neocom-back` |
+| `/git:commit` | Commit all pending changes on one repository's current branch. `/git:commit <project>` requires a repo name |
+| `/git:pr` | Commit pending work and prepare pull requests. `/git:pr <project>` selects one active repository; no project applies to `neocom-meta`, `neocom-front`, and `neocom-back` |
 
 Skills live under `.cursor/skills/`. Slash stubs live under `.cursor/commands/`.
 
@@ -47,7 +47,7 @@ Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the us
 
 ## Intake
 
-`/neo:extract-l2` reads L1 only and writes new notes under `UNREGISTERED REQUIREMENTS` in slice files under `L2/NN.EPIC-NAME/`. It treats the current L2 tree as the record of work already generated: that epic directory, `L2/<SYSTEM>/`, `L2/DOMAIN/MODELS/`, and `L2/INFRASTRUCTURE-SPECS.md`. A passage already stated there is reported and not written again.
+`/neo:extract-l2` reads L1 only. With no arguments it processes epics that still have pending extract work; with arguments it processes only the named epic(s). It writes new notes under `UNREGISTERED REQUIREMENTS` in epic-named L2 files (`L2/NN.EPIC-NAME.md` or `L2/NN.EPIC-NAME.<group>.md`). It does not require an epic directory or a per-repository split. It treats the current L2 tree as the record of work already generated: those epic-named files, legacy `L2/NN.EPIC-NAME/` directories, `L2/<SYSTEM>/`, `L2/DOMAIN/MODELS/`, and `L2/INFRASTRUCTURE-SPECS.md`. A passage already stated there is reported and not written again.
 
 `/neo:spec-evolution` reads L2 only. Optional arguments are L2 file paths; when given, only those files are processed. New requirements wait under a heading exactly named `UNREGISTERED REQUIREMENTS` in an L2 file. On processing:
 
@@ -72,10 +72,32 @@ Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the us
 
 When the user provides an example commit message, branch name, or pull request body, store it under `neocom-meta/.cursor/templates/` and use that example on later actions. Do not keep a second style beside a recorded example.
 
+## OpenSpec change status register
+
+After **any** OpenSpec change under `neocom-meta/openspec/`, update `openspec/CHANGE-STATUS.md` in the same turn. That includes registering a change, editing proposal/specs/design/tasks, marking tasks done or cancelled, starting or finishing apply, accepting a pull request into `develop`, and archiving.
+
+1. Run `npx openspec list --json` (after `nvm use` in `neocom-meta`) and refresh task counts.
+2. Set status (`registered` / `applying` / `applied` / `archived`) and notes to match reality.
+3. When a change is archived, move its row to **Archived** and point at the main spec path.
+4. Follow the steps already listed in `openspec/CHANGE-STATUS.md`.
+
+Do not leave `CHANGE-STATUS.md` stale after OpenSpec work.
+
+When registering a new change or folding several changes into one feature, refresh `openspec/SPECS-ABSTRACT.md` (why, capabilities, owners, integration clusters) so planners can see the active register at a glance.
+
+## L1 epic traceability
+
+Keep two records in sync so later extract/register runs can **skip** work already processed or applied:
+
+1. `## Spec traceability` on each `L1/NN.EPIC-NAME.md` (status, L2 path, OpenSpec changes, skip note)
+2. Central index `L1/TRACEABILITY.md`
+
+Update both after extract, OpenSpec register, apply start, accept into `develop`, and archive. Status values: `none` → `extracted` → `registered` → `applying` → `applied` → `archived`. Passages covered by `applied` or `archived` OpenSpec changes are not re-extracted or re-registered; only new L1 material is processed.
+
 ## Rules
 
-- Spec Collect does not write OpenSpec changes.
-- Extract L2 does not write OpenSpec changes and does not place notes in `L2/<SYSTEM>/`.
+- Extract L2 does not write OpenSpec changes and does not place notes in final `L2/<SYSTEM>/` feature registers (except optional epic-named files under a system folder). It does not force per-repo slice files.
 - Spec Registration does not read L1 and does not invent requirements.
-- Product implementation stays out of `/spec-collect`, `/neo:extract-l2`, and `/neo:spec-evolution`.
-- When collect, registration, or development clarifies architecture or features, update `01.PROGRAMME-DEFINITION/`.
+- Product implementation stays out of `/neo:extract-l2` and `/neo:spec-evolution`.
+- When registration or development clarifies architecture or features, update `01.PROGRAMME-DEFINITION/`.
+- When OpenSpec artifacts change, update `openspec/CHANGE-STATUS.md` (see above).

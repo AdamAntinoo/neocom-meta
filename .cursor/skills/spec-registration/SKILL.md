@@ -16,19 +16,19 @@ Reviews L2 notes and moves them into OpenSpec. L1 conversion is `/neo:extract-l2
 
 Optional arguments after the command name are L2 file paths. When one or more are given, process only those files. When none are given, process every file under `05.REQUIREMENTS-DECOMPOSITION/L2/`.
 
-Accept a path relative to `neocom-meta`, relative to `05.REQUIREMENTS-DECOMPOSITION/L2/`, or an absolute path. Resolve each argument to a file under `L2/`, or to every markdown slice under an epic directory when the argument is that directory. If an argument is missing or is outside `L2/`, stop and report that argument. Do not fall back to the full tree when any argument was given.
+Accept a path relative to `neocom-meta`, relative to `05.REQUIREMENTS-DECOMPOSITION/L2/`, or an absolute path. Resolve each argument to a file under `L2/`. A glob or prefix such as `L2/01.EPIC-LOGIN-PROCEDURE` may mean every matching `L2/01.EPIC-LOGIN-PROCEDURE.md` and `L2/01.EPIC-LOGIN-PROCEDURE.*.md` (and a legacy epic directory if it still exists). If an argument is missing or is outside `L2/`, stop and report that argument. Do not fall back to the full tree when any argument was given.
 
 Examples:
 
 - `/neo:spec-evolution` — every L2 file
-- `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE/` — every slice in that epic
-- `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE/front.md`
-- `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE/common.md L2/02.EPIC-ANGULAR-CODIFICATION/front.md`
+- `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE.md` — one epic extract
+- `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE.login.md`
+- `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE` — all files whose names start with that epic stem
 - `/neo:spec-evolution L2/FRONT/04.DASHBOARD.md L2/ESI/ESI-LOGIN.md`
 
 ## Review
 
-1. Resolve the scope above. With no arguments, read every file under `05.REQUIREMENTS-DECOMPOSITION/L2/`, including slices under `L2/NN.EPIC-NAME/` (`front.md`, `back.md`, `cicd.md`, `architecture.md`, `common.md`, and other named slices), nested system folders (`L2/FRONT/`, `L2/BACK/`, `L2/DOMAIN/`, `L2/ESI/`, and later `L2/CICD/`), and `L2/INFRASTRUCTURE-SPECS.md`. With arguments, read only the resolved files (a path may be an epic directory or a single slice). Do not read `L1/`.
+1. Resolve the scope above. With no arguments, read every file under `05.REQUIREMENTS-DECOMPOSITION/L2/`, including epic-named extracts (`L2/NN.EPIC-NAME.md`, `L2/NN.EPIC-NAME.*.md`), legacy epic directories if present, nested system folders (`L2/FRONT/`, `L2/BACK/`, `L2/DOMAIN/`, `L2/ESI/`, and later `L2/CICD/`), and `L2/INFRASTRUCTURE-SPECS.md`. With arguments, read only the resolved files. Do not read `L1/`.
 2. Collect every section headed `UNREGISTERED REQUIREMENTS` that has one or more notes in the scoped files. Ignore every note under the heading `DUPLICATED`. Leave unscoped L2 files unchanged.
 3. For each note, decide and record:
    - System: `front`, `infra`, `cicd`, `back`, `domain`, or a system the user names
@@ -82,8 +82,14 @@ Do not rebuild the graph in this command. `graphify update` is AST-only and does
 5. **Traceability**
    - In the OpenSpec proposal (or a short `neocom-meta` note under `05.REQUIREMENTS-DECOMPOSITION/`), record which L2 IDs were registered and the OpenSpec change name(s).
    - Update `01.PROGRAMME-DEFINITION/` when the review names a new feature, including `FEATURES/` with the L2 IDs and OpenSpec change names.
+   - **L1 tag (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update that epic’s `## Spec traceability` and the row in `L1/TRACEABILITY.md`: set status at least `registered`, list OpenSpec change names and capabilities. Later extract/register runs skip material covered by `applied` / `archived` changes.
 
-6. **Boundaries**
+6. **Change status register (mandatory)**
+   - Update `openspec/CHANGE-STATUS.md` for every new or changed OpenSpec change in this run.
+   - Refresh task counts with `npx openspec list --json`. Add or adjust rows (`registered`, notes, system/feature). Do not leave the register stale.
+   - When folding several changes into one feature, also refresh `openspec/SPECS-ABSTRACT.md`.
+
+7. **Boundaries**
    - Do not implement product code in front/back from this command.
    - Do not edit `neocom-front` / `neocom-back` application sources.
    - Meta writes, including OpenSpec artifacts, stay under `neocom-meta`.
@@ -93,5 +99,6 @@ Do not rebuild the graph in this command. `graphify update` is AST-only and does
 1. The scope (all L2 files, or the list that was processed)
 2. The review (notes found, system, feature, destination)
 3. OpenSpec change names and paths
-4. Notes skipped, and why
-5. Next step: `/feature-delivery` when the user wants a registered feature applied
+4. That `openspec/CHANGE-STATUS.md` and L1 traceability (`## Spec traceability` + `L1/TRACEABILITY.md`) were updated
+5. Notes skipped, and why
+6. Next step: `/feature-delivery` when the user wants a registered feature applied

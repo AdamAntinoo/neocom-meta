@@ -33,6 +33,7 @@ Each repository is an independent clone, a sibling of `neocom-meta`. The parent 
 2. Implement on the `feature/<feature>` branch `/neocom-git` created from `develop`. When that branch is missing, stop and ask `/neocom-git` to create it from `develop`. Other feature branches may already be open. Stay on this feature's files. When this feature needs code that is only on another open feature branch, stop and ask `/neocom-git` to rebase this branch onto that one. Do not start this branch from the other feature.
 3. Mark the tasks you finished in that change. Leave the commit to `/neocom-git`.
 4. Run the tests the change names.
+5. Update `neocom-meta/openspec/CHANGE-STATUS.md` whenever OpenSpec tasks or apply status change: refresh counts from `npx openspec list --json`, keep status `applying` while on the feature branch, and note progress.
 
 ## Front
 
