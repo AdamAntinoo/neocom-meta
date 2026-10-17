@@ -5,7 +5,7 @@
 | ID | `FEAT-INIT` |
 | Status | recorded (active in programme definition) |
 | Owners | `neocom-front`, `neocom-back` (when present), `neocom-meta` for programme/config |
-| Related L1 | *(to be linked after `/spec-collect`)* |
+| Related L1 | Link epic IDs when `/epic` / L2 registration covers initialization |
 | Sources | Programme repos; app bootstrap conventions; NestJS / platform docs as applicable |
 
 ## Intent
@@ -42,4 +42,4 @@ Bring the NEOCOM application and supporting programme configuration to a usable 
 - **Local K8s:** deployment target is local Kubernetes; from `neocom-meta`, `npm run k8s:start` / `k8s:dashboard` bootstrap the cluster (minikube preferred).
 - **Start page:** `neocom-front` opens on the dashboard home page. `/` redirects to `/dashboard` (`DashboardHomePageComponent`). Header panels `app-info-panel` and `server-info-panel`, plus `v1-pilot-panel`, are empty shells under `src/app/panels`. Cypress catalog tags (`cy-section-name`, `cy-field-label`, `cy-field-value`) are recorded in `neocom-front/docs/ui-component-catalog.md`.
 - Record WireMock stub paths and remaining first-run issues here as initialization continues.
-- When Spec Collect / Spec Registration produce related L1/L2 items, link their IDs in this file.
+- When `/epic` / Spec Registration produce related L1/L2 items, link their IDs in this file.

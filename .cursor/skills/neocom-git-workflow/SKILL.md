@@ -52,7 +52,7 @@ EOF
 
 5. Verify with `git status`.
 
-**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked, when `/neocom-git` or `/neo:pr` is invoked to commit, or when an OpenSpec feature apply is in progress. That apply instructs this agent to commit on `feature/<feature>` created from `develop`. `/neo:pr` also prepares the pull request; see `.cursor/skills/neo-pr/SKILL.md`.
+**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked, when `/neocom-git`, `/git:commit`, or `/git:pr` is invoked to commit, or when an OpenSpec feature apply is in progress. That apply instructs this agent to commit on `feature/<feature>` created from `develop`. `/git:commit <project>` commits on the current branch only; `/git:pr` also prepares the pull request. See `.cursor/skills/git-commit/SKILL.md` and `.cursor/skills/git-pr/SKILL.md`.
 
 ## PR workflow
 
@@ -98,24 +98,31 @@ Each repository is its own project. The parent `neocom` repository is deprecated
 | Item | Convention |
 | --- | --- |
 | Integration | `develop` (do not branch feature work from `main` while `develop` is the integration branch) |
-| Feature | `feature/<feature-name>` created from `develop`. See `.cursor/templates/branch-names.md` |
+| Feature (front/back) | `feature/<feature-name>` created from `develop`. See `.cursor/templates/branch-names.md` |
+| Feature (`neocom-meta`) | `feature/agents` (default) or `feature/cicd` (when commanded). Rebase cicd onto agents or develop when the user asks. See `.cursor/templates/branch-names.md` |
 | Fix | `fix/…` from `develop` |
 | Release | `release/x.y.z` |
 | Tags | `vX.Y.Z` (only when user requests a release tag) |
 
+### Version sync before a pull request (mandatory)
+
+Do not open a pull request until the package version matches GitVersion `MajorMinorPatch`.
+
+| Repository | Command |
+| --- | --- |
+| `neocom-front` | `nvm use` then `npm run version:sync` — updates `package.json`, both `appVersion` fields, `index.html` loading text, Cypress version expectation, and `.app-banner.txt` |
+| `neocom-back` | `nvm use` then `npm run version:sync` |
+| Node libraries | `npm run version:sync` when in scope |
+
+Commit any files that command changes on the feature branch, then open the PR. Use `MajorMinorPatch` only. Do not write `SemVer`. Do not use `npm version`.
+
 ### New feature branch in `neocom-front`
 
-After `feature/<feature-name>` exists from `develop`, **before** other feature work:
-
-1. `VERSION="$(gitversion /nocache /showvariable MajorMinorPatch)"` (with `nvm use` in that repo)
-2. `npm pkg set "version=${VERSION}"`
-3. Set `appVersion: '<VERSION>'` in `src/environments/environment.development.ts` and `src/environments/environment.ts`
-4. Put that version in the `src/index.html` loading message under `app-root` (for example `LOADING NEOCOM APPLICATION 0.1.0...`)
-
-Use `MajorMinorPatch` only. Do not write `SemVer`.
+After `feature/<feature-name>` exists from `develop`, run `npm run version:sync` early (same command as above). Run it again before the pull request if the calculated version may have moved.
 
 **Checklist before tagging / promoting:**
 
+- [ ] `version:sync` run; version files committed
 - [ ] Relevant tests green (or deferred with reason)
 - [ ] OpenSpec change status noted
 - [ ] The release stays inside the repository that owns it

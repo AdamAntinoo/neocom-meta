@@ -5,6 +5,6 @@ OpenSpec change: `login` → `specs/esi/login/spec.md`.
 
 | ID | Status | Requirement |
 | --- | --- | --- |
-| ESI-012 | registered | A login feature starts the PKCE token management used by the ESI tool |
+| ESI-012 | fulfilled | A login feature starts the PKCE token management used by the ESI tool — already met outside the login apply; login tasks.md marks the item complete without further work |
 
 ## UNREGISTERED REQUIREMENTS

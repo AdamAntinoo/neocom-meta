@@ -20,5 +20,16 @@ Index of features recognized in the programme. Update this file when a feature b
 | CI/CD pipeline | recorded | OpenSpec `cicd-pipeline` | front, meta |
 | App shell | recorded | [app-shell.md](./app-shell.md) | front |
 | Dashboard | recorded | [dashboard.md](./dashboard.md) | front |
+| Angular structure | registered (`front-angular-structure`) | [angular-structure.md](./angular-structure.md) | front |
+| Node render | registered (`front-node-render`) | [node-render.md](./node-render.md) | front |
+| Async SSE (front) | registered (`front-async-sse`) | [async-sse.md](./async-sse.md) | front |
+| Async SSE (back) | registered (`back-async-sse`) | [async-sse.md](./async-sse.md) | back |
+| Async persistence | registered (`infra-async-persistence`) | [async-persistence.md](./async-persistence.md) | infra, back |
+| BDD / Cypress | registered (`front-bdd-cypress`) | [bdd-cypress.md](./bdd-cypress.md) | front |
+| Mock fixtures | registered (`front-mock-fixtures`) | [mock-fixtures.md](./mock-fixtures.md) | front |
+| Coverage / Sonar | registered (`cicd-coverage-sonar`) | [coverage-sonar.md](./coverage-sonar.md) | cicd, front, back |
+| Testing gates | registered (`cicd-testing-gates`) | [testing-gates.md](./testing-gates.md) | cicd |
+| Test commands | registered (`infra-test-commands`) | [test-commands.md](./test-commands.md) | infra, front, back |
+| Backend testing | registered (`back-testing`) | [back-testing.md](./back-testing.md) | back |
 
 Status values: `recorded` (documented, not necessarily implemented) · `in-progress` · `done` · `deferred`.

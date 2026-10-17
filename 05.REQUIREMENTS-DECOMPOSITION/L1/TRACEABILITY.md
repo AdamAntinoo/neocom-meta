@@ -27,7 +27,7 @@ Refresh OpenSpec task counts from `npx openspec list --json` when updating this 
 | --- | --- | --- | --- | --- | --- |
 | `01.EPIC-LOGIN-PROCEDURE.md` | EPIC-001 | applying | `login` (13/13), related `nestjs-sso-config` (0/2) | Legacy `L2/01.EPIC-LOGIN-PROCEDURE/`; new extracts use epic-named files | 2026-10-17 |
 | `02.EPIC-ANGULAR-CODIFICATION.md` | EPIC-002 | applying | `front-angular-structure` (7/7, `feature/angular-structure`), `front-node-render` (7/7, `feature/node-render`), `front-async-sse` (7/7, `feature/async-sse`), `back-async-sse` (7/7, `feature/async-sse`), `infra-async-persistence` (4/4, `feature/agents`); related: `front-app-shell`, `front-dashboard`, `front-pilot`, `front-pilot-panel`, `front-infrastructure` (8/8, applying on `feature/infrastructure`) | Epic extracts + `L2/FRONT/07.ANGULAR-STRUCTURE.md`, `08.NODE-RENDER.md`, `09.ASYNC-SSE.md`, `L2/BACK/BACK-ASYNC-SSE.md`, `INFRASTRUCTURE-SPECS.md` §H | 2026-10-17 |
-| `03.EPIC-TESTING.md` | EPIC-003 | none | | | 2026-10-17 |
+| `03.EPIC-TESTING.md` | EPIC-003 | registered | `front-bdd-cypress`, `front-mock-fixtures`, `cicd-coverage-sonar`, `cicd-testing-gates`, `infra-test-commands`, `back-testing` | Epic extracts + `L2/FRONT/10.BDD-CYPRESS.md`, `11.MOCK-FIXTURES.md`, `L2/CICD/01.COVERAGE-SONAR.md`, `02.TESTING-GATES.md`, `INFRASTRUCTURE-SPECS.md` §I, `L2/BACK/BACK-TESTING.md` | 2026-10-17 |
 
 Non-epic L1 notes (`REQUIREMENTS.md`, `UX.md`, `ESI.md`) are not rows here until an `/epic` owns them.
 

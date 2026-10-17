@@ -40,25 +40,11 @@ uv pip install --python .venv/bin/python graphifyy
 .venv/bin/graphify extract ../neocom-front --out ../neocom-front --force
 ```
 
-### Documentation / token maps from URLs
-
-Graphify can fetch documentation URLs into a local corpus and build a knowledge graph (token / concept map):
-
-```bash
-cd neocom-meta/02.SOURCES
-graphify add "https://example.com/docs" --dir raw
-graphify .
-graphify god-nodes --graph graphify-out/graph.json
-graphify query "your question" --graph graphify-out/graph.json
-```
-
-Use this with the `extract-requirements-from-urls` skill and the catalog in `02.SOURCES/SOURCES.md`. Keep extracted human-readable requirements under `02.SOURCES/extracted/`.
-
 ## Agent guidance
 
 - Prefer OpenSpec when the user wants a reviewable plan or change proposal before implementation.
-- Prefer Graphify when navigating or explaining cross-folder structure and relationships under `neocom/`, and when mapping documentation corpora under `neocom-meta/02.SOURCES`.
-- Prefer `/neocom-meta` + `extract-requirements-from-urls` when reading NestJS / EVE Online SSO sources for requirements.
-- Prefer `/spec-collect` to turn `02.SOURCES` into L1 requirements; prefer `/neo:extract-l2` to convert L1 epics into L2; prefer `/neo:spec-evolution` to review L2 notes and move them into OpenSpec under `<system>/<feature>`; prefer `/feature-delivery` to apply a feature on `feature/<feature>` from `develop`. Several features can be open; rebase when one needs another's code; one pull request into `develop` can carry several features after review. See section 5.9 of `PROGRAMME.md`.
+- After any OpenSpec change under `neocom-meta/openspec/`, update `openspec/CHANGE-STATUS.md` (task counts from `npx openspec list --json`, status, notes, archive rows).
+- Prefer Graphify when navigating or explaining cross-folder structure and relationships under the product repositories and `neocom-meta`.
+- Prefer `/epic` to author L1; prefer `/neo:extract-l2` to convert L1 epics into L2; prefer `/neo:spec-evolution` to review L2 notes and move them into OpenSpec under `<system>/<feature>`; prefer `/feature-delivery` to apply a feature on `feature/<feature>` from `develop`. Several features can be open; rebase when one needs another's code; one pull request into `develop` can carry several features after review. See section 5.9 of `PROGRAMME.md`.
 - Do not re-install these tools on every task; only install or re-init when missing or when the user asks.
 - Product code still belongs in `neocom-front` / `neocom-back`; agent config and docs in `neocom-meta`. Tool artifacts at the `neocom` root are shared ecosystem config.

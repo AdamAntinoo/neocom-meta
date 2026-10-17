@@ -183,13 +183,20 @@ In both branches, never create the root as a side effect: do not run `openspec i
    mv "<changeRoot>" "<planningHome.changesDir>/archive/<target-name>"
    ```
 
-6. **Display summary**
+6. **Update change status register (mandatory for NEOCOM)**
+
+   In `neocom-meta`, update `openspec/CHANGE-STATUS.md`: move the archived change from **Active changes** to **Archived**, set the main spec path, and refresh remaining active task counts with `npx openspec list --json`. Do not leave the register stale after archive.
+
+   Also set the sourcing L1 epic(s) to `archived` in `## Spec traceability` and in `L1/TRACEABILITY.md` when every OpenSpec change for that epic is archived (otherwise leave the highest remaining status).
+
+7. **Display summary**
 
    Show archive completion summary including:
    - Change name
    - Schema that was used
    - Archive location
    - Whether specs were synced (if applicable)
+   - That `openspec/CHANGE-STATUS.md` was updated
    - Note about any warnings (incomplete artifacts/tasks)
 
 **Output On Success**

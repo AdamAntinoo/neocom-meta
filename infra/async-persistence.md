@@ -4,20 +4,23 @@ OpenSpec: `infra-async-persistence`. Companions: `back-async-sse`, `front-async-
 
 ## Services
 
-| Service | Role | Compose |
+| Service | Role | Compose (canonical) |
 | --- | --- | --- |
-| PostgreSQL 16 | Durable store for processed / calculated node records | `infra/docker-compose.async-persistence.yml` |
+| PostgreSQL 16 | Durable store for processed / calculated node records | `neocom-back/tools/docker/docker-compose.yml` |
 | Redis 7 | BullMQ broker + optional SSE fan-out pub/sub | same file |
 
 ```bash
-cd neocom-meta
-docker compose -f infra/docker-compose.async-persistence.yml up -d
+cd neocom-back
+npm run docker:up
+# or: docker compose -f tools/docker/docker-compose.yml up -d
 ```
+
+Programme mirror (same images/credentials): `neocom-meta/infra/docker-compose.async-persistence.yml` — prefer the **back** `tools/docker` stack for day-to-day Nest development.
 
 Default local endpoints:
 
-- Postgres: `postgresql://neocom:neocom@localhost:5432/neocom_async`
-- Redis: `redis://localhost:6379`
+- Postgres: `postgresql://neocom:neocom@localhost:6003/neocom_async` (dev-watch: after back `6002`)
+- Redis: `redis://localhost:6004`
 
 ## Persistence record shape (INFRA-052)
 
@@ -37,8 +40,7 @@ Operations (implemented in `neocom-back`):
 2. **upsertItem** — worker finish
 3. **queryIncompleteOrStale** — worker pickup
 
-Schema + migrations: **`neocom-back`** (INFRA-053).
-
+Schema + migrations: **`neocom-back/tools/db`** via **Flyway** (`npm run db:migrate` in `neocom-back`) (INFRA-053). TypeORM maps entities; it does not own shared schema state.
 ## Environment secrets (INFRA-054)
 
 ### Back (`neocom-back`)
@@ -46,8 +48,8 @@ Schema + migrations: **`neocom-back`** (INFRA-053).
 Add to `.env.application` (or a dedicated `.env.async` loaded by ConfigModule):
 
 ```env
-DATABASE_URL=postgresql://neocom:neocom@localhost:5432/neocom_async
-REDIS_URL=redis://localhost:6379
+DATABASE_URL=postgresql://neocom:neocom@localhost:6003/neocom_async
+REDIS_URL=redis://localhost:6004
 ASYNC_SSE_CHANNEL_PREFIX=neocom:sse:
 ```
 
