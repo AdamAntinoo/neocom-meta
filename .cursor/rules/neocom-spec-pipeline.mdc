@@ -49,7 +49,9 @@ Systems: `front`, `infra`, `cicd`, `back`, `domain`, and any later system the us
 
 `/neo:extract-l2` reads L1 only. With no arguments it processes epics that still have pending extract work; with arguments it processes only the named epic(s). It writes new notes under `UNREGISTERED REQUIREMENTS` in epic-named L2 files (`L2/NN.EPIC-NAME.md` or `L2/NN.EPIC-NAME.<group>.md`). It does not require an epic directory or a per-repository split. It treats the current L2 tree as the record of work already generated: those epic-named files, legacy `L2/NN.EPIC-NAME/` directories, `L2/<SYSTEM>/`, `L2/DOMAIN/MODELS/`, and `L2/INFRASTRUCTURE-SPECS.md`. A passage already stated there is reported and not written again.
 
-`/neo:spec-evolution` reads L2 only. Optional arguments are L2 file paths; when given, only those files are processed. New requirements wait under a heading exactly named `UNREGISTERED REQUIREMENTS` in an L2 file. On processing:
+When an epic register has a **Review** column (EPIC-004 models), extract only rows whose cell is exactly `reviewed`, then set those cells to `extracted`. Leave `to review` sections untouched for a later iteration. Never extract `superseded` or `out of scope`.
+
+`/neo:spec-evolution` reads L2 only. Optional arguments are L2 file paths; when given, only those files are processed. New requirements wait under a heading exactly named `UNREGISTERED REQUIREMENTS` in an L2 file. It does not read L1 to add models that are still `to review`. On processing:
 
 1. Move each item into the file for its system and feature. Create that file when it does not exist.
 2. Give it a stable id and leave the `UNREGISTERED REQUIREMENTS` heading empty.

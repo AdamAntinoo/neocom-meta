@@ -4,7 +4,7 @@ Living programme documentation for NEOCOM. During development and spec processin
 
 | Path | Contents |
 | --- | --- |
-| `ARCHITECTURE/` | Repository and system architecture, including versioned business objects |
+| `ARCHITECTURE/` | Repository and system architecture; `MODELS.md` holds applied/implemented domain-model docs and hierarchy diagrams |
 | `FEATURES/` | Active and planned features |
 
 ## How this relates to other trees

@@ -18,8 +18,9 @@ Active projects:
 | `neocom-meta` | Docs, agents, rules, skills, sources, OpenSpec |
 | `neocom-front` | Frontend app |
 | `neocom-back` | Backend app |
+| `neocom-domain` | Published npm domain library (version **npm-led**) |
 
-Aside for now: `neocom` (deprecated), `neocom-domain`, and `neocom-esi`. Do not commit them and do not open pull requests for them unless the user names that repository.
+Aside for now: `neocom` (deprecated) and `neocom-esi`. Do not commit them and do not open pull requests for them unless the user names that repository.
 
 Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), package versions, release notes, promotion tracking. There is no parent pointer to update.
 
@@ -162,22 +163,9 @@ Align wording with pending L2 IDs `INFRA-030` … `INFRA-039` without registerin
 
 ## Versioning
 
-This agent owns version numbers for the Node libraries (`neocom-domain`, `neocom-esi`). `/neocom-code` does not keep a second scheme.
+### Apps and meta (`neocom-front`, `neocom-back`, `neocom-meta`)
 
-`neocom-domain` uses the same continuous deployment mode. The last package on npm is **0.29.2**. This repository counts from **`v0.30.0`**. Do not recreate `0.29.2` and do not move `v0.30.0`. On `main`, a commit after `v0.30.0` is `0.31.0`, then `0.32.0`.
-
-Publish `neocom-domain` only when the user asks:
-
-1. `npm run version:sync`
-2. `npm run distribute` (test, then build `dist/`)
-3. `npm publish` (the package `files` field ships `dist/` only)
-4. When `HEAD` is not already tagged `v<MajorMinorPatch>`, create that annotated tag so the next calculation counts from the version just published. Do not push the tag unless the user asks.
-
-```bash
-git tag -a "v$(gitversion /nocache /showvariable MajorMinorPatch)" -m "Version source for GitVersion"
-```
-
-The package version is GitVersion **MajorMinorPatch** only: `X.Y.Z`. Do not write GitVersion `SemVer` into `package.json` or into a release script. `SemVer` adds a branch pre-release label such as `0.2.0-character-api.1`.
+GitVersion **MajorMinorPatch** remains the source for app package versions.
 
 On a new **`neocom-front`** feature branch, and again **before every pull request**, run `npm run version:sync` so `MajorMinorPatch` is written into all related version files (see Feature branch version bump above). Do not open a PR without that sync.
 
@@ -188,7 +176,24 @@ Before a release, and whenever a version script is added or edited, review the s
 - `scripts/release.mjs`, when the package has one, reads `MajorMinorPatch` for the figlet header, the commit message, and the pull request
 - `package.json` `"version"` is `X.Y.Z`
 
-Do not use `npm version`; it creates a second git tag. Version-source tags stay `vX.Y.Z`. Do not hand-edit the version except to bring a file back to `MajorMinorPatch` after a bad sync.
+Do not use bare `npm version` on apps (it creates a second git tag). Version-source tags stay `vX.Y.Z`. Do not hand-edit the version except to bring a file back to `MajorMinorPatch` after a bad sync.
+
+### Node library `neocom-domain` (npm-led)
+
+**npm** is the source of truth for the published package version. Do **not** write `package.json` from GitVersion or GitHub tags.
+
+| When | Command |
+| --- | --- |
+| Align local to registry | `nvm use` then `npm run version:sync` (`scripts/version-from-npm.mjs` → `npm view neocom-domain version`) |
+| Before publish | `npm run version:bump:patch` / `version:bump:minor` / `version:bump:major` (`npm version … --no-git-tag-version`) |
+| Publish (user asked) | `npm run distribute` then `npm publish` |
+| After publish | `npm run version:sync` then `npm run version:tag` (annotated `vX.Y.Z` matching npm; do not push unless asked) |
+
+Optional one-shot (minor): `npm run publish:lib` only when the user asks to publish.
+
+Git stays in sync by **tagging after npm publish** (`v` + package version). Push tags only when the user asks. `GitVersion.yml` in this repo is historical and must not drive `package.json`.
+
+`/neocom-code` does not keep a second version scheme for the library.
 
 Tokens stay outside the repository. npm publish reads `NPM_TOKEN` from `~/.zshenv` through `~/.npmrc`. GitHub uses `gh` and `GH_TOKEN`.
 
@@ -199,9 +204,9 @@ For detailed step templates, follow `.cursor/skills/neocom-git-workflow/SKILL.md
 Git slash commands (owned by this agent; names are `/git:…`, not `/neo:…`):
 
 - `/git:commit <project>` — commit all pending changes on that repository's **current** branch. Project is required. Follow `.cursor/skills/git-commit/SKILL.md`.
-- `/git:pr` — commit pending work and prepare the pull request. `/git:pr <project>` limits that to one active repository (`neocom-meta`, `neocom-front`, `neocom-back`, or the short name `meta`, `front`, `back`). With no project, it applies to those three. Follow `.cursor/skills/git-pr/SKILL.md`.
+- `/git:pr` — commit pending work and prepare the pull request. `/git:pr <project>` limits that to one active repository (`neocom-meta`, `neocom-front`, `neocom-back`, `neocom-domain`, or short names `meta`, `front`, `back`, `domain`). With no project, it applies to meta/front/back. Follow `.cursor/skills/git-pr/SKILL.md`.
 
-`neocom`, `neocom-domain`, and `neocom-esi` stay aside for both commands.
+`neocom` and `neocom-esi` stay aside for both commands.
 
 ## Return to parent
 

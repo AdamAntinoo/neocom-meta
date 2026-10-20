@@ -14,8 +14,9 @@ Active projects:
 | `neocom-meta` | Docs, programme definition, Cursor rules/skills, OpenSpec, and subagents ([AdamAntinoo/neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git)) |
 | `neocom-front` | Frontend application ([AdamAntinoo/neocom-front](https://github.com/AdamAntinoo/neocom-front.git)) |
 | `neocom-back` | Backend application ([AdamAntinoo/neocom-back](https://github.com/AdamAntinoo/neocom-back.git)) |
+| `neocom-domain` | Published Node domain library on npm ([AdamAntinoo/neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git)). Package version is **npm-led** (`npm run version:sync` from latest publish); git tags follow after publish |
 
-Left aside for now: `neocom`, `neocom-domain`, and `neocom-esi`.
+Left aside for now: `neocom` and `neocom-esi`.
 
 ## Node
 
@@ -41,18 +42,18 @@ See `.cursor/rules/neocom-ecosystem-tools.mdc` for install and usage notes.
 Use these project subagents proactively:
 
 - `/neocom-methodology` — design, spec, develop, test, and deploy across repositories. Epics start at L1. See section 5 of `PROGRAMME.md`
-- `/neocom-code` — product code and OpenSpec application in `neocom-front`, `neocom-back`, and, when named, `neocom-domain`
+- `/neocom-code` — product code and OpenSpec application in `neocom-front`, `neocom-back`, and `neocom-domain`
 - `/neocom-meta` — docs, agent config, and spec pipeline in `neocom-meta`
-- `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main` titled `Release-` plus GitVersion `MajorMinorPatch`
-- `/git:commit <project>` — commit all pending changes on that repository's current branch through `/neocom-git`. Project is required (`neocom-meta`, `neocom-front`, or `neocom-back`)
-- `/git:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/git:pr <project>` selects one active repository (`neocom-meta`, `neocom-front`, or `neocom-back`). No project applies to those three active repositories. `neocom`, `neocom-domain`, and `neocom-esi` stay aside
+- `/neocom-git` — commits, PRs, releases, and promotions for one independent repository. OpenSpec feature apply commits on `feature/<feature>` from `develop`. After the user reviews and tests, open a pull request into `develop`. Archive opens a pull request from `develop` into `main` titled `Release-` plus GitVersion `MajorMinorPatch` (apps/meta). For **`neocom-domain`**, package version follows npm (see `/neocom-git` Versioning)
+- `/git:commit <project>` — commit all pending changes on that repository's current branch through `/neocom-git`. Project is required (`neocom-meta`, `neocom-front`, `neocom-back`, or `neocom-domain`)
+- `/git:pr` — commit pending work and prepare pull requests through `/neocom-git`. `/git:pr <project>` selects one active repository (`neocom-meta`, `neocom-front`, `neocom-back`, or `neocom-domain`). No project applies to `neocom-meta`, `neocom-front`, and `neocom-back` (domain is opt-in by name). `neocom` and `neocom-esi` stay aside
 - `/epic` — open an L1 epic under `05.REQUIREMENTS-DECOMPOSITION/L1/`
 - `/neo:extract-l2` — Convert L1 epics into epic-named L2 file(s). No args: pending epics; args: named epics only. The current L2 tree marks what is already generated
 - `/neo:spec-evolution` — review L2 notes and move them into OpenSpec; optional L2 paths limit the run to those files
 - `/feature-delivery` — branch `feature/<feature>` from `develop`, commit, then wait for user review before the pull request into `develop`. Several features can be open, rebase when one needs another, and share one pull request. See section 5.9 of `PROGRAMME.md`
 - `/verifier` — readonly check after work is claimed done
 
-Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front.
+Keep each change inside the folder that owns it. Do not implement frontend features in meta or back, or backend features in meta or front. Domain library code stays in `neocom-domain`.
 
 When `neocom-front` is missing or empty, use the recorded front stack (do not re-ask). When `neocom-back` is missing or empty, ask which backend stack and repository to use before scaffolding.
 

@@ -191,6 +191,8 @@ The current L2 tree is the record of work already generated. Before writing a no
 
 When that passage is already there, report the path and do not write it again. A later run appends only what those files do not already hold.
 
+On EPIC-004 (and any later epic with a **Review** column), one iteration extracts only models whose Review cell is exactly `reviewed`. Sections still `to review` stay in the L1 file and are not copied. After those notes are written, that cell becomes `extracted`. The next iteration starts when a pending model is set to `reviewed`. `superseded` and `out of scope` are never extracted. `/neo:spec-evolution` registers the notes from that iteration; it does not reach back into pending L1 sections.
+
 ```mermaid
 flowchart TD
   l1["L1/01.EPIC-LOGIN-PROCEDURE.md"] --> one["L2/01.EPIC-LOGIN-PROCEDURE.md"]

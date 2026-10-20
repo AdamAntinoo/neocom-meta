@@ -3,3 +3,7 @@
 02.SOURCES/graphify-out/cache/
 node_modules/
 graphify-out/
+
+# macOS Finder / sync conflict copies ("Name 2.ext") — never commit
+* 2.*
+* 2

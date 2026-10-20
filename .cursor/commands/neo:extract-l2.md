@@ -19,4 +19,4 @@ Examples: `/neo:extract-l2 01` · `/neo:extract-l2 01 02`
 
 Follow `.cursor/skills/extract-l2/SKILL.md` in `neocom-meta`.
 
-Read L1 files only (scoped as above). Write `L2/NN.EPIC-NAME.md` and/or `L2/NN.EPIC-NAME.<group>.md` as the material requires. Do not force an epic directory or a per-repository split. Keep the epic stem in every file name for traceability. Use the current L2 tree to skip passages already generated. Do not register OpenSpec. Do not implement product features.
+Read L1 files only (scoped as above). Write `L2/NN.EPIC-NAME.md` and/or `L2/NN.EPIC-NAME.<group>.md` as the material requires. When the epic has a Review column, write notes only for models marked `reviewed`, then set those cells to `extracted`. Leave `to review` sections untouched. Do not force an epic directory or a per-repository split. Keep the epic stem in every file name for traceability. Use the current L2 tree to skip passages already generated. Do not register OpenSpec. Do not implement product features.

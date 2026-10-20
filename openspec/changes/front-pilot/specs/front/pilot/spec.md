@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define the Pilot as the Eve Online user's game presence. The field model is `L2/DOMAIN/MODELS/Pilot.md`. PILOT-004 is cancelled. Source: `L2/FRONT/01.PILOT-DEFINITION.md`.
+Define the Pilot as the Eve Online user's game presence. The field model is the canonical Pilot section in `L1/04.EPIC-MODELS.md` (EPIC-004). PILOT-004 is cancelled. Source: `L2/FRONT/01.PILOT-DEFINITION.md`.
 
 ## ADDED Requirements
 
@@ -35,12 +35,12 @@ Pilot public contents SHALL come from ESI Get character's public information, `G
 
 ### Requirement: Pilot fields follow the versioned model
 
-The pilot field model SHALL be the versioned model in `L2/DOMAIN/MODELS/Pilot.md` (PILOT-007). The Pilot data model SHALL be created from the public character information (PILOT-006).
+The pilot field model SHALL be the canonical model in `L1/04.EPIC-MODELS.md` (EPIC-004) (PILOT-007). The Pilot data model SHALL be created from the public character information and expanded per that epic (PILOT-006).
 
 #### Scenario: Fields come from the Pilot model
 
 - **WHEN** a developer reads the pilot fields
-- **THEN** they are the versioned model in `L2/DOMAIN/MODELS/Pilot.md`
+- **THEN** they follow the Pilot section in `L1/04.EPIC-MODELS.md`
 
 ### Requirement: Pilot model matches the supplied character
 

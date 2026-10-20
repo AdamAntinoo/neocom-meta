@@ -9,7 +9,7 @@ Run **`/git:pr`** for the `/neocom-git` agent.
 
 Command: `/git:pr` or `/git:pr <project>`
 
-The text after the command is the project. When that text is empty, the command applies to the active repositories: `neocom-meta`, `neocom-front`, and `neocom-back`. `neocom` is deprecated. `neocom-domain` and `neocom-esi` stay aside.
+The text after the command is the project. When that text is empty, the command applies to `neocom-meta`, `neocom-front`, and `neocom-back`. Name `neocom-domain` / `domain` to include the library. `neocom` is deprecated. `neocom-esi` stays aside.
 
 Follow `.cursor/skills/git-pr/SKILL.md` in `neocom-meta`. Delegate the commits and pull requests to `/neocom-git`. Use the recorded examples in `.cursor/templates/`.
 

@@ -1,0 +1,22 @@
+---
+description: Prevent and clean macOS Finder "Name 2.ext" conflict-copy duplicates
+alwaysApply: true
+---
+
+# No Finder conflict-copy duplicates
+
+macOS Finder (and some sync tools) create sidecars named `Name 2.ext` when a copy would overwrite `Name.ext`. Those files are **not** project artifacts.
+
+## Do not generate
+
+- Never create, write, or rename to a path whose basename matches `* 2.*` or ends with ` 2` as a conflict sidecars.
+- Always overwrite or edit the canonical file (`Name.ext`). Do not invent a parallel `Name 2.ext`.
+
+## Cleanup when found
+
+If such files appear under `neocom-meta`, `neocom-front`, or `neocom-back` and the canonical sibling exists:
+
+1. Delete the `* 2*` copy (keep the canonical file).
+2. Or run: `python3 scripts/cleanup-finder-duplicates.py` from `neocom-meta`.
+
+Do not merge older `* 2*` content into the canonical file unless the user explicitly asks — those copies are usually stale snapshots from Oct 2025–style Finder copies under Documents.
