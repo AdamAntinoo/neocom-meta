@@ -13,7 +13,7 @@ The pasted controller and use-case sample shows the shape: a controller implemen
 | BACK-004 | registered | A controller implements the API definition declared in an OpenAPI document that describes the endpoints and DTOs |
 | BACK-005 | registered | The API interface and the DTOs are generated from that OpenAPI document with openapi-generator |
 | BACK-006 | registered | The publication is a port with the endpoints and the business-object models used to retrieve the information. The service is stored in `neocom-back` |
-| BACK-007 | registered | The first endpoint is Pilot. It returns a `PilotDto`, a JSON view of the Pilot model in `L2/DOMAIN/MODELS/Pilot.md` |
+| BACK-007 | registered | The first endpoint is Pilot. It returns a `PilotDto`, a JSON view of the Pilot model in `L1/04.EPIC-MODELS.md` (EPIC-004) |
 | BACK-008 | registered | The Pilot endpoint accepts the pilot identifier as a parameter |
 | BACK-009 | registered | If the system is not logged in and the private part is not accessible, the response does not include the private section of the pilot data |
 | BACK-010 | registered | The controller follows the supplied sample: it implements the generated API interface and delegates to an injected use case |

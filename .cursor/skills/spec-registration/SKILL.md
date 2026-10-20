@@ -29,7 +29,7 @@ Examples:
 ## Review
 
 1. Resolve the scope above. With no arguments, read every file under `05.REQUIREMENTS-DECOMPOSITION/L2/`, including epic-named extracts (`L2/NN.EPIC-NAME.md`, `L2/NN.EPIC-NAME.*.md`), legacy epic directories if present, nested system folders (`L2/FRONT/`, `L2/BACK/`, `L2/DOMAIN/`, `L2/ESI/`, and later `L2/CICD/`), and `L2/INFRASTRUCTURE-SPECS.md`. With arguments, read only the resolved files. Do not read `L1/`.
-2. Collect every section headed `UNREGISTERED REQUIREMENTS` that has one or more notes in the scoped files. Ignore every note under the heading `DUPLICATED`. Leave unscoped L2 files unchanged.
+2. Collect every section headed `UNREGISTERED REQUIREMENTS` that has one or more notes in the scoped files. Ignore every note under the heading `DUPLICATED`. Leave unscoped L2 files unchanged. Do not open L1 to pull model sections that are still `to review`. Those models stay on the epic until a later iteration sets Review to `reviewed` and `/neo:extract-l2` writes their notes. Register only the notes already under `UNREGISTERED REQUIREMENTS`.
 3. For each note, decide and record:
    - System: `front`, `infra`, `cicd`, `back`, `domain`, or a system the user names
    - Feature name (kebab-case)

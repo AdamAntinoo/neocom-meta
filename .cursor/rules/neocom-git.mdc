@@ -34,7 +34,7 @@ Scopes (examples): `front`, `meta`, `back`, `openspec`, `root`, `infra`, `login`
 - Push `-u` when needed
 - A pull request into `develop` uses a Conventional Commit title or the branch purpose
 - A pull request from `develop` into `main` is titled `Release-` plus GitVersion `MajorMinorPatch` (`Release-0.1.0`). Calculate it with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary `main` checkout after merging `develop`. Do not push that merge
-- **Mandatory before any pull request:** sync the package version from GitVersion `MajorMinorPatch`. For **`neocom-front`**, run `npm run version:sync` (updates `package.json`, both `appVersion` fields, `index.html` loading text, Cypress version expectation, and `.app-banner.txt`), commit those files if they changed, then open the PR. For **`neocom-back`** (and Node libraries when in scope), run `npm run version:sync` and commit when `package.json` version changes. Do not open a PR with a stale version.
+- **Mandatory before any pull request:** sync the package version. For **`neocom-front`**, run `npm run version:sync` from GitVersion `MajorMinorPatch` (updates `package.json`, both `appVersion` fields, `index.html` loading text, Cypress version expectation, and `.app-banner.txt`), commit those files if they changed, then open the PR. For **`neocom-back`**, run `npm run version:sync` (GitVersion) and commit when `package.json` version changes. For **`neocom-domain`**, run `npm run version:sync` to pull the latest **npm** published version into `package.json` (npm-led; do not use GitVersion for this library). Do not open a PR with a stale version.
 - Name the repository and any OpenSpec changes
 - Do not update a submodule pointer. `neocom` is deprecated
 

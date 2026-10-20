@@ -17,7 +17,7 @@ Each repository is an independent clone, a sibling of `neocom-meta`. The parent 
 | --- | --- |
 | `neocom-front` | Angular UI. Remote https://github.com/AdamAntinoo/neocom-front.git |
 | `neocom-back` | NestJS API. Remote https://github.com/AdamAntinoo/neocom-back.git |
-| `neocom-domain` | TypeScript library published as `neocom-domain`. Remote https://github.com/AdamAntinoo/neocom-domain.git. Leave it aside until the user or the OpenSpec change names it |
+| `neocom-domain` | TypeScript library published as `neocom-domain`. Remote https://github.com/AdamAntinoo/neocom-domain.git. Active; package version is npm-led (`npm run version:sync` from latest npm publish) |
 
 `neocom-meta` holds docs, agent config, and OpenSpec. `/neocom-meta` owns that work. Edit a change's task list there when you apply that change. Leave programme docs, rules, and new requirement registration to `/neocom-meta`.
 

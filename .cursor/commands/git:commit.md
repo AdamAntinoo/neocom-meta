@@ -9,7 +9,7 @@ Run **`/git:commit`** for the `/neocom-git` agent.
 
 Command: `/git:commit <project>`
 
-The project argument is required (`neocom-meta` / `meta`, `neocom-front` / `front`, or `neocom-back` / `back`). Commit all pending changes in that repository on its **current** branch. Do not create a pull request.
+The project argument is required (`neocom-meta` / `meta`, `neocom-front` / `front`, `neocom-back` / `back`, or `neocom-domain` / `domain`). Commit all pending changes in that repository on its **current** branch. Do not create a pull request.
 
 Follow `.cursor/skills/git-commit/SKILL.md` in `neocom-meta`. Delegate the commit to `/neocom-git`. Use the recorded examples in `.cursor/templates/`.
 

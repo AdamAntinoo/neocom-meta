@@ -105,12 +105,29 @@ A passage is already generated when the same behavior, or a very similar one, is
 
 Leave that passage where it is. Do not copy it again. Report the L2 or OpenSpec path that holds it.
 
-Append only **new** L1 passages. Prefer updating an existing `L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `L2/NN.EPIC-NAME.<group>.md`.
+Append only **new** L1 passages that are in scope for this iteration. Prefer updating an existing `L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `L2/NN.EPIC-NAME.<group>.md`.
+
+## Reviewed models only (EPIC-004 and any later epic that uses a Review column)
+
+When the L1 file has a model register whose **Review** column uses the values below, extract is iterative. Read that column before copying any model section.
+
+| Review cell | Extract |
+| --- | --- |
+| `reviewed` | In scope. Copy that model’s section (and requirement rows that live in it) into L2. |
+| `to review` | Pending. Leave the section and the cell untouched. Do not write L2 notes for it. |
+| `extracted` | Already taken. Skip unless the cell is set back to `reviewed` for a later iteration. |
+| `superseded`, `out of scope` | Never extract. |
+
+A cell is `reviewed` only when that is the whole cell. `to review` and `to review (PILOT-*)` stay pending.
+
+After the L2 notes for a `reviewed` model are written, set that register cell to `extracted`. Do not edit the prose of a pending section. Framing sections (versioning rules, the register, the hierarchy diagram, deployment) are not model sections; extract a framing section only when its own register row is `reviewed`.
+
+Report three lists: models extracted this iteration, models left pending, models skipped because they are already `extracted`, superseded, or out of scope.
 
 ## Write rules
 
 - Do not invent behavior the L1 text does not state.
-- Do not rewrite L1 goals or body text. **Do** update only `## Spec traceability` and `L1/TRACEABILITY.md` (status at least `extracted`; list the L2 file path(s) written).
+- Do not rewrite L1 goals or body text. **Do** update only `## Spec traceability`, `L1/TRACEABILITY.md` (status at least `extracted`; list the L2 file path(s) written), and the **Review** cell of each model extracted in this iteration (`reviewed` → `extracted`). Do not edit a `to review` row or its section.
 - Do not place notes into final `L2/<SYSTEM>/` feature registers and do not assign stable ids. That is `/neo:spec-evolution`.
 - Do not write OpenSpec.
 - Multi-repository passages may stay in **one** epic-named file when they are one shared contract (cookies, SSO parameters). Split into topic files when groups will diverge later — not automatically into one file per repo.
@@ -123,5 +140,6 @@ Append only **new** L1 passages. Prefer updating an existing `L2/NN.EPIC-NAME*.m
 4. Notes newly written, by file
 5. Why single vs multiple files was chosen
 6. Passages already generated, each with the path that holds it
-7. That L1 `## Spec traceability` and `L1/TRACEABILITY.md` were updated
-8. Next step: `/neo:spec-evolution` for the new notes under `UNREGISTERED REQUIREMENTS` (optionally scoped to those L2 paths)
+7. Models left pending (`to review`) and not written
+8. That L1 `## Spec traceability` and `L1/TRACEABILITY.md` were updated, and each extracted model’s Review cell is now `extracted`
+9. Next step: `/neo:spec-evolution` for the new notes under `UNREGISTERED REQUIREMENTS` (optionally scoped to those L2 paths). Pending models are not in those notes.

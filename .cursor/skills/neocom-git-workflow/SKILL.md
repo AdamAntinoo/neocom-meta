@@ -110,9 +110,9 @@ Do not open a pull request until the package version matches GitVersion `MajorMi
 
 | Repository | Command |
 | --- | --- |
-| `neocom-front` | `nvm use` then `npm run version:sync` — updates `package.json`, both `appVersion` fields, `index.html` loading text, Cypress version expectation, and `.app-banner.txt` |
-| `neocom-back` | `nvm use` then `npm run version:sync` |
-| Node libraries | `npm run version:sync` when in scope |
+| `neocom-front` | `nvm use` then `npm run version:sync` — GitVersion `MajorMinorPatch` into `package.json`, both `appVersion` fields, `index.html` loading text, Cypress version expectation, and `.app-banner.txt` |
+| `neocom-back` | `nvm use` then `npm run version:sync` (GitVersion) |
+| `neocom-domain` | `nvm use` then `npm run version:sync` — set `package.json` from latest **npm** publish (`npm view neocom-domain version`). After user-requested publish: `version:tag` so git `vX.Y.Z` follows npm |
 
 Commit any files that command changes on the feature branch, then open the PR. Use `MajorMinorPatch` only. Do not write `SemVer`. Do not use `npm version`.
 

@@ -28,11 +28,12 @@ Turns a registered OpenSpec feature into commits on `feature/<feature-name>` fro
    - If `.cursor/templates/branch-names.md` records a user example, follow that example instead.
 
 2. **Branch**
-   - In the active repository that owns the code (`neocom-meta`, `neocom-front`, or `neocom-back`):
+   - In the active repository that owns the code (`neocom-meta`, `neocom-front`, `neocom-back`, or `neocom-domain`):
    - **Front/back:** create `feature/<feature-name>` from `develop`. Other `feature/*` branches may already exist. Do not create this one from them or from `main`.
    - **Meta:** check out or create `feature/agents` from `develop` (or `feature/cicd` when commanded). Prefer continuing `feature/agents` over a new short-lived meta branch.
    - Delegate the git commands to `/neocom-git`.
    - For **`neocom-front`**, after the branch exists run `npm run version:sync` (GitVersion `MajorMinorPatch`). See `/neocom-git` Feature branch version bump. Version sync is mandatory again before the pull request.
+   - For **`neocom-domain`**, after the branch exists run `npm run version:sync` (from latest **npm** publish, not GitVersion). Sync again before the pull request.
    - When this feature needs code that is only on another open feature branch, ask `/neocom-git` to rebase this branch onto that one after the branch exists. Do not edit the same files on two branches that both still start from `develop`.
    - When the user commands **`feature/cicd`** on meta, rebase it onto the latest `feature/agents` tip when agents is ahead and cicd needs that work; otherwise rebase onto latest `develop`.
 
@@ -54,7 +55,7 @@ Turns a registered OpenSpec feature into commits on `feature/<feature-name>` fro
 5. **Pull request into `develop`**
    - Only after the user says the review and testing are done, delegate to `/neocom-git`.
    - Rebase a feature with no dependency onto the current `develop`. Rebase a dependent feature onto its provider only after that provider has been rebased onto `develop`. If the branch is already on the remote, ask before a force push.
-   - Before opening: for `neocom-front` / `neocom-back`, run `npm run version:sync` and commit any version file changes. Do not open a PR with a stale `MajorMinorPatch`.
+   - Before opening: for `neocom-front` / `neocom-back`, run `npm run version:sync` (GitVersion) and commit any version file changes. For `neocom-domain`, run `npm run version:sync` (from npm) and commit if `package.json` changed. Do not open a PR with a stale version.
    - Open a pull request **into `develop`**. The user may put several reviewed features in that one pull request: stack them in dependency order and open it from the tip. Name every feature.
    - Title and body come from `.cursor/templates/pull-requests.md` when a user example is stored there.
    - Do not merge unless the user asks.

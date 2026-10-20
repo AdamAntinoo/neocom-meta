@@ -23,10 +23,11 @@ The text after `/git:commit` is the project. **Required.**
 | `neocom-meta`, `meta` | `neocom-meta` |
 | `neocom-front`, `front` | `neocom-front` |
 | `neocom-back`, `back` | `neocom-back` |
+| `neocom-domain`, `domain` | `neocom-domain` |
 
 No argument stops the command. Ask for a project name.
 
-`neocom` is deprecated. `neocom-domain` and `neocom-esi` are aside. If the argument names one of those, stop and report that it is aside. Do not commit it.
+`neocom` is deprecated. `neocom-esi` is aside. If the argument names one of those, stop and report that it is aside. Do not commit it.
 
 An unknown argument stops the command. Do not guess a repository.
 
