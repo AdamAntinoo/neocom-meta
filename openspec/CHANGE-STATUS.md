@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-10-17 (from `openspec list --json`).
+Last refreshed: 2026-11-02 (from `openspec list --json`).
 
 ## Status legend
 
@@ -69,6 +69,13 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `cicd-testing-gates` | cicd / testing-gates | 0/3 | registered | EPIC-003; GATE-001…003. Parallel unit/acceptance before Sonar |
 | `infra-test-commands` | infra / test-commands | 0/5 | registered | EPIC-003; INFRA-060…064. Shared TDD/BDD/SDD command catalog |
 | `back-testing` | back / testing | 0/5 | registered | EPIC-003; BTEST-001…005. Back guidelines, WireMock, Gherkin |
+| `domain-pilot` | domain / pilot | 0/5 | registered | EPIC-004; DOM-PILOT-001…007. PublicPilotV1 + PilotV2; related `front-pilot` |
+| `domain-blueprint` | domain / blueprint | 0/2 | registered | EPIC-004; DOM-BP-001…003 / IND-BP-000. BlueprintV1 base only |
+| `domain-application-info` | domain / application-info | 0/3 | registered | EPIC-004; DOM-APPINFO-001…003. Header ApplicationInfoV1 |
+| `domain-server-status` | domain / server-status | 0/2 | registered | EPIC-004; DOM-SRV-001…003. Header ServerStatusV1 |
+| `domain-spacelocation` | domain / spacelocation | 0/3 | registered | EPIC-004; DOM-SLOCV1-001…003. Thin SpaceLocationV1 interface artifact |
+| `domain-locations` | domain / locations | 0/3 | registered | EPIC-008; LOC-001/002/020…060 + DOM-LOC-001/002. Space location hierarchy |
+| `back-spacelocations` | back / spacelocations | 0/2 | registered | EPIC-008; LOC-010. `GET /api/v1/universe/spacelocations/{id}` |
 
 Delta specs usually live at `changes/<system>-<feature>/specs/<system>/<feature>/spec.md`. A multi-system feature may use one change folder (for example `changes/login/`) with several capability specs underneath.
 

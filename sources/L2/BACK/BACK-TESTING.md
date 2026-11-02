@@ -1,5 +1,17 @@
 # Backend testing guidelines
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `back-testing` |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](../INDEX.md) |
+
 System: `back`. Feature: `testing`.
 OpenSpec change: `back-testing` → `specs/back/testing/spec.md`.
 

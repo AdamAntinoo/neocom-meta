@@ -1,5 +1,17 @@
 # L2 — Infrastructure specs
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `front-infrastructure` and infra rows (see file) |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](INDEX.md) |
+
 Living L2 register for infrastructure, installation, configuration, and CI/CD.
 Use with `/neo:spec-evolution` to promote **pending** rows into OpenSpec. Do not invent product behavior here.
 

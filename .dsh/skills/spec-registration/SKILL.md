@@ -40,9 +40,18 @@ Examples:
 5. If no scoped L2 file has a note to register, stop.
 6. Show this review before writing files: the scoped files, then each note, its system, its feature, and its destination.
 
-## Graphify
+## Graphify (automatic first action)
 
-Run `graphify update .` from `neocom-meta` **before** reading the L2 files, so `graphify-out/graph.json` reflects the current `sources/L2/` and `openspec/` files. Use the meta graph only to notice an existing requirement or OpenSpec change. It does not choose the system or the feature, and it does not add behavior.
+**Before any other step**, run the graph refresh automatically. Do not ask the user. Do not skip.
+
+```bash
+cd neocom-meta
+graphify update .
+```
+
+Prefer `.venv/bin/graphify update .` when the project venv exists. If the update fails, stop and report; do not register against a stale graph.
+
+After a successful update, use the meta graph only to notice an existing requirement or OpenSpec change. It does not choose the system or the feature, and it does not add behavior.
 
 When `neocom-meta/graphify-out/graph.json` exists, after the note is read and before a new change is created:
 
@@ -53,9 +62,7 @@ graphify query "<subject of the note>" --graph graphify-out/graph.json
 
 Keep a node only when its `src` is under `openspec/changes/` or `sources/L2/` and that file already states the same behavior, or a very similar one. Move that note under `DUPLICATED` instead of registering it. Extend an existing change only when a returned node `src` is an OpenSpec change or an L2 file that already states the same behavior.
 
-Ignore every other node. A query also returns code, tests, and unrelated proposals. If no source path qualifies, or `graph.json` is missing, decide from the note and the L2 files.
-
-Do not rebuild the graph in this command. `graphify update` is AST-only and does not index these markdown specs.
+Ignore every other node. A query also returns code, tests, and unrelated proposals. If no source path qualifies, or `graph.json` is missing after a failed update, stop — do not invent duplicates.
 
 ## Move into OpenSpec
 
@@ -83,7 +90,8 @@ Do not rebuild the graph in this command. `graphify update` is AST-only and does
 5. **Traceability**
    - In the OpenSpec proposal (or a short `neocom-meta` note under `sources/L2/`), record which L2 IDs were registered and the OpenSpec change name(s).
    - Update `01.PROGRAMME-DEFINITION/` when the review names a new feature, including `FEATURES/` with the L2 IDs and OpenSpec change names.
-   - **Traceability index (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update the row in `sources/L1/TRACEABILITY.md`: set status at least `registered`, list OpenSpec change names and capabilities. **Do not edit the L1 epic file** — the source epic is read-only; the index is the authoritative register. Later extract/register runs skip material covered by `applied` / `archived` changes via the index.
+   - **Traceability index (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update the row in `sources/L1/TRACEABILITY.md`: set status at least `registered`, list OpenSpec change names and capabilities, and refresh **L2 backlog** (📭 cleared when that epic’s extracts have empty `UNREGISTERED REQUIREMENTS`). **Also update that epic’s `## Spec traceability`** (Status, OpenSpec changes, L2/Skip as needed; keep the section at the start of the file). Do not edit authored L1 sections. Later extract/register runs skip material covered by `applied` / `archived` changes via the index.
+   - **L2 index (mandatory):** update `sources/L2/INDEX.md` for every extract or placed file touched this run. When `UNREGISTERED REQUIREMENTS` is empty, set the extract to 📭 `cleared`; new or updated system registers are 📌 `placed` (🔗 `pointer` when pointer-only). Sync each file’s `<!-- L2-STATUS: … -->` header (Status, OpenSpec, Unregistered, Next) with the index row.
 
 6. **Change status register (mandatory)**
    - Update `openspec/CHANGE-STATUS.md` for every new or changed OpenSpec change in this run.
@@ -100,6 +108,6 @@ Do not rebuild the graph in this command. `graphify update` is AST-only and does
 1. The scope (all L2 files, or the list that was processed)
 2. The review (notes found, system, feature, destination)
 3. OpenSpec change names and paths
-4. That `openspec/CHANGE-STATUS.md` and `sources/L1/TRACEABILITY.md` were updated (and that L1 epic files were left untouched)
+4. That `openspec/CHANGE-STATUS.md`, `sources/L1/TRACEABILITY.md`, `sources/L2/INDEX.md`, and each sourcing epic’s `## Spec traceability` were updated (authored L1 sections left untouched)
 5. Notes skipped, and why
 6. Next step: `/feature-delivery` when the user wants a registered feature applied

@@ -1,5 +1,17 @@
 # Backend hexagonal architecture
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `back-hexagonal` (archived) |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](../INDEX.md) |
+
 System: `back`. Feature: `hexagonal`.
 OpenSpec change: `back-hexagonal` → `specs/back/hexagonal/spec.md`.
 

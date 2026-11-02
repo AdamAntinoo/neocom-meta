@@ -1,5 +1,17 @@
 # Backend login
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `login` |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](../INDEX.md) |
+
 System: `back`. Feature: `login`.
 OpenSpec change: `login` → `specs/back/login/spec.md`.
 

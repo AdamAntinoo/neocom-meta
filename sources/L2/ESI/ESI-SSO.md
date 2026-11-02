@@ -1,5 +1,17 @@
 # ESI SSO Authorization Code
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `login` |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](../INDEX.md) |
+
 System: `esi`. Feature: `sso`.
 OpenSpec change: `login` → `specs/esi/sso/spec.md`.
 

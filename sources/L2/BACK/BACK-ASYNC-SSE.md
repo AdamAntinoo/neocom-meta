@@ -1,5 +1,17 @@
 # Back async / SSE enrichment
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `back-async-sse` |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](../INDEX.md) |
+
 System: `back`. Feature: `async-sse`.
 OpenSpec change: `back-async-sse` → `specs/back/async-sse/spec.md`.
 
