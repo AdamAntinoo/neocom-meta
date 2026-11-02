@@ -1,6 +1,6 @@
 # L1 epic → OpenSpec traceability
 
-Central index so agents can **skip** epics (or passages) that are already extracted, registered, applying, applied, or archived. Each epic file also carries a `## Spec traceability` section; keep both in sync.
+Central index so agents can **skip** epics (or passages) that are already extracted, registered, applying, applied, or archived. Each epic file also carries a `## Spec traceability` section (authored by `/epic`); this index is the authoritative record — keep it current, and do not edit the epic file during evolution.
 
 Refresh OpenSpec task counts from `npx openspec list --json` when updating this file.
 
@@ -17,7 +17,7 @@ Refresh OpenSpec task counts from `npx openspec list --json` when updating this 
 
 **Skip rules**
 
-- `/neo:extract-l2`: still skip passages already present in the L2 tree. In addition, treat passages covered by OpenSpec changes in status `applied` or `archived` as done; only extract **new** L1 material appended after the last update. On an epic with a **Review** column, extract only rows marked `reviewed` and then set those cells to `extracted`. Leave `to review` sections untouched until a later iteration marks them `reviewed`.
+- `/neo:extract-l2`: still skip passages already present in the L2 tree. In addition, treat passages covered by OpenSpec changes in status `applied` or `archived` as done; only extract **new** L1 material appended after the last update. On an epic with a **Review** column, extract only rows marked `reviewed` and record those models as extracted in this index (the L1 epic's Review cells are **not** modified). Leave `to review` sections untouched until a later iteration marks them `reviewed`.
 - `/neo:spec-evolution`: register notes already under `UNREGISTERED REQUIREMENTS`. Do not open L1 to add models still `to review`. Skip L2 notes whose L1 epic row lists the same behavior under an `applied` or `archived` change (move to `DUPLICATED` if re-appeared).
 - `/epic` appends: when adding material to an epic that is `applied`/`archived`, mark new sections as not yet traced until extract/register runs.
 
@@ -43,4 +43,4 @@ Non-epic L1 notes (`REQUIREMENTS.md`, `UX.md`, `ESI.md`) are not rows here until
 3. When `/feature-delivery` starts, set `applying`.
 4. When the pull request into `develop` is accepted, set `applied`.
 5. After `openspec archive`, set `archived`.
-6. Mirror the same facts into `## Spec traceability` on the L1 epic file.
+6. Do **not** edit the L1 epic file during evolution — `## Spec traceability` on the epic is authored by `/epic` and stays as written. This index is the authoritative record: keep it current instead of mirroring status back into the epic.
