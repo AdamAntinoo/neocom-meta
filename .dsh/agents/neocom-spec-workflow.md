@@ -22,24 +22,38 @@ You do **not** author epics (`/epic`, `neocom-spec-collector`), do **not** backt
 
 | Level          | Path                                                                                                                 | Authored by           | This agent                                             |
 | -------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------ |
-| L1 (source)    | `sources/L1/NN.EPIC-NAME.md` — `## Spec traceability`, `## Goals`, `## Search criteria`, `## Sources`, `## Version card`, register (`## Section 02 …`) | `/epic`               | Reads; `/neo:extract-l2` updates Review cells + Spec traceability; `/neo:spec-evolution` updates Spec traceability only |
-| L2 extract     | `sources/L2/NN.EPIC-NAME[.group].md`                                                                                 | `/neo:extract-l2`     | Writes                                                 |
+| L1 (source)    | `sources/L1/NN.EPIC-NAME.md` — sections hold requirements with a **Review** status (`to review` initial; only `reviewed` extracts). Holding epic: `sources/L1/00.DUPLICATES.md` | `/epic`               | Reads; `/neo:extract-l2` updates Review cells + Spec traceability (+ appends `00.DUPLICATES`); `/neo:spec-evolution` updates Spec traceability only (may append `00.DUPLICATES`) |
+| L2 extract     | `sources/L2/NN.EPIC-NAME[.group].md` — pending notes for OpenSpec (**no** `UNREGISTERED REQUIREMENTS` heading) | `/neo:extract-l2`     | Writes                                                 |
 | L2 placement   | `sources/L2/<SYSTEM>/`                                                                                               | `/neo:spec-evolution` | Writes                                                 |
 | OpenSpec       | `openspec/changes/<system>-<feature>/`                                                                               | `/neo:spec-evolution` | Writes                                                 |
 | Indexes        | `sources/L1/TRACEABILITY.md`, `sources/L0/executive/INDEX.md`, `openspec/CHANGE-STATUS.md`                           | any stage             | Always updates                                         |
+
+## Review gate (replaces `UNREGISTERED REQUIREMENTS`)
+
+Requirements are authored **inside the epic** under sections (register rows and/or per-requirement tables). Each unit has a Review status:
+
+| Status | Role |
+| --- | --- |
+| `to review` | Initial. Not extractable. |
+| `reviewed` | Extract this run → then `extracted`, or → `duplicated` if already stated elsewhere |
+| `extracted` | Already in L2 |
+| `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md` |
+| `superseded` / `out of scope` | Never extract |
+
+`## UNREGISTERED REQUIREMENTS` / `## DUPLICATED` on L1 or new L2 files are **deprecated**. Follow `.dsh/skills/extract-l2/SKILL.md` and `.dsh/skills/spec-registration/SKILL.md`.
 
 ## Immutability invariant (hard rule)
 
 Each evolution step is **unidirectional**: read the source level, write only the generated level and the traceability indexes. The one exception is the status rule below.
 
-- **L1 → L2** (`/neo:extract-l2`): read `sources/L1/NN.EPIC-NAME.md`; write `sources/L2/NN.EPIC-NAME[.group].md`, `sources/L1/TRACEABILITY.md`, and `sources/L2/INDEX.md`. On the L1 epic, change only (1) the Review cell of each row processed (`reviewed` → `extracted`) and (2) `## Spec traceability` (status, L2 paths, skip, index links — keep that section at the start of the file). Authored sections stay as written.
-- **L2 → OpenSpec** (`/neo:spec-evolution`): read L2 notes; write the OpenSpec change, the `sources/L2/<SYSTEM>/` placement, `sources/L1/TRACEABILITY.md`, `sources/L2/INDEX.md`, and `openspec/CHANGE-STATUS.md`. Also refresh the sourcing epic’s `## Spec traceability` (status at least `registered`, OpenSpec change names). Do not rewrite L2 source notes under `UNREGISTERED` / `DUPLICATED` beyond the skill’s move rules; do not edit L1 model/register prose.
+- **L1 → L2** (`/neo:extract-l2`): read `sources/L1/NN.EPIC-NAME.md`; write `sources/L2/NN.EPIC-NAME[.group].md`, `sources/L1/TRACEABILITY.md`, and `sources/L2/INDEX.md`. On the L1 epic, change only (1) the Review cell of each row processed (`reviewed` → `extracted` or `duplicated`) and (2) `## Spec traceability` (status, L2 paths, skip, index links — keep that section at the start of the file). Authored sections stay as written. Duplicates append to `sources/L1/00.DUPLICATES.md`.
+- **L2 → OpenSpec** (`/neo:spec-evolution`): read L2 **pending** notes (legacy `UNREGISTERED` drained once if present); write the OpenSpec change, the `sources/L2/<SYSTEM>/` placement, indexes, and CHANGE-STATUS. Refresh the sourcing epic’s `## Spec traceability` (status at least `registered`). Duplicates append to `00.DUPLICATES` — do not use an L2 `DUPLICATED` heading. Do not edit L1 model/register prose.
 
 When you need to record a status, write it to the indexes **and** the epic’s `## Spec traceability` so the file header matches `TRACEABILITY.md`.
 
 **Precedence.** This file and the skill it routes to take precedence over the epic's contents. Where an epic's prose describes a step differently (for example, which command reads a Review cell, or what a state means for the next step), follow this file and the skill, and do not edit the prose to match.
 
-**Status-only exception on L1.** `/neo:extract-l2` may change Review cells (`reviewed` → `extracted`) and `## Spec traceability`. `/neo:spec-evolution` may change `## Spec traceability` only. Goals, Sources, section prose, IDs, and other register cells stay as written.
+**Status-only exception on L1.** `/neo:extract-l2` may change Review cells (`reviewed` → `extracted` / `duplicated`) and `## Spec traceability`, and may write `00.DUPLICATES`. `/neo:spec-evolution` may change `## Spec traceability` on sourcing epics and may append `00.DUPLICATES`. Goals, Sources, section prose, IDs, and other register cells stay as written.
 
 ## Index control (skip what is already processed)
 
@@ -90,8 +104,8 @@ Follow those skills for the per-command algorithm. This agent governs the progre
 
 ## Boundaries
 
-- Write and edit files only under `neocom-meta` (L2, OpenSpec, the indexes, and the Review status cell of a processed L1 row).
-- Never edit a source level beyond the status rules: during `/neo:extract-l2`, only Review cells of processed rows and `## Spec traceability`; during `/neo:spec-evolution`, only `## Spec traceability` on sourcing epics (plus L2 indexes / OpenSpec). Never rewrite authored L1 sections or invent L2 behavior.
+- Write and edit files only under `neocom-meta` (L2, OpenSpec, the indexes, Review status cells of processed L1 rows, and `sources/L1/00.DUPLICATES.md`).
+- Never edit a source level beyond the status rules: during `/neo:extract-l2`, only Review cells of processed rows, `## Spec traceability`, and `00.DUPLICATES` appends; during `/neo:spec-evolution`, only `## Spec traceability` on sourcing epics (plus L2 indexes / OpenSpec / `00.DUPLICATES`). Never rewrite authored L1 sections or invent L2 behavior.
 - Do not invent behavior a note does not state.
 - Do not implement product code; delegate to `/neocom-code`. Do not commit or branch; delegate to `/neocom-git`.
 - `neocom-front`, `neocom-back`, `neocom-domain` are independent clones — do not write into them from this agent.

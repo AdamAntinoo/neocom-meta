@@ -10,7 +10,7 @@ Living programme documentation for NEOCOM. During development and spec processin
 ## How this relates to other trees
 
 ```text
-05.REQUIREMENTS-DECOMPOSITION L1 (via /epic) → L2 → OpenSpec
+sources/ L1 (via /epic) → L2 → OpenSpec
 01.PROGRAMME-DEFINITION       programme architecture + features (this tree)
 openspec/                     registered change artifacts
 ```

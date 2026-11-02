@@ -30,7 +30,7 @@ No argument means `neocom-meta`, `neocom-front`, and `neocom-back`. Name `neocom
 
 `neocom` is deprecated. `neocom-esi` is aside. If the argument names one of those, stop that repository and report that it is aside. Do not commit it and do not open a pull request for it.
 
-For **`neocom-domain`** PRs: run `npm run version:sync` (from npm, not GitVersion) before opening; do not require GitVersion. Publish to npm only when the user asks (`publish:lib` / publish steps in `/neocom-git`).
+For **`neocom-domain`** PRs: do not run GitVersion. Version advances after `npm run distribute` (patch) or `publish:lib` (npm-led). Publish to npm only when the user asks.
 
 An unknown argument stops the command. Do not guess a repository.
 
@@ -40,13 +40,10 @@ An unknown argument stops the command. Do not guess a repository.
 2. Orient with `git status`, `git diff`, `git diff --staged`, `git status -sb`, and `git log`.
 3. When there is nothing to commit and the current branch needs no pull request, say so and continue.
 4. Commit pending changes on the correct feature or fix branch. Do not commit that work on `develop` or `main`. If the changes are on `develop` or `main`, stop that repository and report that it needs a branch from `develop`.
-   - **`neocom-front` / `neocom-back`:** current `feature/<feature>` or `fix/…`.
+   - **`neocom-front` / `neocom-back`:** current `feature/<feature>` or `fix/…`. Pre-commit / GitHub hooks sync GitVersion — do **not** run `version:sync` as a separate agent step.
    - **`neocom-meta`:** prefer `feature/agents` (default). Use `feature/cicd` only when the user commanded CI/CD work on that branch. Do not keep inventing `feature/<product-feature>` on meta. If the working tree is on a short-lived product-named meta branch (for example `feature/login`), move the commits onto `feature/agents` (or the commanded meta branch) before the pull request, unless the user says otherwise.
 5. If `develop` does not exist, stop that repository and report it. Do not use `main` as the base.
-6. **Version sync (mandatory before the pull request):**
-   - **`neocom-front`:** `nvm use` then `npm run version:sync`. Commit any resulting version file changes on the feature branch before opening the PR. Do not open a PR with a stale `MajorMinorPatch`.
-   - **`neocom-back`:** `nvm use` then `npm run version:sync`. Commit when `package.json` version changes.
-   - **`neocom-meta`:** no package version sync.
+6. **Version:** do not create a version chore commit. Apps: hooks/CI. Domain: distribute/publish. Meta: none.
 7. Prepare the pull request from the feature or fix branch into `develop`:
    - Push with `git push -u origin HEAD` when the branch has no upstream.
    - If a pull request for that branch already exists, report its URL. Do not open another.

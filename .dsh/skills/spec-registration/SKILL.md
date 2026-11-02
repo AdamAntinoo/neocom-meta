@@ -3,7 +3,7 @@ name: spec-registration
 description: >-
   Review L2 notes and move them into OpenSpec. Used by /neo:spec-evolution.
   Optional L2 paths limit the run to those files. L1 conversion is
-  /neo:extract-l2.
+  /neo:extract-l2. Duplicates go to sources/L1/00.DUPLICATES.md.
 disable-model-invocation: true
 ---
 
@@ -12,6 +12,18 @@ disable-model-invocation: true
 `/neo:spec-evolution`. Owned by `neocom-spec-workflow`.
 
 Reviews L2 notes and moves them into OpenSpec. L1 conversion is `/neo:extract-l2`. Do not implement product code in `neocom-front` or `neocom-back`.
+
+## Queue model (replaces `UNREGISTERED REQUIREMENTS`)
+
+**Deprecated.** Do not rely on `## UNREGISTERED REQUIREMENTS` / `## DUPLICATED` as the control for what to register. New extracts from `/neo:extract-l2` put requirements in L2 with registration status **`pending`**. The L1 **Review** gate (`to review` → `reviewed` → extract) already decided what may leave the epic.
+
+**Current queue.** Process L2 notes that are still awaiting OpenSpec:
+
+1. Requirement / note rows whose Status (or equivalent) cell is `pending`.
+2. Epic-named extract files whose L2 header is 📥 `inbox` (has pending notes).
+3. **Legacy only:** notes still under `## UNREGISTERED REQUIREMENTS` in older L2 files — drain them once, then leave that heading empty or remove it; do not add new content there.
+
+Do **not** open L1 to pull sections that are still `to review`. Those stay on the epic until Review is `reviewed` and `/neo:extract-l2` writes them.
 
 ## Scope
 
@@ -26,19 +38,6 @@ Examples:
 - `/neo:spec-evolution sources/L2/01.EPIC-LOGIN-PROCEDURE.login.md`
 - `/neo:spec-evolution sources/L2/01.EPIC-LOGIN-PROCEDURE` — all files whose names start with that epic stem
 - `/neo:spec-evolution sources/L2/FRONT/04.DASHBOARD.md sources/L2/ESI/ESI-LOGIN.md`
-
-## Review
-
-1. Resolve the scope above. With no arguments, read every file under `sources/L2/`, including epic-named extracts (`sources/L2/NN.EPIC-NAME.md`, `sources/L2/NN.EPIC-NAME.*.md`), legacy epic directories if present, nested system folders (`sources/L2/FRONT/`, `sources/L2/BACK/`, `sources/L2/DOMAIN/`, `sources/L2/ESI/`, and later `sources/L2/CICD/`), and `sources/L2/INFRASTRUCTURE-SPECS.md`. With arguments, read only the resolved files. Do not read `sources/L1/`.
-2. Collect every section headed `UNREGISTERED REQUIREMENTS` that has one or more notes in the scoped files. Ignore every note under the heading `DUPLICATED`. Leave unscoped L2 files unchanged. Do not open L1 to pull model sections that are still `to review`. Those models stay on the epic until a later iteration sets Review to `reviewed` and `/neo:extract-l2` writes their notes. Register only the notes already under `UNREGISTERED REQUIREMENTS`.
-3. For each note, decide and record:
-   - System: `front`, `infra`, `cicd`, `back`, `domain`, or a system the user names
-   - Feature name (kebab-case)
-   - Destination file. If the note is already in the right file, it stays there and leaves the unregistered section. If it is in the wrong file, move it to `sources/L2/<SYSTEM>/<feature-file>.md` (create the file). Keep infrastructure rows that belong in `sources/L2/INFRASTRUCTURE-SPECS.md` in that register.
-   - Whether an OpenSpec change or an L2 row already states the same behavior, or a very similar one. When it does, do not register the note. Move it under the heading `DUPLICATED` in that L2 file for the user to review.
-4. If a note is too ambiguous to choose a system or feature, ask before writing. Do not invent behavior the note does not state.
-5. If no scoped L2 file has a note to register, stop.
-6. Show this review before writing files: the scoped files, then each note, its system, its feature, and its destination.
 
 ## Graphify (automatic first action)
 
@@ -60,15 +59,28 @@ cd neocom-meta
 graphify query "<subject of the note>" --graph graphify-out/graph.json
 ```
 
-Keep a node only when its `src` is under `openspec/changes/` or `sources/L2/` and that file already states the same behavior, or a very similar one. Move that note under `DUPLICATED` instead of registering it. Extend an existing change only when a returned node `src` is an OpenSpec change or an L2 file that already states the same behavior.
+Keep a node only when its `src` is under `openspec/changes/` or `sources/L2/` and that file already states the same behavior, or a very similar one. Treat that as a **duplicate** (see below). Extend an existing change only when a returned node `src` is an OpenSpec change or an L2 file that already states the same behavior.
 
-Ignore every other node. A query also returns code, tests, and unrelated proposals. If no source path qualifies, or `graph.json` is missing after a failed update, stop — do not invent duplicates.
+Ignore every other node. A query also returns code, tests, and unrelated proposals. If no source path qualifies, or `graph.json` is missing after a failed update, stop inventing duplicates — only flag when a qualifying path matches.
+
+## Review
+
+1. Resolve the scope above. With no arguments, read every file under `sources/L2/`, including epic-named extracts, legacy epic directories if present, nested system folders (`FRONT`, `BACK`, `DOMAIN`, `ESI`, `CICD`, …), and `INFRASTRUCTURE-SPECS.md`. With arguments, read only the resolved files. Do not read product L1 epics to invent new notes.
+2. Collect every **pending** note in the scoped files (and any legacy `UNREGISTERED REQUIREMENTS` notes). Ignore empty headings. Leave unscoped L2 files unchanged.
+3. For each note, decide and record:
+   - System: `front`, `infra`, `cicd`, `back`, `domain`, or a system the user names
+   - Feature name (kebab-case)
+   - Destination file. If the note is already in the right `sources/L2/<SYSTEM>/` file, it stays there and its status becomes `registered` after OpenSpec exists. If it is in the wrong file, move it to `sources/L2/<SYSTEM>/<feature-file>.md` (create the file). Keep infrastructure rows that belong in `sources/L2/INFRASTRUCTURE-SPECS.md` in that register.
+   - Whether an OpenSpec change or an L2 row already states the same behavior, or a very similar one. When it does, **do not register** — move the note to `sources/L1/00.DUPLICATES.md` (same shape as `/neo:extract-l2`), remove or mark it cleared from the L2 extract, and if the sourcing L1 Review cell is still settable via the extract skill’s duplicate path, prefer recording provenance on `00.DUPLICATES` for the user. Do **not** create a new `## DUPLICATED` heading in L2.
+4. If a note is too ambiguous to choose a system or feature, ask before writing. Do not invent behavior the note does not state.
+5. If no scoped L2 file has a note to register, stop.
+6. Show this review before writing files: the scoped files, then each note, its system, its feature, and its destination (or duplicate target).
 
 ## Move into OpenSpec
 
 1. **Place the notes**
-   - Give each new item a stable id, status `pending`, then `registered` after the OpenSpec change exists.
-   - Leave every `UNREGISTERED REQUIREMENTS` heading in place and empty.
+   - Give each new item a stable id if missing; status `pending`, then `registered` after the OpenSpec change exists.
+   - Clear the extract queue: no leftover `pending` rows for what was registered; leave legacy `UNREGISTERED REQUIREMENTS` empty if drained.
 
 2. **Select the slice**
    - Include the items just placed, plus L2 rows still `pending`.
@@ -89,9 +101,9 @@ Ignore every other node. A query also returns code, tests, and unrelated proposa
 
 5. **Traceability**
    - In the OpenSpec proposal (or a short `neocom-meta` note under `sources/L2/`), record which L2 IDs were registered and the OpenSpec change name(s).
-   - Update `01.PROGRAMME-DEFINITION/` when the review names a new feature, including `FEATURES/` with the L2 IDs and OpenSpec change names.
-   - **Traceability index (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update the row in `sources/L1/TRACEABILITY.md`: set status at least `registered`, list OpenSpec change names and capabilities, and refresh **L2 backlog** (📭 cleared when that epic’s extracts have empty `UNREGISTERED REQUIREMENTS`). **Also update that epic’s `## Spec traceability`** (Status, OpenSpec changes, L2/Skip as needed; keep the section at the start of the file). Do not edit authored L1 sections. Later extract/register runs skip material covered by `applied` / `archived` changes via the index.
-   - **L2 index (mandatory):** update `sources/L2/INDEX.md` for every extract or placed file touched this run. When `UNREGISTERED REQUIREMENTS` is empty, set the extract to 📭 `cleared`; new or updated system registers are 📌 `placed` (🔗 `pointer` when pointer-only). Sync each file’s `<!-- L2-STATUS: … -->` header (Status, OpenSpec, Unregistered, Next) with the index row.
+   - Update `01.PROGRAMME-DEFINITION/` / `tools/doc/01.PROGRAMME-DEFINITION/` when the review names a new feature, including `FEATURES/` with the L2 IDs and OpenSpec change names.
+   - **Traceability index (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update the row in `sources/L1/TRACEABILITY.md`: set status at least `registered`, list OpenSpec change names and capabilities, and refresh **L2 backlog** (📭 cleared when that epic’s extracts have no `pending` notes). **Also update that epic’s `## Spec traceability`** (Status, OpenSpec changes, L2/Skip as needed; keep the section at the start of the file). Do not edit authored L1 sections. Later extract/register runs skip material covered by `applied` / `archived` changes via the index.
+   - **L2 index (mandatory):** update `sources/L2/INDEX.md` for every extract or placed file touched this run. When no `pending` notes remain, set the extract to 📭 `cleared`; new or updated system registers are 📌 `placed` (🔗 `pointer` when pointer-only). Sync each file’s `<!-- L2-STATUS: … -->` header (Status, OpenSpec, Pending, Next) with the index row.
 
 6. **Change status register (mandatory)**
    - Update `openspec/CHANGE-STATUS.md` for every new or changed OpenSpec change in this run.
@@ -101,7 +113,8 @@ Ignore every other node. A query also returns code, tests, and unrelated proposa
 7. **Boundaries**
    - Do not implement product code in front/back from this command.
    - Do not edit `neocom-front` / `neocom-back` application sources.
-   - Meta writes, including OpenSpec artifacts, stay under `neocom-meta`.
+   - Meta writes, including OpenSpec artifacts and `00.DUPLICATES` appends, stay under `neocom-meta`.
+   - Do not pull `to review` L1 sections into this run.
 
 ## Return
 
@@ -109,5 +122,5 @@ Ignore every other node. A query also returns code, tests, and unrelated proposa
 2. The review (notes found, system, feature, destination)
 3. OpenSpec change names and paths
 4. That `openspec/CHANGE-STATUS.md`, `sources/L1/TRACEABILITY.md`, `sources/L2/INDEX.md`, and each sourcing epic’s `## Spec traceability` were updated (authored L1 sections left untouched)
-5. Notes skipped, and why
-6. Next step: `/feature-delivery` when the user wants a registered feature applied
+5. Notes skipped or moved to `sources/L1/00.DUPLICATES.md`, and why
+6. Next step: apply / feature delivery when the user wants a registered feature applied

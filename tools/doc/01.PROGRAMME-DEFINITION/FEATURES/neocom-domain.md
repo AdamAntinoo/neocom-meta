@@ -6,4 +6,4 @@ Status: recorded. OpenSpec change: `domain-module`.
 
 Business objects in that package are versioned. A new shape is a new type, and features that use an older model keep that older type. Versioning rules: **EPIC-004** — `L1/04.EPIC-MODELS.md`. Implemented models and hierarchy diagram: `ARCHITECTURE/MODELS.md`.
 
-Source: `05.REQUIREMENTS-DECOMPOSITION/L2/DOMAIN/01.NEOCOM-DOMAIN.md`.
+Source: `sources/L2/DOMAIN/01.NEOCOM-DOMAIN.md`.

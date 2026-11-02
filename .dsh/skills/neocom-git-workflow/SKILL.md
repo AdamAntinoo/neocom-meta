@@ -52,13 +52,13 @@ EOF
 
 5. Verify with `git status`.
 
-**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit only when asked, when `/neocom-git`, `/git:commit`, or `/git:pr` is invoked to commit, or when an OpenSpec feature apply is in progress. That apply instructs this agent to commit on `feature/<feature>` created from `develop`. `/git:commit <project>` commits on the current branch only; `/git:pr` also prepares the pull request. See `.dsh/skills/git-commit/SKILL.md` and `.dsh/skills/git-pr/SKILL.md`.
+**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit **only** when the user asks, or when `/neocom-git`, `/git:commit`, or `/git:pr` is invoked to commit. **OpenSpec apply does not authorize a commit** — after apply, leave the working tree for developer review; commit only when they explicitly request it. `/git:commit <project>` commits on the current branch only; `/git:pr` also prepares the pull request. See `.dsh/skills/git-commit/SKILL.md` and `.dsh/skills/git-pr/SKILL.md`.
 
 ## PR workflow
 
 1. Parallel: status, diff, upstream tracking, `git log` + `git diff [base]...HEAD`
 2. `git push -u origin HEAD` if no upstream
-3. After an OpenSpec apply, do not open a pull request. The user reviews the branch and tests first.
+3. After an OpenSpec apply, do not commit and do not open a pull request. The developer reviews the code first; commit only when they ask (`/git:commit` / `/git:pr` / explicit commit language).
 4. When the user says that review and testing are done, `gh pr create` with base `develop` and head `feature/<feature-name>`. If `.dsh/templates/pull-requests.md` has a user example, use that title and body.
 
 ```bash
@@ -104,25 +104,21 @@ Each repository is its own project. The parent `neocom` repository is deprecated
 | Release | `release/x.y.z` |
 | Tags | `vX.Y.Z` (only when user requests a release tag) |
 
-### Version sync before a pull request (mandatory)
+### Version before a pull request (hooks own it)
 
-Do not open a pull request until the package version matches GitVersion `MajorMinorPatch`.
+Do **not** run `version:sync` as an agent chore or invent a version commit.
 
-| Repository | Command |
+| Repository | Who writes the version |
 | --- | --- |
-| `neocom-front` | `nvm use` then `npm run version:sync` — GitVersion `MajorMinorPatch` into `package.json`, both `appVersion` fields, `index.html` loading text, Cypress version expectation, and `.app-banner.txt` |
-| `neocom-back` | `nvm use` then `npm run version:sync` (GitVersion) |
-| `neocom-domain` | `nvm use` then `npm run version:sync` — set `package.json` from latest **npm** publish (`npm view neocom-domain version`). After user-requested publish: `version:tag` so git `vX.Y.Z` follows npm |
+| `neocom-front` / `neocom-back` | `.githooks/pre-commit` + GitHub `version-sync` → GitVersion `MajorMinorPatch` |
+| `neocom-domain` | After `npm run distribute` (patch; above npm when published). Not GitVersion |
+| `neocom-meta` | No package version |
 
-Commit any files that command changes on the feature branch, then open the PR. Use `MajorMinorPatch` only. Do not write `SemVer`. Do not use `npm version`.
-
-### New feature branch in `neocom-front`
-
-After `feature/<feature-name>` exists from `develop`, run `npm run version:sync` early (same command as above). Run it again before the pull request if the calculated version may have moved.
+Do not write GitVersion `SemVer`. Do not use `npm version` on apps.
 
 **Checklist before tagging / promoting:**
 
-- [ ] `version:sync` run; version files committed
+- [ ] App version files match hooks/CI (no manual SemVer edit)
 - [ ] Relevant tests green (or deferred with reason)
 - [ ] OpenSpec change status noted
 - [ ] The release stays inside the repository that owns it
@@ -132,9 +128,7 @@ After `feature/<feature-name>` exists from `develop`, run `npm run version:sync`
 
 ## Versioning
 
-`/neocom-git` owns Node library versions. The package version is GitVersion `MajorMinorPatch` (`X.Y.Z`). Do not store `SemVer` in `package.json`; that variable adds a branch pre-release label.
-
-Before a release, review `version:sync` and any `scripts/release.mjs`. Both must call `gitversion /nocache /showvariable MajorMinorPatch`. Correct a script that still uses `SemVer`. Do not use `npm version`.
+Apps: GitVersion `MajorMinorPatch` via hooks/CI. Domain: distribute/publish-led (see `/neocom-git` Versioning). Do not store GitVersion `SemVer` in `package.json`.
 
 ## Examples
 

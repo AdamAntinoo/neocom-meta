@@ -6,4 +6,4 @@ The landing page is the dashboard under `app/pages`. Until login works, an Angul
 
 The page has a borderless `header` (`app-info-panel` white, `server-info-panel` blue) and `pilot-dashboard` (`pilot-public-info` green). An `exception` region sits under the header on every page when an exception is present. How the exception is passed is not defined.
 
-Source: `05.REQUIREMENTS-DECOMPOSITION/L2/FRONT/04.DASHBOARD.md`.
+Source: `sources/L2/FRONT/04.DASHBOARD.md`.

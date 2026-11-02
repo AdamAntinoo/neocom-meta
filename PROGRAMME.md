@@ -44,7 +44,7 @@ Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain
 | Path | What it holds |
 | --- | --- |
 | `01.PROGRAMME-DEFINITION/` | Architecture and active features |
-| `05.REQUIREMENTS-DECOMPOSITION/` | L1 and L2 requirements |
+| `sources/` | L1 and L2 requirements |
 | `openspec/` | Registered and applied OpenSpec changes. Agents keep `openspec/CHANGE-STATUS.md` current after every OpenSpec change |
 | `.cursor/agents/` | Project agents |
 | `.cursor/commands/` | Slash commands |
@@ -59,7 +59,7 @@ Type the command in chat. A name in `<angle brackets>` is the argument you suppl
 | `/epic` | Open an epic. The same prompt starts with the name and continues with the purpose, scope, and other details. The L1 file is `NN.EPIC-NAME.md`, from `01.EPIC-LOGIN-PROCEDURE.md` | `/epic login procedure A brief description of the purpose, scope, and other details.` |
 | `/neocom-methodology` | Walk design, spec, develop, test, and deploy. Define an epic and extract it from L1 into L2 | `/neocom-methodology` |
 | `/neo:extract-l2` | Convert L1 epics into epic-named L2 files. No args: all epics with pending extract work. Args: epic number(s) preferred (`01`, `02`) | `/neo:extract-l2` or `/neo:extract-l2 01` or `/neo:extract-l2 01 02` |
-| `/neo:spec-evolution` | Read L2 only. Review notes under `UNREGISTERED REQUIREMENTS`, place each one on its system and feature, and move it into OpenSpec. Skip `DUPLICATED`. Optional L2 paths limit the run to those files | `/neo:spec-evolution` or `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE.md` |
+| `/neo:spec-evolution` | Read L2 only. Review notes with status `pending`, place each one on its system and feature, and move it into OpenSpec. Duplicates go to `sources/L1/00.DUPLICATES.md`. Optional L2 paths limit the run to those files | `/neo:spec-evolution` or `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE.md` |
 | `/opsx-explore` | Think through an idea, a problem, or a requirement before a change exists | `/opsx-explore` |
 | `/opsx-propose` | Create one OpenSpec change and its proposal, spec, design, and tasks. Planning only | `/opsx-propose <system>-<feature>` |
 | `/opsx-update` | Revise the planning artifacts of an existing change and keep them consistent | `/opsx-update <system>-<feature>` |
@@ -141,7 +141,7 @@ flowchart LR
 
 The L1 file name is `NN.EPIC-NAME.md`. `NN` is the next two-digit number, starting at `01`. `EPIC-NAME` is `EPIC-` plus the name in uppercase, with words separated by `-`:
 
-`05.REQUIREMENTS-DECOMPOSITION/L1/01.EPIC-LOGIN-PROCEDURE.md`
+`sources/L1/01.EPIC-LOGIN-PROCEDURE.md`
 
 The file uses this template. The title is the id, then the name in uppercase. `## Goals` is the description from the prompt.
 
@@ -180,7 +180,7 @@ flowchart TD
 
 Do not require an epic directory or a fixed split per repository. Choose a single file when the material belongs together; choose multiple files when topics will likely register as separate OpenSpec capabilities. Specs often aggregate into feature groups later — write L2 for that shape.
 
-The extraction leaves every new requirement under the heading `UNREGISTERED REQUIREMENTS`. It does not place them in a final system feature register and it does not write OpenSpec.
+Requirements are authored **inside the L1 epic** under sections, each with a **Review** status. New requirements start at **`to review`** (not extractable). The old `UNREGISTERED REQUIREMENTS` inbox is deprecated. Extraction writes epic-named L2 notes at status **`pending`** for OpenSpec; it does not place them in a final system feature register and it does not write OpenSpec.
 
 The current L2 tree is the record of work already generated. Before writing a note, compare the L1 passage with:
 
@@ -189,9 +189,9 @@ The current L2 tree is the record of work already generated. Before writing a no
 - `L2/<SYSTEM>/*.md`, `L2/DOMAIN/MODELS/`, `L2/INFRASTRUCTURE-SPECS.md`
 - OpenSpec changes marked `applied` or `archived` on the L1 epic
 
-When that passage is already there, report the path and do not write it again. A later run appends only what those files do not already hold.
+When that passage is already there (or very similar), move the L1 unit to `sources/L1/00.DUPLICATES.md`, set its Review cell to `duplicated`, and do not write a new L2 pending note. A later run appends only what those files do not already hold.
 
-On EPIC-004 (and any later epic with a **Review** column), one iteration extracts only models whose Review cell is exactly `reviewed`. Sections still `to review` stay in the L1 file and are not copied. After those notes are written, that cell becomes `extracted`. The next iteration starts when a pending model is set to `reviewed`. `superseded` and `out of scope` are never extracted. `/neo:spec-evolution` registers the notes from that iteration; it does not reach back into pending L1 sections.
+On EPIC-004 (and any later epic with a **Review** column), one iteration extracts only units whose Review cell is exactly `reviewed`. Sections still `to review` stay in the L1 file and are not copied. After those notes are written, that cell becomes `extracted`. The next iteration starts when a pending unit is set to `reviewed`. `superseded`, `out of scope`, and `duplicated` are never extracted. `/neo:spec-evolution` registers the pending L2 notes from that iteration; it does not reach back into `to review` L1 sections.
 
 ```mermaid
 flowchart TD
@@ -202,58 +202,54 @@ flowchart TD
 
 ### 5.4 Register L2 notes in OpenSpec
 
-`/neo:spec-evolution` reads `05.REQUIREMENTS-DECOMPOSITION/L2/` only. Optional arguments after the command are L2 file paths; when given, only those files are processed. With no arguments, every L2 file is processed. It reads `UNREGISTERED REQUIREMENTS`, puts each note in the system and feature file that owns it, and moves that spec into the OpenSpec change `<system>-<feature>`. The note text is the requirement. The processor adds no behavior the note does not state. It does not read L1.
+`/neo:spec-evolution` reads `sources/L2/` only. Optional arguments after the command are L2 file paths; when given, only those files are processed. With no arguments, every L2 file is processed. It reads notes with status **`pending`** (legacy `UNREGISTERED REQUIREMENTS` may be drained once), puts each note in the system and feature file that owns it, and moves that spec into the OpenSpec change `<system>-<feature>`. The note text is the requirement. The processor adds no behavior the note does not state. It does not read L1 rows that are still `to review`.
 
 ```mermaid
 flowchart TD
-  unreg["UNREGISTERED REQUIREMENTS"] --> place["L2/SYSTEM/feature.md"]
+  pending["L2 notes status pending"] --> place["L2/SYSTEM/feature.md"]
   place --> openspec["/neo:spec-evolution to openspec/changes/system-feature"]
 ```
 
 ### 5.5 A duplicate or a very similar requirement
 
-The same epic can be extracted again. When a note under `UNREGISTERED REQUIREMENTS` duplicates a requirement already stated, or is very similar to one, that note is not registered in OpenSpec. It moves under the heading `DUPLICATED` in that L2 slice file, for the user to review.
+When extract or evolution finds a note that duplicates a requirement already stated, or is very similar to one, that note is **not** written as a new pending L2 / OpenSpec item. It is moved to the holding epic [`sources/L1/00.DUPLICATES.md`](./sources/L1/00.DUPLICATES.md) for user review, reinsertion, or removal. On the source epic, Review becomes `duplicated`.
 
 ```mermaid
 flowchart TD
-  note[Note under UNREGISTERED REQUIREMENTS] --> compare{Same or very similar to an existing requirement?}
-  compare -->|yes| dup["Heading DUPLICATED"]
-  compare -->|no| openspec[Register in OpenSpec]
-  dup --> review[User reviews the section]
+  note[Reviewed or pending note] --> compare{Same or very similar to an existing requirement?}
+  compare -->|yes| dup["sources/L1/00.DUPLICATES.md"]
+  compare -->|no| openspec[Extract / register]
+  dup --> review[User reviews, reinserts, or removes]
 ```
 
 ### 5.6 Processing skips duplicates
 
-A later pass over L2 files ignores every note under `DUPLICATED`. Those notes stay where they are until the user moves or rewrites them. They are not registered, not given an id, and not treated as new requirements.
+`00.DUPLICATES` is not a normal extract source. Notes held there are ignored by later extract/register runs until the user reinserts them into a product epic (typically at `to review` or `reviewed`). They are not registered and not treated as new requirements while they remain in the holding epic.
 
 ```mermaid
 flowchart TD
-  l2[Open L2 file] --> unreg[Read UNREGISTERED REQUIREMENTS]
-  l2 --> skip[Skip DUPLICATED]
-  unreg --> register[Register the notes that are still new]
-  skip --> stop[Leave those notes for the user]
+  l2[Open L2 file] --> pending[Read pending notes]
+  pending --> register[Register notes that are still new]
+  holding["00.DUPLICATES"] --> stop[Leave for the user]
 ```
 
-### 5.7 Headings
+### 5.7 Requirement status on the epic
 
-Both headings are exact:
+Control is the **Review** cell on register / requirement rows inside L1 sections — not an inbox heading:
 
-- `UNREGISTERED REQUIREMENTS` — new notes waiting for registration
-- `DUPLICATED` — notes held for user review
+| Status | Role |
+| --- | --- |
+| `to review` | Initial. Not extractable. |
+| `reviewed` | Ready for `/neo:extract-l2`. |
+| `extracted` | Already in L2. |
+| `duplicated` | Holding copy in `00.DUPLICATES`. |
+| `superseded` / `out of scope` | Never extract. |
 
-```markdown
-## UNREGISTERED REQUIREMENTS
-
-- neocom-front: the pilot panel shows the public pilot
-
-## DUPLICATED
-
-- neocom-back: the pilot endpoint returns the public pilot
-```
+Legacy L2 files may still show empty `UNREGISTERED REQUIREMENTS` / `DUPLICATED` headings; do not add new content there.
 
 ### 5.8 Iteration
 
-Design and spec repeat. A new requirement is added to the epic L1 file. `/neo:extract-l2` writes it into an epic-named L2 file under `UNREGISTERED REQUIREMENTS` when the L2 tree does not already hold it. `/neo:spec-evolution` then either moves it into OpenSpec or moves it to `DUPLICATED`. Develop, test, and deploy run for the features that were registered. Section 5.9 is how several of those features stay open without colliding.
+Design and spec repeat. A new requirement is added to an L1 epic section at `to review`. When the developer sets it to `reviewed`, `/neo:extract-l2` writes it into an epic-named L2 file as `pending` (or moves it to `00.DUPLICATES`). `/neo:spec-evolution` then either moves it into OpenSpec or appends `00.DUPLICATES`. Develop, test, and deploy run for the features that were registered. Section 5.9 is how several of those features stay open without colliding.
 
 ### 5.9 Develop several features
 

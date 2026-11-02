@@ -193,6 +193,22 @@ When the prompt names an epic id or an epic name, append to that file. When it d
 
 When an append widens the epic goals, or the developer fills the `## Search criteria`, ask the developer to review the extended criteria, then collect cards again from among those still available: absent from `INDEX.md`, or `returned` from a different epic.
 
+## Requirements and Review status
+
+New requirements belong **inside epic sections** (register rows and/or per-requirement tables), not under an `UNREGISTERED REQUIREMENTS` heading (deprecated).
+
+Each extractable unit MUST have a **Review** (status) cell. When this agent or a later append adds a new requirement or register row, set Review to **`to review`**. That status is **not** extractable by `/neo:extract-l2`. The developer changes the cell to `reviewed` when the batch is ready to extract.
+
+| Status | Meaning |
+| --- | --- |
+| `to review` | Initial. Not extractable. |
+| `reviewed` | Ready for `/neo:extract-l2`. |
+| `extracted` | Already extracted (set by extract). |
+| `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md`. |
+| `superseded` / `out of scope` | Never extract. |
+
+Do not invent requirement text beyond what the developer prompt states. Do not set new rows to `reviewed` unless the developer asks.
+
 ## Boundaries
 
 - Do not implement product code, do not extract L2, do not register OpenSpec changes, do not commit or branch.

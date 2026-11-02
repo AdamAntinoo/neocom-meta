@@ -28,6 +28,7 @@ Agents and their entry points:
 | `neocom-spec-collector` | `/epic`                                                            | Opens an L1 epic and collects the L0 cards that match its search criteria |
 | `neocom-spec-workflow`  | `/neo:extract-l2`, `/neo:spec-evolution` | Controls the progression L1 (epic) → L2 → OpenSpec                        |
 | `neocom-backtrack`      | `/neo:backtrack`                                                   | Finds in the legacy code the classes, methods, and flows an epic cites    |
+| `neocom-code`           | `/neocom-code`                                                     | Product coding for front and back (destination-selected rules); OpenSpec apply in product repos |
 | `neocom-git`            | `/neocom-git`, `/git:commit <project>`, `/git:pr [project]`        | Commits, branches, PRs, and versions; the only owner of git operations    |
 | `program-verifier`      | `/program-verifier`                                                | Read-only verification of the `program/` knowledge                        |
 

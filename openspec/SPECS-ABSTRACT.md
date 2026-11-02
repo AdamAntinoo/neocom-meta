@@ -4,7 +4,7 @@ One-page view of active OpenSpec changes for planning a **single feature** that 
 
 Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. This abstract is narrative; re-read each `proposal.md` before merging changes.
 
-**Last refreshed:** 2026-11-02 (from `openspec list --json` + `CHANGE-STATUS.md`).
+**Last refreshed:** 2026-11-02 (EPIC-009: `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints`).
 
 **How to integrate:** pick a feature name, create or extend one change folder (multi-capability under `specs/<system>/<feature>/`), move or cite the L2 ids, supersede the old change names in the proposal, then archive or drop the superseded folders when apply is complete.
 
@@ -22,8 +22,8 @@ Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. 
 | `front-infrastructure`    | 8/8   | applying (`feature/infrastructure`) | Front shell & toolchain         |
 | `front-app-shell`         | 0/3   | registered                          | Front shell & toolchain         |
 | `front-dashboard`         | 0/6   | registered                          | Pilot experience                |
-| `front-pilot`             | 4/5   | registered                          | Pilot experience                |
-| `front-pilot-panel`       | 0/4   | registered                          | Pilot experience                |
+| `front-pilot`             | 5/5   | applying                            | Pilot experience                |
+| `front-pilot-panel`       | 4/4   | applying                            | Pilot experience                |
 | `front-universe`          | 0/4   | registered                          | Pilot experience                |
 | `back-service`            | 0/3   | registered                          | Pilot experience                |
 | `domain-module`           | 2/3   | registered                          | Pilot experience                |
@@ -32,6 +32,12 @@ Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. 
 | `domain-application-info` | 0/3   | registered                          | Domain models (EPIC-004)        |
 | `domain-server-status`    | 0/2   | registered                          | Domain models (EPIC-004)        |
 | `domain-spacelocation`    | 0/3   | registered                          | Domain models (EPIC-004)        |
+| `domain-jsonclass`        | 3/3   | applying                            | Domain models (EPIC-004)        |
+| `domain-layout`           | 2/2   | applying                            | Backend services (EPIC-009)     |
+| `domain-ports`            | 2/2   | applying                            | Backend services (EPIC-009)     |
+| `domain-deprecations`     | 2/2   | applying                            | Backend services (EPIC-009)     |
+| `back-openapi`            | 3/3   | applying                            | Backend services (EPIC-009)     |
+| `back-industry-blueprints`| 2/2   | applying                            | Backend services (EPIC-009)     |
 | `domain-locations`        | 0/3   | registered                          | Locations (EPIC-008)            |
 | `back-spacelocations`     | 0/2   | registered                          | Locations (EPIC-008)            |
 | `esi-character-api`       | 3/4   | registered                          | Pilot experience                |
@@ -65,8 +71,9 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | Cluster                                 | Candidate changes                                                                                                             | Why they fit together                                                                                |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | **Pilot experience**                    | `front-pilot`, `front-pilot-panel`, `front-universe`, `front-dashboard`, `back-service`, `domain-module`, `domain-pilot`, `esi-character-api` | One vertical: domain Pilot type → ESI public data → back pilot use case → dashboard + panel UI       |
-| **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain |
+| **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain; `jsonClass` wire interchange |
 | **Locations (EPIC-008)**                | `domain-locations`, `back-spacelocations`, `domain-spacelocation` | Space-location hierarchy + lookup API; thin SpaceLocationV1 interface from EPIC-004 |
+| **Backend services (EPIC-009)**         | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | Domain truth/ports/deprecations → OpenAPI rules → Industry pilot blueprints |
 | **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`, `infra-developer-install`, `infra-local-config`                                    | Install, Node/Angular stack, canvas chrome, local WireMock config                                    |
 | **Auth / SSO**                          | `login` (already multi-system), `nestjs-sso-config`                                                                           | Session already unified; NestJS SSO env/config still separate                                        |
 | **Angular codification (EPIC-002)**     | `front-angular-structure`, `front-node-render`, `front-async-sse`, `back-async-sse`, `infra-async-persistence`                | Structure → node/viewer/registry → async SSE enrichment with Nest + PostgreSQL/Redis                 |
@@ -158,7 +165,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 
 
 
-### `front-pilot` — registered · 4/5
+### `front-pilot` — applying · 5/5
 
 
 |                    |                                                                                            |
@@ -172,7 +179,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 
 
 
-### `front-pilot-panel` — registered · 0/4
+### `front-pilot-panel` — applying · 4/4
 
 
 |                    |                                                                   |

@@ -14,14 +14,16 @@ context: |
   OpenSpec is installed in this repository (`neocom-meta`). Do not re-install it on every task.
 
   Specs and requirements decomposition docs live under `neocom-meta`
-  (e.g. `05.REQUIREMENTS-DECOMPOSITION/`). Prefer those as the source of truth for scope
+  (e.g. `sources/`). Prefer those as the source of truth for scope
   and non-obvious constraints when proposing or applying changes.
 
-  Requirement intake: users write new notes under the heading UNREGISTERED REQUIREMENTS
-  in L1 or L2 files. `/neo:extract-l2` converts an L1 epic into L2. `/neo:spec-evolution`
-  moves L2 specs into an OpenSpec change named `<system>-<feature>` whose delta spec is
-  `specs/<system>/<feature>/spec.md`. Systems include front, infra, cicd, back, and domain.
-  Cite L2 ids in registered specs.
+  Requirement intake: users author requirements inside L1 epic sections with a Review
+  status (initial `to review`, not extractable). When Review is `reviewed`, `/neo:extract-l2`
+  writes epic-named L2 notes at status `pending`. Duplicates go to `sources/L1/00.DUPLICATES.md`.
+  `/neo:spec-evolution` moves pending L2 specs into an OpenSpec change named
+  `<system>-<feature>` whose delta spec is `specs/<system>/<feature>/spec.md`.
+  Systems include front, infra, cicd, back, and domain. Cite L2 ids in registered specs.
+  Do not use UNREGISTERED REQUIREMENTS headings for new work.
 
   Applying a feature commits on `feature/<feature>` created from `develop`. The user
   reviews and tests that branch. After that review, open a pull request into `develop`.

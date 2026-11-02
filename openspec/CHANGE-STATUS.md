@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-02 (from `openspec list --json`).
+Last refreshed: 2026-11-02 (`front-pilot` @ `6357f65`; `front-pilot-panel` @ `857933b` on `feature/blueprint`).
 
 ## Status legend
 
@@ -43,12 +43,20 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `back-async-sse` | back / async-sse | 7/7 | applying | EPIC-002; BASSE-001…012. Branch `feature/async-sse` from `develop` @ `6a030c1`. In-memory default; TypeORM/BullMQ when `DATABASE_URL`/`REDIS_URL` set. Ready for user review (no PR) |
 | `infra-async-persistence` | infra / async-persistence | 4/4 | applying | EPIC-002; INFRA-050…055. Docs + `infra/docker-compose.async-persistence.yml` on `feature/agents`. Companion front/back applying |
 | `domain-pilot` | domain / pilot | 5/5 | applying | EPIC-004; `feature/domain-models` in `neocom-domain`. PublicPilotV1 + PilotV2. Ready for user review (no PR) |
-| `domain-blueprint` | domain / blueprint | 2/2 | applying | EPIC-004; BlueprintV1 on `feature/domain-models`. Ready for user review (no PR) |
+| `domain-blueprint` | domain / blueprint | 2/2 | applying | EPIC-004; DOM-BP-001…003. Domain `feature/domain-models` (BlueprintV1 + ME/TE clamp); front `feature/blueprint` (`v1-blueprint` identity for BlueprintV1). Ready for `/neocom-git` + review |
 | `domain-application-info` | domain / application-info | 3/3 | applying | EPIC-004; ApplicationInfoV1 on `feature/domain-models` (accessors). Front render remains consumer. Ready for user review (no PR) |
 | `domain-server-status` | domain / server-status | 2/2 | applying | EPIC-004; ServerStatusV1 on `feature/domain-models`. Ready for user review (no PR) |
-| `domain-spacelocation` | domain / spacelocation | 3/3 | applying | EPIC-004; thin SpaceLocationV1 interface on `feature/domain-models`. Ready for user review (no PR) |
-| `domain-locations` | domain / locations | 3/3 | applying | EPIC-008; SpaceLocation hierarchy on `feature/domain-models`. Ready for user review (no PR) |
+| `domain-spacelocation` | domain / spacelocation | 3/3 | applying | EPIC-004; thin empty interface dropped — `SpaceLocationV1` is the published lookup class on `feature/domain-models` @ `3b0e426`. Ready for user review (no PR) |
+| `domain-locations` | domain / locations | 3/3 | applying | EPIC-008; hierarchy flattened into `SpaceLocationV1` on `feature/domain-models` @ `3b0e426`. Ready for user review (no PR) |
 | `back-spacelocations` | back / spacelocations | 2/2 | applying | EPIC-008; LOC-010 on `feature/spacelocations` from `develop`. In-memory catalog + tests. Ready for user review (no PR) |
+| `domain-jsonclass` | domain / jsonclass (+ back, front) | 3/3 | applying | EPIC-004; DOM-JSONCLASS-001…003. Back `feature/jsonclass` (Pilot + SpaceLocation `jsonClass`); front `feature/jsonclass` (select via `jsonClass`); domain `feature/domain-models` (align PilotV2 / SpaceLocation). Ready for `/neocom-git` + user review |
+| `domain-layout` | domain / layout | 2/2 | applying | EPIC-009; BACK-SVC-001…004, 010…013. `feature/domain-models` @ `3b0e426`: models extend `Record`; NeoCom removed from package (front-only); `src/ports` + flat `src/domain`. Committed — review / PR |
+| `domain-ports` | domain / ports | 2/2 | applying | EPIC-009; BACK-SVC-020…022, 030…032. `PilotPort` + `IndustryPort` under `src/ports` @ `3b0e426`. Committed — review / PR |
+| `domain-deprecations` | domain / deprecations | 2/2 | applying | EPIC-009; BACK-SVC-040…042, 050…052. DTOs `@deprecated`; `esi-api/DEPRECATED.md` @ `3b0e426`. Committed — review / PR |
+| `back-openapi` | back / openapi | 3/3 | applying | EPIC-009; BACK-SVC-060…063. `tools/openapi/README.md` + industry YAML uses domain schema name `BlueprintV1`. Branch `feature/industry-blueprints` @ `7bbbea0`. Ready for user review (no PR) |
+| `back-industry-blueprints` | back / industry-blueprints | 2/2 | applying | EPIC-009; BACK-SVC-070…072. `GET /v1/pilots/:pilotId/blueprints` → `BlueprintV1[]` via ESI adapter. Branch `feature/industry-blueprints` @ `7bbbea0`. Ready for user review (no PR) |
+| `front-pilot` | front / pilot | 5/5 | applying | EPIC-004 PILOT-002…007. Front uses `neocom-domain` `PublicPilotV1`/`PilotV2` + NeoCom nodes. Committed on `feature/blueprint` @ `6357f65`. Ready for user review (no PR) |
+| `front-pilot-panel` | front / pilot-panel | 4/4 | applying | PANEL-001…012. `v1-pilot-panel` + `v1-public-pilot` / `v2-pilot` renders; variants `-PILOT-*-VARIANT-`. Committed on `feature/blueprint` @ `857933b`. Ready for user review (no PR) |
 
 ## Applied
 
@@ -59,8 +67,6 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
 | `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
-| `front-pilot` | front / pilot | 4/5 | registered | |
-| `front-pilot-panel` | front / pilot-panel | 0/4 | registered | |
 | `front-universe` | front / universe | 0/4 | registered | |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |
 | `front-dashboard` | front / dashboard | 0/6 | registered | |
