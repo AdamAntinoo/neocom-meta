@@ -31,5 +31,10 @@ Index of features recognized in the programme. Update this file when a feature b
 | Testing gates | registered (`cicd-testing-gates`) | [testing-gates.md](./testing-gates.md) | cicd |
 | Test commands | registered (`infra-test-commands`) | [test-commands.md](./test-commands.md) | infra, front, back |
 | Backend testing | registered (`back-testing`) | [back-testing.md](./back-testing.md) | back |
+| Domain layout | registered (`domain-layout`) | [domain-layout.md](./domain-layout.md) | domain |
+| Domain ports | registered (`domain-ports`) | [domain-ports.md](./domain-ports.md) | domain, back |
+| Domain deprecations | registered (`domain-deprecations`) | [domain-deprecations.md](./domain-deprecations.md) | domain, back |
+| Back OpenAPI | registered (`back-openapi`) | [back-openapi.md](./back-openapi.md) | back |
+| Back Industry blueprints | registered (`back-industry-blueprints`) | [back-industry-blueprints.md](./back-industry-blueprints.md) | back |
 
 Status values: `recorded` (documented, not necessarily implemented) · `in-progress` · `done` · `deferred`.

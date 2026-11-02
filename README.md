@@ -19,7 +19,6 @@ Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain
 | Path | What it holds |
 | --- | --- |
 | `01.PROGRAMME-DEFINITION/` | Architecture and active features |
-| `05.REQUIREMENTS-DECOMPOSITION/` | L1 and L2 requirements |
 | `openspec/` | Registered and applied OpenSpec changes |
 | `.cursor/agents/` | Project agents |
 | `.cursor/commands/` | Slash commands |
@@ -29,7 +28,7 @@ Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain
 
 | Command | Skill | What it does |
 | --- | --- | --- |
-| `/epic` | `epic` | Author an L1 epic under `05.REQUIREMENTS-DECOMPOSITION/L1/` |
+| `/epic` | `epic` | Author an L1 epic under `sources/L1/` |
 | `/neo:extract-l2` | `extract-l2` | Convert L1 epics into epic-named L2 files |
 | `/neo:spec-evolution` | `spec-registration` | Review L2 notes and register them in OpenSpec |
 | `/feature-delivery` | `feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop`, then commit |

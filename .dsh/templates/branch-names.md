@@ -37,8 +37,6 @@ When the user commands work on `feature/cicd`, rebase it onto the latest tip of 
 
 Create either meta branch from `develop` when it does not exist yet. Prefer continuing `feature/agents` over creating short-lived meta feature branches.
 
-## After creating a `neocom-front` branch
+## After creating a `neocom-front` / `neocom-back` branch
 
-Run `npm run version:sync` (GitVersion `MajorMinorPatch` into `package.json`, both `appVersion` fields, `index.html` loading text, Cypress expectation, and `.app-banner.txt`). Owned by `/neocom-git`.
-
-**Mandatory before any pull request:** run `npm run version:sync` again, commit if files changed, then open the PR. Do not open a PR with a stale version.
+No agent `version:sync` step. The next commit runs `.githooks/pre-commit`; GitHub `version-sync` relays on push (GitVersion `MajorMinorPatch`).

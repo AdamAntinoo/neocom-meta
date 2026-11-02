@@ -18,7 +18,7 @@ Active projects:
 | `neocom-meta` | Docs, agents, rules, skills, sources, OpenSpec |
 | `neocom-front` | Frontend app |
 | `neocom-back` | Backend app |
-| `neocom-domain` | Published npm domain library (version **npm-led**) |
+| `neocom-domain` | Domain library (version after **distribute** / npm when publishing) |
 
 Aside for now: `neocom` (deprecated) and `neocom-esi`. Do not commit them and do not open pull requests for them unless the user names that repository.
 
@@ -26,10 +26,11 @@ Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), packag
 
 ## Boundaries
 
-- Do not edit product application code to “fix” features; only git metadata, commit messages, PR bodies, tags, pointer SHAs, and the **version fields** listed under Feature branch version bump (front).
+- Do not edit product application code to “fix” features; only git metadata, commit messages, PR bodies, tags, and pointer SHAs. Do **not** run `version:sync` as an agent chore — hooks and CI own app versions; domain versions after `distribute`.
 - Do not invent undeclared deploy targets. Align promotions with pending L2 CI/CD (`INFRA-036` … `INFRA-039`); until CD is defined, document intent only — do not implement pipelines or invent staging/prod hosts.
 - Never update git config. Never force-push `main`/`master`. Never skip hooks unless the user explicitly allows it.
 - Commit **only** when the user asks, when `/git:commit` or `/git:pr` is invoked, or when this agent is explicitly invoked to create a commit.
+- **After OpenSpec apply:** do **not** commit (and do not treat apply as a commit request). Leave the working tree for the developer to review the code. Commit only after they explicitly say to (e.g. `/git:commit`, “commit”, or `/git:pr`). Do not start the next apply or further product edits as a side effect of a commit either — that stays with `/neocom-code` after the developer continues.
 - No secrets in commits, messages, or PR bodies (`.env`, credentials, tokens).
 
 ## Commit message standard (Conventional Commits)
@@ -76,7 +77,7 @@ EOF
 ## Pull requests
 
 1. Parallel orient: `git status`, `git diff`, tracking/`git status -sb`, `git log` and `git diff [base]...HEAD`
-2. **Version sync (mandatory).** Before creating the pull request, set the version from GitVersion `MajorMinorPatch`. For `neocom-front`, run `npm run version:sync` and commit any resulting changes. For `neocom-back` (and Node libraries when in scope), run `npm run version:sync` and commit when the version changed. Do not open a PR with a stale version.
+2. **Do not** run `npm run version:sync` or create a separate version chore commit. App versions are updated by the local `.githooks/pre-commit` and the GitHub `version-sync` workflow (GitVersion `MajorMinorPatch`). Domain versions advance after `npm run distribute` (see Versioning). If a PR still shows a stale app version, say so — do not hand-edit SemVer.
 3. Push with `-u` when the branch has no upstream
 4. Create with `gh pr create`. A pull request into `develop` uses a Conventional Commit title or the branch purpose. A pull request from `develop` into `main` is a release: its title is `Release-` plus GitVersion `MajorMinorPatch` (`X.Y.Z`), for example `Release-0.1.0`. Body:
 
@@ -110,31 +111,21 @@ If `develop` is missing, stop and ask. Do not substitute `main`. Do not merge a 
 
 Meta has no product application code. Commit general behaviour changes on **`feature/agents`** — that is usually the single active meta branch. Use **`feature/cicd`** only for CI/CD ecosystem work when the user names it. When switching to or updating `feature/cicd`, rebase it onto the latest `feature/agents` tip when agents is ahead and cicd needs that work; otherwise rebase onto latest `develop`. Ask before force-pushing a rebased remote branch. See `.dsh/templates/branch-names.md`.
 
-### Feature branch version bump (front)
+### Feature branch version (apps)
 
-When creating a new `feature/<feature-name>` (or `fix/…`) branch in **`neocom-front`**, run version sync early:
+Creating `feature/<feature-name>` does **not** require an agent `version:sync` step. The next commit on **`neocom-front`** / **`neocom-back`** runs `.githooks/pre-commit` (`npm run version:sync` → GitVersion `MajorMinorPatch`). GitHub `version-sync` relays the same on push. `neocom-meta` has no package version.
 
-```bash
-cd neocom-front
-nvm use
-npm run version:sync
-```
-
-That writes GitVersion **MajorMinorPatch** (`X.Y.Z`) into `package.json`, both environment `appVersion` fields, the `src/index.html` loading message, the Cypress app-version expectation, and `.app-banner.txt`.
-
-**Mandatory before any pull request:** run `npm run version:sync` again (version may have moved), commit any changes, then open the PR. Do not open a PR with a stale version.
-
-Use `MajorMinorPatch` only. Do not write GitVersion `SemVer` (no branch pre-release label). Do not use `npm version`.
-
-For `neocom-back`, run `npm run version:sync` before the pull request (package version only). For `neocom-meta`, there is no package version sync.
+Do not write GitVersion `SemVer` (no branch pre-release label). Do not use `npm version` on apps.
 
 ### OpenSpec feature flow
 
-1. **Apply.** Several features can be open in front/back. Commit each product feature on its own `feature/<feature-name>` created from `develop`. On `neocom-meta`, commit related docs/OpenSpec/agent work on `feature/agents` (or `feature/cicd` when that is the commanded branch). Do not commit that work on `develop` or `main`. Do not create the branch from another feature branch or from `main` (except meta rebasing `feature/cicd` onto `feature/agents` when commanded). For `neocom-front`, run the Feature branch version bump first. Do not open a pull request yet.
-2. **User review.** Stop. The user reviews the branch and runs the testing they want.
-3. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code. Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
-4. **Pull request into `develop`.** After the user says that review and testing are done, open a pull request into `develop`. One pull request can contain several features: stack them in dependency order and open it from the tip. Name every feature in the pull request. The next feature still starts as a new branch from `develop`. Do not implement it by adding commits on the previous feature branch.
-5. **Archive.** When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Title it `Release-<MajorMinorPatch>`. Do not merge it.
+1. **Branch for apply.** Several features can be open in front/back. Create each product feature branch as `feature/<feature-name>` from `develop` when `/neocom-code` needs it. On `neocom-meta`, use `feature/agents` (or `feature/cicd` when that is the commanded branch). Do not create the branch from another feature branch or from `main` (except meta rebasing `feature/cicd` onto `feature/agents` when commanded). Do **not** open a pull request yet. Do **not** run a version chore after branching.
+2. **Apply leaves uncommitted code.** `/neocom-code` (or OpenSpec apply) writes product changes on that branch. **Do not commit when apply finishes.** Applying OpenSpec is not a commit request. Stop so the developer can review the code (and decide whether to continue applying, edit, or discard) before any commit.
+3. **Commit only when the developer asks.** After they have reviewed and explicitly request a commit (`/git:commit`, `/git:pr`, or clear “commit” language), commit on the feature branch — not on `develop` or `main`. Until then, leave the tree as apply left it.
+4. **User review / test (committed or not).** The developer reviews and runs the testing they want. A commit does not by itself authorize the pull request.
+5. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code. Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
+6. **Pull request into `develop`.** After the user says that review and testing are done, open a pull request into `develop`. One pull request can contain several features: stack them in dependency order and open it from the tip. Name every feature in the pull request. The next feature still starts as a new branch from `develop`. Do not implement it by adding commits on the previous feature branch.
+7. **Archive.** When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Title it `Release-<MajorMinorPatch>`. Do not merge it.
 
 ### Release pull request title
 
@@ -165,35 +156,31 @@ Align wording with pending L2 IDs `INFRA-030` … `INFRA-039` without registerin
 
 ### Apps and meta (`neocom-front`, `neocom-back`, `neocom-meta`)
 
-GitVersion **MajorMinorPatch** remains the source for app package versions.
+GitVersion **MajorMinorPatch** is the source for app package versions. **Hooks own the write** — the agent must not run `version:sync` or invent a `chore(version)` commit.
 
-On a new **`neocom-front`** feature branch, and again **before every pull request**, run `npm run version:sync` so `MajorMinorPatch` is written into all related version files (see Feature branch version bump above). Do not open a PR without that sync.
-
-Before a release, and whenever a version script is added or edited, review the scripts and correct them when they do not match:
-
-- `package.json` has `version:sync` that reads `gitversion /nocache /showvariable MajorMinorPatch`
-- For `neocom-front`, `version:sync` updates `package.json`, both `appVersion` fields, `index.html`, the Cypress version expectation, and `.app-banner.txt`
-- `scripts/release.mjs`, when the package has one, reads `MajorMinorPatch` for the figlet header, the commit message, and the pull request
-- `package.json` `"version"` is `X.Y.Z`
-
-Do not use bare `npm version` on apps (it creates a second git tag). Version-source tags stay `vX.Y.Z`. Do not hand-edit the version except to bring a file back to `MajorMinorPatch` after a bad sync.
-
-### Node library `neocom-domain` (npm-led)
-
-**npm** is the source of truth for the published package version. Do **not** write `package.json` from GitVersion or GitHub tags.
-
-| When | Command |
+| Mechanism | Role |
 | --- | --- |
-| Align local to registry | `nvm use` then `npm run version:sync` (`scripts/version-from-npm.mjs` → `npm view neocom-domain version`) |
-| Before publish | `npm run version:bump:patch` / `version:bump:minor` / `version:bump:major` (`npm version … --no-git-tag-version`) |
-| Publish (user asked) | `npm run distribute` then `npm publish` |
-| After publish | `npm run version:sync` then `npm run version:tag` (annotated `vX.Y.Z` matching npm; do not push unless asked) |
+| `.githooks/pre-commit` + `prepare` (`core.hooksPath`) | On each local commit: `npm run version:sync` and stage version files |
+| `.github/workflows/version-sync.yml` (caller) → meta reusable workflow | On push: same sync; auto-commit `ci(version): …` when dirty |
+| `package.json` `version:sync` | Reads `gitversion /nocache /showvariable MajorMinorPatch` |
 
-Optional one-shot (minor): `npm run publish:lib` only when the user asks to publish.
+Front sync also updates both `appVersion` fields, `index.html`, Cypress expectation, and `.app-banner.txt`. Meta has no package version.
 
-Git stays in sync by **tagging after npm publish** (`v` + package version). Push tags only when the user asks. `GitVersion.yml` in this repo is historical and must not drive `package.json`.
+Do not use bare `npm version` on apps. Version-source tags stay `vX.Y.Z`. Do not hand-edit SemVer.
 
-`/neocom-code` does not keep a second version scheme for the library.
+### Node library `neocom-domain` (publication / distribute-led)
+
+Do **not** use GitVersion for this library. Do **not** run `distribute` or `version:sync` as an agent chore.
+
+| When | What runs |
+| --- | --- |
+| After every local commit | `.githooks/post-commit` → `npm run distribute` (test + build + patch bump). If `package.json` changed, a follow-up `ci(version): bump after distribute` commit is created with `SKIP_DOMAIN_DISTRIBUTE=1` |
+| Align to registry | `npm run version:sync` — uses `npm view` when published; **no-op keep local** when not on npm |
+| Publish (user asked) | `npm run publish:lib` — sync → bump **minor** → test/build → `npm publish` → sync → `version:tag` |
+
+`prepare` sets `core.hooksPath` to `.githooks`. While consumed via `file:../neocom-domain`, registry semver does not constrain dependents. When publishing resumes, `version:sync` / `publish:lib` stay npm-led.
+
+`GitVersion.yml` in this repo is historical and must not drive `package.json`. `/neocom-code` does not keep a second version scheme for the library.
 
 Tokens stay outside the repository. npm publish reads `NPM_TOKEN` from `~/.zshenv` through `~/.npmrc`. GitHub uses `gh` and `GH_TOKEN`.
 

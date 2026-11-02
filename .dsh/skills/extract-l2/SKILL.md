@@ -4,7 +4,8 @@ description: >-
   Convert L1 epics into L2 markdown files named after the epic (one or
   more files by topic). With no args, process epics that still have
   pending extract work; with args, only those epics. Applies the Review
-  gate: only rows marked reviewed are extracted. Use when /neo:extract-l2.
+  gate: only rows marked reviewed are extracted. Duplicates go to
+  sources/L1/00.DUPLICATES.md. Use when /neo:extract-l2.
 disable-model-invocation: true
 ---
 
@@ -13,6 +14,33 @@ disable-model-invocation: true
 Meta command `/neo:extract-l2`. Owned by `neocom-spec-workflow`.
 
 Converts L1 into L2. The L1 file is the epic itself, authored with `/epic`; there is no separate L1 generation step. This command does not register OpenSpec and does not implement product code.
+
+## Gate model (replaces `UNREGISTERED REQUIREMENTS`)
+
+**Deprecated.** Do **not** use an `UNREGISTERED REQUIREMENTS` (or `DUPLICATED`) heading on the epic or on new L2 extracts to control what is extractable. That inbox pattern is retired.
+
+**Current control.** Requirements live **inside the epic** under authored sections (for example `## Section 19 — ServerStatusV1` with field tables, render contracts, and a requirements table). Every extractable unit carries a **Review** (status) cell from the list below. The developer adds new requirements at status `to review`. Only when the cell is changed to `reviewed` may this command extract that unit.
+
+| Review / status | Extractable? | Meaning |
+| --- | --- | --- |
+| `to review` | **No** | Initial status for a new requirement or register row. Not extractable. |
+| `reviewed` | **Yes** | Developer approved this batch. Extract this unit, then set the cell to `extracted`. |
+| `extracted` | **No** | Already in L2. Re-extract only if set back to `reviewed`. |
+| `duplicated` | **No** | Flagged as duplicate; content lives under `sources/L1/00.DUPLICATES.md`. |
+| `superseded` | **Never** | Do not extract. |
+| `out of scope` | **Never** | Do not extract. |
+
+Only the exact value `reviewed` is extractable. Values such as `to review (PILOT-*)` are **not** extractable.
+
+### Where the Review cell lives
+
+Prefer, in order:
+
+1. A **register** table on the epic (e.g. Section 02 model register) with a `Review` column — one row per section/topic.
+2. A **requirements** table inside a section (`| ID | Review | … |`) — one row per requirement.
+3. When a register row is `reviewed`, extract that section’s authored prose **and** every nested requirement row whose Review cell is `reviewed` (or that has no Review column and is part of the register unit). Nested rows still at `to review` stay in L1 and are not copied.
+
+Do not invent Review cells. If an epic has no Review column yet, stop and ask the developer to add status tracking before extracting.
 
 ## Scope (parameters)
 
@@ -37,7 +65,7 @@ Examples: `/neo:extract-l2 01` · `/neo:extract-l2 01 02`
 
 Resolve each argument to exactly one `sources/L1/NN.EPIC-*.md`. If an argument matches none or more than one, stop and report it. Do not fall back to the full pending set when any argument was given.
 
-Non-epic L1 files (`REQUIREMENTS.md`, `UX.md`, `ESI.md`, `TRACEABILITY.md`) are never in scope unless the user names a path that is somehow an epic (they are not).
+Non-epic L1 files (`REQUIREMENTS.md`, `UX.md`, `ESI.md`, `TRACEABILITY.md`, `00.DUPLICATES.md`) are never in the extract **source** set unless the user names a normal epic. `00.DUPLICATES` is a holding epic written by this command; it is not extracted into L2 by a default run.
 
 ### Pending (no arguments)
 
@@ -47,9 +75,9 @@ An epic has **pending** extract work when any of these is true:
 
 - It has no row in `sources/L1/TRACEABILITY.md`, or status is `none`
 - Status is `extracted`, `registered`, or `applying` (may still hold unextracted L1 passages)
-- Status is `applied` or `archived` **and** the L1 file has material not yet reflected in the L2 tree (new passages since the last extract). If unsure, include it and let passage-level skip report “already generated”
+- Status is `applied` or `archived` **and** the L1 file has material not yet reflected in the L2 tree (new passages since the last extract). If unsure, include it and let passage-level skip / duplicate handling decide
 
-Skip an epic with no arguments only when status is `applied` or `archived` **and** a quick compare shows no L1 passage left outside the L2 tree / applied OpenSpec coverage.
+Skip an epic with no arguments only when status is `applied` or `archived` **and** a quick compare shows no L1 unit left at `reviewed` outside the L2 tree / applied OpenSpec coverage.
 
 Report which epics were selected and which were skipped (with reason) before writing.
 
@@ -64,11 +92,11 @@ graphify update .
 
 Prefer `.venv/bin/graphify update .` when the project venv exists. If the update fails, stop and report; do not extract against a stale graph.
 
-After a successful update, prefer `graphify query` to check whether a passage is already in the L2 tree; fall back to Read/Grep/Glob only on files the graph surfaces.
+After a successful update, prefer `graphify query` to check whether a passage is already in the L2 tree or OpenSpec; fall back to Read/Grep/Glob only on files the graph surfaces.
 
 ## Input
 
-Read only the scoped epic files under `sources/L1/`. Each one is an L1 file: its authored sections and its register are the input. The file is read-only except for the status rules under Write rules (Review cells + `## Spec traceability`).
+Read only the scoped epic files under `sources/L1/`. Each one is an L1 file: its authored sections and its register / requirement tables are the input. The file is read-only except for the status rules under Write rules (Review cells + `## Spec traceability`).
 
 Do not invent external source corpora. L1 is the only extract input; it is authored with `/epic`.
 
@@ -86,9 +114,11 @@ Every new L2 file name **must include the epic stem** `NN.EPIC-NAME` so it stays
 
 Choose **one file** when passages belong together. Choose **multiple files** when topics will likely register as separate OpenSpec capabilities or when keeping them in one file would mix unrelated notes. Do not invent empty files.
 
-Each file holds new notes under `UNREGISTERED REQUIREMENTS` (and later `DUPLICATED` when Spec Evolution says so).
+### L2 file shape (no `UNREGISTERED REQUIREMENTS`)
 
-At the top of each generated file, state the source epic, then the **L2 status header**, then the notes. Example:
+Write extracted units as normal sections / requirement tables under the L2 file. Mark each newly extracted requirement (or block) with registration status **`pending`** so `/neo:spec-evolution` can find the queue. Do **not** create `## UNREGISTERED REQUIREMENTS` or `## DUPLICATED` headings.
+
+At the top of each generated or updated extract file, state the source epic, then the **L2 status header**, then the notes. Example:
 
 ```markdown
 # L2 notes from sources/L1/01.EPIC-LOGIN-PROCEDURE.md
@@ -101,14 +131,20 @@ At the top of each generated file, state the source epic, then the **L2 status h
 | Kind | extract |
 | Epic | EPIC-001 |
 | OpenSpec | — |
-| Unregistered | <count or short list> |
+| Pending | <count or short list of IDs awaiting /neo:spec-evolution> |
 | Next | `/neo:spec-evolution sources/L2/01.EPIC-LOGIN-PROCEDURE.md` |
 | Index | [`L2/INDEX.md`](INDEX.md) |
 
-## UNREGISTERED REQUIREMENTS
+## ServerStatusV1 (from L1 Section 19)
+
+| ID | Status | Requirement |
+| --- | --- | --- |
+| SRV-001 | pending | … |
 ```
 
-Status tokens for L2 files (icons optional but preferred): 📥 `inbox` (has unregistered notes), 📭 `cleared` (unregistered empty), 📌 `placed`, 🔗 `pointer`, ⛔ `parked`. Legend and queue live in `sources/L2/INDEX.md`.
+Status tokens for L2 files (icons optional but preferred): 📥 `inbox` (has `pending` notes awaiting OpenSpec), 📭 `cleared` (no pending notes), 📌 `placed`, 🔗 `pointer`, ⛔ `parked`. Legend and queue live in `sources/L2/INDEX.md`.
+
+**Legacy:** older L2 files may still contain `## UNREGISTERED REQUIREMENTS`. Do not add new content under that heading. `/neo:spec-evolution` may still drain a legacy heading once; new extracts use `pending` rows only.
 
 ## Existing L2 tree (skip index)
 
@@ -125,57 +161,98 @@ Treat as already holding material:
 | `sources/L2/DOMAIN/MODELS/` | Model files |
 | `sources/L2/INFRASTRUCTURE-SPECS.md` | Infrastructure rows |
 
+## Duplicates → `00.DUPLICATES` (not an L2 `DUPLICATED` heading)
+
+During extract, before writing a `reviewed` unit to L2, check whether the same behaviour (or a very similar one) already exists in the L2 tree or in an OpenSpec change listed on the epic with status `applied` or `archived` (prefer `graphify query`).
+
+When it **does**:
+
+1. **Do not** write the unit into the epic’s L2 extract as a new pending note.
+2. **Move** the unit into the special epic `sources/L1/00.DUPLICATES.md` (create the file from the template below if missing). Record: source epic path, section/id, the requirement text, the path that already holds the behaviour, and the date.
+3. On the **source** epic, set that unit’s Review cell to `duplicated` (not `extracted`).
+4. Report the move for the developer (review, reinsertion into an epic, or removal).
+
+Do **not** use a `## DUPLICATED` heading inside L2 files for new work.
+
+### `00.DUPLICATES` file shape
+
+```markdown
+# EPIC-000 - DUPLICATES
+
+## Spec traceability
+
+| Field | Value |
+| --- | --- |
+| Status | holding |
+| Purpose | Specs flagged as duplicate during `/neo:extract-l2` (or `/neo:spec-evolution`) for user review, reinsertion, or removal |
+| Index | `L1/TRACEABILITY.md` |
+
+## Goals
+
+Holding area for duplicate or near-duplicate requirements. Not a product epic. Do not run `/neo:extract-l2` on this file as a normal source.
+
+## Duplicates
+
+### <SOURCE-EPIC-STEM> / <ID or section> — YYYY-MM-DD
+
+| Field | Value |
+| --- | --- |
+| Source | `sources/L1/NN.EPIC-NAME.md` |
+| Already in | `<L2 or OpenSpec path>` |
+| Review on source | set to `duplicated` |
+
+<requirement text verbatim>
+```
+
+Append new duplicate blocks; never delete historical blocks unless the user asks. Reinsertion is a **human** edit: copy back into a product epic at `to review` or `reviewed`, then clear or annotate the holding block.
+
 ## Already processed (per passage)
 
 Read `sources/L1/TRACEABILITY.md` first.
 
-A passage is already generated when the same behavior, or a very similar one, is already in any path above, or in an OpenSpec change listed on the epic row with status `applied` or `archived`.
+A passage is already generated when the same behaviour, or a very similar one, is already in any path above, or in an OpenSpec change listed on the epic row with status `applied` or `archived` — handle via **Duplicates → `00.DUPLICATES`** when the L1 unit is still at `reviewed`, or skip silently when it is already `extracted` / `duplicated`.
 
-Leave that passage where it is. Do not copy it again. Report the L2 or OpenSpec path that holds it.
-
-Append only **new** L1 passages that are in scope for this iteration. Prefer updating an existing `sources/L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `sources/L2/NN.EPIC-NAME.<group>.md`.
+Append only **new** L1 units that are `reviewed` and not duplicates. Prefer updating an existing `sources/L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `sources/L2/NN.EPIC-NAME.<group>.md`.
 
 ## Review gate (process only `reviewed`)
 
-The register of the L1 file (its `## Section 02 — … register` table, with a `Review` column) is the switch. Only rows whose Review cell is exactly `reviewed` are extracted. A processed row takes its model section and the requirement table inside that section with it.
-
-| Review cell | Extracted by `/neo:extract-l2` |
+| Review cell | Action by `/neo:extract-l2` |
 | --- | --- |
-| `reviewed` | Yes, unless the record shows it already processed in this `reviewed` cycle. After processing, the cell is set to `extracted` |
-| `to review`, or any other value such as `to review (PILOT-*)` | No. The section stays untouched and no L2 note is written for it |
-| `extracted` | No. It is already in L2. Processed again only when the cell is set back to `reviewed` |
+| `reviewed` | Extract to L2 as `pending`, then set cell to `extracted` — **unless** duplicate → `00.DUPLICATES` and cell → `duplicated` |
+| `to review` | Skip. Leave section and rows untouched |
+| `extracted` | Skip. Process again only when set back to `reviewed` |
+| `duplicated` | Skip. Content is under `00.DUPLICATES` |
 | `superseded`, `out of scope` | Never |
-
-Only the exact value `reviewed` counts.
 
 ### Record of processing (index)
 
-The record lives in `sources/L1/TRACEABILITY.md`, section **Review gate record**. One row per register item (`epic`, `item`), with:
+The record lives in `sources/L1/TRACEABILITY.md`, section **Review gate record**. One row per register / requirement item (`epic`, `item`), with:
 
 - `Last seen`: the Review cell value after the last run (blank if never seen).
 - `Processed`: the date of the last processing (blank if never processed).
 
-For each register row, in order:
+For each gated row, in order:
 
-1. Cell is `reviewed` and `Last seen` is not `reviewed` (blank or any other value) → **process** the row, set its Review cell to `extracted`, then set `Processed` to the run date and `Last seen` to `extracted`.
+1. Cell is `reviewed` and `Last seen` is not `reviewed` (blank or any other value) → **process** (extract or move to duplicates), set Review to `extracted` or `duplicated`, then set `Processed` to the run date and `Last seen` to that new value.
 2. Cell is `reviewed` and `Last seen` is `reviewed` → **skip**; it was processed in this cycle.
 3. Any other cell → **skip**; set `Last seen` to that value.
 
 Consequences the developer must know:
 
-- The only Review cell this command writes is the one it processes, from `reviewed` to `extracted`. No other cell changes.
-- An item that was processed (`extracted`) and is set back to `reviewed` is processed again on the next run. The change is visible because `Last seen` holds `extracted`.
-- An item still at `reviewed` that is set to `to review` and back to `reviewed` before a run is not seen. Run the command after each review batch to avoid that.
+- The only Review cells this command writes are those it processes: `reviewed` → `extracted`, or `reviewed` → `duplicated`.
+- An item that was `extracted` and is set back to `reviewed` is processed again on the next run.
+- Run the command after each review batch so a flip `reviewed` → `to review` → `reviewed` without an intervening run is not missed.
 
 ### Precedence
 
-This skill takes precedence over any text in the L1 file that describes the procedure differently. Follow this skill; do not edit the file's prose to match.
+This skill takes precedence over any text in the L1 file that describes the procedure differently. Follow this skill; do not edit the file's prose to match (except Review cells and Spec traceability as allowed).
 
 ## Write rules
 
 - Do not invent behavior the L1 text does not state.
-- **L1 edits allowed only for status.** On each processed epic, change (1) the Review status cell of each row this command processed, from `reviewed` to `extracted`, and (2) the `## Spec traceability` table (see below). Do not edit Goals, Sources, model sections, headings, prose, IDs, or any other cell of a register row that was not processed.
-- Do not place notes into final `sources/L2/<SYSTEM>/` feature registers and do not assign stable ids. That is `/neo:spec-evolution`.
+- **L1 edits allowed only for status.** On each processed epic, change (1) the Review status cell of each unit this command processed (`reviewed` → `extracted` or `duplicated`), and (2) the `## Spec traceability` table (see below). Do not edit Goals, Sources, section prose, IDs, or any other cell of a row that was not processed.
+- Creating or appending `sources/L1/00.DUPLICATES.md` is allowed when duplicates are found.
+- Do not place notes into final `sources/L2/<SYSTEM>/` feature registers as the OpenSpec registration step. That is `/neo:spec-evolution` (it may assign stable placement ids there).
 - Do not write OpenSpec.
 - Multi-repository passages may stay in **one** epic-named file when they are one shared contract (cookies, SSO parameters). Split into topic files when groups will diverge later — not automatically into one file per repo.
 
@@ -186,9 +263,9 @@ After a successful extract on an epic, update that epic’s `## Spec traceabilit
 | Field | After `/neo:extract-l2` |
 | --- | --- |
 | Status | At least 📤 `extracted` (keep a higher status if already `registered` / `applying` / …) |
-| L2 | Epic-named L2 path(s) written or updated; note 📥 inbox when `UNREGISTERED REQUIREMENTS` still has notes; keep useful pointers (e.g. front pointer files) |
+| L2 | Epic-named L2 path(s) written or updated; note 📥 inbox when pending notes remain; keep useful pointers |
 | OpenSpec changes | Leave unchanged unless already filled |
-| Skip | What later extracts must skip or leave pending (e.g. rows still `to review`; re-extract only rows set back to `reviewed`) |
+| Skip | What later extracts must skip or leave pending (rows still `to review`; re-extract only rows set back to `reviewed`; duplicates in `00.DUPLICATES`) |
 | Index | `L1/TRACEABILITY.md` · `L2/INDEX.md` |
 
 Do not invent OpenSpec change names here. Prefer the same icons/tokens as `TRACEABILITY.md`.
@@ -198,21 +275,21 @@ Do not invent OpenSpec change names here. Prefer the same icons/tokens as `TRACE
 After writing the L2 file(s) and the L1 status cells, update the indexes **and** the epic header:
 
 - The epic’s `## Spec traceability` — as in the table above (start of file).
-- `sources/L1/TRACEABILITY.md` — set the epic row status at least `extracted`, fill **L2 path** with the file paths written, set **L2 backlog** to reflect inbox/cleared extracts for that epic (e.g. 📥 `1 inbox`), note the requirement IDs (or model names) extracted this iteration so a later run skips them, and update the **Review gate record** for every register row seen in this run.
-- `sources/L1/SPEC-EPIC-INDEX.md` — for every register row (and related requirement IDs) processed this run, set Review/Status to 🔵 `extracted`, put the L2 path in Notes, and refresh **Current Status Summary**. Also set `Last seen` rows that were only observed (not processed) so this index still matches the epic. Do not leave extracted work stuck at 🟢 `reviewed` here.
-- `sources/L2/INDEX.md` — add or refresh the row for each L2 file created or updated (status 📥 `inbox` when `UNREGISTERED REQUIREMENTS` has notes; OpenSpec/Next/Unregistered columns). Keep the legend and queue summary accurate.
+- `sources/L1/TRACEABILITY.md` — set the epic row status at least `extracted`, fill **L2 path** with the file paths written, set **L2 backlog** to reflect inbox/cleared extracts for that epic (e.g. 📥 `1 inbox`), note the requirement IDs (or model names) extracted this iteration so a later run skips them, and update the **Review gate record** for every gated row seen in this run. If `00.DUPLICATES` was created or updated, ensure it is listed or noted (holding epic; status `holding`).
+- `sources/L1/SPEC-EPIC-INDEX.md` — for every register / requirement row processed this run, set Review/Status to 🔵 `extracted` or note `duplicated`, put the L2 or `00.DUPLICATES` path in Notes, and refresh **Current Status Summary**.
+- `sources/L2/INDEX.md` — add or refresh the row for each L2 file created or updated (status 📥 `inbox` when pending notes remain). Keep the legend and queue summary accurate.
 - Each touched L2 file — keep the `<!-- L2-STATUS: … -->` header table in sync with the index row.
 
 ## Return
 
 1. Scope: pending set, or the resolved epic list from arguments; epics skipped and why
-2. Register rows processed this run (Review cell `reviewed` → `extracted`), and rows skipped with the reason (`to review`, `extracted`, `superseded`, `out of scope`, or already processed in this cycle)
+2. Units processed this run (Review `reviewed` → `extracted` or `duplicated`), and units skipped with the reason (`to review`, `extracted`, `duplicated`, `superseded`, `out of scope`, or already processed in this cycle)
 3. L1 files read
 4. L2 files created or updated (full paths; epic stem in each name)
-5. Notes newly written, by file
+5. Notes newly written, by file (pending for OpenSpec)
 6. Why single vs multiple files was chosen
-7. Passages already generated, each with the path that holds it
-8. Models left pending (`to review`) and not written
+7. Duplicates moved to `sources/L1/00.DUPLICATES.md`, each with the path that already holds the behaviour
+8. Units left pending (`to review`) and not written
 9. L1 changes: Review cells flipped, and `## Spec traceability` updated (confirm authored sections untouched)
 10. That `sources/L2/INDEX.md`, `sources/L1/SPEC-EPIC-INDEX.md`, and each L2 file status header were updated
-11. Next step: `/neo:spec-evolution` for the new notes under `UNREGISTERED REQUIREMENTS` (optionally scoped to those L2 paths). Pending models are not in those notes.
+11. Next step: `/neo:spec-evolution` for L2 notes still `pending` (optionally scoped to those L2 paths). Units still `to review` on L1 are not in those notes.

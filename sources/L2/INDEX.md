@@ -14,18 +14,26 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 
 | Icon | Status | Meaning |
 | --- | --- | --- |
-| 📥 | `inbox` | Epic extract with notes still under `UNREGISTERED REQUIREMENTS` |
-| 📭 | `cleared` | Epic extract; `UNREGISTERED` empty (registered or moved to `DUPLICATED`) |
+| 📥 | `inbox` | Epic extract with notes still `pending` for `/neo:spec-evolution` |
+| 📭 | `cleared` | Epic extract; no pending notes (registered or moved to `sources/L1/00.DUPLICATES.md`) |
 | 📌 | `placed` | System/feature register with stable IDs (`L2/<SYSTEM>/…`) |
 | 🔗 | `pointer` | Pointer-only file; no requirements owned here |
 | ⛔ | `parked` | Intentionally not progressing |
 
-**Queue:** 📥 `0` inbox · 📭 `12` cleared · 🔗 `1` pointer · 📌 `30` placed
+`UNREGISTERED REQUIREMENTS` / L2 `DUPLICATED` headings are deprecated. L1 Review (`to review` → `reviewed`) gates extract; duplicates hold in `sources/L1/00.DUPLICATES.md`.
+
+**Queue:** 📥 `0` inbox · 📭 `13` cleared · 🔗 `1` pointer · 📌 `36` placed
 
 ## Files
 
 | L2 path | Kind | Status | Unregistered | OpenSpec | Epic | Next |
 | --- | --- | --- | --- | --- | --- | --- |
+| `09.EPIC-BACKEND-SERVICES.md` | extract | 📭 `cleared` | 0 | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | EPIC-009 | — |
+| `DOMAIN/09.LAYOUT.md` | placed | 📌 `placed` | 0 | `domain-layout` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
+| `DOMAIN/10.PORTS.md` | placed | 📌 `placed` | 0 | `domain-ports` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
+| `DOMAIN/11.DEPRECATIONS.md` | placed | 📌 `placed` | 0 | `domain-deprecations` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
+| `BACK/BACK-OPENAPI.md` | placed | 📌 `placed` | 0 | `back-openapi` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
+| `BACK/BACK-INDUSTRY-BLUEPRINTS.md` | placed | 📌 `placed` | 0 | `back-industry-blueprints` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
 | `02.EPIC-ANGULAR-CODIFICATION.async-infra.md` | extract | 📭 `cleared` | 0 | `infra-async-persistence`, `back-async-sse`, `front-async-sse` | EPIC-002 | — |
 | `02.EPIC-ANGULAR-CODIFICATION.async-sse.md` | extract | 📭 `cleared` | 0 | `front-async-sse`, `back-async-sse` | EPIC-002 | — |
 | `02.EPIC-ANGULAR-CODIFICATION.nodes.md` | extract | 📭 `cleared` | 0 | `front-node-render` | EPIC-002 | — |
@@ -36,7 +44,8 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 | `03.EPIC-TESTING.command-catalog.md` | extract | 📭 `cleared` | 0 | `infra-test-commands` | EPIC-003 | — |
 | `03.EPIC-TESTING.coverage-sonar.md` | extract | 📭 `cleared` | 0 | `cicd-coverage-sonar` | EPIC-003 | — |
 | `03.EPIC-TESTING.mock-fixtures.md` | extract | 📭 `cleared` | 0 | `front-mock-fixtures` | EPIC-003 | — |
-| `04.EPIC-MODELS.md` | extract | 📭 `cleared` | 0 | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation` | EPIC-004 | — |
+| `04.EPIC-MODELS.md` | extract | 📭 `cleared` | 0 | `domain-jsonclass` (+ prior domain-*) | EPIC-004 | — |
+| `DOMAIN/08.JSONCLASS.md` | placed | 📌 `placed` | 0 | `domain-jsonclass` | EPIC-004 | See `openspec/CHANGE-STATUS.md` |
 | `08.EPIC-LOCATIONS.md` | extract | 📭 `cleared` | 0 | `domain-locations`, `back-spacelocations` | EPIC-008 | — |
 | `FRONT/01.PILOT-DEFINITION.md` | pointer | 🔗 `pointer` | 0 | `front-pilot` | EPIC-004 | — |
 | `BACK/BACK-ASYNC-SSE.md` | placed | 📌 `placed` | 0 | `back-async-sse` | — | See `openspec/CHANGE-STATUS.md` |

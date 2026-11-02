@@ -1,0 +1,63 @@
+# Reusable: write GitVersion MajorMinorPatch via npm run version:sync and push if dirty.
+# Called by neocom-front / neocom-back. Does not run on commits to neocom-meta itself.
+name: Version sync
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node.js version for setup-node
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # Avoid loops when this workflow pushes the version commit.
+    if: ${{ !contains(github.event.head_commit.message || '', 'ci(version):') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v3.2.1
+        with:
+          versionSpec: '5.x'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          if [[ -f package-lock.json ]]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Sync MajorMinorPatch into version files
+        run: npm run version:sync
+
+      - name: Commit and push when version files changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'ci(version): sync GitVersion MajorMinorPatch'
+          file_pattern: >-
+            package.json
+            .env.version
+            .app-banner.txt
+            src/environments/environment.ts
+            src/environments/environment.development.ts
+            src/index.html
+            cypress/e2e/features/app-info-panel.feature
+

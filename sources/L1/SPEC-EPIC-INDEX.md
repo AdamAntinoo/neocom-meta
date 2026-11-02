@@ -44,6 +44,7 @@ Source: `sources/L1/04.EPIC-MODELS.md` (lines 146–168)
 | ApplicationInfoV1 | Front application identity for header (name, version, copyright); v1-application-info-render | 🔵 `extracted` | 18 | `domain-application-info` · `L2/DOMAIN/04.APPLICATION-INFO.md` |
 | ServerStatusV1 | EVE Online server info for header; from ESI status + enrichments; v1-server-status-render | 🔵 `extracted` | 19 | `domain-server-status` · `L2/DOMAIN/05.SERVER-STATUS.md` |
 | SpaceLocationV1 | Interface artifact: any kind of location (region, constellation, system, station, structure) as reference | 🔵 `extracted` | 20 | `domain-spacelocation` · `L2/DOMAIN/07.SPACELOCATION-V1.md` (thin; no invented fields) |
+| `jsonClass` interchange | Back responses for published domain models SHALL set `jsonClass` to the programme type name | 🔵 `extracted` | 22 | DOM-JSONCLASS-001…003 · registered `domain-jsonclass` · `L2/DOMAIN/08.JSONCLASS.md` |
 | EveItem / ESI type / EsiType mirrors | Internal server only | ⚪ `out of scope` | — | — |
 | ESI corporation / alliance / universe race | Internal server only | ⚪ `out of scope` | — | — |
 
@@ -215,15 +216,28 @@ Example:
 
 ---
 
+## EPIC-009: Backend services
+
+Source: `sources/L1/09.EPIC-BACKEND-SERVICES.md` · L2: `sources/L2/09.EPIC-BACKEND-SERVICES.md` (📭 cleared)
+
+| Item | Role | Review | Section | Notes |
+| --- | --- | --- | --- | --- |
+| BACK-SVC-001…004, 010…013 | Domain layout / Record / V1 | 🔵 `extracted` | 01–02 | `domain-layout` → `DOMAIN/09.LAYOUT.md` |
+| BACK-SVC-020…022, 030…032 | Pilot + Industry ports; contracts | 🔵 `extracted` | 03–04 | `domain-ports` → `DOMAIN/10.PORTS.md` |
+| BACK-SVC-040…042, 050…052 | DTO + esi-api deprecations | 🔵 `extracted` | 05–06 | `domain-deprecations` → `DOMAIN/11.DEPRECATIONS.md` |
+| BACK-SVC-060…063 | OpenAPI first; model wins | 🔵 `extracted` | 07 | `back-openapi` → `BACK/BACK-OPENAPI.md` |
+| BACK-SVC-070…072 | Industry API pilot → `BlueprintV1[]` | 🔵 `extracted` | 08 | `back-industry-blueprints` → `BACK/BACK-INDUSTRY-BLUEPRINTS.md` |
+
 ## Current Status Summary
 
-Last synced: 2026-11-02 (after `/neo:spec-evolution` for EPIC-004 and EPIC-008 inbox).
+Last synced: 2026-11-02 (after `/neo:spec-evolution` on EPIC-009).
 
 | Epic | 🟢 Reviewed | 🟡 To review | 🔵 Extracted | ⚪ Out of scope |
 | --- | --- | --- | --- | --- |
-| EPIC-004 | 0 | 11 | 6 (PublicPilotV1, PilotV2, BlueprintV1, ApplicationInfoV1, ServerStatusV1, SpaceLocationV1) | 2 |
+| EPIC-004 | 0 | 11 | 7 (+ `jsonClass` interchange → `domain-jsonclass`) | 2 |
 | EPIC-006 | 1 (v1-blueprint-list-page) | 3 | 0 | 0 |
 | EPIC-007 | 2 (Flow 06, Flow 07) | 0 | 0 | 0 |
 | EPIC-008 | 0 | 3 register + LOC-090/100/110 | 6 register (SpaceLocation…Structure) + LOC-001/002/010/020/030/040/050/051/060 | 3 register + LOC-003/011/120/121 |
-| **Total (register rows)** | **3** | **17** | **12** | **5** |
+| EPIC-009 | 0 | 0 | 27 (BACK-SVC-001…072 → 5 OpenSpec changes) | 0 |
+| **Total (register rows)** | **3** | **17** | **39** | **5** |
 
