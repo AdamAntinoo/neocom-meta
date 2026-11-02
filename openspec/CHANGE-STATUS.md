@@ -42,6 +42,13 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `front-async-sse` | front / async-sse | 7/7 | applying | EPIC-002; FASSE-001…010. Branch `feature/async-sse` rebased onto `feature/node-render` @ `96dcabd`. Ready for user review (no PR) |
 | `back-async-sse` | back / async-sse | 7/7 | applying | EPIC-002; BASSE-001…012. Branch `feature/async-sse` from `develop` @ `6a030c1`. In-memory default; TypeORM/BullMQ when `DATABASE_URL`/`REDIS_URL` set. Ready for user review (no PR) |
 | `infra-async-persistence` | infra / async-persistence | 4/4 | applying | EPIC-002; INFRA-050…055. Docs + `infra/docker-compose.async-persistence.yml` on `feature/agents`. Companion front/back applying |
+| `domain-pilot` | domain / pilot | 5/5 | applying | EPIC-004; `feature/domain-models` in `neocom-domain`. PublicPilotV1 + PilotV2. Ready for user review (no PR) |
+| `domain-blueprint` | domain / blueprint | 2/2 | applying | EPIC-004; BlueprintV1 on `feature/domain-models`. Ready for user review (no PR) |
+| `domain-application-info` | domain / application-info | 3/3 | applying | EPIC-004; ApplicationInfoV1 on `feature/domain-models` (accessors). Front render remains consumer. Ready for user review (no PR) |
+| `domain-server-status` | domain / server-status | 2/2 | applying | EPIC-004; ServerStatusV1 on `feature/domain-models`. Ready for user review (no PR) |
+| `domain-spacelocation` | domain / spacelocation | 3/3 | applying | EPIC-004; thin SpaceLocationV1 interface on `feature/domain-models`. Ready for user review (no PR) |
+| `domain-locations` | domain / locations | 3/3 | applying | EPIC-008; SpaceLocation hierarchy on `feature/domain-models`. Ready for user review (no PR) |
+| `back-spacelocations` | back / spacelocations | 2/2 | applying | EPIC-008; LOC-010 on `feature/spacelocations` from `develop`. In-memory catalog + tests. Ready for user review (no PR) |
 
 ## Applied
 
@@ -69,13 +76,6 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `cicd-testing-gates` | cicd / testing-gates | 0/3 | registered | EPIC-003; GATE-001…003. Parallel unit/acceptance before Sonar |
 | `infra-test-commands` | infra / test-commands | 0/5 | registered | EPIC-003; INFRA-060…064. Shared TDD/BDD/SDD command catalog |
 | `back-testing` | back / testing | 0/5 | registered | EPIC-003; BTEST-001…005. Back guidelines, WireMock, Gherkin |
-| `domain-pilot` | domain / pilot | 0/5 | registered | EPIC-004; DOM-PILOT-001…007. PublicPilotV1 + PilotV2; related `front-pilot` |
-| `domain-blueprint` | domain / blueprint | 0/2 | registered | EPIC-004; DOM-BP-001…003 / IND-BP-000. BlueprintV1 base only |
-| `domain-application-info` | domain / application-info | 0/3 | registered | EPIC-004; DOM-APPINFO-001…003. Header ApplicationInfoV1 |
-| `domain-server-status` | domain / server-status | 0/2 | registered | EPIC-004; DOM-SRV-001…003. Header ServerStatusV1 |
-| `domain-spacelocation` | domain / spacelocation | 0/3 | registered | EPIC-004; DOM-SLOCV1-001…003. Thin SpaceLocationV1 interface artifact |
-| `domain-locations` | domain / locations | 0/3 | registered | EPIC-008; LOC-001/002/020…060 + DOM-LOC-001/002. Space location hierarchy |
-| `back-spacelocations` | back / spacelocations | 0/2 | registered | EPIC-008; LOC-010. `GET /api/v1/universe/spacelocations/{id}` |
 
 Delta specs usually live at `changes/<system>-<feature>/specs/<system>/<feature>/spec.md`. A multi-system feature may use one change folder (for example `changes/login/`) with several capability specs underneath.
 

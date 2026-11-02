@@ -29,6 +29,11 @@ Until at least one published model lands in code, the implemented register and d
 | `NeoCom` | `neocom-domain` → `src/domain/core/NeoCom.ts` (package root export) | front (via dep), domain | Base for published renderable nodes |
 | `ApplicationInfoV1` | `neocom-domain` → `src/domain/ApplicationInfoV1.ts` | front header / `v1-application-info-render` | Consumed from package; not copied into `neocom-front` |
 | `ServerStatusV1` | `neocom-domain` → `src/domain/ServerStatusV1.ts` | front header / `v1-server-status-render` | Consumed from package; not copied into `neocom-front` |
+| `PublicPilotV1` | `neocom-domain` → `src/domain/PublicPilotV1.ts` | domain; front HEADER `v1-public-pilot` | Fixture character **93813310** |
+| `PilotV2` | `neocom-domain` → `src/domain/PilotV2.ts` | domain; front HEADER `v2-pilot` | Extends PublicPilotV1; complements PilotShipV1 / EveLocationV1 not published yet |
+| `BlueprintV1` | `neocom-domain` → `src/domain/BlueprintV1.ts` | domain; render `v1-blueprint` | Base only — no BOM / cost index |
+| `SpaceLocationV1` | `neocom-domain` → `src/domain/SpaceLocationV1.ts` | thin interface artifact | No fields; new work targets EveLocationV1 |
+| `SpaceLocation` | `neocom-domain` → `src/domain/locations/SpaceLocation.ts` | domain + back LOC-010 | `locationType` / `locationId` + ancestor chain |
 
 ## Model hierarchy (diagram)
 
