@@ -6,13 +6,13 @@ This folder is the agent configuration for the **DeepSeek Harness** (`dsh`), gen
 
 Agents are long-running, stateful specialists. Invoke them by name.
 
-| Agent                   | Entry                                                       | Purpose                                                                                                                                                                                                                                                                                                                                                                                 |
-| ----------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `neocom-git`            | `/neocom-git`                                               | Git and versioning specialist: commits, branches, tags, PRs, releases, and npm package versions across the NEOCOM repositories. Primary entry point for all VCS work.                                                                                                                                                                                                                   |
-| `neocom-spec-collector` | `/epic`                                                     | Spec-workflow intake specialist. Opens an epic, writes the L1 file (Spec traceability header + version card footer), collects matching executive cards from `sources/L0/executive/` into the epic's Sources section, and records each copied card in `sources/L0/executive/INDEX.md` so a card is never used twice.                                                                     |
-| `neocom-spec-workflow`  | `/neo:extract-l1`, `/neo:extract-l2`, `/neo:spec-evolution` | Spec-progression specialist. Owns the evolution chain epic → L1 → L2 → OpenSpec. Controls through the traceability and card indexes which specs are already processed, and tracks epic → L1 → L2 → OpenSpec dependencies so a source-epic change evolves into the correct generated files. Never modifies a source level; only writes the generated level and the traceability indexes. |
-| `neocom-backtrack`      | `/neo:backtrack`                                            | Legacy-code backtracking specialist. When an epic changes version, reads the legacy back/front code under `/Users/adam/IdeaProjects/neocom-infinity` to find the classes, methods, and flows the epic references, and records them in `sources/COLLECTOR/` (findings doc + version register).                                                                                           |
-| `program-verifier`      | `/program-verifier`                                         | Read-only verifier for `00.PR377-META/program/` knowledge against `00.PR377-META/sources/` and `00.PR377-META/program/CLAUDE.md`. Reports only; never edits.                                                                                                                                                                                                                            |
+| Agent | Entry | Purpose |
+| --- | --- | --- |
+| `neocom-git` | `/neocom-git` | Git and versioning specialist: commits, branches, tags, PRs, releases, and npm package versions across the NEOCOM repositories. Primary entry point for all VCS work. |
+| `neocom-spec-collector` | `/epic` | Spec-workflow intake specialist. Opens an epic, writes the L1 file (Spec traceability header + version card footer), collects matching executive cards from `sources/L0/executive/` into the epic's Sources section, and records each copied card in `sources/L0/executive/INDEX.md` so a card is never used twice. |
+| `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | Spec-progression specialist. Owns the chain L1 (epic) → L2 → OpenSpec. **Always runs `graphify update .` first** (automatic; no ask). Controls through the traceability and card indexes which specs are already processed, and tracks L1 → L2 → OpenSpec dependencies so a source-epic change evolves into the correct generated files. Never modifies a source level except the Review status cell of a processed L1 row; only writes the generated level and the traceability indexes. |
+| `neocom-backtrack` | `/neo:backtrack` | Legacy-code backtracking specialist. When an epic changes version, reads the legacy back/front code under `/Users/adam/IdeaProjects/neocom-infinity` to find the classes, methods, and flows the epic references, and records them in `sources/COLLECTOR/` (findings doc + version register). |
+| `program-verifier` | `/program-verifier` | Read-only verifier for `00.PR377-META/program/` knowledge against `00.PR377-META/sources/` and `00.PR377-META/program/CLAUDE.md`. Reports only; never edits. |
 
 ## Skills
 
@@ -20,38 +20,37 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 
 ### OpenSpec skills
 
-| Skill                     | Slash command              | Purpose                                                                                               |
-| ------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `openspec-propose`        | `/openspec-propose`        | Create a new change and generate all planning artifacts (proposal, specs, design, tasks) in one step. |
-| `openspec-explore`        | `/openspec-explore`        | Thinking-partner discovery mode before or during a change. Never implements.                          |
-| `openspec-apply-change`   | `/openspec-apply-change`   | Implement the tasks of a change, marking each `- [x]` as it completes.                                |
-| `openspec-update-change`  | `/openspec-update-change`  | Revise and reconcile an existing change's planning artifacts. Never edits code.                       |
-| `openspec-sync-specs`     | `/openspec-sync-specs`     | Merge delta specs from a change into the main specs.                                                  |
-| `openspec-archive-change` | `/openspec-archive-change` | Archive a completed change (optionally syncing specs first).                                          |
+| Skill | Slash command | Purpose |
+| --- | --- | --- |
+| `openspec-propose` | `/openspec-propose` | Create a new change and generate all planning artifacts (proposal, specs, design, tasks) in one step. |
+| `openspec-explore` | `/openspec-explore` | Thinking-partner discovery mode before or during a change. Never implements. |
+| `openspec-apply-change` | `/openspec-apply-change` | Implement the tasks of a change, marking each `- [x]` as it completes. |
+| `openspec-update-change` | `/openspec-update-change` | Revise and reconcile an existing change's planning artifacts. Never edits code. |
+| `openspec-sync-specs` | `/openspec-sync-specs` | Merge delta specs from a change into the main specs. |
+| `openspec-archive-change` | `/openspec-archive-change` | Archive a completed change (optionally syncing specs first). |
 
 ### Git skills
 
-| Skill                 | Slash command           | Purpose                                                                                                                  |
-| --------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `git-commit`          | `/git:commit <project>` | Commit all pending changes on one repository's current branch. Project is required.                                      |
-| `git-pr`              | `/git:pr [project]`     | Commit pending work and prepare pull requests. No project = `meta`/`front`/`back`.                                       |
-| `neocom-git-workflow` | `/neocom-git-workflow`  | Detailed playbook (Conventional Commits, PRs, release checklist). Loaded by `/neocom-git`, not usually invoked directly. |
+| Skill | Slash command | Purpose |
+| --- | --- | --- |
+| `git-commit` | `/git:commit <project>` | Commit all pending changes on one repository's current branch. Project is required. |
+| `git-pr` | `/git:pr [project]` | Commit pending work and prepare pull requests. No project = `meta`/`front`/`back`. |
+| `neocom-git-workflow` | `/neocom-git-workflow` | Detailed playbook (Conventional Commits, PRs, release checklist). Loaded by `/neocom-git`, not usually invoked directly. |
 
 ### Spec pipeline skills
 
-| Skill               | Slash command            | Purpose                                                                                                                                                                                               |
-| ------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `extract-l1`        | `/neo:extract-l1 <epic>` | Generate an L1 epic file from an epic. Requires an epic argument (number, id, stem, name, or path). The epic's authored sections are read-only; the transition is recorded in the traceability index. |
-| `extract-l2`        | `/neo:extract-l2`        | Convert L1 epics into epic-named L2 file(s). No args: pending epics; args: named epics only. The L1 epic is read-only; extract state is recorded in the traceability index.                           |
-| `spec-registration` | `/neo:spec-evolution`    | Review L2 notes and move them into OpenSpec as `<system>-<feature>`. L2 source notes and L1 epics are never modified; status is recorded in the indexes.                                              |
+| Skill | Slash command | Purpose |
+| --- | --- | --- |
+| `extract-l2` | `/neo:extract-l2` | Convert L1 epics into epic-named L2 file(s). No args: pending epics; args: named epics only. Applies the Review gate: only rows whose Review cell is `reviewed` are extracted; each processed cell is set to `extracted`. Extract state is recorded in the traceability index. |
+| `spec-registration` | `/neo:spec-evolution` | Review L2 notes and move them into OpenSpec as `<system>-<feature>`. L2 source notes and L1 epics are never modified; status is recorded in the indexes. |
 
 ## Templates
 
-| File                           | Used for                                                          |
-| ------------------------------ | ----------------------------------------------------------------- |
-| `templates/branch-names.md`    | Feature/fix/release branch conventions and recorded user examples |
-| `templates/commit-messages.md` | Conventional Commit subjects and bodies                           |
-| `templates/pull-requests.md`   | Pull request titles and bodies                                    |
+| File | Used for |
+| --- | --- |
+| `templates/branch-names.md` | Feature/fix/release branch conventions and recorded user examples |
+| `templates/commit-messages.md` | Conventional Commit subjects and bodies |
+| `templates/pull-requests.md` | Pull request titles and bodies |
 
 ## Layout
 
@@ -67,11 +66,9 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 ├── commands/
 │   ├── backtrack.md
 │   ├── epic.md
-│   ├── extract-l1.md
 │   ├── extract-l2.md
 │   └── spec-evolution.md
 ├── skills/
-│   ├── extract-l1/SKILL.md
 │   ├── extract-l2/SKILL.md
 │   ├── git-commit/SKILL.md
 │   ├── git-pr/SKILL.md
@@ -85,4 +82,4 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
     └── pull-requests.md
 ```
 
-> Note: OpenSpec's `init --tools dsh` generates skills only (no command stubs — "no adapter" for `dsh`). The slash-command names above are the canonical invocation forms; the git commands are owned by `/neocom-git`, `/epic` is owned by `/neocom-spec-collector`, `/neo:backtrack` is owned by `/neocom-backtrack`, and `/neo:extract-l1` + `/neo:extract-l2` + `/neo:spec-evolution` are owned by `/neocom-spec-workflow`.
+> Note: OpenSpec's `init --tools dsh` generates skills only (no command stubs — "no adapter" for `dsh`). The slash-command names above are the canonical invocation forms; the git commands are owned by `/neocom-git`, `/epic` is owned by `/neocom-spec-collector`, `/neo:backtrack` is owned by `/neocom-backtrack`, and `/neo:extract-l2` + `/neo:spec-evolution` are owned by `/neocom-spec-workflow`.

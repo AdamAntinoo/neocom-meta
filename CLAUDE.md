@@ -2,7 +2,14 @@
 
 Meta repository for the NEOCOM project: programme definition, requirements (L0 → L1 → L2), OpenSpec specifications, agent rules, and the shared harness. Product code lives in independent repositories (`neocom-front`, `neocom-back`, `neocom-domain`). This repository does not implement product code.
 
-This file is the entry point for any LLM (Claude, DeepSeek, or another). The source of truth for agents, commands, skills, and templates is **`.dsh/`**. If this file and `.dsh/` disagree, `.dsh/` wins.
+This file is the Claude entry point. The harness itself is model-neutral and lives in **`.dsh/`** (the DeepSeek Harness). It is the source of truth for agents, commands, skills, and templates, whichever model runs them. If this file and `.dsh/` disagree, `.dsh/` wins.
+
+## Switching between Claude and DeepSeek
+
+- Any model (Claude, DeepSeek, or another) works from `.dsh/`: read `.dsh/AGENT-CATALOG.md`, then the agent, command, or skill file that matches the task.
+- Agent, command, and skill files are plain Markdown with a YAML frontmatter (`name`, `description`). Read them as text; do not depend on a loader or a model-specific feature.
+- Keep `.dsh/` free of model-specific instructions. Model names, API keys, and endpoints stay in each tool's own configuration, outside this repository.
+- If a task needs a feature that only one model has, say so in the reply. Do not change the harness to suit one model.
 
 ## Harness: where things live
 
@@ -19,7 +26,7 @@ Agents and their entry points:
 | Agent                   | Commands                                                           | Role                                                                      |
 | ----------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
 | `neocom-spec-collector` | `/epic`                                                            | Opens an L1 epic and collects the L0 cards that match its search criteria |
-| `neocom-spec-workflow`  | `/neo:extract-l1 <epic>`, `/neo:extract-l2`, `/neo:spec-evolution` | Controls the progression epic → L1 → L2 → OpenSpec                        |
+| `neocom-spec-workflow`  | `/neo:extract-l2`, `/neo:spec-evolution` | Controls the progression L1 (epic) → L2 → OpenSpec                        |
 | `neocom-backtrack`      | `/neo:backtrack`                                                   | Finds in the legacy code the classes, methods, and flows an epic cites    |
 | `neocom-git`            | `/neocom-git`, `/git:commit <project>`, `/git:pr [project]`        | Commits, branches, PRs, and versions; the only owner of git operations    |
 | `program-verifier`      | `/program-verifier`                                                | Read-only verification of the `program/` knowledge                        |
@@ -29,29 +36,28 @@ For a new task, read `.dsh/AGENT-CATALOG.md` first, then the matching agent or s
 ## Specification flow
 
 ```text
-/epic  →  sources/L1/NN.EPIC-NAME.md  (the epic; its authored sections are read-only)
-/neo:extract-l1 <epic>  →  generated L1 section in the same file
-/neo:extract-l2  →  sources/L2/NN.EPIC-NAME[.group].md  (under UNREGISTERED REQUIREMENTS)
+/epic  →  sources/L1/NN.EPIC-NAME.md  (the L1 epic; its authored sections are read-only)
+/neo:extract-l2  →  sources/L2/NN.EPIC-NAME[.group].md  (under UNREGISTERED REQUIREMENTS; sets the processed Review cell to extracted)
 /neo:spec-evolution  →  openspec/changes/<system>-<feature>/  and sources/L2/<SYSTEM>/
 ```
 
 Rules that are not negotiable:
 
-- **Never modify the source level.** Generating L1 writes only the generated section, never the epic's authored sections. Generating L2 does not touch L1. Registering in OpenSpec does not rewrite L2 notes.
-- **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative record of what is generated, extracted, and registered. `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec changes. Update them in the same turn as any change they reflect.
+- **Never rewrite authored L1 sections.** The L1 epic is the source of L2. `/neo:extract-l2` may change only Review cells (`reviewed` → `extracted`) and `## Spec traceability` (keep it at the start of the file: status, L2 paths, skip). Registering in OpenSpec may refresh that same Spec traceability table; it does not rewrite L2 source notes beyond the skill’s move rules.
+- **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative central record of what is generated, extracted, and registered (including **L2 backlog**); each epic’s `## Spec traceability` must stay in sync after extract/register. `sources/L1/SPEC-EPIC-INDEX.md` is the cross-epic Review dashboard (update after `/neo:extract-l2`). `sources/L2/INDEX.md` is the L2 file dashboard (📥 inbox → `/neo:spec-evolution`). `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec changes. Update them in the same turn as any change they reflect.
 - **Only `reviewed` models are extracted** from tables with a Review column. `to review`, `superseded`, and `out of scope` are not extracted.
 - **Do not invent behaviour.** If a note or an epic does not state something, ask or mark the gap; do not fill it in.
 
 ## Graphify
 
-Before processing any specification, refresh the graph from `neocom-meta`:
+**Automatic before every `/neo:*` command** (`/neo:extract-l2`, `/neo:spec-evolution`, `/neo:backtrack`). The agent runs this as its first action — do not ask the user, do not skip, stop if it fails:
 
 ```bash
 cd neocom-meta
 graphify update .
 ```
 
-Then use `graphify query`, `graphify path`, or `graphify explain` before reading files by hand. Read only what the graph points to. The graph lives in `graphify-out/`, which is not versioned.
+Prefer `.venv/bin/graphify update .` when the project venv exists. Then use `graphify query`, `graphify path`, or `graphify explain` before reading files by hand. Read only what the graph points to. The graph lives in `graphify-out/`, which is not versioned.
 
 ## Environment
 

@@ -1,5 +1,17 @@
 # ESI SPECS
 
+<!-- L2-STATUS: placed -->
+
+| Field | Value |
+| --- | --- |
+| Status | 📌 `placed` |
+| Kind | placed |
+| Epic | — |
+| OpenSpec | `esi-character-api` |
+| Unregistered | 0 |
+| Next | See `openspec/CHANGE-STATUS.md` |
+| Index | [`L2/INDEX.md`](../INDEX.md) |
+
 System: `esi`. Feature: `character-api`.
 OpenSpec change: `esi-character-api` → `specs/esi/character-api/spec.md`.
 

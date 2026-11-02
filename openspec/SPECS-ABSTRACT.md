@@ -4,7 +4,7 @@ One-page view of active OpenSpec changes for planning a **single feature** that 
 
 Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. This abstract is narrative; re-read each `proposal.md` before merging changes.
 
-**Last refreshed:** 2026-10-17 (from `openspec list --json` + `CHANGE-STATUS.md`).
+**Last refreshed:** 2026-11-02 (from `openspec list --json` + `CHANGE-STATUS.md`).
 
 **How to integrate:** pick a feature name, create or extend one change folder (multi-capability under `specs/<system>/<feature>/`), move or cite the L2 ids, supersede the old change names in the proposal, then archive or drop the superseded folders when apply is complete.
 
@@ -27,6 +27,13 @@ Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. 
 | `front-universe`          | 0/4   | registered                          | Pilot experience                |
 | `back-service`            | 0/3   | registered                          | Pilot experience                |
 | `domain-module`           | 2/3   | registered                          | Pilot experience                |
+| `domain-pilot`            | 0/5   | registered                          | Domain models (EPIC-004)        |
+| `domain-blueprint`        | 0/2   | registered                          | Domain models (EPIC-004)        |
+| `domain-application-info` | 0/3   | registered                          | Domain models (EPIC-004)        |
+| `domain-server-status`    | 0/2   | registered                          | Domain models (EPIC-004)        |
+| `domain-spacelocation`    | 0/3   | registered                          | Domain models (EPIC-004)        |
+| `domain-locations`        | 0/3   | registered                          | Locations (EPIC-008)            |
+| `back-spacelocations`     | 0/2   | registered                          | Locations (EPIC-008)            |
 | `esi-character-api`       | 3/4   | registered                          | Pilot experience                |
 | `infra-developer-install` | 0/4   | registered                          | Front shell & toolchain         |
 | `infra-local-config`      | 0/7   | registered                          | Front shell & toolchain         |
@@ -57,7 +64,9 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 
 | Cluster                                 | Candidate changes                                                                                                             | Why they fit together                                                                                |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Pilot experience**                    | `front-pilot`, `front-pilot-panel`, `front-universe`, `front-dashboard`, `back-service`, `domain-module`, `esi-character-api` | One vertical: domain Pilot type → ESI public data → back pilot use case → dashboard + panel UI       |
+| **Pilot experience**                    | `front-pilot`, `front-pilot-panel`, `front-universe`, `front-dashboard`, `back-service`, `domain-module`, `domain-pilot`, `esi-character-api` | One vertical: domain Pilot type → ESI public data → back pilot use case → dashboard + panel UI       |
+| **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain |
+| **Locations (EPIC-008)**                | `domain-locations`, `back-spacelocations`, `domain-spacelocation` | Space-location hierarchy + lookup API; thin SpaceLocationV1 interface from EPIC-004 |
 | **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`, `infra-developer-install`, `infra-local-config`                                    | Install, Node/Angular stack, canvas chrome, local WireMock config                                    |
 | **Auth / SSO**                          | `login` (already multi-system), `nestjs-sso-config`                                                                           | Session already unified; NestJS SSO env/config still separate                                        |
 | **Angular codification (EPIC-002)**     | `front-angular-structure`, `front-node-render`, `front-async-sse`, `back-async-sse`, `infra-async-persistence`                | Structure → node/viewer/registry → async SSE enrichment with Nest + PostgreSQL/Redis                 |

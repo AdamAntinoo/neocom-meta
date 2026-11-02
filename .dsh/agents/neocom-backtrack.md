@@ -44,16 +44,23 @@ On every run you process only the epics whose version changed. Epics with an unc
 
 ## Steps
 
-### 1. Ensure graphify indexes are current
+### 1. Graphify indexes (automatic first action)
 
-Before any search, make sure the legacy code has an up-to-date graphify index. If `graphify-out/graph.json` is missing or stale under the legacy root, (re)build it from `neocom-meta`:
+**Hard rule.** On every `/neo:backtrack`, the **first action** is to refresh graphify. Do not ask the user. Do not skip.
+
+```bash
+cd /Users/adam/Documents/04.PROJECTS/E.NEOCOM/neocom-meta
+graphify update .
+```
+
+Prefer `.venv/bin/graphify update .` when the project venv exists. Then ensure the legacy code has an up-to-date graphify index. If `graphify-out/graph.json` is missing or stale under the legacy root, (re)build it:
 
 ```bash
 cd /Users/adam/Documents/04.PROJECTS/E.NEOCOM/neocom-meta
 .venv/bin/graphify extract /Users/adam/IdeaProjects/neocom-infinity --out /Users/adam/IdeaProjects/neocom-infinity --force
 ```
 
-If the index already exists and the code has not changed, do not rebuild. Query the legacy graph with `graphify query`, `graphify path`, and `graphify explain` scoped to the legacy root, and only fall back to Read/Grep/Glob on specific files after the graph has oriented you.
+If the legacy index already exists and the code has not changed, do not rebuild the legacy extract. Query the legacy graph with `graphify query`, `graphify path`, and `graphify explain` scoped to the legacy root, and only fall back to Read/Grep/Glob on specific files after the graph has oriented you.
 
 ### 2. Detect changed epics
 
