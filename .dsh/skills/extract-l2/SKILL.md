@@ -4,7 +4,7 @@ description: >-
   Convert L1 epics into L2 markdown files named after the epic (one or
   more files by topic). With no args, process epics that still have
   pending extract work; with args, only those epics. Applies the Review
-  gate: only rows marked reviewed are extracted. Duplicates go to
+  gate: only checked Review cells ([x] / reviewed) are extracted. Duplicates go to
   sources/L1/00.DUPLICATES.md. Use when /neo:extract-l2.
 disable-model-invocation: true
 ---
@@ -19,18 +19,27 @@ Converts L1 into L2. The L1 file is the epic itself, authored with `/epic`; ther
 
 **Deprecated.** Do **not** use an `UNREGISTERED REQUIREMENTS` (or `DUPLICATED`) heading on the epic or on new L2 extracts to control what is extractable. That inbox pattern is retired.
 
-**Current control.** Requirements live **inside the epic** under authored sections (for example `## Section 19 — ServerStatusV1` with field tables, render contracts, and a requirements table). Every extractable unit carries a **Review** (status) cell from the list below. The developer adds new requirements at status `to review`. Only when the cell is changed to `reviewed` may this command extract that unit.
+**Current control.** Requirements live **inside the epic** under authored sections (for example `## Section 19 — ServerStatusV1` with field tables, render contracts, and a requirements table). Every extractable unit carries a **Review** (status) cell from the list below.
 
-| Review / status | Extractable? | Meaning |
-| --- | --- | --- |
-| `to review` | **No** | Initial status for a new requirement or register row. Not extractable. |
-| `reviewed` | **Yes** | Developer approved this batch. Extract this unit, then set the cell to `extracted`. |
-| `extracted` | **No** | Already in L2. Re-extract only if set back to `reviewed`. |
-| `duplicated` | **No** | Flagged as duplicate; content lives under `sources/L1/00.DUPLICATES.md`. |
-| `superseded` | **Never** | Do not extract. |
-| `out of scope` | **Never** | Do not extract. |
+**Checkbox + status authoring (all epics).** Review cells in tables often do not render as UI checkboxes, so prefer **checkbox and status word together** for the pre-extract pair:
 
-Only the exact value `reviewed` is extractable. Values such as `to review (PILOT-*)` are **not** extractable.
+| Review cell (authored) | Logical status | Extractable? | Meaning |
+| --- | --- | --- | --- |
+| `[ ] to review` | `to review` | **No** | Unchecked + status. Initial / still pending human review. |
+| `[x] reviewed` or `[X] reviewed` | `reviewed` | **Yes** | Checked + status. Developer approved this unit — **candidate for this extract run**. |
+| `extracted` | `extracted` | **No** | Already in L2. **No checkbox** (checkbox disappears once past the review gate). Re-extract only if set back to `[x] reviewed`. |
+| `duplicated` | `duplicated` | **No** | Holding copy in `sources/L1/00.DUPLICATES.md`. **No checkbox**. |
+| `superseded` | `superseded` | **Never** | **No checkbox**. |
+| `out of scope` | `out of scope` | **Never** | **No checkbox**. |
+
+Rules:
+
+1. New requirement / register rows SHALL start as **`[ ] to review`**.
+2. The developer marks ready for extract by changing to **`[x] reviewed`** (check the box and set the status word).
+3. This command extracts only cells whose checkbox is checked **`[x]` / `[X]`** or whose logical status is `reviewed` (preferred form: `[x] reviewed`). Unchecked `[ ] to review` is skipped.
+4. After a successful extract (or duplicate move), replace the whole cell with the plain status word (`extracted` or `duplicated`) — the checkbox **disappears** for every state other than the pre-extract review pair.
+5. Legacy cells that still say only `[ ]`, only `[x]`, or exactly `to review` / `reviewed` remain accepted (same meaning) until rewritten; prefer checkbox **plus** status on new and migrated rows.
+6. Annotated non-extractable variants such as `[ ] to review (PILOT-*)` or `to review (PILOT-*)` stay **not** extractable (do not treat as `[x]`).
 
 ### Where the Review cell lives
 
@@ -38,7 +47,7 @@ Prefer, in order:
 
 1. A **register** table on the epic (e.g. Section 02 model register) with a `Review` column — one row per section/topic.
 2. A **requirements** table inside a section (`| ID | Review | … |`) — one row per requirement.
-3. When a register row is `reviewed`, extract that section’s authored prose **and** every nested requirement row whose Review cell is `reviewed` (or that has no Review column and is part of the register unit). Nested rows still at `to review` stay in L1 and are not copied.
+3. When a register row is `[x]` / `reviewed`, extract that section’s authored prose **and** every nested requirement row whose Review cell is `[x]` / `reviewed` (or that has no Review column and is part of the register unit). Nested rows still at `[ ]` / `to review` stay in L1 and are not copied.
 
 Do not invent Review cells. If an epic has no Review column yet, stop and ask the developer to add status tracking before extracting.
 
@@ -204,7 +213,7 @@ Holding area for duplicate or near-duplicate requirements. Not a product epic. D
 <requirement text verbatim>
 ```
 
-Append new duplicate blocks; never delete historical blocks unless the user asks. Reinsertion is a **human** edit: copy back into a product epic at `to review` or `reviewed`, then clear or annotate the holding block.
+Append new duplicate blocks; never delete historical blocks unless the user asks. Reinsertion is a **human** edit: copy back into a product epic at `[ ]` or `[x]`, then clear or annotate the holding block.
 
 ## Already processed (per passage)
 
@@ -212,15 +221,15 @@ Read `sources/L1/TRACEABILITY.md` first.
 
 A passage is already generated when the same behaviour, or a very similar one, is already in any path above, or in an OpenSpec change listed on that epic’s TRACEABILITY **L2 delivery** / Highest with status `applied` or `archived` — handle via **Duplicates → `00.DUPLICATES`** when the L1 unit is still at `reviewed`, or skip silently when it is already `extracted` / `duplicated`.
 
-Append only **new** L1 units that are `reviewed` and not duplicates. Prefer updating an existing `sources/L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `sources/L2/NN.EPIC-NAME.<group>.md`.
+Append only **new** L1 units that are `[x]` / `reviewed` and not duplicates. Prefer updating an existing `sources/L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `sources/L2/NN.EPIC-NAME.<group>.md`.
 
-## Review gate (process only `reviewed`)
+## Review gate (process only checked / `reviewed`)
 
 | Review cell | Action by `/neo:extract-l2` |
 | --- | --- |
-| `reviewed` | Extract to L2 as `pending`, then set cell to `extracted` — **unless** duplicate → `00.DUPLICATES` and cell → `duplicated` |
-| `to review` | Skip. Leave section and rows untouched |
-| `extracted` | Skip. Process again only when set back to `reviewed` |
+| `[x] reviewed` / `[x]` / `[X]` / `reviewed` | Extract to L2 as `pending`, then set cell to **`extracted`** (checkbox removed) — **unless** duplicate → `00.DUPLICATES` and cell → **`duplicated`** (checkbox removed) |
+| `[ ] to review` / `[ ]` / `to review` | Skip. Leave section and rows untouched |
+| `extracted` | Skip. Process again only when set back to `[x] reviewed` |
 | `duplicated` | Skip. Content is under `00.DUPLICATES` |
 | `superseded`, `out of scope` | Never |
 
@@ -230,15 +239,15 @@ The record lives in `sources/L1/TRACEABILITY.md` under that epic’s **### Secti
 
 For each gated row, in order:
 
-1. L1 Review cell is `reviewed` and TRACEABILITY Sections Status is not already 📤 `extracted` / 🔁 `duplicated` for this cycle → **process** (extract or move to duplicates), set L1 Review to `extracted` or `duplicated`, then set Sections Status to 📤 `extracted` or 🔁 `duplicated` and bump the epic **Last updated**.
-2. L1 Review is `reviewed` but Sections already shows 📤 `extracted` from an earlier pass without being reset → **skip** (already processed).
-3. Any other L1 Review cell → **skip**; keep or refresh Sections Status to match (`to review`, `out of scope`, …).
+1. L1 Review cell is extractable (`[x]` / `reviewed`) and TRACEABILITY Sections Status is not already 📤 `extracted` / 🔁 `duplicated` for this cycle → **process** (extract or move to duplicates), set L1 Review to `extracted` or `duplicated` (**no checkbox**), then set Sections Status to 📤 `extracted` or 🔁 `duplicated` and bump the epic **Last updated**.
+2. L1 Review is extractable but Sections already shows 📤 `extracted` from an earlier pass without being reset → **skip** (already processed).
+3. Any other L1 Review cell → **skip**; keep or refresh Sections Status to match (`to review` / `[ ]`, `out of scope`, …).
 
 Consequences the developer must know:
 
-- The only Review cells this command writes are those it processes: `reviewed` → `extracted`, or `reviewed` → `duplicated`.
-- An item that was `extracted` and is set back to `reviewed` on L1 (and Sections) is processed again on the next run.
-- Run the command after each review batch so a flip `reviewed` → `to review` → `reviewed` without an intervening run is not missed.
+- The only Review cells this command writes are those it processes: checked/`reviewed` → `extracted`, or checked/`reviewed` → `duplicated` (always plain status words — checkbox gone).
+- An item that was `extracted` and is set back to `[x]` on L1 (and Sections) is processed again on the next run.
+- Run the command after each review batch so a flip `[x]` → `[ ]` → `[x]` without an intervening run is not missed.
 
 ### Precedence
 
@@ -247,7 +256,7 @@ This skill takes precedence over any text in the L1 file that describes the proc
 ## Write rules
 
 - Do not invent behavior the L1 text does not state.
-- **L1 edits allowed only for status.** On each processed epic, change (1) the Review status cell of each unit this command processed (`reviewed` → `extracted` or `duplicated`), and (2) the `## Spec traceability` table (see below). Do not edit Goals, Sources, section prose, IDs, or any other cell of a row that was not processed.
+- **L1 edits allowed only for status.** On each processed epic, change (1) the Review status cell of each unit this command processed (`[x]`/`reviewed` → `extracted` or `duplicated`), and (2) the `## Spec traceability` table (see below). Do not edit Goals, Sources, section prose, IDs, or any other cell of a row that was not processed.
 - Creating or appending `sources/L1/00.DUPLICATES.md` is allowed when duplicates are found.
 - Do not place notes into final `sources/L2/<SYSTEM>/` feature registers as the OpenSpec registration step. That is `/neo:spec-evolution` (it may assign stable placement ids there).
 - Do not write OpenSpec.

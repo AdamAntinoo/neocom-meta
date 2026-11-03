@@ -34,8 +34,8 @@ flowchart TB
   end
 
   subgraph progression["2. Spec progression"]
-    author["Author requirements in L1 sections<br/>status: to review"]
-    review["Developer sets Review<br/>cells to reviewed"]
+    author["Author requirements in L1 sections<br/>Review: [ ] to review"]
+    review["Developer marks Review<br/>cells [x] reviewed"]
     extract["/neo:extract-l2<br/>→ L2 pending / 00.DUPLICATES"]
     evolve["/neo:spec-evolution<br/>→ OpenSpec change"]
     author --> review --> extract --> evolve
@@ -67,8 +67,8 @@ flowchart LR
   subgraph stages["Spec progression stages"]
     direction TB
     S0["/epic + Search / cards / backtrack"]
-    S1["Author L1<br/>Review = to review"]
-    S2["Developer → reviewed"]
+    S1["Author L1<br/>Review = [ ] to review"]
+    S2["Developer → [x] reviewed"]
     S3["/neo:extract-l2"]
     S4["/neo:spec-evolution"]
     S5["Apply → commit → PR develop → validate"]
@@ -241,15 +241,15 @@ none → extracted → registered → applying → applied → archived
 
 ### 4.2 Review gate (L1 sections / requirements) — replaces `UNREGISTERED`
 
-Requirements are authored under epic sections (register + requirement tables). **Initial status is `to review`** (not extractable). `UNREGISTERED REQUIREMENTS` / L2 `DUPLICATED` headings are deprecated.
+Requirements are authored under epic sections (register + requirement tables). **Initial Review cell is `[ ] to review`** (checkbox + status; not extractable). Tables often do not render `[ ]` as a UI checkbox, so keep the status word. The developer marks **`[x] reviewed`** when the unit is a candidate for extract. After extract (or duplicate), the cell becomes a plain status word — **the checkbox disappears** for every state other than the pre-extract pair. `UNREGISTERED REQUIREMENTS` / L2 `DUPLICATED` headings are deprecated.
 
-| Review cell | `/neo:extract-l2` |
-| --- | --- |
-| `to review` (any variant) | Skip — not extractable |
-| `reviewed` | Extract to L2 as `pending`, then `extracted`; or → `00.DUPLICATES` + `duplicated` |
-| `extracted` | Skip (re-extract only if set back to `reviewed`) |
-| `duplicated` | Skip — holding copy in `sources/L1/00.DUPLICATES.md` |
-| `superseded`, `out of scope` | Never |
+| Review cell | Logical status | `/neo:extract-l2` |
+| --- | --- | --- |
+| `[ ] to review` (legacy: `[ ]` or `to review`) | `to review` | Skip — not extractable |
+| `[x] reviewed` / `[X] reviewed` (legacy: `[x]` / `reviewed`) | `reviewed` | Extract to L2 as `pending`, then plain `extracted`; or → `00.DUPLICATES` + plain `duplicated` |
+| `extracted` | `extracted` | Skip (re-extract only if set back to `[x] reviewed`) — **no checkbox** |
+| `duplicated` | `duplicated` | Skip — holding copy in `sources/L1/00.DUPLICATES.md` — **no checkbox** |
+| `superseded`, `out of scope` | — | Never — **no checkbox** |
 
 Processing record: `TRACEABILITY.md` **### Sections** table for that epic (Status column). Holding epic: `sources/L1/00.DUPLICATES.md`. (`SPEC-EPIC-INDEX.md` is deprecated — do not update.)
 
@@ -326,7 +326,7 @@ Both are optional inputs to authoring; they do not themselves extract L2.
 
 ### 5.3 Author and review L1
 
-Developers expand the epic under **sections** (example: `## Section 19 — ServerStatusV1` with fields, render contract, and a requirements table). Every new requirement or register row starts at **`to review`**. Extraction waits until the developer sets the cell to **`reviewed`**. Authored L1 sections are otherwise immutable for the workflow agent. Do not use an epic-level `UNREGISTERED REQUIREMENTS` inbox.
+Developers expand the epic under **sections** (example: `## Section 19 — ServerStatusV1` with fields, render contract, and a requirements table). Every new requirement or register row starts at **`[ ] to review`**. Extraction waits until the developer marks the cell **`[x] reviewed`**. Authored L1 sections are otherwise immutable for the workflow agent. Do not use an epic-level `UNREGISTERED REQUIREMENTS` inbox.
 
 **Visual appearance PNGs.** For L1 Appearance blocks that document a render (e.g. Feature / model-strip specimens), agents **MAY** add a specimen on `neocom-front` `model-strip-page` (`/model-strip`) and capture that live render into `sources/L1/media/*.png`. Prefer that capture over inventing a stand-in image. Limit front edits to the specimen/render needed for the documentation PNG. This exception also applies when registering such visual features (§5.5).
 
@@ -347,8 +347,8 @@ Then:
 ```mermaid
 flowchart TD
   g1["graphify update ."] --> scope["Resolve pending / named epics"]
-  scope --> gate{"Review cell == reviewed?"}
-  gate -->|no| skip["Skip to review / extracted / …"]
+  scope --> gate{"Review cell == [x] reviewed?"}
+  gate -->|no| skip["Skip [ ] to review / extracted / …"]
   gate -->|yes| pass{"Already in L2 / applied OpenSpec?"}
   pass -->|yes| dup["Append 00.DUPLICATES<br/>Review → duplicated"]
   pass -->|no| write["Write L2 note status pending"]
@@ -566,7 +566,7 @@ These are non-negotiable in the current harness; changing them is a methodology 
 
 1. **Unidirectional levels.** Do not rewrite authored L1 sections. Extract may only flip Review cells and Spec traceability (and append `00.DUPLICATES`); evolution may only refresh Spec traceability on sourcing epics (plus L2 moves/indexes/OpenSpec/`00.DUPLICATES`).
 2. **No invented behaviour.** Gaps → ask or mark; never fill from assumption.
-3. **Review gate exactness.** New requirements start at `to review` (not extractable). Only the cell value `reviewed` extracts. `UNREGISTERED REQUIREMENTS` is deprecated.
+3. **Review gate exactness.** New requirements start at `[ ] to review` (not extractable). Only `[x] reviewed` (or legacy `[x]` / `reviewed`) extracts; after extract the cell is replaced by a plain status word. `UNREGISTERED REQUIREMENTS` is deprecated.
 4. **Graphify before `/neo:*`.** First action on extract, evolution, and backtrack; stop if update fails.
 5. **Skip indexes are complete.** TRACEABILITY (Sections + L2 delivery) + L2 tree + L2/INDEX (+ CHANGE-STATUS / DELIVERY-INDEX) — do not invent parallel dashboards.
 6. **Repo boundaries.** Spec workflow writes only under `neocom-meta`. Product code only in owning clones. `neocom` / `neocom-esi` aside.
@@ -587,15 +587,15 @@ These are non-negotiable in the current harness; changing them is a methodology 
 
 Design and spec repeat without resetting delivery:
 
-1. New material → append to L1 sections at Review `to review` (or new `/epic`).
-2. Set relevant Review cells to `reviewed`.
+1. New material → append to L1 sections at Review `[ ] to review` (or new `/epic`).
+2. Mark relevant Review cells `[x] reviewed`.
 3. `/neo:extract-l2` writes new `pending` L2 notes (or moves duplicates to `00.DUPLICATES`).
 4. `/neo:spec-evolution` registers pending notes (or appends `00.DUPLICATES`).
 5. Apply (stop before commit) → commit when asked → PR → develop → validate → select + archive OpenSpec → source-archive L2/L1 (§6.7) → draft Release PR → ready when set complete.
 
 ```mermaid
 flowchart LR
-  L1u["Update L1 at to review"] --> R[reviewed]
+  L1u["Update L1 at [ ]"] --> R["[x] checked"]
   R --> E[extract-l2]
   E --> S[spec-evolution]
   S --> A["apply stop before commit"]
@@ -613,7 +613,7 @@ flowchart LR
 | --- | --- | --- |
 | 1 | `/epic <name> <description>` | `sources/L1/NN.EPIC-NAME.md`, TRACEABILITY epic section Highest `none` |
 | 2 | (human) fill Search criteria; optional re-invoke collector / `/neo:backtrack` | Sources / COLLECTOR |
-| 3 | (human) author L1 sections; new rows at `to review`; set batch → `reviewed` | L1 register / requirements |
+| 3 | (human) author L1 sections; new rows at `[ ] to review`; mark batch → `[x] reviewed` | L1 register / requirements |
 | 4 | `/neo:extract-l2` [`NN`…] | L2 `pending` notes or `00.DUPLICATES`; status ≥ `extracted` |
 | 5 | `/neo:spec-evolution` [`L2 paths`…] | OpenSpec change; status ≥ `registered` |
 | 6 | Apply change on `feature/<feature>` (default from `develop`; ask before stacking) | Code — stop before commit |

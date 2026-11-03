@@ -11,7 +11,7 @@ Agents are long-running, stateful specialists. Invoke them by name.
 | `neocom-git` | `/neocom-git` | Git and versioning specialist: commits, branches, tags, PRs, releases, npm package versions, and `openspec/DELIVERY-INDEX.md` (OpenSpec ↔ commit/PR map for traceability / graphify). Primary entry point for all VCS work. |
 | `neocom-code` | `/neocom-code` | Product coding specialist for **front** and **back** (and domain when needed). One agent; resolves destination first, then applies shared pipeline rules plus destination stack rules (Angular/Vitest/Cypress vs NestJS hexagonal). Applies registered OpenSpec changes; git stays with `/neocom-git`. |
 | `neocom-spec-collector` | `/epic` | Spec-workflow intake specialist. Opens an epic, writes the L1 file (Spec traceability header + version card footer), collects matching executive cards from `sources/L0/executive/` into the epic's Sources section, and records each copied card in `sources/L0/executive/INDEX.md` so a card is never used twice. |
-| `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | Spec-progression specialist. Owns L1 (epic) → L2 → OpenSpec. **Always runs `graphify update .` first**. Extract gate is the L1 Review cell (`to review` → not extractable; `reviewed` → extract). Duplicates go to `sources/L1/00.DUPLICATES.md`. Never rewrites authored L1 sections; may flip Review cells and Spec traceability, and append the duplicates holding epic. |
+| `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | Spec-progression specialist. Owns L1 (epic) → L2 → OpenSpec. **Always runs `graphify update .` first**. Extract gate is the L1 Review cell (`[ ] to review` → not extractable; `[x] reviewed` → extract → plain `extracted`/`duplicated`). Duplicates go to `sources/L1/00.DUPLICATES.md`. Never rewrites authored L1 sections; may flip Review cells and Spec traceability, and append the duplicates holding epic. |
 | `neocom-backtrack` | `/neo:backtrack` | Legacy-code backtracking specialist. When an epic changes version, reads the legacy back/front code under `/Users/adam/IdeaProjects/neocom-infinity` to find the classes, methods, and flows the epic references, and records them in `sources/COLLECTOR/` (findings doc + version register). |
 | `program-verifier` | `/program-verifier` | Read-only verifier for `00.PR377-META/program/` knowledge against `00.PR377-META/sources/` and `00.PR377-META/program/CLAUDE.md`. Reports only; never edits. |
 
@@ -42,7 +42,7 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 
 | Skill | Slash command | Purpose |
 | --- | --- | --- |
-| `extract-l2` | `/neo:extract-l2` | Convert L1 epics into epic-named L2 file(s). Review gate only: `to review` is not extractable; `reviewed` extracts then becomes `extracted`. Duplicates move to `sources/L1/00.DUPLICATES.md`. No `UNREGISTERED REQUIREMENTS` heading. |
+| `extract-l2` | `/neo:extract-l2` | Convert L1 epics into epic-named L2 file(s). Review gate only: unchecked `[ ]` is not extractable; checked `[x]` extracts then becomes plain `extracted`. Duplicates move to `sources/L1/00.DUPLICATES.md`. No `UNREGISTERED REQUIREMENTS` heading. |
 | `spec-registration` | `/neo:spec-evolution` | Review L2 **pending** notes and move them into OpenSpec as `<system>-<feature>`. Duplicates go to `00.DUPLICATES`. Status is recorded in the indexes. |
 
 ### Product code skills
