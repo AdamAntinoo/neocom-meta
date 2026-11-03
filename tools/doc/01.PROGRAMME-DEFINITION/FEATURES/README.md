@@ -19,7 +19,18 @@ Index of features recognized in the programme. Update this file when a feature b
 | Local config | recorded | OpenSpec `infra-local-config` | front, meta |
 | CI/CD pipeline | recorded | OpenSpec `cicd-pipeline` | front, meta |
 | App shell | recorded | [app-shell.md](./app-shell.md) | front |
-| Dashboard | recorded | [dashboard.md](./dashboard.md) | front |
+| Dashboard shell (fold) | registered (`front-dashboard-shell`) | [dashboard.md](./dashboard.md) (+ page-header, eve-media, corporation, character-selection) | front |
+| Dashboard | registered (`front-dashboard-shell` / `front/dashboard`) | [dashboard.md](./dashboard.md) | front |
+| EVE media | registered (`front-dashboard-shell` / `front/eve-media`) | [eve-media.md](./eve-media.md) | front |
+| Corporation | registered (`front-dashboard-shell` / `front/corporation`) | [corporation.md](./corporation.md) | front |
+| Character selection | registered (`front-dashboard-shell` / `front/character-selection`) | [character-selection.md](./character-selection.md) | front |
+| Page header | registered (`front-dashboard-shell` / `front/page-header`) | [page-header.md](./page-header.md) | front |
+| Industry blueprints (fold) | registered (`front-industry-blueprints`) | [blueprint-by-location.md](./blueprint-by-location.md) (+ model-strip, color-table, feature-button, shared-ui) | front |
+| Model strip | registered (`front-industry-blueprints` / `front/model-strip`) | [model-strip.md](./model-strip.md) | front |
+| Color table | registered (`front-industry-blueprints` / `front/color-table`) | [color-table.md](./color-table.md) | front |
+| Feature button | registered (`front-industry-blueprints` / `front/feature-button`) | [feature-button.md](./feature-button.md) | front |
+| Blueprint by location | registered (`front-industry-blueprints` / `front/blueprint-by-location`) | [blueprint-by-location.md](./blueprint-by-location.md) | front |
+| Shared UI | registered (`front-industry-blueprints` / `front/shared-ui`) | [shared-ui.md](./shared-ui.md) | front |
 | Angular structure | registered (`front-angular-structure`) | [angular-structure.md](./angular-structure.md) | front |
 | Node render | registered (`front-node-render`) | [node-render.md](./node-render.md) | front |
 | Async SSE (front) | registered (`front-async-sse`) | [async-sse.md](./async-sse.md) | front |

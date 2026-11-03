@@ -4,7 +4,7 @@ One-page view of active OpenSpec changes for planning a **single feature** that 
 
 Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. This abstract is narrative; re-read each `proposal.md` before merging changes.
 
-**Last refreshed:** 2026-11-03 (post-merge validation on develop — 22 changes → `applied`; archive deferred until Release PR).
+**Last refreshed:** 2026-11-03 (fold A+B: `front-dashboard-shell` + `front-industry-blueprints`; superseded ten single-capability registered changes).
 
 **How to integrate:** pick a feature name, create or extend one change folder (multi-capability under `specs/<system>/<feature>/`), move or cite the L2 ids, supersede the old change names in the proposal, then archive or drop the superseded folders when apply is complete.
 
@@ -21,7 +21,8 @@ Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. 
 | `nestjs-sso-config`       | 0/2   | registered                          | Auth / SSO                      |
 | `front-infrastructure`    | 8/8   | applied (`@ e3356db`)               | Front shell & toolchain         |
 | `front-app-shell`         | 0/3   | registered                          | Front shell & toolchain         |
-| `front-dashboard`         | 0/6   | registered                          | Pilot experience                |
+| `front-dashboard-shell`   | 0/17  | registered                          | Pilot / UI shell (EPIC-006 fold) |
+| `front-industry-blueprints` | 0/17 | registered                          | Industry blueprints (EPIC-010 fold) |
 | `front-pilot`             | 5/5   | applied (`@ e3356db`)               | Pilot experience                |
 | `front-pilot-panel`       | 4/4   | applied (`@ e3356db`)               | Pilot experience                |
 | `front-universe`          | 0/4   | registered                          | Pilot experience                |
@@ -70,7 +71,8 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 
 | Cluster                                 | Candidate changes                                                                                                             | Why they fit together                                                                                |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Pilot experience**                    | `front-pilot`, `front-pilot-panel`, `front-universe`, `front-dashboard`, `back-service`, `domain-module`, `domain-pilot`, `esi-character-api` | One vertical: domain Pilot type → ESI public data → back pilot use case → dashboard + panel UI       |
+| **Pilot experience**                    | `front-pilot`, `front-pilot-panel`, `front-universe`, `front-dashboard-shell`, `back-service`, `domain-module`, `domain-pilot`, `esi-character-api` | Pilot type → ESI/public data → dashboard-shell fold (header/corp/media/char/dashboard) |
+| **Industry blueprints (EPIC-010)**      | `front-industry-blueprints` | Support pages + Feature button + by-location hierarchy/SSE + shared UI (single fold) |
 | **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain; `jsonClass` wire interchange |
 | **Locations (EPIC-008)**                | `domain-locations`, `back-spacelocations`, `domain-spacelocation` | Space-location hierarchy + lookup API; thin SpaceLocationV1 interface from EPIC-004 |
 | **Backend services (EPIC-009)**         | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | Domain truth/ports/deprecations → OpenAPI rules → Industry pilot blueprints |
@@ -144,23 +146,38 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Why**            | Full-canvas frame: zero margin/border on outlet, pages, and body |
 | **Capabilities**   | `front/app-shell`                                                |
 | **Owners**         | `neocom-front`                                                   |
-| **Integrate with** | `front-infrastructure`, `front-dashboard`                        |
+| **Integrate with** | `front-infrastructure`, `front-dashboard-shell`                  |
 | **Paths**          | `changes/front-app-shell/`                                       |
 
 
 
 
-### `front-dashboard` — registered · 0/6
+### `front-dashboard-shell` — registered · 0/17
 
 
-|                    |                                                                                                   |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| **Why**            | Landing dashboard layout, pilot cookie, header/pilot sections, exception strip, panel colours     |
-| **Capabilities**   | `front/dashboard`                                                                                 |
-| **Owners**         | `neocom-front`                                                                                    |
-| **Note**           | Spec still says “authenticated while login is not operative”; reconcile with `login` when merging |
-| **Integrate with** | `front-pilot-panel`, `front-pilot`, `front-app-shell`                                             |
-| **Paths**          | `changes/front-dashboard/`                                                                        |
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | EPIC-006 secured chrome + landing: header, dashboard, media URLs, corporation panel, character selection |
+| **Capabilities**   | `front/page-header`, `front/dashboard`, `front/eve-media`, `front/corporation`, `front/character-selection` |
+| **Owners**         | `neocom-front`                                                  |
+| **Supersedes**     | `front-page-header`, `front-dashboard`, `front-eve-media`, `front-corporation`, `front-character-selection` |
+| **Integrate with** | applied `front-pilot`, `front-pilot-panel`, `login`             |
+| **Paths**          | `changes/front-dashboard-shell/`                                |
+
+
+
+
+### `front-industry-blueprints` — registered · 0/17
+
+
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | EPIC-010 Industry front vertical as one applyable feature       |
+| **Capabilities**   | `front/model-strip`, `front/color-table`, `front/feature-button`, `front/blueprint-by-location`, `front/shared-ui` |
+| **Owners**         | `neocom-front`                                                  |
+| **Supersedes**     | `front-model-strip`, `front-color-table`, `front-feature-button`, `front-blueprint-by-location`, `front-shared-ui` |
+| **Integrate with** | applied `front-node-render`, `front-async-sse`; may stack after `front-dashboard-shell` |
+| **Paths**          | `changes/front-industry-blueprints/`                            |
 
 
 
@@ -187,7 +204,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Why**            | UI panel for Pilot public/private data, variants, Cypress markers |
 | **Capabilities**   | `front/pilot-panel`                                               |
 | **Owners**         | `neocom-front`                                                    |
-| **Integrate with** | `front-pilot`, `front-dashboard`                                  |
+| **Integrate with** | `front-pilot`, `front-dashboard-shell`                            |
 | **Paths**          | `changes/front-pilot-panel/`                                      |
 
 
@@ -299,7 +316,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Why**            | Page/panel/section division; industry + manufacture modules; placement rules |
 | **Capabilities**   | `front/angular-structure`                                                    |
 | **Owners**         | `neocom-front`                                                               |
-| **Integrate with** | `front-node-render`, `front-app-shell`, `front-dashboard`                    |
+| **Integrate with** | `front-node-render`, `front-app-shell`, `front-dashboard-shell`              |
 | **Paths**          | `changes/front-angular-structure/`                                           |
 
 
@@ -473,7 +490,16 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | `back/nestjs-sso-config`  | `nestjs-sso-config`       |
 | `front-toolchain`         | `front-infrastructure`    |
 | `front/app-shell`         | `front-app-shell`         |
-| `front/dashboard`         | `front-dashboard`         |
+| `front/dashboard`         | `front-dashboard-shell`         |
+| `front/eve-media`         | `front-dashboard-shell`         |
+| `front/corporation`       | `front-dashboard-shell`       |
+| `front/character-selection` | `front-dashboard-shell` |
+| `front/page-header`       | `front-dashboard-shell`       |
+| `front/model-strip`       | `front-industry-blueprints`       |
+| `front/color-table`       | `front-industry-blueprints`       |
+| `front/feature-button`    | `front-industry-blueprints`    |
+| `front/blueprint-by-location` | `front-industry-blueprints` |
+| `front/shared-ui`         | `front-industry-blueprints`         |
 | `front/pilot`             | `front-pilot`             |
 | `front/pilot-panel`       | `front-pilot-panel`       |
 | `front/universe`          | `front-universe`          |

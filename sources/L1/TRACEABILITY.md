@@ -1,121 +1,389 @@
 # L1 epic → OpenSpec traceability
 
-Central index so agents can **skip** epics (or passages) that are already extracted, registered, applying, applied, or archived. Each epic file also carries a `## Spec traceability` section (authored by `/epic`); this index is the authoritative record — keep it current, and do not edit the epic file during evolution.
+Authoritative central record of epic → sections → L2 → OpenSpec → delivery. Agents **skip** material already `applied` / `archived` on later extract/register. Each epic file also carries a `## Spec traceability` header that must stay in sync with this file’s epic section (Highest status, OpenSpec names, L2 paths).
 
-Refresh OpenSpec task counts from `npx openspec list --json` when updating this file.
+Delivery SHAs / PR numbers are copied from [`openspec/DELIVERY-INDEX.md`](../../openspec/DELIVERY-INDEX.md) (owned by `/neocom-git`). Prefer that index and graphify over live GitHub.
 
-## Status values
+Companions: `sources/L2/INDEX.md` (L2 backlog), `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). `SPEC-EPIC-INDEX.md` is **deprecated** (do not update).
 
-Icons sit beside the status token for scanning; the backtick token remains the machine value.
+Last refreshed: 2026-11-03 (format adopted from former POC; develop validation snapshot).
 
-### Pipeline (epic → OpenSpec)
+## Table of contents
 
-| Icon | Status | Meaning |
+| Epic file | Id | Highest |
 | --- | --- | --- |
-| ⚪ | `none` | No L2 extract and no OpenSpec change yet |
-| 📤 | `extracted` | Epic-named L2 file(s) exist (`L2/NN.EPIC-NAME.md` and/or `L2/NN.EPIC-NAME.<group>.md`); OpenSpec not registered (or not yet for this epic) |
-| 📝 | `registered` | One or more OpenSpec changes exist under `openspec/changes/` |
-| 🔨 | `applying` | Implementation on `feature/<feature>` |
-| ✅ | `applied` | Accepted on `develop`; not archived |
-| 📦 | `archived` | OpenSpec change in `openspec/changes/archive/` |
+| [`01.EPIC-LOGIN-PROCEDURE.md`](#01epic-login-proceduremd) | EPIC-001 | ✅ `applied` |
+| [`02.EPIC-ANGULAR-CODIFICATION.md`](#02epic-angular-codificationmd) | EPIC-002 | ✅ `applied` |
+| [`03.EPIC-TESTING.md`](#03epic-testingmd) | EPIC-003 | 📝 `registered` |
+| [`04.EPIC-MODELS.md`](#04epic-modelsmd) | EPIC-004 | ✅ `applied` |
+| [`05.EPIC-ESI-UNIVERSE.md`](#05epic-esi-universemd) | EPIC-005 | ⚪ `none` |
+| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | EPIC-006 | 📝 `registered` |
+| [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | EPIC-007 | ⚪ `none` |
+| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | EPIC-008 | ✅ `applied` |
+| [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | EPIC-009 | ✅ `applied` |
+| [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 📝 `registered` |
 
-### Review gate (register / requirement row)
+Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
 
-Replaces the deprecated `UNREGISTERED REQUIREMENTS` inbox. New requirements start at `to review`.
+## How to read
 
-| Icon | Status | Meaning |
+Each epic is a section headed with the L1 filename (for example `## \`01.EPIC-LOGIN-PROCEDURE.md\``) containing:
+
+1. **Sections** — L1 register / requirement slices and their status (Review gate and/or pipeline).
+2. **L2 delivery** — keyed by **L2 file** (OpenSpec + commit/PR evidence).
+
+| Column (Sections) | Meaning |
+| --- | --- |
+| **Section** | L1 section id or heading slice |
+| **Item** | Register row / requirement group under that section |
+| **Status** | ⏳ `to review` · 👀 `reviewed` · 📤 `extracted` · 📝 `registered` · 🔨 `applying` · ✅ `applied` · 📦 `archived` · 🚫 `out of scope` · ⚪ `none` · 🔁 `duplicated` |
+
+| Column (L2 delivery) | Meaning |
+| --- | --- |
+| **L2 file** | Key under `sources/L2/` |
+| **OpenSpec status** | Highest pipeline status for change(s) on that L2 row |
+| **OpenSpec changes** | Change id(s), task `N/N`, validation tip when `applied` |
+| **Delivery** | From DELIVERY-INDEX: `owner/repo#N` when known, else `repo@sha`, else `—` |
+| **Last updated** | Date of last index edit for this slice |
+
+Pipeline: `none` → `extracted` → `registered` → `applying` → `applied` → `archived`.
+
+### Develop tips (reference)
+
+| Repo | Develop tip | PR note |
 | --- | --- | --- |
-| ⏳ | `to review` | Initial / pending human review; **not** extractable |
-| 👀 | `reviewed` | Ready for this extract iteration |
-| 📤 | `extracted` | Already extracted to L2 |
-| 🔁 | `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md` |
-| 🚫 | `out of scope` | Not part of this epic |
-| ↪️ | `superseded` | Do not extract |
+| `neocom-back` | `3317849` | **PR `#4`** (industry / async / spacelocations / openapi) |
+| `neocom-front` | `e3356db` | tip commit (no PR id in index for some stacks) |
+| `neocom-domain` | `477ee33` | tip commit |
 
-**Skip rules**
 
-- `/neo:extract-l2`: extract only rows marked `reviewed`. Set each processed row to `extracted`, or to `duplicated` when the behaviour already exists in L2 / applied-or-archived OpenSpec (append `sources/L1/00.DUPLICATES.md`). Leave `to review` untouched. Do not write `UNREGISTERED REQUIREMENTS` headings.
-- `/neo:spec-evolution`: register L2 notes with status `pending` (legacy `UNREGISTERED` drained once). Do not open L1 to add models still `to review`. Near-duplicates append `00.DUPLICATES` (not an L2 `DUPLICATED` heading).
-- `/epic` appends: new requirement rows start at `to review` until the developer marks them `reviewed`.
+## `01.EPIC-LOGIN-PROCEDURE.md`
 
-## Review gate record (L1 → L2)
+Epic id: EPIC-001 · Highest: ✅ `applied` · Last updated: 2026-11-03
 
-`/neo:extract-l2` processes only register rows whose Review cell is exactly `reviewed`. After processing, it sets that cell to `extracted`, meaning the row is already extracted to L2. This table records, per row, the cell value after the last run and when the row was last processed. The rules are in `.dsh/skills/extract-l2/SKILL.md`, section "Review gate".
+### Sections
 
-- The skill and agent rules take precedence over any epic prose that describes this procedure differently. The only epic change is the Review status cell of a processed row.
-- A row with no entry is treated as never seen.
-- `Last seen` is updated on every run that reads the row.
-- A `reviewed` row is processed when `Last seen` is not `reviewed`. The cell is then set to `extracted`, `Processed` is set, and `Last seen` becomes `extracted`.
+| Section | Item | Status |
+| --- | --- | --- |
+| Login flow | SSO / Authorization Code procedure | ✅ `applied` (`login`) |
+| Development registration | Dev app registration + callback | ✅ `applied` (`login`) |
+| Environment | Front/back env for SSO | ✅ `applied` (`login`); related `nestjs-sso-config` 📝 `registered` |
+| Proposed solution | Token storage / refresh on back | ✅ `applied` (`login`) |
+| State flow | Auth state machine | ✅ `applied` (`login`) |
+| How the code follows the states | Implementation mapping | ✅ `applied` (`login`) |
+| Login page | Front login UI | ✅ `applied` (`login`) |
+| Login progress | Progress / callback UX | ✅ `applied` (`login`) |
 
-| Epic | Item | Last seen | Processed | L1 path | Notes |
-| --- | --- | --- | --- | --- | --- |
-| EPIC-004 | PricedItemV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | EveLocationV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | EveAssetV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | PublicPilotV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-pilot` 5/5 + `front-pilot` 5/5 — validated domain `@ 477ee33`, front `@ e3356db` |
-| EPIC-004 | PilotV2 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-pilot` 5/5 + `front-pilot` 5/5 — validated domain `@ 477ee33`, front `@ e3356db` |
-| EPIC-004 | ShipV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | PilotShipV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | BlueprintV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-blueprint` 2/2 — validated domain `@ 477ee33` |
-| EPIC-004 | ProcessedBlueprintSummaryV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | ProcessedBlueprintV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | ResourceV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | IndustryResourceV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | BOMResourceV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | BuildActionDtoV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | BOMGroupV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | ApplicationInfoV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-application-info` 3/3 — validated domain `@ 477ee33` |
-| EPIC-004 | ServerStatusV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-server-status` 2/2 — validated domain `@ 477ee33` |
-| EPIC-004 | SpaceLocationV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-spacelocation` 3/3 — validated domain `@ 477ee33` |
-| EPIC-004 | `jsonClass` interchange | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | Section 22; `domain-jsonclass` 3/3 — validated domain `@ 477ee33`, front `@ e3356db`, back `@ 3317849` |
-| EPIC-004 | EveItem / ESI type mirrors | 🚫 `out of scope` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | ESI corp / alliance / race | 🚫 `out of scope` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | neocom-domain deploy | ⏳ `to review` | | `04.EPIC-MODELS.md` | Section 21 not extracted |
-| EPIC-008 | SpaceLocation | 📤 `extracted` | 2026-11-02 | `08.EPIC-LOCATIONS.md` | Extracted to `L2/08.EPIC-LOCATIONS.md` (LOC-010; identity LOC-001/002) |
-| EPIC-008 | Region | 📤 `extracted` | 2026-11-02 | `08.EPIC-LOCATIONS.md` | Extracted to `L2/08.EPIC-LOCATIONS.md` (LOC-020) |
-| EPIC-008 | Constellation | 📤 `extracted` | 2026-11-02 | `08.EPIC-LOCATIONS.md` | Extracted to `L2/08.EPIC-LOCATIONS.md` (LOC-030) |
-| EPIC-008 | Solar system | 📤 `extracted` | 2026-11-02 | `08.EPIC-LOCATIONS.md` | Extracted to `L2/08.EPIC-LOCATIONS.md` (LOC-040) |
-| EPIC-008 | Station | 📤 `extracted` | 2026-11-02 | `08.EPIC-LOCATIONS.md` | Extracted to `L2/08.EPIC-LOCATIONS.md` (LOC-050, LOC-051) |
-| EPIC-008 | Structure | 📤 `extracted` | 2026-11-02 | `08.EPIC-LOCATIONS.md` | Extracted to `L2/08.EPIC-LOCATIONS.md` (LOC-060) |
-| EPIC-008 | LocationAssetContainer | 🚫 `out of scope` | | `08.EPIC-LOCATIONS.md` | Assets epic reuse |
-| EPIC-008 | ShippingYardLocation | 🚫 `out of scope` | | `08.EPIC-LOCATIONS.md` | Assets/ships epic reuse |
-| EPIC-008 | LookupRegion | ⏳ `to review` | | `08.EPIC-LOCATIONS.md` | |
-| EPIC-008 | LookupSolarSystem | ⏳ `to review` | | `08.EPIC-LOCATIONS.md` | |
-| EPIC-008 | KnownSystem | ⏳ `to review` | | `08.EPIC-LOCATIONS.md` | |
-| EPIC-008 | Front stubs | 🚫 `out of scope` | | `08.EPIC-LOCATIONS.md` | |
-| EPIC-009 | BACK-SVC-001…004 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Domain truth / ports placement → `L2/09.EPIC-BACKEND-SERVICES.md` |
-| EPIC-009 | BACK-SVC-010…013 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Record base + version suffix |
-| EPIC-009 | BACK-SVC-020…022 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Pilot + Industry ports |
-| EPIC-009 | BACK-SVC-030…032 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Port contracts / domain models only |
-| EPIC-009 | BACK-SVC-040…042 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Domain DTOs deprecated |
-| EPIC-009 | BACK-SVC-050…052 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Domain esi-api deprecated |
-| EPIC-009 | BACK-SVC-060…063 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | OpenAPI first; model wins |
-| EPIC-009 | BACK-SVC-070…072 | 📤 `extracted` | 2026-11-02 | `09.EPIC-BACKEND-SERVICES.md` | Industry API pilot blueprints |
+### L2 delivery
 
-## Index
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| `FRONT/06.LOGIN.md` | ✅ `applied` | `login` (13/13, validated front `@ e3356db` / back `@ 3317849`) | `neocom-front@e3356db`; `neocom-back@3317849` (SSO on develop; no distinct login PR id in local history) | 2026-11-03 |
+| `BACK/BACK-LOGIN.md` | ✅ `applied` | `login` (13/13, validated back `@ 3317849`) | `neocom-back@3317849` | 2026-11-03 |
+| `ESI/ESI-LOGIN.md` | ✅ `applied` | `login` (13/13) — esi/login capability | covered by front/back develop tips above | 2026-11-03 |
+| `ESI/ESI-SSO.md` | ✅ `applied` | `login` (13/13) — esi/sso capability | covered by front/back develop tips above | 2026-11-03 |
+| *(related, not extracted under this epic alone)* | 📝 `registered` | `nestjs-sso-config` (0/2) | — | 2026-11-03 |
 
-**L2 backlog** is the extract-queue view from [`sources/L2/INDEX.md`](../L2/INDEX.md) (📥 inbox still has `pending` notes). Pipeline status alone does not mean Spec Evolution is done. Holding epic [`00.DUPLICATES.md`](00.DUPLICATES.md) is not a product row below.
+Legacy path note: `L2/01.EPIC-LOGIN-PROCEDURE/` cleared; placed files above are the live L2 keys.
 
-| L1 epic | Epic id | Highest OpenSpec status | L2 backlog | OpenSpec changes | L2 path | Last updated |
-| --- | --- | --- | --- | --- | --- | --- |
-| `01.EPIC-LOGIN-PROCEDURE.md` | EPIC-001 | ✅ `applied` | 📌 placed (legacy extract cleared) | `login` (13/13, validated front `@ e3356db` / back `@ 3317849`); related `nestjs-sso-config` (0/2, still registered) | Legacy `L2/01.EPIC-LOGIN-PROCEDURE/`; placed under `L2/FRONT/06.LOGIN.md`, `L2/BACK/BACK-LOGIN.md`, `L2/ESI/` | 2026-11-03 |
-| `02.EPIC-ANGULAR-CODIFICATION.md` | EPIC-002 | ✅ `applied` | 📭 `4` cleared extracts | `front-angular-structure` (7/7), `front-node-render` (7/7), `front-async-sse` (7/7), `front-infrastructure` (8/8), `front-pilot` (5/5), `front-pilot-panel` (4/4) validated front `@ e3356db`; `back-async-sse` (7/7), `infra-async-persistence` (4/4) validated back `@ 3317849`. Related still registered: `front-app-shell`, `front-dashboard` | Epic extracts + `L2/FRONT/07.ANGULAR-STRUCTURE.md`, `08.NODE-RENDER.md`, `09.ASYNC-SSE.md`, `L2/BACK/BACK-ASYNC-SSE.md`, `INFRASTRUCTURE-SPECS.md` §H | 2026-11-03 |
-| `03.EPIC-TESTING.md` | EPIC-003 | 📝 `registered` | 📭 `6` cleared extracts | `front-bdd-cypress`, `front-mock-fixtures`, `cicd-coverage-sonar`, `cicd-testing-gates`, `infra-test-commands`, `back-testing` | Epic extracts + `L2/FRONT/10.BDD-CYPRESS.md`, `11.MOCK-FIXTURES.md`, `L2/CICD/01.COVERAGE-SONAR.md`, `02.TESTING-GATES.md`, `INFRASTRUCTURE-SPECS.md` §I, `L2/BACK/BACK-TESTING.md` | 2026-10-17 |
-| `04.EPIC-MODELS.md` | EPIC-004 | ✅ `applied` | 📭 cleared extract | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` validated domain `@ 477ee33`; `front-pilot` validated front `@ e3356db`. Models still `to review` remain for later extract | `L2/04.EPIC-MODELS.md` (📭 cleared); placed `L2/DOMAIN/02.PILOT.md`, `03.BLUEPRINT.md`, `04.APPLICATION-INFO.md`, `05.SERVER-STATUS.md`, `07.SPACELOCATION-V1.md`, `08.JSONCLASS.md`; Pilot front pointer `L2/FRONT/01.PILOT-DEFINITION.md` | 2026-11-03 |
-| `05.EPIC-ESI-UNIVERSE.md` | EPIC-005 | ⚪ `none` | — (no L2 extract) | | SDE source + back install noted on L1 | 2026-10-19 |
-| `06.EPIC-USER-INTERFACE.md` | EPIC-006 | ⚪ `none` | — (no L2 extract) | | Auth page UI + `app-page-header` shell rules on L1 (not extracted yet) | 2026-10-19 |
-| `07.EPIC-NEOCOM-API.md` | EPIC-007 | ⚪ `none` | — (no L2 extract) | | Baseline: auth `POST /v1/auth/callback` + cookie refresh; pilot `GET /v1/pilots/{id}`; related industry blueprints sync/SSE. More flows TBD | 2026-10-19 |
-| `08.EPIC-LOCATIONS.md` | EPIC-008 | ✅ `applied` | 📭 cleared | `domain-locations` (3/3) validated domain `@ 477ee33`; `back-spacelocations` (2/2) validated back `@ 3317849`. Lookup* rows still `to review` | `L2/08.EPIC-LOCATIONS.md` (cleared); placed `L2/DOMAIN/06.LOCATIONS.md`, `L2/BACK/BACK-SPACELOCATIONS.md` | 2026-11-03 |
-| `09.EPIC-BACKEND-SERVICES.md` | EPIC-009 | ✅ `applied` | 📭 cleared | `domain-layout`, `domain-ports`, `domain-deprecations` validated domain `@ 477ee33`; `back-openapi`, `back-industry-blueprints` validated back `@ 3317849`; related `domain-jsonclass` applied | `L2/09.EPIC-BACKEND-SERVICES.md` (cleared); placed DOMAIN/09–11 + BACK-OPENAPI + BACK-INDUSTRY-BLUEPRINTS | 2026-11-03 |
+---
 
-Non-epic L1 notes (`REQUIREMENTS.md`, `UX.md`, `ESI.md`) are not rows here until an `/epic` owns them. `00.DUPLICATES.md` is a holding epic (status `holding`), not a normal extract source.
+## `02.EPIC-ANGULAR-CODIFICATION.md`
+
+Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-03
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| Division / structure | Pages, panels, section modules | ✅ `applied` (`front-angular-structure`) |
+| Node | Node MVC, render registry, viewer | ✅ `applied` (`front-node-render`) |
+| Synchronous processing / asynchronous rendering | Front async SSE + adapter cache | ✅ `applied` (`front-async-sse`) |
+| Async infra (extract `.async-infra`) | Persistence / Redis companion | ✅ `applied` (`infra-async-persistence`, `back-async-sse`) |
+| Related — pilot panel | `v1-pilot-panel` / HEADER variants | ✅ `applied` (`front-pilot-panel`) |
+| Related — pilot definition | NeoCom pilot nodes | ✅ `applied` (`front-pilot`) |
+| Related — app shell | Canvas chrome | 📝 `registered` (`front-app-shell` 0/3) |
+| Related — dashboard | Dashboard feature | 📝 `registered` (`front-dashboard-shell` 0/6) |
+| Related — infrastructure | Toolchain / WireMock | ✅ `applied` (`front-infrastructure`) |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| `02.EPIC-ANGULAR-CODIFICATION.structure.md` | ✅ `applied` | `front-angular-structure` (7/7, validated front `@ e3356db`) | `neocom-front@e3356db` | 2026-11-03 |
+| `FRONT/07.ANGULAR-STRUCTURE.md` | ✅ `applied` | `front-angular-structure` (7/7, validated front `@ e3356db`) | `neocom-front@e3356db` | 2026-11-03 |
+| `02.EPIC-ANGULAR-CODIFICATION.nodes.md` | ✅ `applied` | `front-node-render` (7/7, validated front `@ e3356db`) | `neocom-front@e3356db` | 2026-11-03 |
+| `FRONT/08.NODE-RENDER.md` | ✅ `applied` | `front-node-render` (7/7, validated front `@ e3356db`) | `neocom-front@e3356db` | 2026-11-03 |
+| `02.EPIC-ANGULAR-CODIFICATION.async-sse.md` | ✅ `applied` | `front-async-sse` (7/7, validated front `@ e3356db`); `back-async-sse` (7/7, validated back `@ 3317849`) | `neocom-front@e3356db`; `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
+| `FRONT/09.ASYNC-SSE.md` | ✅ `applied` | `front-async-sse` (7/7, validated front `@ e3356db`) | `neocom-front@e3356db` | 2026-11-03 |
+| `BACK/BACK-ASYNC-SSE.md` | ✅ `applied` | `back-async-sse` (7/7, validated back `@ 3317849`) | `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
+| `02.EPIC-ANGULAR-CODIFICATION.async-infra.md` | ✅ `applied` | `infra-async-persistence` (4/4); `back-async-sse` (7/7); `front-async-sse` (7/7) | meta `tools/infra` + `AdamAntinoo/neocom-back#4` → `@ 3317849`; front `@ e3356db` | 2026-11-03 |
+| `INFRASTRUCTURE-SPECS.md` (§H async) | ✅ `applied` | `infra-async-persistence` (4/4); also hosts `front-infrastructure` (8/8) | `neocom-front@e3356db` (WireMock); back docker via `#4` → `@ 3317849` | 2026-11-03 |
+| `FRONT/05.PILOT-PANEL.md` | ✅ `applied` | `front-pilot-panel` (4/4, validated front `@ e3356db`) | `neocom-front@e3356db` | 2026-11-03 |
+| `FRONT/01.PILOT-DEFINITION.md` | ✅ `applied` | `front-pilot` (5/5, validated front `@ e3356db`) — 🔗 pointer | `neocom-front@e3356db` | 2026-11-03 |
+| `FRONT/03.APP-SHELL.md` | 📝 `registered` | `front-app-shell` (0/3) | — | 2026-10-17 |
+| `FRONT/04.DASHBOARD.md` | 📝 `registered` | `front-dashboard-shell` (0/6) | — | 2026-10-17 |
+
+---
+
+## `03.EPIC-TESTING.md`
+
+Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-10-17
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| Cypress UI and content validation | BDD / Cypress | 📝 `registered` (`front-bdd-cypress` 0/4) |
+| Mock data from real runs | Fixtures | 📝 `registered` (`front-mock-fixtures` 0/4) |
+| Coverage control and quality gates | Sonar / coverage | 📝 `registered` (`cicd-coverage-sonar` 0/5) |
+| CI/CD test jobs and Sonar gate order | Testing gates | 📝 `registered` (`cicd-testing-gates` 0/3) |
+| Testing command catalog | Shared TDD/BDD/SDD commands | 📝 `registered` (`infra-test-commands` 0/5) |
+| Backend testing | Back guidelines / WireMock / Gherkin | 📝 `registered` (`back-testing` 0/5) |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| `03.EPIC-TESTING.bdd-cypress.md` | 📝 `registered` | `front-bdd-cypress` (0/4) | — | 2026-10-17 |
+| `FRONT/10.BDD-CYPRESS.md` | 📝 `registered` | `front-bdd-cypress` (0/4) | — | 2026-10-17 |
+| `03.EPIC-TESTING.mock-fixtures.md` | 📝 `registered` | `front-mock-fixtures` (0/4) | — | 2026-10-17 |
+| `FRONT/11.MOCK-FIXTURES.md` | 📝 `registered` | `front-mock-fixtures` (0/4) | — | 2026-10-17 |
+| `03.EPIC-TESTING.coverage-sonar.md` | 📝 `registered` | `cicd-coverage-sonar` (0/5) | — | 2026-10-17 |
+| `CICD/01.COVERAGE-SONAR.md` | 📝 `registered` | `cicd-coverage-sonar` (0/5) | — | 2026-10-17 |
+| `03.EPIC-TESTING.cicd-gates.md` | 📝 `registered` | `cicd-testing-gates` (0/3) | — | 2026-10-17 |
+| `CICD/02.TESTING-GATES.md` | 📝 `registered` | `cicd-testing-gates` (0/3) | — | 2026-10-17 |
+| `03.EPIC-TESTING.command-catalog.md` | 📝 `registered` | `infra-test-commands` (0/5) | — | 2026-10-17 |
+| `INFRASTRUCTURE-SPECS.md` (§I test commands) | 📝 `registered` | `infra-test-commands` (0/5) | — | 2026-10-17 |
+| `03.EPIC-TESTING.backend-testing.md` | 📝 `registered` | `back-testing` (0/5) | — | 2026-10-17 |
+| `BACK/BACK-TESTING.md` | 📝 `registered` | `back-testing` (0/5) | — | 2026-10-17 |
+
+---
+
+## `04.EPIC-MODELS.md`
+
+Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-03
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| 03 | PricedItemV1 | ⏳ `to review` |
+| 04 | EveLocationV1 | ⏳ `to review` |
+| 05 | EveAssetV1 | ⏳ `to review` |
+| 06 | PublicPilotV1 | ✅ `applied` |
+| 07 | PilotV2 | ✅ `applied` |
+| 08 | ShipV1 | ⏳ `to review` |
+| 09 | PilotShipV1 | ⏳ `to review` |
+| 10 | BlueprintV1 | ✅ `applied` |
+| 11 | ProcessedBlueprintSummaryV1 | ⏳ `to review` |
+| 12 | ProcessedBlueprintV1 | ⏳ `to review` |
+| 12 | ResourceV1 | ⏳ `to review` |
+| 13 | IndustryResourceV1 | ⏳ `to review` |
+| 14 | BOMResourceV1 | ⏳ `to review` |
+| 15 | BuildActionDtoV1 | ⏳ `to review` |
+| 16 | BOMGroupV1 | ⏳ `to review` |
+| 18 | ApplicationInfoV1 | ✅ `applied` |
+| 19 | ServerStatusV1 | ✅ `applied` (field/render contract **superseded** → EPIC-006 UI-SSP / SRV-005…006 `to review`) |
+| 20 | SpaceLocationV1 | ✅ `applied` |
+| 21 | neocom-domain deploy | ⏳ `to review` |
+| 22 | `jsonClass` interchange | ✅ `applied` |
+| — | EveItem / ESI type mirrors | 🚫 `out of scope` |
+| — | ESI corp / alliance / race | 🚫 `out of scope` |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| `04.EPIC-MODELS.md` | ✅ `applied` | cleared epic extract; `domain-jsonclass` (+ prior domain-*) | domain `@ 477ee33` | 2026-11-03 |
+| `DOMAIN/02.PILOT.md` | ✅ `applied` | `domain-pilot` (5/5, validated domain `@ 477ee33`); consumer `front-pilot` (5/5, front `@ e3356db`) | `neocom-domain@477ee33`; `neocom-front@e3356db` | 2026-11-03 |
+| `DOMAIN/03.BLUEPRINT.md` | ✅ `applied` | `domain-blueprint` (2/2, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `DOMAIN/04.APPLICATION-INFO.md` | ✅ `applied` | `domain-application-info` (3/3, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `DOMAIN/05.SERVER-STATUS.md` | ✅ `applied` | `domain-server-status` (2/2, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `DOMAIN/07.SPACELOCATION-V1.md` | ✅ `applied` | `domain-spacelocation` (3/3, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `DOMAIN/08.JSONCLASS.md` | ✅ `applied` | `domain-jsonclass` (3/3, validated domain `@ 477ee33` / front `@ e3356db` / back `@ 3317849`) | `neocom-domain@477ee33`; `neocom-front@e3356db`; `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
+| `FRONT/01.PILOT-DEFINITION.md` | ✅ `applied` | `front-pilot` (5/5) — pointer into domain pilot | `neocom-front@e3356db` | 2026-11-03 |
+
+---
+
+## `05.EPIC-ESI-UNIVERSE.md`
+
+Epic id: EPIC-005 · Highest: ⚪ `none` · Last updated: 2026-10-19
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| — | (no Review register extracted yet; SDE / universe notes stay on L1) | ⚪ `none` |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| — (no L2 extract) | ⚪ `none` | — | — | 2026-10-19 |
+
+---
+
+## `06.EPIC-USER-INTERFACE.md`
+
+Epic id: EPIC-006 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L1: [`06.EPIC-USER-INTERFACE.md`](./06.EPIC-USER-INTERFACE.md)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Dashboard | 🔁 `duplicated` → [UI-DASH-001](../L2/FRONT/04.DASHBOARD.md) · [00.DUPLICATES](./00.DUPLICATES.md) |
+| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Feature dashboard | 🔁 `duplicated` → [UI-DASH-013](../L2/FRONT/04.DASHBOARD.md) · [00.DUPLICATES](./00.DUPLICATES.md) |
+| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Authentication pages | imported (not extractable) |
+| [Versioned panels](./06.EPIC-USER-INTERFACE.md#versioned-panels-and-renders-vn-) | UI-VER-001…003 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Media (EVE Image Server)](./06.EPIC-USER-INTERFACE.md#media-from-the-eve-image-server) | UI-MED-001…008 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/18](../L2/FRONT/18.EVE-MEDIA.md) |
+| [Common header](./06.EPIC-USER-INTERFACE.md#common-header-element-app-page-header) | UI-HDR-001…009 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Application info panel](./06.EPIC-USER-INTERFACE.md#application-info-panel-v1-application-info-render) | UI-AIP-001…005 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Server status panel](./06.EPIC-USER-INTERFACE.md#server-status-panel-v1-server-status-render) | UI-SSP-001…007 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Corporation panel](./06.EPIC-USER-INTERFACE.md#corporation-panel-v1-corporation-render) | UI-CORP-001…013 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/19](../L2/FRONT/19.CORPORATION.md) |
+| [Dashboard](./06.EPIC-USER-INTERFACE.md#dashboard-landing-page) | UI-DASH-001…005, 007…010, 012…014 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/04](../L2/FRONT/04.DASHBOARD.md) |
+| [Dashboard requirements](./06.EPIC-USER-INTERFACE.md#dashboard-requirements) | UI-DASH-006, 011 | ⏳ `to review` |
+| [Character selection](./06.EPIC-USER-INTERFACE.md#character-selection-login-006--ui) | UI-CHAR-002 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/20](../L2/FRONT/20.CHARACTER-SELECTION.md) |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| [`06.EPIC-USER-INTERFACE.header.md`](../L2/06.EPIC-USER-INTERFACE.header.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
+| [`06.EPIC-USER-INTERFACE.dashboard.md`](../L2/06.EPIC-USER-INTERFACE.dashboard.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
+| [`06.EPIC-USER-INTERFACE.media.md`](../L2/06.EPIC-USER-INTERFACE.media.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
+| [`06.EPIC-USER-INTERFACE.corporation.md`](../L2/06.EPIC-USER-INTERFACE.corporation.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
+| [`06.EPIC-USER-INTERFACE.character.md`](../L2/06.EPIC-USER-INTERFACE.character.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
+| [`FRONT/12.PAGE-HEADER.md`](../L2/FRONT/12.PAGE-HEADER.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
+| [`FRONT/04.DASHBOARD.md`](../L2/FRONT/04.DASHBOARD.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
+| [`FRONT/18.EVE-MEDIA.md`](../L2/FRONT/18.EVE-MEDIA.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
+| [`FRONT/19.CORPORATION.md`](../L2/FRONT/19.CORPORATION.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
+| [`FRONT/20.CHARACTER-SELECTION.md`](../L2/FRONT/20.CHARACTER-SELECTION.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
+
+---
+
+## `07.EPIC-NEOCOM-API.md`
+
+Epic id: EPIC-007 · Highest: ⚪ `none` (flows Review-gated; related back work under other epics) · Last updated: 2026-10-19
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| API flows | Flow 06 — GET industry blueprints (async) | 👀 `reviewed` |
+| API flows | Flow 07 — GET industry blueprints SSE | 👀 `reviewed` |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| — (no L2 extract under this epic) | ⚪ `none` | related manufacture SSE delivered via `back-async-sse` on EPIC-002 / `#4` | see `02` / `BACK/BACK-ASYNC-SSE.md` | 2026-10-19 |
+
+---
+
+## `08.EPIC-LOCATIONS.md`
+
+Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-03
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| 01 | LOC-001 location kind | 📤 `extracted` (delivered via `domain-locations` / `back-spacelocations` ✅) |
+| 01 | LOC-002 ancestor place | 📤 `extracted` (delivered ✅) |
+| 01 | LOC-003 planets/ships/holds | 🚫 `out of scope` |
+| 03 | SpaceLocation (LOC-010) | 📤 `extracted` → ✅ via OpenSpec on develop |
+| 03 | LOC-011 callers use SpaceLocation | 🚫 `out of scope` |
+| 04 | Region (LOC-020) | 📤 `extracted` → ✅ via OpenSpec on develop |
+| 05 | Constellation (LOC-030) | 📤 `extracted` → ✅ via OpenSpec on develop |
+| 06 | Solar system (LOC-040) | 📤 `extracted` → ✅ via OpenSpec on develop |
+| 07 | Station (LOC-050, LOC-051) | 📤 `extracted` → ✅ via OpenSpec on develop |
+| 08 | Structure (LOC-060) | 📤 `extracted` → ✅ via OpenSpec on develop |
+| 09 | LocationAssetContainer | 🚫 `out of scope` |
+| 10 | ShippingYardLocation | 🚫 `out of scope` |
+| 11 | LookupRegion (LOC-090) | ⏳ `to review` |
+| 12 | LookupSolarSystem (LOC-100) | ⏳ `to review` |
+| 13 | KnownSystem (LOC-110) | ⏳ `to review` |
+| 14 | Front stubs (LOC-120, LOC-121) | 🚫 `out of scope` |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| `08.EPIC-LOCATIONS.md` | ✅ `applied` | cleared epic extract; sourced `domain-locations`, `back-spacelocations` | see placed rows | 2026-11-03 |
+| `DOMAIN/06.LOCATIONS.md` | ✅ `applied` | `domain-locations` (3/3, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `BACK/BACK-SPACELOCATIONS.md` | ✅ `applied` | `back-spacelocations` (2/2, validated back `@ 3317849`) | `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
+
+---
+
+## `09.EPIC-BACKEND-SERVICES.md`
+
+Epic id: EPIC-009 · Highest: ✅ `applied` · Last updated: 2026-11-03
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| 01–02 | BACK-SVC-001…004, 010…013 (layout / Record / V1) | 📤 `extracted` → ✅ `applied` (`domain-layout`) |
+| 03–04 | BACK-SVC-020…022, 030…032 (ports) | 📤 `extracted` → ✅ `applied` (`domain-ports`) |
+| 05–06 | BACK-SVC-040…042, 050…052 (deprecations) | 📤 `extracted` → ✅ `applied` (`domain-deprecations`) |
+| 07 | BACK-SVC-060…063 (OpenAPI) | 📤 `extracted` → ✅ `applied` (`back-openapi`) |
+| 08 | BACK-SVC-070…072 (industry blueprints API) | 📤 `extracted` → ✅ `applied` (`back-industry-blueprints`) |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| `09.EPIC-BACKEND-SERVICES.md` | ✅ `applied` | cleared epic extract | see placed rows | 2026-11-03 |
+| `DOMAIN/09.LAYOUT.md` | ✅ `applied` | `domain-layout` (2/2, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `DOMAIN/10.PORTS.md` | ✅ `applied` | `domain-ports` (2/2, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `DOMAIN/11.DEPRECATIONS.md` | ✅ `applied` | `domain-deprecations` (2/2, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
+| `BACK/BACK-OPENAPI.md` | ✅ `applied` | `back-openapi` (3/3, validated back `@ 3317849`) | `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
+| `BACK/BACK-INDUSTRY-BLUEPRINTS.md` | ✅ `applied` | `back-industry-blueprints` (2/2, validated back `@ 3317849`) | `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
+
+---
+
+## `10.EPIC-INDUSTRY-BLUEPRINTS.md`
+
+Epic id: EPIC-010 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L1: [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](./10.EPIC-INDUSTRY-BLUEPRINTS.md)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-01--spec-model-strip-page) | IND-BP-001…007 (model-strip page) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/13](../L2/FRONT/13.MODEL-STRIP.md) |
+| [02](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-02--spec-featurev1-display-element) | IND-BP-010…012 (FeatureV1 / `v1-feature-button`) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/15](../L2/FRONT/15.FEATURE-BUTTON.md) |
+| [03](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-03--dashboard-feature-panel-procedural-population) | IND-BP-020…023 (Feature panel population) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/15](../L2/FRONT/15.FEATURE-BUTTON.md) |
+| [04](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-04--spec-v1-blueprint-by-location-page) | IND-BP-030…036 (v1-blueprint-by-location page) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/16](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) |
+| [05](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-05--spec-v1-region-render) | IND-BP-060…063, 070…072 (v1-region render) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/16](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) |
+| [06](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-06--spec-color-table-support-page) | IND-BP-040…042 (color-table support page) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/14](../L2/FRONT/14.COLOR-TABLE.md) |
+| [07](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-07--spec-shared-ui-definitions) | IND-BP-080…083, 088 (shared UI) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/17](../L2/FRONT/17.SHARED-UI.md) |
+| [07](./10.EPIC-INDUSTRY-BLUEPRINTS.md#expandable-items) | IND-BP-084…087 (expand/collaborate) | 🔁 `duplicated` → [NODE-003](../L2/FRONT/08.NODE-RENDER.md) · [00.DUPLICATES](./00.DUPLICATES.md) |
+| [08](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-08--spec-v1-blueprint-render) | IND-BP-090…095 (v1-blueprint render) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/16](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) |
+| [09](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-09--spec-v1-system-render) | IND-BP-100…105 (v1-system render) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/16](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) |
+| [10](./10.EPIC-INDUSTRY-BLUEPRINTS.md#section-10--spec-process-blueprints-into-the-location-hierarchy) | IND-BP-110…118 (hierarchy aggregation / SSE feed) | 📝 `registered` → [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) · [FRONT/16](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](../L2/10.EPIC-INDUSTRY-BLUEPRINTS.md) | 📭 `cleared` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) | — | 2026-11-03 |
+| [`FRONT/13.MODEL-STRIP.md`](../L2/FRONT/13.MODEL-STRIP.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
+| [`FRONT/14.COLOR-TABLE.md`](../L2/FRONT/14.COLOR-TABLE.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
+| [`FRONT/15.FEATURE-BUTTON.md`](../L2/FRONT/15.FEATURE-BUTTON.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
+| [`FRONT/16.BLUEPRINT-BY-LOCATION.md`](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
+| [`FRONT/17.SHARED-UI.md`](../L2/FRONT/17.SHARED-UI.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
+
+---
 
 ## How agents update this file
 
-1. After `/neo:extract-l2` creates or updates epic-named L2 file(s), set status at least 📤 `extracted`, fill **L2 path**, set **L2 backlog** from `sources/L2/INDEX.md`, update that index plus each file’s L2 status header, refresh the epic’s `## Spec traceability` (start of file: Status, L2, Skip, Index), **and** sync `sources/L1/SPEC-EPIC-INDEX.md` (processed items → 🔵 `extracted`, summary counts).
-2. After `/neo:spec-evolution` registers OpenSpec changes sourced from that epic, add change names and set 📝 `registered` (or keep a higher status); refresh **L2 backlog** (📭 when extracts are cleared) and the epic’s `## Spec traceability` OpenSpec / Status fields.
-3. When `/feature-delivery` starts, set 🔨 `applying` (and mirror on the epic header).
-4. When the pull request into `develop` is accepted, set ✅ `applied` (and mirror on the epic header).
-5. After `openspec archive`, set 📦 `archived` (and mirror on the epic header).
-6. Keep the icon with the status token in every status cell (legend above).
-7. Authored L1 sections stay as written. Only Review cells (extract) and `## Spec traceability` may change on the epic. This index and the epic header stay in sync; when they disagree, fix both in the same turn.
+1. **`/epic`:** add a new `## \`NN.EPIC-NAME.md\`` section (Highest ⚪ `none`), empty Sections / L2 delivery placeholders, Last updated today; **refresh the Table of contents** row for that epic.
+2. **`/neo:extract-l2`:** upsert **Sections** rows (Review → 📤 `extracted` or 🔁 `duplicated`); add/refresh **L2 delivery** rows for new epic extracts (status 📤 / OpenSpec `—` until registered); sync epic `## Spec traceability` and `L2/INDEX.md`. Do not update `SPEC-EPIC-INDEX.md`.
+3. **`/neo:spec-evolution`:** set OpenSpec names on L2 delivery rows; status ≥ 📝 `registered`; clear pending / backlog via L2/INDEX; sync Spec traceability.
+4. **Apply start (`/neocom-code`):** OpenSpec status 🔨 `applying` on affected L2 rows; Highest on epic section if that is the epic’s furthest status.
+5. **PR merge → develop (`/neocom-git`):** OpenSpec → ✅ `applied`; fill **Delivery** from `DELIVERY-INDEX.md`; bump Last updated; sync Spec traceability Highest.
+6. **Validate on develop:** keep Delivery / validation tips aligned with DELIVERY-INDEX Validated column.
+7. **OpenSpec archive:** OpenSpec → 📦 `archived`; then source-archive eligible L2/L1 (§6.7) and point L2 paths at `archive/` in this file.
+8. Do **not** invent a second dashboard. Sections + L2 delivery **are** the Review/pipeline records. Do not update deprecated `SPEC-EPIC-INDEX.md`.
+9. Authored L1 sections stay as written. Only Review cells and `## Spec traceability` change on the epic file.

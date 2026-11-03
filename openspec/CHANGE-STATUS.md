@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-03 (post-merge **validation on develop** — §6.5). Tips: back `3317849` (28/28), front `e3356db` (44/44), domain `477ee33` (11/11). No archive yet (release PR not opened).
+Last refreshed: 2026-11-03 (fold A+B → `front-dashboard-shell` + `front-industry-blueprints`). Tips: back `3317849` (28/28), front `e3356db` (44/44), domain `477ee33` (11/11). No archive yet (release PR not opened).
 
 ## Status legend
 
@@ -17,10 +17,11 @@ Last refreshed: 2026-11-03 (post-merge **validation on develop** — §6.5). Tip
 | `registered` | Change exists under `changes/<name>/` with proposal, specs, design, and tasks |
 | `applying` | Implementation on `feature/<feature>` (default base `develop`; may be stacked). Apply stops before commit |
 | `applied` | Merged to `develop` (or ready on develop) and eligible for **validation on develop**; archive not done yet. Note `validated on develop @ <sha>` when validation passes |
-| `archived` | Released via `develop` → `main` archive list; moved to `changes/archive/` and merged into `openspec/specs/` |
+| `archived` | Developer-selected after develop validation; `/openspec-archive-change` done (`changes/archive/` + `openspec/specs/`). Draft Release PR may still be open — main/spec parity for the release only when the selected archive set is complete and the PR is marked ready |
 | `deferred` | Registered but **not applyable** until a named blocker clears (e.g. owning repo aside). Do not start `/openspec-apply-change` |
 
-PR content control: `.dsh/templates/openspec-delivery-control.md` (feature → develop = validation intake; develop → main = archive trigger).
+PR content control: `.dsh/templates/openspec-delivery-control.md` (feature → develop = validation intake; **archive then** draft `develop` → `main`).  
+Commit / PR / develop-tip evidence per change: [`DELIVERY-INDEX.md`](./DELIVERY-INDEX.md) (owned by `/neocom-git`; graphify-indexed — prefer over live GitHub).
 
 Task progress comes from checkboxes in each change’s `tasks.md` (`openspec list`).
 
@@ -52,7 +53,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `domain-pilot` | domain / pilot | 5/5 | applied | Validated on develop `@ 477ee33` (PublicPilotV1 + PilotV2). Domain tests 11/11 |
 | `domain-blueprint` | domain / blueprint | 2/2 | applied | Validated on develop `@ 477ee33` (BlueprintV1 + ME/TE clamp) |
 | `domain-application-info` | domain / application-info | 3/3 | applied | Validated on develop `@ 477ee33` |
-| `domain-server-status` | domain / server-status | 2/2 | applied | Validated on develop `@ 477ee33` |
+| `domain-server-status` | domain / server-status | 2/2 | applied | Validated on develop `@ 477ee33`. Field/render ADDED text **superseded** by EPIC-006 panel set — delta draft uses **REMOVED** + replacement **ADDED** in change `specs/domain/server-status/spec.md`; register/apply follow-up when reviewed |
 | `domain-spacelocation` | domain / spacelocation | 3/3 | applied | Validated on develop `@ 477ee33` (`SpaceLocationV1`) |
 | `domain-locations` | domain / locations | 3/3 | applied | Validated on develop `@ 477ee33` (hierarchy in `SpaceLocationV1`) |
 | `back-spacelocations` | back / spacelocations | 2/2 | applied | Validated on develop `@ 3317849` — `GET /api/v1/universe/spacelocations/:locationId` |
@@ -78,7 +79,8 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
 | `front-universe` | front / universe | 0/4 | registered | |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |
-| `front-dashboard` | front / dashboard | 0/6 | registered | |
+| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 0/17 | registered | Fold of page-header, dashboard, eve-media, corporation, character-selection (EPIC-006). Branch `feature/dashboard-shell` |
+| `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 0/17 | registered | Fold of model-strip, color-table, feature-button, blueprint-by-location, shared-ui (EPIC-010). Branch `feature/industry-blueprints` |
 | `back-service` | back / service | 0/3 | registered | |
 | `domain-module` | domain / neocom-domain | 2/3 | registered | |
 | `infra-developer-install` | infra / developer-install | 0/4 | registered | |
@@ -99,8 +101,8 @@ Delta specs usually live at `changes/<system>-<feature>/specs/<system>/<feature>
 
 1. After `/neo:spec-evolution`, add a row under **Registered** with status `registered`.
 2. When `/feature-delivery` starts, move the row to **Applying** and name the branch if useful.
-3. After the pull request into `develop` is accepted (`/git:pr`), move the row to **Applied**.
-4. After `openspec archive`, move the row to **Archived** and point at the main spec path.
+3. After the pull request into `develop` is accepted (`/git:pr`), move the row to **Applied** and refresh `DELIVERY-INDEX.md` (merged + develop tip).
+4. After `openspec archive`, move the row to **Archived** and point at the main spec path; move the delivery row to **Archived delivery** in `DELIVERY-INDEX.md`.
 5. Keep sections in order: **Archived**, **Applying**, **Applied**, **Deferred**, **Registered**.
 6. Refresh task counts with `npx openspec list --json` whenever the register is reviewed.
 7. Move a change to **Deferred** when apply is blocked by programme scope (e.g. owning repo aside); return it to **Registered** or **Applying** when the blocker clears.

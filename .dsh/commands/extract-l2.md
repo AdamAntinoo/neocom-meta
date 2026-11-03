@@ -13,6 +13,6 @@ Then read `sources/L1/NN.EPIC-NAME.md` (the L1 epic, authored with `/epic`). Req
 
 When a `reviewed` unit duplicates behaviour already in L2 or applied/archived OpenSpec, move it to `sources/L1/00.DUPLICATES.md` and set the source Review cell to `duplicated`.
 
-On each processed L1 epic: set processed Review cells to `extracted` or `duplicated`, and update `## Spec traceability` at the **start of the file**. Authored sections stay unchanged. Also update `sources/L1/TRACEABILITY.md`, `sources/L1/SPEC-EPIC-INDEX.md`, `sources/L2/INDEX.md`, and each L2 file status header. See `.dsh/skills/extract-l2/SKILL.md`.
+On each processed L1 epic: set processed Review cells to `extracted` or `duplicated`, and update `## Spec traceability` at the **start of the file**. Authored sections stay unchanged. Also update `sources/L1/TRACEABILITY.md`, `sources/L2/INDEX.md`, and each L2 file status header. Do **not** update `SPEC-EPIC-INDEX.md` (deprecated). See `.dsh/skills/extract-l2/SKILL.md`.
 
 Do not implement product features. Do not commit.

@@ -44,7 +44,8 @@ Skip the repository when its folder is missing or is not a git checkout, and say
 7. Draft a Conventional Commit message from the diff and recent `git log` style. Pass the message via HEREDOC.
 8. Commit. If a hook rejects the commit, fix and create a **new** commit (do not amend unless user rules allow).
 9. Run `git status` after the commit and report the SHA and message.
+10. When the commit carries OpenSpec-scoped work, upsert `neocom-meta/openspec/DELIVERY-INDEX.md` (repo@sha, branch, OpenSpec ids) in the same turn — see `/neocom-git` OpenSpec delivery index. Skip this step for pure docs/chore with no OpenSpec change ids.
 
 ## Return
 
-Repository name, current branch, commit SHA and message, or why the command stopped.
+Repository name, current branch, commit SHA and message, or why the command stopped. Note any `DELIVERY-INDEX.md` updates.

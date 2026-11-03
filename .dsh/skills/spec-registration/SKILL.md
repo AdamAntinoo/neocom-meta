@@ -102,7 +102,7 @@ Ignore every other node. A query also returns code, tests, and unrelated proposa
 5. **Traceability**
    - In the OpenSpec proposal (or a short `neocom-meta` note under `sources/L2/`), record which L2 IDs were registered and the OpenSpec change name(s).
    - Update `01.PROGRAMME-DEFINITION/` / `tools/doc/01.PROGRAMME-DEFINITION/` when the review names a new feature, including `FEATURES/` with the L2 IDs and OpenSpec change names.
-   - **Traceability index (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update the row in `sources/L1/TRACEABILITY.md`: set status at least `registered`, list OpenSpec change names and capabilities, and refresh **L2 backlog** (📭 cleared when that epic’s extracts have no `pending` notes). **Also update that epic’s `## Spec traceability`** (Status, OpenSpec changes, L2/Skip as needed; keep the section at the start of the file). Do not edit authored L1 sections. Later extract/register runs skip material covered by `applied` / `archived` changes via the index.
+   - **Traceability index (mandatory):** for each L1 epic that sourced the notes (via the epic stem in the L2 file name, a legacy epic directory, or the L2 file’s source line), update that epic’s section in `sources/L1/TRACEABILITY.md`: set **Highest** at least 📝 `registered`; on **### L2 delivery** rows, set OpenSpec status/changes for the placed L2 files (and epic extract rows); Delivery stays `—` until `/neocom-git` records commits/PRs. Refresh `L2/INDEX.md` backlog (📭 cleared when extracts have no `pending` notes). **Also update that epic’s `## Spec traceability`**. Do not edit authored L1 sections. Later runs skip `applied` / `archived` via TRACEABILITY + CHANGE-STATUS.
    - **L2 index (mandatory):** update `sources/L2/INDEX.md` for every extract or placed file touched this run. When no `pending` notes remain, set the extract to 📭 `cleared`; new or updated system registers are 📌 `placed` (🔗 `pointer` when pointer-only). Sync each file’s `<!-- L2-STATUS: … -->` header (Status, OpenSpec, Pending, Next) with the index row.
 
 6. **Change status register (mandatory)**
@@ -111,10 +111,11 @@ Ignore every other node. A query also returns code, tests, and unrelated proposa
    - When folding several changes into one feature, also refresh `openspec/SPECS-ABSTRACT.md`.
 
 7. **Boundaries**
-   - Do not implement product code in front/back from this command.
-   - Do not edit `neocom-front` / `neocom-back` application sources.
+   - Do not implement product code in front/back from this command, **except** the visual-appearance capture exception below.
+   - Do not edit `neocom-back` application sources from this command.
    - Meta writes, including OpenSpec artifacts and `00.DUPLICATES` appends, stay under `neocom-meta`.
    - Do not pull `to review` L1 sections into this run.
+   - **Visual appearance capture (allowed):** when registering a visual feature whose L1 Appearance needs a real PNG, you **MAY** add a specimen of the proposed render on `neocom-front` `model-strip-page` and capture it into `neocom-meta/sources/L1/media/*.png`. Prefer a live strip capture over a generated stand-in. Limit front edits to that specimen/render; do not use this path for unrelated product work.
 
 ## Return
 

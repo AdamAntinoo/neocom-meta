@@ -49,10 +49,11 @@ An unknown argument stops the command. Do not guess a repository.
    - If a pull request for that branch already exists, report its URL. Do not open another.
    - Otherwise `gh pr create --base develop`. Body: `.dsh/templates/pull-requests.md` **plus** required fields from `.dsh/templates/openspec-delivery-control.md` (OpenSpec ids, out of scope, validation readiness).
    - Listed features are **ready for validation on develop** after merge. Do not archive on this PR.
+   - Same turn: upsert `neocom-meta/openspec/DELIVERY-INDEX.md` for each OpenSpec id (`owner/repo#N`, head SHA, state `open`). See `/neocom-git` OpenSpec delivery index.
    - For `neocom-meta` `feature/cicd`, rebase onto latest `feature/agents` or `develop` when the user commands that update, before opening or updating the pull request. Ask before a force push.
-8. A **release** PR (`develop` → `main`) is separate: title `Release-<MajorMinorPatch>`; body lists OpenSpec **archive** and **deferred** sets (delivery-control §C). Archive only listed validated changes.
+8. A **release** PR (`develop` → `main`) is separate and normally **draft**: title `Release-<MajorMinorPatch>`; body lists OpenSpec **already archived** and deferred/open (delivery-control §D). Archive selected changes **before** marking the PR ready (methodology §6.6); refresh `DELIVERY-INDEX.md` when archive runs.
 9. Do not merge unless asked. Leave secrets out of the commit and the pull request.
 
 ## Return
 
-For each repository: commits created (SHA and message), the pull request URL, or why that repository was skipped.
+For each repository: commits created (SHA and message), the pull request URL, `DELIVERY-INDEX.md` updates, or why that repository was skipped.

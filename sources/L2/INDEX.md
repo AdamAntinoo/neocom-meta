@@ -4,7 +4,7 @@ Dashboard for **what is waiting in L2** and where each file sits in the pipeline
 
 Authoritative companions:
 
-- `sources/L1/TRACEABILITY.md` — L1 epic pipeline + Review gate
+- `sources/L1/TRACEABILITY.md` — per-epic Sections + L2 delivery (OpenSpec / Delivery)
 - `openspec/CHANGE-STATUS.md` — OpenSpec apply / archive
 - This file — L2 file backlog (`inbox` → `/neo:spec-evolution`)
 
@@ -22,12 +22,27 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 
 `UNREGISTERED REQUIREMENTS` / L2 `DUPLICATED` headings are deprecated. L1 Review (`to review` → `reviewed`) gates extract; duplicates hold in `sources/L1/00.DUPLICATES.md`.
 
-**Queue:** 📥 `0` inbox · 📭 `13` cleared · 🔗 `1` pointer · 📌 `36` placed
+**Queue:** 📥 `0` inbox · 📭 `19` cleared · 🔗 `1` pointer · 📌 `45` placed
 
 ## Files
 
 | L2 path | Kind | Status | Unregistered | OpenSpec | Epic | Next |
 | --- | --- | --- | --- | --- | --- | --- |
+| `06.EPIC-USER-INTERFACE.header.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
+| `06.EPIC-USER-INTERFACE.dashboard.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
+| `06.EPIC-USER-INTERFACE.media.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
+| `06.EPIC-USER-INTERFACE.corporation.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
+| `06.EPIC-USER-INTERFACE.character.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
+| `10.EPIC-INDUSTRY-BLUEPRINTS.md` | extract | 📭 `cleared` | 0 | `front-industry-blueprints` | EPIC-010 | — |
+| `FRONT/12.PAGE-HEADER.md` | placed | 📌 `placed` | 0 | `front-dashboard-shell` | EPIC-006 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/13.MODEL-STRIP.md` | placed | 📌 `placed` | 0 | `front-industry-blueprints` | EPIC-010 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/14.COLOR-TABLE.md` | placed | 📌 `placed` | 0 | `front-industry-blueprints` | EPIC-010 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/15.FEATURE-BUTTON.md` | placed | 📌 `placed` | 0 | `front-industry-blueprints` | EPIC-010 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/16.BLUEPRINT-BY-LOCATION.md` | placed | 📌 `placed` | 0 | `front-industry-blueprints` | EPIC-010 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/17.SHARED-UI.md` | placed | 📌 `placed` | 0 | `front-industry-blueprints` | EPIC-010 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/18.EVE-MEDIA.md` | placed | 📌 `placed` | 0 | `front-dashboard-shell` | EPIC-006 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/19.CORPORATION.md` | placed | 📌 `placed` | 0 | `front-dashboard-shell` | EPIC-006 | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/20.CHARACTER-SELECTION.md` | placed | 📌 `placed` | 0 | `front-dashboard-shell` | EPIC-006 | See `openspec/CHANGE-STATUS.md` |
 | `09.EPIC-BACKEND-SERVICES.md` | extract | 📭 `cleared` | 0 | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | EPIC-009 | — |
 | `DOMAIN/09.LAYOUT.md` | placed | 📌 `placed` | 0 | `domain-layout` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
 | `DOMAIN/10.PORTS.md` | placed | 📌 `placed` | 0 | `domain-ports` | EPIC-009 | See `openspec/CHANGE-STATUS.md` |
@@ -69,7 +84,7 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 | `ESI/ESI-SSO.md` | placed | 📌 `placed` | 0 | `login` | — | See `openspec/CHANGE-STATUS.md` |
 | `FRONT/02.UNIVERSE.md` | placed | 📌 `placed` | 0 | `front-universe` | — | See `openspec/CHANGE-STATUS.md` |
 | `FRONT/03.APP-SHELL.md` | placed | 📌 `placed` | 0 | `front-app-shell` | — | See `openspec/CHANGE-STATUS.md` |
-| `FRONT/04.DASHBOARD.md` | placed | 📌 `placed` | 0 | `front-dashboard` | — | See `openspec/CHANGE-STATUS.md` |
+| `FRONT/04.DASHBOARD.md` | placed | 📌 `placed` | 0 | `front-dashboard-shell` | EPIC-006 | See `openspec/CHANGE-STATUS.md` |
 | `FRONT/05.PILOT-PANEL.md` | placed | 📌 `placed` | 0 | `front-pilot-panel` | — | See `openspec/CHANGE-STATUS.md` |
 | `FRONT/06.LOGIN.md` | placed | 📌 `placed` | 0 | `login` | — | See `openspec/CHANGE-STATUS.md` |
 | `FRONT/07.ANGULAR-STRUCTURE.md` | placed | 📌 `placed` | 0 | `front-angular-structure` | — | See `openspec/CHANGE-STATUS.md` |
@@ -84,8 +99,8 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 | You want… | Look at… |
 | --- | --- |
 | What still needs Spec Evolution | Rows with 📥 `inbox` |
-| Whether an epic was extracted at all | `L1/TRACEABILITY.md` Index (pipeline status) |
-| OpenSpec apply / PR / archive | `openspec/CHANGE-STATUS.md` |
-| L1 models still waiting human review | `L1/TRACEABILITY.md` Review gate (`⏳ to review`) |
+| Whether an epic was extracted at all | `L1/TRACEABILITY.md` epic Highest / L2 delivery rows |
+| OpenSpec apply / PR / archive | `openspec/CHANGE-STATUS.md` + `openspec/DELIVERY-INDEX.md` |
+| L1 models still waiting human review | `L1/TRACEABILITY.md` ### Sections (`⏳ to review`) |
 
 Rule of thumb: ⚪ `none` on TRACEABILITY → `/neo:extract-l2`; 📤 `extracted` + 📥 inbox here → `/neo:spec-evolution`; 📝+ → `CHANGE-STATUS.md`.
