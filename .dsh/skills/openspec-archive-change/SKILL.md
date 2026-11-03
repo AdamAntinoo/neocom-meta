@@ -219,3 +219,5 @@ In both branches, never create the root as a side effect: do not run `openspec i
 - Existing CLI checks, resolved paths, prompts, and command contracts are unchanged
 - Artifact rules constrain only the specs being written and are never operation guidance
 - Never copy runtime context, operation guidance, or artifact-rule text verbatim into output files
+
+**NEOCOM (after archive succeeds):** Update `openspec/CHANGE-STATUS.md` and `sources/L1/TRACEABILITY.md`. Then run **source archive** per `.dsh/METHODOLOGY.md` §6.7: move L2 files whose OpenSpec coverage is fully archived to `sources/L2/archive/`, then L1 epics that are fully archived to `sources/L1/archive/`, and refresh SPEC-EPIC-INDEX / L2/INDEX in the same turn. Skip partial work; do not move shared index files.

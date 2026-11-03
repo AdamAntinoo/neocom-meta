@@ -63,11 +63,12 @@ These registers decide what still needs work. Read them before processing; updat
 - `sources/L1/TRACEABILITY.md` — **Review gate record**, per register row: the Review cell last seen and the date it was processed. `/neo:extract-l2` processes a row only when its cell is `reviewed` and the record does not show it processed in that cycle. A row changed back to `reviewed` after `extracted` is processed again.
 - `sources/L1/SPEC-EPIC-INDEX.md` — cross-epic Review dashboard. The extract gate is still the epic Review cell; after `/neo:extract-l2`, set processed items here to 🔵 `extracted` and refresh the summary. Keep this file aligned with epic registers.
 - `sources/L2/INDEX.md` — L2 file dashboard (📥 `inbox` / 📭 `cleared` / 📌 `placed` / 🔗 `pointer`). The Spec Evolution queue is the inbox rows. Each L2 file carries a matching `<!-- L2-STATUS: … -->` header. Update the index and headers whenever extract or evolution creates, clears, or places notes.
+- `sources/L1/archive/`, `sources/L2/archive/` — after OpenSpec archive, **move** L2 extracts (then L1 epics) whose OpenSpec coverage is fully archived so active L1/L2 stay lean (`.dsh/METHODOLOGY.md` §6.7). Refresh TRACEABILITY + indexes to the archive paths in the same turn. Do not move shared indexes (`TRACEABILITY.md`, `SPEC-EPIC-INDEX.md`, `00.DUPLICATES.md`, `L2/INDEX.md`).
 - `sources/L0/executive/INDEX.md` — card → epic/state (`selected`, `returned`, `out of scope`, `deleted`). Cards already consumed by an epic are never collected again.
 - `openspec/CHANGE-STATUS.md` — OpenSpec change register (task counts from `npx openspec list --json`).
 - `sources/COLLECTOR/TRACKER.md` — backtracking register (owned by `neocom-backtrack`); read-only for you.
 
-Do not invent another dashboard beyond these. The L2 tree plus `TRACEABILITY.md` plus `L2/INDEX.md` is the complete skip and progress record.
+Do not invent another dashboard beyond these. The L2 tree plus `TRACEABILITY.md` plus `L2/INDEX.md` (including `archive/` paths) is the complete skip and progress record.
 
 ## Graphify indexes (automatic before every `/neo:*`)
 

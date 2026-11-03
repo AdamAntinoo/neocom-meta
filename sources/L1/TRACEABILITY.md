@@ -52,11 +52,11 @@ Replaces the deprecated `UNREGISTERED REQUIREMENTS` inbox. New requirements star
 | EPIC-004 | PricedItemV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | EveLocationV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | EveAssetV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | PublicPilotV1 | 🔨 `applying` | 2026-11-02 | `04.EPIC-MODELS.md` | `domain-pilot` 5/5 + `front-pilot` 5/5 (NeoCom nodes on front `feature/blueprint`) |
-| EPIC-004 | PilotV2 | 🔨 `applying` | 2026-11-02 | `04.EPIC-MODELS.md` | `domain-pilot` 5/5 + `front-pilot` 5/5 (NeoCom nodes on front `feature/blueprint`) |
+| EPIC-004 | PublicPilotV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-pilot` 5/5 + `front-pilot` 5/5 — validated domain `@ 477ee33`, front `@ e3356db` |
+| EPIC-004 | PilotV2 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-pilot` 5/5 + `front-pilot` 5/5 — validated domain `@ 477ee33`, front `@ e3356db` |
 | EPIC-004 | ShipV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | PilotShipV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | BlueprintV1 | 🔨 `applying` | 2026-11-02 | `04.EPIC-MODELS.md` | `domain-blueprint` 2/2; domain `feature/domain-models` + front `feature/blueprint` |
+| EPIC-004 | BlueprintV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-blueprint` 2/2 — validated domain `@ 477ee33` |
 | EPIC-004 | ProcessedBlueprintSummaryV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | ProcessedBlueprintV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | ResourceV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
@@ -64,10 +64,10 @@ Replaces the deprecated `UNREGISTERED REQUIREMENTS` inbox. New requirements star
 | EPIC-004 | BOMResourceV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | BuildActionDtoV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | BOMGroupV1 | ⏳ `to review` | | `04.EPIC-MODELS.md` | |
-| EPIC-004 | ApplicationInfoV1 | 📤 `extracted` | 2026-11-02 | `04.EPIC-MODELS.md` | Extracted to `L2/04.EPIC-MODELS.md` |
-| EPIC-004 | ServerStatusV1 | 📤 `extracted` | 2026-11-02 | `04.EPIC-MODELS.md` | Extracted to `L2/04.EPIC-MODELS.md` |
-| EPIC-004 | SpaceLocationV1 | 📤 `extracted` | 2026-11-02 | `04.EPIC-MODELS.md` | Extracted to `L2/04.EPIC-MODELS.md`; L1 §20 prose still says superseded — reconcile at Spec Evolution |
-| EPIC-004 | `jsonClass` interchange | 🔨 `applying` | 2026-11-02 | `04.EPIC-MODELS.md` | Section 22; `domain-jsonclass` 3/3 on `feature/jsonclass` (back/front) + `feature/domain-models` |
+| EPIC-004 | ApplicationInfoV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-application-info` 3/3 — validated domain `@ 477ee33` |
+| EPIC-004 | ServerStatusV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-server-status` 2/2 — validated domain `@ 477ee33` |
+| EPIC-004 | SpaceLocationV1 | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | `domain-spacelocation` 3/3 — validated domain `@ 477ee33` |
+| EPIC-004 | `jsonClass` interchange | ✅ `applied` | 2026-11-03 | `04.EPIC-MODELS.md` | Section 22; `domain-jsonclass` 3/3 — validated domain `@ 477ee33`, front `@ e3356db`, back `@ 3317849` |
 | EPIC-004 | EveItem / ESI type mirrors | 🚫 `out of scope` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | ESI corp / alliance / race | 🚫 `out of scope` | | `04.EPIC-MODELS.md` | |
 | EPIC-004 | neocom-domain deploy | ⏳ `to review` | | `04.EPIC-MODELS.md` | Section 21 not extracted |
@@ -98,15 +98,15 @@ Replaces the deprecated `UNREGISTERED REQUIREMENTS` inbox. New requirements star
 
 | L1 epic | Epic id | Highest OpenSpec status | L2 backlog | OpenSpec changes | L2 path | Last updated |
 | --- | --- | --- | --- | --- | --- | --- |
-| `01.EPIC-LOGIN-PROCEDURE.md` | EPIC-001 | 🔨 `applying` | 📌 placed (legacy extract cleared) | `login` (13/13), related `nestjs-sso-config` (0/2) | Legacy `L2/01.EPIC-LOGIN-PROCEDURE/`; placed under `L2/FRONT/06.LOGIN.md`, `L2/BACK/BACK-LOGIN.md`, `L2/ESI/` | 2026-10-17 |
-| `02.EPIC-ANGULAR-CODIFICATION.md` | EPIC-002 | 🔨 `applying` | 📭 `4` cleared extracts | `front-angular-structure` (7/7, `feature/angular-structure`), `front-node-render` (7/7, `feature/node-render`), `front-async-sse` (7/7, `feature/async-sse`), `back-async-sse` (7/7, `feature/async-sse`), `infra-async-persistence` (4/4, `feature/agents`); related: `front-app-shell`, `front-dashboard`, `front-pilot`, `front-pilot-panel`, `front-infrastructure` (8/8, applying on `feature/infrastructure`) | Epic extracts + `L2/FRONT/07.ANGULAR-STRUCTURE.md`, `08.NODE-RENDER.md`, `09.ASYNC-SSE.md`, `L2/BACK/BACK-ASYNC-SSE.md`, `INFRASTRUCTURE-SPECS.md` §H | 2026-10-17 |
+| `01.EPIC-LOGIN-PROCEDURE.md` | EPIC-001 | ✅ `applied` | 📌 placed (legacy extract cleared) | `login` (13/13, validated front `@ e3356db` / back `@ 3317849`); related `nestjs-sso-config` (0/2, still registered) | Legacy `L2/01.EPIC-LOGIN-PROCEDURE/`; placed under `L2/FRONT/06.LOGIN.md`, `L2/BACK/BACK-LOGIN.md`, `L2/ESI/` | 2026-11-03 |
+| `02.EPIC-ANGULAR-CODIFICATION.md` | EPIC-002 | ✅ `applied` | 📭 `4` cleared extracts | `front-angular-structure` (7/7), `front-node-render` (7/7), `front-async-sse` (7/7), `front-infrastructure` (8/8), `front-pilot` (5/5), `front-pilot-panel` (4/4) validated front `@ e3356db`; `back-async-sse` (7/7), `infra-async-persistence` (4/4) validated back `@ 3317849`. Related still registered: `front-app-shell`, `front-dashboard` | Epic extracts + `L2/FRONT/07.ANGULAR-STRUCTURE.md`, `08.NODE-RENDER.md`, `09.ASYNC-SSE.md`, `L2/BACK/BACK-ASYNC-SSE.md`, `INFRASTRUCTURE-SPECS.md` §H | 2026-11-03 |
 | `03.EPIC-TESTING.md` | EPIC-003 | 📝 `registered` | 📭 `6` cleared extracts | `front-bdd-cypress`, `front-mock-fixtures`, `cicd-coverage-sonar`, `cicd-testing-gates`, `infra-test-commands`, `back-testing` | Epic extracts + `L2/FRONT/10.BDD-CYPRESS.md`, `11.MOCK-FIXTURES.md`, `L2/CICD/01.COVERAGE-SONAR.md`, `02.TESTING-GATES.md`, `INFRASTRUCTURE-SPECS.md` §I, `L2/BACK/BACK-TESTING.md` | 2026-10-17 |
-| `04.EPIC-MODELS.md` | EPIC-004 | 🔨 `applying` | 📭 cleared extract | `domain-pilot` (5/5), `front-pilot` (5/5 on front `feature/blueprint`), `domain-blueprint` (2/2; front `feature/blueprint`), `domain-application-info` (3/3), `domain-server-status` (2/2), `domain-spacelocation` (3/3) on `feature/domain-models`; `domain-jsonclass` (3/3) applying (`feature/jsonclass` back/front) | `L2/04.EPIC-MODELS.md` (📭 cleared); placed `L2/DOMAIN/02.PILOT.md`, `03.BLUEPRINT.md`, `04.APPLICATION-INFO.md`, `05.SERVER-STATUS.md`, `07.SPACELOCATION-V1.md`, `08.JSONCLASS.md`; Pilot front pointer `L2/FRONT/01.PILOT-DEFINITION.md` | 2026-11-02 |
+| `04.EPIC-MODELS.md` | EPIC-004 | ✅ `applied` | 📭 cleared extract | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` validated domain `@ 477ee33`; `front-pilot` validated front `@ e3356db`. Models still `to review` remain for later extract | `L2/04.EPIC-MODELS.md` (📭 cleared); placed `L2/DOMAIN/02.PILOT.md`, `03.BLUEPRINT.md`, `04.APPLICATION-INFO.md`, `05.SERVER-STATUS.md`, `07.SPACELOCATION-V1.md`, `08.JSONCLASS.md`; Pilot front pointer `L2/FRONT/01.PILOT-DEFINITION.md` | 2026-11-03 |
 | `05.EPIC-ESI-UNIVERSE.md` | EPIC-005 | ⚪ `none` | — (no L2 extract) | | SDE source + back install noted on L1 | 2026-10-19 |
 | `06.EPIC-USER-INTERFACE.md` | EPIC-006 | ⚪ `none` | — (no L2 extract) | | Auth page UI + `app-page-header` shell rules on L1 (not extracted yet) | 2026-10-19 |
 | `07.EPIC-NEOCOM-API.md` | EPIC-007 | ⚪ `none` | — (no L2 extract) | | Baseline: auth `POST /v1/auth/callback` + cookie refresh; pilot `GET /v1/pilots/{id}`; related industry blueprints sync/SSE. More flows TBD | 2026-10-19 |
-| `08.EPIC-LOCATIONS.md` | EPIC-008 | 🔨 `applying` | 📭 cleared | `domain-locations` (3/3) on `feature/domain-models`; `back-spacelocations` (2/2) on `feature/spacelocations` | `L2/08.EPIC-LOCATIONS.md` (cleared); placed `L2/DOMAIN/06.LOCATIONS.md`, `L2/BACK/BACK-SPACELOCATIONS.md` | 2026-11-02 |
-| `09.EPIC-BACKEND-SERVICES.md` | EPIC-009 | 🔨 `applying` | 📭 cleared | `domain-layout` (2/2), `domain-ports` (2/2), `domain-deprecations` (2/2), `back-openapi` (3/3), `back-industry-blueprints` (2/2); related `domain-jsonclass` (3/3) | `L2/09.EPIC-BACKEND-SERVICES.md` (cleared); placed DOMAIN/09–11 + BACK-OPENAPI + BACK-INDUSTRY-BLUEPRINTS | 2026-11-02 |
+| `08.EPIC-LOCATIONS.md` | EPIC-008 | ✅ `applied` | 📭 cleared | `domain-locations` (3/3) validated domain `@ 477ee33`; `back-spacelocations` (2/2) validated back `@ 3317849`. Lookup* rows still `to review` | `L2/08.EPIC-LOCATIONS.md` (cleared); placed `L2/DOMAIN/06.LOCATIONS.md`, `L2/BACK/BACK-SPACELOCATIONS.md` | 2026-11-03 |
+| `09.EPIC-BACKEND-SERVICES.md` | EPIC-009 | ✅ `applied` | 📭 cleared | `domain-layout`, `domain-ports`, `domain-deprecations` validated domain `@ 477ee33`; `back-openapi`, `back-industry-blueprints` validated back `@ 3317849`; related `domain-jsonclass` applied | `L2/09.EPIC-BACKEND-SERVICES.md` (cleared); placed DOMAIN/09–11 + BACK-OPENAPI + BACK-INDUSTRY-BLUEPRINTS | 2026-11-03 |
 
 Non-epic L1 notes (`REQUIREMENTS.md`, `UX.md`, `ESI.md`) are not rows here until an `/epic` owns them. `00.DUPLICATES.md` is a holding epic (status `holding`), not a normal extract source.
 
