@@ -52,7 +52,7 @@ EOF
 
 5. Verify with `git status`.
 
-**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit **only** when the user asks, or when `/neocom-git`, `/git:commit`, or `/git:pr` is invoked to commit. **OpenSpec apply does not authorize a commit** — after apply, leave the working tree for developer review; commit only when they explicitly request it. `/git:commit <project>` commits on the current branch only; `/git:pr` also prepares the pull request. See `.dsh/skills/git-commit/SKILL.md` and `.dsh/skills/git-pr/SKILL.md`.
+**Safety:** no git config changes; no force push to main/master; amend only per user rules; commit **only** when the user asks, or when `/neocom-git`, `/git:commit`, or `/git:pr` is invoked to commit. **OpenSpec apply does not authorize a commit** — after apply, **stop before committing** and leave the working tree for developer review; commit only when they explicitly request it. **OpenSpec branch base:** default `develop`; if other `feature/*` tips are ahead of `develop`, **ask** before stacking onto a sibling (do not silently fan every apply from `develop`). See `/neocom-git` OpenSpec feature flow. `/git:commit <project>` commits on the current branch only; `/git:pr` also prepares the pull request. See `.dsh/skills/git-commit/SKILL.md` and `.dsh/skills/git-pr/SKILL.md`.
 
 ## PR workflow
 
@@ -98,7 +98,7 @@ Each repository is its own project. The parent `neocom` repository is deprecated
 | Item | Convention |
 | --- | --- |
 | Integration | `develop` (do not branch feature work from `main` while `develop` is the integration branch) |
-| Feature (front/back) | `feature/<feature-name>` created from `develop`. See `.dsh/templates/branch-names.md` |
+| Feature (front/back) | `feature/<feature-name>`; default from `develop`; ask before stacking onto a sibling ahead of `develop`. See `.dsh/templates/branch-names.md` |
 | Feature (`neocom-meta`) | `feature/agents` (default) or `feature/cicd` (when commanded). Rebase cicd onto agents or develop when the user asks. See `.dsh/templates/branch-names.md` |
 | Fix | `fix/…` from `develop` |
 | Release | `release/x.y.z` |

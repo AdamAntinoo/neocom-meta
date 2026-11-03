@@ -70,9 +70,10 @@ Prefer `.venv/bin/graphify update .` when the project venv exists. Then use `gra
 
 - Conventional Commits. Follow the templates in `.dsh/templates/`. When the user gives a new example, store it there.
 - Work on the current branch. Do not commit on `develop` or `main` unless the user explicitly asks.
-- Do not commit, push, or open a PR unless the user asks. The `/git:*` commands are that request.
-- Feature branches: `feature/<name>` from `develop`. An OpenSpec change is applied on its own branch.
-- Do not write `SemVer` into `package.json`. The version is GitVersion `MajorMinorPatch`.
+- Do not commit, push, or open a PR unless the user asks. The `/git:*` commands are that request. **OpenSpec apply stops before commit** (`/neocom-code`).
+- Product OpenSpec branches: `feature/<name>` default from `develop`; if other feature tips are ahead, ask before stacking (see `/neocom-git` and `.dsh/METHODOLOGY.md` §6).
+- PR feature → `develop` = validation intake; validate on develop; PR `develop` → `main` (`Release-X.Y.Z`) carries the OpenSpec **archive list** (`.dsh/templates/openspec-delivery-control.md`).
+- Do not write `SemVer` into `package.json`. The version is GitVersion `MajorMinorPatch` (hooks/CI).
 
 ## Finder duplicate files
 

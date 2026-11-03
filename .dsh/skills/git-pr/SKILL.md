@@ -44,12 +44,14 @@ An unknown argument stops the command. Do not guess a repository.
    - **`neocom-meta`:** prefer `feature/agents` (default). Use `feature/cicd` only when the user commanded CI/CD work on that branch. Do not keep inventing `feature/<product-feature>` on meta. If the working tree is on a short-lived product-named meta branch (for example `feature/login`), move the commits onto `feature/agents` (or the commanded meta branch) before the pull request, unless the user says otherwise.
 5. If `develop` does not exist, stop that repository and report it. Do not use `main` as the base.
 6. **Version:** do not create a version chore commit. Apps: hooks/CI. Domain: distribute/publish. Meta: none.
-7. Prepare the pull request from the feature or fix branch into `develop`:
+7. Prepare the pull request from the feature or fix branch into `develop` (**validation intake**):
    - Push with `git push -u origin HEAD` when the branch has no upstream.
    - If a pull request for that branch already exists, report its URL. Do not open another.
-   - Otherwise `gh pr create --base develop`. The body uses the recorded example in `.dsh/templates/pull-requests.md`.
+   - Otherwise `gh pr create --base develop`. Body: `.dsh/templates/pull-requests.md` **plus** required fields from `.dsh/templates/openspec-delivery-control.md` (OpenSpec ids, out of scope, validation readiness).
+   - Listed features are **ready for validation on develop** after merge. Do not archive on this PR.
    - For `neocom-meta` `feature/cicd`, rebase onto latest `feature/agents` or `develop` when the user commands that update, before opening or updating the pull request. Ask before a force push.
-8. Do not merge. Leave secrets out of the commit and the pull request.
+8. A **release** PR (`develop` → `main`) is separate: title `Release-<MajorMinorPatch>`; body lists OpenSpec **archive** and **deferred** sets (delivery-control §C). Archive only listed validated changes.
+9. Do not merge unless asked. Leave secrets out of the commit and the pull request.
 
 ## Return
 

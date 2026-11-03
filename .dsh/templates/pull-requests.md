@@ -1,16 +1,24 @@
 # Pull requests
 
+Control fields for OpenSpec delivery: **`.dsh/templates/openspec-delivery-control.md`**. Use that checklist when drafting either PR kind below.
+
 ## Recorded guideline
 
-After the user reviews and tests an applied feature, open a pull request from `feature/<feature-name>` into `develop`. Do not merge it unless the user asks. The next feature branches from `develop`.
+### 1. Feature → `develop` (validation intake)
 
-When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Do not merge it unless the user asks.
+After apply **stops before commit**, the developer reviews, then commits (`/git:commit` / `/git:pr`). Open a pull request from `feature/<feature-name>` (or stacked tip) into **`develop`**. That PR declares the OpenSpec features **ready for validation**. Do not merge unless the user asks.
 
-The title of a pull request from `develop` into `main` is `Release-` plus the GitVersion `MajorMinorPatch` that merging `develop` into `main` generates. Example: `Release-0.1.0`. Calculate it with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary branch named `main` after merging `origin/develop`. Restore the local `main` pointer and do not push that merge.
+Validation of OpenSpec / programme acceptance runs on **`develop` after merge**, not only on the feature branch.
+
+### 2. `develop` → `main` (release + archive trigger)
+
+When changes are **validated on develop**, open a pull request from `develop` into **`main`**. Title: `Release-` plus GitVersion `MajorMinorPatch` (example `Release-0.1.0`). Calculate with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary `main` after merging `origin/develop`. Restore the local `main` pointer; do not push that merge.
+
+The release PR **lists the OpenSpec changes to archive**. Archiving those completed, validated changes is part of the release path (see delivery-control template). Do not merge unless the user asks.
 
 ## Fallback body
 
-Use the user example below. A pull request body lists the features the branch includes.
+Use the user example below for feature → develop. Prefer the fuller OpenSpec / Out of scope / Validation readiness sections from `openspec-delivery-control.md` when OpenSpec changes are included.
 
 ## User examples
 

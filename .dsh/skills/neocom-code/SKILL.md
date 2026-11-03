@@ -54,9 +54,16 @@ Load **shared** rules, then the matching **Destination:** section from the agent
 
 ### 3. Branch gate
 
-Confirm you are on `feature/<feature>` from `develop` in the destination repo (or ask `/neocom-git` to create it). Do not code on `develop` / `main`.
+Confirm you are on `feature/<feature>` in the destination repo (or ask `/neocom-git` to create it).
 
-For multi-destination changes, each repo has its own `feature/<feature>` (or shared feature name per repo convention).
+**Base selection (product repos):**
+
+1. Default base is **`develop`**.
+2. Before creating the branch, list open `feature/*` tips that are **ahead of `develop`**.
+3. If any exist → **stop and ask** the developer: create from `develop`, or **stack** from a named sibling tip when this apply needs that work. Do not silently fan every new OpenSpec branch off `develop` when siblings already carry newer commits.
+4. Do not code on `develop` / `main`. Do not invent a stacking base.
+
+For multi-destination changes, each repo has its own `feature/<feature>` (or shared feature name per repo convention); run the same base consult per repo.
 
 ### 4. Implement
 
@@ -79,7 +86,7 @@ For multi-destination changes, each repo has its own `feature/<feature>` (or sha
 
 ### 7. Stop for developer review (no commit)
 
-Do not commit and do not invoke `/neocom-git` to commit. Leave the working tree dirty so the developer can review the code before continuing.
+**OpenSpec apply ends before any commit.** Do not commit and do not invoke `/neocom-git` to commit. Leave the working tree dirty so the developer can review the code before continuing.
 
 - Summarize what changed and which OpenSpec tasks are done.
 - **Stop.** Do not start the next destination, the next OpenSpec change, or further product edits until the developer says to continue (or asks for a commit via `/git:commit` / `/neocom-git`).
