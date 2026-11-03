@@ -73,11 +73,11 @@ Read `sources/L1/TRACEABILITY.md` (and the L2 tree) to decide what is pending.
 
 An epic has **pending** extract work when any of these is true:
 
-- It has no row in `sources/L1/TRACEABILITY.md`, or status is `none`
-- Status is `extracted`, `registered`, or `applying` (may still hold unextracted L1 passages)
-- Status is `applied` or `archived` **and** the L1 file has material not yet reflected in the L2 tree (new passages since the last extract). If unsure, include it and let passage-level skip / duplicate handling decide
+- It has no `## \`NN.EPIC-….md\`` section in `sources/L1/TRACEABILITY.md`, or **Highest** is ⚪ `none`
+- Highest is 📤 `extracted`, 📝 `registered`, or 🔨 `applying` (may still hold unextracted L1 passages — Sections still ⏳ / 👀)
+- Highest is ✅ `applied` or 📦 `archived` **and** the L1 file has units at `reviewed` (or Sections 👀) not yet reflected in L2. If unsure, include it and let passage-level skip / duplicate handling decide
 
-Skip an epic with no arguments only when status is `applied` or `archived` **and** a quick compare shows no L1 unit left at `reviewed` outside the L2 tree / applied OpenSpec coverage.
+Skip an epic with no arguments only when Highest is `applied` or `archived` **and** a quick compare shows no L1 unit left at `reviewed` outside the L2 tree / applied OpenSpec coverage.
 
 Report which epics were selected and which were skipped (with reason) before writing.
 
@@ -210,7 +210,7 @@ Append new duplicate blocks; never delete historical blocks unless the user asks
 
 Read `sources/L1/TRACEABILITY.md` first.
 
-A passage is already generated when the same behaviour, or a very similar one, is already in any path above, or in an OpenSpec change listed on the epic row with status `applied` or `archived` — handle via **Duplicates → `00.DUPLICATES`** when the L1 unit is still at `reviewed`, or skip silently when it is already `extracted` / `duplicated`.
+A passage is already generated when the same behaviour, or a very similar one, is already in any path above, or in an OpenSpec change listed on that epic’s TRACEABILITY **L2 delivery** / Highest with status `applied` or `archived` — handle via **Duplicates → `00.DUPLICATES`** when the L1 unit is still at `reviewed`, or skip silently when it is already `extracted` / `duplicated`.
 
 Append only **new** L1 units that are `reviewed` and not duplicates. Prefer updating an existing `sources/L2/NN.EPIC-NAME*.md` file when the new notes belong to the same group; otherwise create another `sources/L2/NN.EPIC-NAME.<group>.md`.
 
@@ -226,21 +226,18 @@ Append only **new** L1 units that are `reviewed` and not duplicates. Prefer upda
 
 ### Record of processing (index)
 
-The record lives in `sources/L1/TRACEABILITY.md`, section **Review gate record**. One row per register / requirement item (`epic`, `item`), with:
-
-- `Last seen`: the Review cell value after the last run (blank if never seen).
-- `Processed`: the date of the last processing (blank if never processed).
+The record lives in `sources/L1/TRACEABILITY.md` under that epic’s **### Sections** table (`Section | Item | Status`). One row per register / requirement item.
 
 For each gated row, in order:
 
-1. Cell is `reviewed` and `Last seen` is not `reviewed` (blank or any other value) → **process** (extract or move to duplicates), set Review to `extracted` or `duplicated`, then set `Processed` to the run date and `Last seen` to that new value.
-2. Cell is `reviewed` and `Last seen` is `reviewed` → **skip**; it was processed in this cycle.
-3. Any other cell → **skip**; set `Last seen` to that value.
+1. L1 Review cell is `reviewed` and TRACEABILITY Sections Status is not already 📤 `extracted` / 🔁 `duplicated` for this cycle → **process** (extract or move to duplicates), set L1 Review to `extracted` or `duplicated`, then set Sections Status to 📤 `extracted` or 🔁 `duplicated` and bump the epic **Last updated**.
+2. L1 Review is `reviewed` but Sections already shows 📤 `extracted` from an earlier pass without being reset → **skip** (already processed).
+3. Any other L1 Review cell → **skip**; keep or refresh Sections Status to match (`to review`, `out of scope`, …).
 
 Consequences the developer must know:
 
 - The only Review cells this command writes are those it processes: `reviewed` → `extracted`, or `reviewed` → `duplicated`.
-- An item that was `extracted` and is set back to `reviewed` is processed again on the next run.
+- An item that was `extracted` and is set back to `reviewed` on L1 (and Sections) is processed again on the next run.
 - Run the command after each review batch so a flip `reviewed` → `to review` → `reviewed` without an intervening run is not missed.
 
 ### Precedence
@@ -275,8 +272,8 @@ Do not invent OpenSpec change names here. Prefer the same icons/tokens as `TRACE
 After writing the L2 file(s) and the L1 status cells, update the indexes **and** the epic header:
 
 - The epic’s `## Spec traceability` — as in the table above (start of file).
-- `sources/L1/TRACEABILITY.md` — set the epic row status at least `extracted`, fill **L2 path** with the file paths written, set **L2 backlog** to reflect inbox/cleared extracts for that epic (e.g. 📥 `1 inbox`), note the requirement IDs (or model names) extracted this iteration so a later run skips them, and update the **Review gate record** for every gated row seen in this run. If `00.DUPLICATES` was created or updated, ensure it is listed or noted (holding epic; status `holding`).
-- `sources/L1/SPEC-EPIC-INDEX.md` — for every register / requirement row processed this run, set Review/Status to 🔵 `extracted` or note `duplicated`, put the L2 or `00.DUPLICATES` path in Notes, and refresh **Current Status Summary**.
+- `sources/L1/TRACEABILITY.md` — upsert that epic’s section (`## \`NN.EPIC-NAME.md\``): set **Highest** at least 📤 `extracted`; update **### Sections** for every gated row seen; add/refresh **### L2 delivery** rows for each epic-named L2 file written (OpenSpec status 📤 / changes `—` until Spec Evolution; Delivery `—`). Mirror inbox/cleared via `L2/INDEX.md`. If `00.DUPLICATES` was updated, note duplicated items in Sections (🔁).
+- Do **not** update `sources/L1/SPEC-EPIC-INDEX.md` (deprecated; frozen for possible recovery).
 - `sources/L2/INDEX.md` — add or refresh the row for each L2 file created or updated (status 📥 `inbox` when pending notes remain). Keep the legend and queue summary accurate.
 - Each touched L2 file — keep the `<!-- L2-STATUS: … -->` header table in sync with the index row.
 
@@ -291,5 +288,5 @@ After writing the L2 file(s) and the L1 status cells, update the indexes **and**
 7. Duplicates moved to `sources/L1/00.DUPLICATES.md`, each with the path that already holds the behaviour
 8. Units left pending (`to review`) and not written
 9. L1 changes: Review cells flipped, and `## Spec traceability` updated (confirm authored sections untouched)
-10. That `sources/L2/INDEX.md`, `sources/L1/SPEC-EPIC-INDEX.md`, and each L2 file status header were updated
+10. That `sources/L2/INDEX.md` and each L2 file status header were updated (`SPEC-EPIC-INDEX.md` not touched — deprecated)
 11. Next step: `/neo:spec-evolution` for L2 notes still `pending` (optionally scoped to those L2 paths). Units still `to review` on L1 are not in those notes.

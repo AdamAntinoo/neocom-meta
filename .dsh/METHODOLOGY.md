@@ -10,14 +10,14 @@ This document extracts the **current** methodology as defined by `.dsh/` (agents
 
 ## 1. Purpose and shape
 
-The methodology moves requirements **unidirectionally** from executive intake through authored epics, extractable notes, registered OpenSpec changes, feature-branch apply (**stop before commit**), developer commit, PR into `develop` (**validation intake**), validation on the **`develop` tip**, then a release PR `develop` → `main` that **lists and triggers archive** of validated OpenSpec changes. After those OpenSpec changes are archived, **fully completed** L2 extracts and L1 epics move into `sources/L2/archive/` and `sources/L1/archive/` so the active L1/L2 directories stay uncluttered.
+The methodology moves requirements **unidirectionally** from executive intake through authored epics, extractable notes, registered OpenSpec changes, feature-branch apply (**stop before commit**), developer commit, PR into `develop` (**validation intake**), validation on the **`develop` tip**, then **OpenSpec archive** (developer-selected changes) with L1/L2 source-archive tracking, then a **draft** release PR `develop` → `main` that **documents** the already-archived set. The draft stays draft until every selected develop-validated change for that release is archived; only then is the PR marked ready for the developer to complete. Spec/`main` parity is not claimed until that archive set is complete.
 
 | Stage | Intent | Primary owner |
 | --- | --- | --- |
 | Intake | Open an epic; later attach L0 executive cards and optional legacy backtrack | `neocom-spec-collector`, `neocom-backtrack` |
 | Spec progression | L1 → L2 extract → OpenSpec registration | `neocom-spec-workflow` |
 | Delivery | Apply on `feature/<feature>` (default base `develop`; ask before stacking); stop before commit | `neocom-code` (destination rules) + OpenSpec apply |
-| VCS + gates | Commit when asked; PR → develop (validation); validate on develop; PR → main (archive list) | `neocom-git` + delivery-control template |
+| VCS + gates | Commit when asked; PR → develop (validation); validate on develop; archive selected OpenSpec; draft PR → main; ready when archive set complete | `neocom-git` + delivery-control + archive skills |
 
 ```mermaid
 flowchart TB
@@ -47,10 +47,12 @@ flowchart TB
     commit["/git:commit when asked"]
     prDev["PR feature → develop<br/>OpenSpec ready for validation"]
     val["Validate on develop tip"]
-    prMain["PR develop → main<br/>Release-X.Y.Z + archive list"]
-    archive["Archive listed OpenSpec changes"]
-    srcArch["Move completed L2 then L1<br/>→ sources/*/archive/"]
-    base --> apply --> commit --> prDev --> val --> prMain --> archive --> srcArch
+    pick["Developer selects OpenSpec<br/>changes to archive"]
+    archive["Archive selected OpenSpec changes"]
+    srcArch["Track L1/L2; source-archive<br/>when fully complete"]
+    draft["Draft PR develop → main<br/>Release-X.Y.Z + archived list"]
+    ready["Mark PR ready when<br/>archive set complete"]
+    base --> apply --> commit --> prDev --> val --> pick --> archive --> srcArch --> draft --> ready
   end
 
   cards --> review
@@ -69,17 +71,18 @@ flowchart LR
     S2["Developer → reviewed"]
     S3["/neo:extract-l2"]
     S4["/neo:spec-evolution"]
-    S5["Apply → commit → PR develop<br/>→ validate → Release + OpenSpec archive"]
-    S6["Archive completed L2 / L1<br/>→ sources/*/archive/"]
-    S0 --> S1 --> S2 --> S3 --> S4 --> S5 --> S6
+    S5["Apply → commit → PR develop → validate"]
+    S6["Select + archive OpenSpec<br/>→ L2/L1 source archive"]
+    S7["Draft Release PR → ready<br/>when archive set complete"]
+    S0 --> S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7
   end
 
   subgraph controls["Index and control files"]
     direction TB
     L0idx["sources/L0/executive/INDEX.md<br/>card → epic / state"]
-    TRidx["sources/L1/TRACEABILITY.md<br/>epic status · L2 backlog · Review gate record"]
-    SpcHdr["L1 ## Spec traceability<br/>must match TRACEABILITY row"]
-    SpecIdx["sources/L1/SPEC-EPIC-INDEX.md<br/>cross-epic Review dashboard"]
+    TRidx["sources/L1/TRACEABILITY.md<br/>per-epic Sections + L2 delivery"]
+    SpcHdr["L1 ## Spec traceability<br/>must match TRACEABILITY epic section"]
+    SpecIdx["sources/L1/SPEC-EPIC-INDEX.md<br/>DEPRECATED — do not update"]
     Dup["sources/L1/00.DUPLICATES.md<br/>holding duplicates"]
     L2idx["sources/L2/INDEX.md<br/>+ each file <!-- L2-STATUS -->"]
     CSchg["openspec/CHANGE-STATUS.md<br/>+ SPECS-ABSTRACT when folding"]
@@ -116,9 +119,9 @@ flowchart LR
 | Control file | Role | Who updates it |
 | --- | --- | --- |
 | `sources/L0/executive/INDEX.md` | Card usage: `selected` / `returned` / `out of scope` / `deleted` — prevents double collection | `/epic` collector (after Search criteria) |
-| `sources/L1/TRACEABILITY.md` | **Authoritative** epic → L2 → OpenSpec map; **L2 backlog**; **Review gate record** (`Last seen` / `Processed`); paths after L1/L2 source archive | `/epic`, extract, evolution, apply, OpenSpec archive, L1/L2 source archive |
-| L1 `## Spec traceability` | Per-epic header; must stay in sync with the TRACEABILITY row | Same as TRACEABILITY (status-only on the epic) |
-| `sources/L1/SPEC-EPIC-INDEX.md` | Cross-epic Review dashboard (🟢 reviewed → 🔵 extracted, …); drop or mark archived epics when moved | `/neo:extract-l2`, L1 source archive |
+| `sources/L1/TRACEABILITY.md` | **Authoritative** per-epic **Sections** (Review/pipeline) + **L2 delivery** (L2 file key → OpenSpec → Delivery from `DELIVERY-INDEX`); paths after L1/L2 source archive | `/epic`, extract, evolution, apply, OpenSpec archive, L1/L2 source archive, `/neocom-git` delivery sync |
+| L1 `## Spec traceability` | Per-epic header; must stay in sync with that epic’s TRACEABILITY section (Highest, OpenSpec, L2) | Same as TRACEABILITY (status-only on the epic) |
+| `sources/L1/SPEC-EPIC-INDEX.md` | **Deprecated** — keep on disk; **do not update**. Review/pipeline lives in `TRACEABILITY.md` Sections | — (frozen) |
 | `sources/L1/00.DUPLICATES.md` | Holding epic for near-duplicates (review / reinsert / remove) | extract and evolution when a duplicate is found |
 | `sources/L2/INDEX.md` + `<!-- L2-STATUS -->` | L2 file backlog (📥 inbox / 📭 cleared / 📌 placed / …); Spec Evolution queue; paths after L2 source archive | extract, evolution, L2 source archive |
 | `sources/L1/archive/`, `sources/L2/archive/` | Completed L1 epics / L2 extracts whose OpenSpec coverage is fully archived (active dirs stay lean) | After OpenSpec archive (§6.7) |
@@ -137,7 +140,7 @@ Do not invent another dashboard beyond these. Skip decisions come from TRACEABIL
 
 | Agent | Commands | Owns |
 | --- | --- | --- |
-| `neocom-spec-collector` | `/epic` | Epic creation, deferred card collection, L0 index, L1 TRACEABILITY row at `none` |
+| `neocom-spec-collector` | `/epic` | Epic creation, deferred card collection, L0 index, L1 TRACEABILITY epic section at `none` |
 | `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | L1→L2 and L2→OpenSpec; Review cells + Spec traceability; indexes |
 | `neocom-backtrack` | `/neo:backtrack` | Legacy code findings under `sources/COLLECTOR/` (read-only on epics) |
 | `neocom-code` | `/neocom-code` | Product coding: resolve **destination** (`front` / `back` / `domain`) first; shared pipeline + destination stack rules; OpenSpec apply; **never commits** |
@@ -155,7 +158,7 @@ Do not invent another dashboard beyond these. Skip decisions come from TRACEABIL
 | `openspec-update-change` | `/openspec-update-change` | Revise planning artifacts; no code |
 | `openspec-apply-change` | `/openspec-apply-change` | Implement tasks; mark checkboxes (NEOCOM product apply still stops before commit via `neocom-code`) |
 | `openspec-sync-specs` | `/openspec-sync-specs` | Merge deltas into main specs |
-| `openspec-archive-change` | `/openspec-archive-change` | Archive completed change (NEOCOM: after develop validation, driven by release PR archive list) |
+| `openspec-archive-change` | `/openspec-archive-change` | Archive completed change (NEOCOM: after develop validation, **before** ready release PR; developer selects the set) |
 | `neocom-code` | `/neocom-code` | Destination-gated product apply; stop before commit |
 
 ### 2.3 Git skills and templates
@@ -177,7 +180,8 @@ flowchart LR
   workflow --> code["neocom-code apply<br/>stop before commit"]
   code --> git["neocom-git commit / PR"]
   git --> val["validate on develop"]
-  val --> rel["Release PR + archive list"]
+  val --> arch["archive selected OpenSpec<br/>+ L1/L2 source archive"]
+  arch --> draft["draft Release PR<br/>then ready when set complete"]
 ```
 
 ---
@@ -203,7 +207,7 @@ flowchart LR
   stem["Stem NN.EPIC-NAME"] --> L1["sources/L1/NN.EPIC-NAME.md"]
   stem --> L2["sources/L2/NN.EPIC-NAME[.group].md"]
   stem --> OS["openspec/changes/&lt;system&gt;-&lt;feature&gt;"]
-  stem --> TR["L1/TRACEABILITY.md row"]
+  stem --> TR["L1/TRACEABILITY.md epic section"]
   L1 --> L2 --> OS
   L1 --> TR
   L2 --> TR
@@ -222,10 +226,18 @@ Which stage reads or writes each control file is in the **Index and control file
 none → extracted → registered → applying → applied → archived
 ```
 
-- Authoritative central record: `sources/L1/TRACEABILITY.md` (includes **L2 backlog**).
-- Each epic’s `## Spec traceability` must stay in sync after extract / register / apply / archive.
-- Material covered by `applied` or `archived` changes is skipped on later extract/register; only new L1 material is processed.
-- When an epic’s TRACEABILITY status is `archived` **and** every OpenSpec change it cites is archived, the L1 file (and its fully archived L2 extracts) become eligible for **source archive** (§6.7) — move under `sources/L1/archive/` / `sources/L2/archive/`, then refresh indexes to the new paths.
+**File shape (authoritative):** one Markdown section per epic named `## \`NN.EPIC-NAME.md\``. Inside each section:
+
+1. One-line header: Epic id · **Highest** OpenSpec status · Last updated.
+2. **### Sections** — table `Section | Item | Status` (Review gate and/or pipeline for every register / requirement slice).
+3. **### L2 delivery** — table keyed by **L2 file**: `L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated`.
+
+- Authoritative central record: `sources/L1/TRACEABILITY.md` (this shape replaces the former Index + Review-gate-record tables).
+- **Delivery** cells come from `openspec/DELIVERY-INDEX.md` (do not re-query GitHub for known rows).
+- L2 backlog / inbox state continues to live in `sources/L2/INDEX.md`; TRACEABILITY L2 rows mirror OpenSpec progress for those files.
+- Each epic’s `## Spec traceability` must stay in sync after extract / register / apply / archive (Highest, OpenSpec names, L2 paths).
+- Material covered by `applied` or `archived` changes is skipped on later extract/register; only new L1 material (Sections still `to review` / newly `reviewed`) is processed.
+- When an epic’s Highest status is `archived` **and** every OpenSpec change it cites is archived, the L1 file (and its fully archived L2 extracts) become eligible for **source archive** (§6.7) — move under `sources/L1/archive/` / `sources/L2/archive/`, then refresh TRACEABILITY L2 paths to the archive locations.
 
 ### 4.2 Review gate (L1 sections / requirements) — replaces `UNREGISTERED`
 
@@ -239,7 +251,7 @@ Requirements are authored under epic sections (register + requirement tables). *
 | `duplicated` | Skip — holding copy in `sources/L1/00.DUPLICATES.md` |
 | `superseded`, `out of scope` | Never |
 
-Processing record: `TRACEABILITY.md` **Review gate record** (`Last seen` / `Processed`). Cross-epic dashboard: `sources/L1/SPEC-EPIC-INDEX.md`. Holding epic: `sources/L1/00.DUPLICATES.md`.
+Processing record: `TRACEABILITY.md` **### Sections** table for that epic (Status column). Holding epic: `sources/L1/00.DUPLICATES.md`. (`SPEC-EPIC-INDEX.md` is deprecated — do not update.)
 
 ### 4.3 L2 file status (`L2/INDEX.md`)
 
@@ -273,7 +285,7 @@ After **any** OpenSpec write: refresh `openspec/CHANGE-STATUS.md` from `npx open
 | `registered` | Change under `openspec/changes/<name>/` with proposal, specs, design, tasks |
 | `applying` | Implementation on `feature/<feature>` (default from `develop`; may be stacked). Apply **stops before commit** |
 | `applied` | Merged (or accepted) onto **`develop`**; eligible for **validation on develop**; not archived yet. Note `validated on develop @ <sha>` when validation passes |
-| `archived` | Listed on a **release PR** archive set; moved to `changes/archive/` and merged into `openspec/specs/` |
+| `archived` | Developer-selected after develop validation; `/openspec-archive-change` done (into `changes/archive/` + `openspec/specs/`). May still await draft release PR ready/merge — **do not** claim main parity until the release archive set is complete |
 
 PR content control: `.dsh/templates/openspec-delivery-control.md`.
 
@@ -285,7 +297,7 @@ stateDiagram-v2
   registered --> applying: apply starts stop before commit
   applying --> applied: PR merged to develop
   applied --> applied: validated on develop tip
-  applied --> archived: Release PR archive list
+  applied --> archived: Developer selects + OpenSpec archive<br/>(before draft Release PR ready)
 ```
 
 ---
@@ -297,7 +309,7 @@ stateDiagram-v2
 1. Prompt is one sequence: short name, then purpose/scope description. Missing either → ask; do not invent.
 2. Create `sources/L1/NN.EPIC-NAME.md` (`NN` = next number; name collision → stop / merge / rename — ask).
 3. Write skeleton: `## Spec traceability` (`none`), `## Goals`, empty `## Search criteria`, empty `## Sources`, `## Version card`.
-4. Register row in `sources/L1/TRACEABILITY.md` at `none`.
+4. Add epic section in `sources/L1/TRACEABILITY.md` at Highest ⚪ `none` (empty Sections / L2 delivery placeholders).
 5. `graphify update .` in `neocom-meta`.
 6. **Do not** search cards or legacy code until Search criteria are filled.
 
@@ -316,6 +328,8 @@ Both are optional inputs to authoring; they do not themselves extract L2.
 
 Developers expand the epic under **sections** (example: `## Section 19 — ServerStatusV1` with fields, render contract, and a requirements table). Every new requirement or register row starts at **`to review`**. Extraction waits until the developer sets the cell to **`reviewed`**. Authored L1 sections are otherwise immutable for the workflow agent. Do not use an epic-level `UNREGISTERED REQUIREMENTS` inbox.
 
+**Visual appearance PNGs.** For L1 Appearance blocks that document a render (e.g. Feature / model-strip specimens), agents **MAY** add a specimen on `neocom-front` `model-strip-page` (`/model-strip`) and capture that live render into `sources/L1/media/*.png`. Prefer that capture over inventing a stand-in image. Limit front edits to the specimen/render needed for the documentation PNG. This exception also applies when registering such visual features (§5.5).
+
 ### 5.4 Extract L2 (`/neo:extract-l2`)
 
 **First action (hard):** `graphify update .` (prefer `.venv/bin/graphify`). Failure → stop.
@@ -327,7 +341,7 @@ Then:
 3. Output: `sources/L2/NN.EPIC-NAME.md` and/or `….<group>.md` with notes at status **`pending`** (no `UNREGISTERED REQUIREMENTS` heading).
 4. Duplicates (same / very similar already in L2 or applied/archived OpenSpec) → append `sources/L1/00.DUPLICATES.md`, set source Review to `duplicated`.
 5. L1 edits allowed: Review `reviewed` → `extracted` or `duplicated`, and `## Spec traceability` only.
-6. Update TRACEABILITY, SPEC-EPIC-INDEX, L2/INDEX, L2 status headers.
+6. Update TRACEABILITY, L2/INDEX, L2 status headers. Do **not** update `SPEC-EPIC-INDEX.md` (deprecated).
 7. Do **not** write OpenSpec or final `L2/<SYSTEM>/` placement as the registration step.
 
 ```mermaid
@@ -355,6 +369,7 @@ Then:
 4. Graphify same-or-similar → append `00.DUPLICATES`, do not register (no L2 `DUPLICATED` heading).
 5. Place with stable id; mark registered; create/update OpenSpec change `<system>-<feature>`; cite L2 id.
 6. Update TRACEABILITY + epic Spec traceability (≥ `registered`), L2/INDEX, CHANGE-STATUS; optionally PROGRAMME-DEFINITION / SPECS-ABSTRACT.
+7. **Visual features exception:** when the note documents a UI Appearance and the L1 PNG is missing or not from a real strip specimen, agents **MAY** add the proposed render specimen on `neocom-front` `model-strip-page` and refresh `sources/L1/media/*.png` from that capture (see §5.3). Do not use this exception for unrelated product implementation.
 
 ```mermaid
 flowchart TD
@@ -377,10 +392,13 @@ Authority for this stage: `.dsh/agents/neocom-code.md`, `.dsh/agents/neocom-git.
 ```text
 choose base → apply (stop before commit) → /git:commit when asked
   → PR feature → develop (validation intake)
-  → merge → validate on develop tip
-  → PR develop → main (Release-X.Y.Z + archive list)
-  → archive only listed validated OpenSpec changes
-  → source-archive completed L2 then L1 (§6.7)
+  → merge → validate on develop tip (dev environment)
+  → developer selects OpenSpec changes to archive
+  → archive selected changes (/openspec-archive-change)
+  → track TRACEABILITY L1/L2; source-archive when fully complete (§6.7)
+  → collect archived ids → open draft PR develop → main (Release-X.Y.Z)
+  → keep draft until archive set for this release is complete
+  → mark PR ready; developer completes merge when asked
 ```
 
 ### 6.1 Destination and branch base
@@ -431,22 +449,41 @@ After apply stopped and the developer asked to commit:
 4. Body **must** satisfy `.dsh/templates/openspec-delivery-control.md` §A (and the Features shape in `pull-requests.md`): repositories, head/base, **OpenSpec change ids** + task N/N, feature labels, commit range, stack note, **out of scope**, **validation readiness**, test plan.
 5. One PR may stack several features; every included OpenSpec change is named. Silent bundling of unlisted changes is forbidden.
 6. Do **not** merge unless asked. Do **not** archive on this PR.
-7. On accept into `develop`: CHANGE-STATUS → **`applied`** (awaiting develop validation); sync Spec traceability / TRACEABILITY. Next apply runs the branch-base consult again.
+7. On accept into `develop`: CHANGE-STATUS → **`applied`** (awaiting develop validation); sync Spec traceability / TRACEABILITY; upsert **`openspec/DELIVERY-INDEX.md`** (PR merged, develop tip SHA per repo). Next apply runs the branch-base consult again.
 
 ### 6.5 Validation on `develop`
 
-1. Run against the **post-merge `develop` tip** (SHA recorded), not only the old feature branch.
+1. Run against the **post-merge `develop` tip** (SHA recorded), not only the old feature branch — including checks the developer runs in the **dev environment**.
 2. Commands: those named by the included changes (unit/e2e); `npx openspec list --json`; gap check vs delta specs.
-3. CHANGE-STATUS notes: `validated on develop @ <sha>` or `validation failed: …`.
-4. Only **complete + validated** changes may appear on a release archive list.
+3. CHANGE-STATUS notes: `validated on develop @ <sha>` or `validation failed: …`. Mirror the tip into **`openspec/DELIVERY-INDEX.md`** (Validated column).
+4. Only **complete + validated** changes may be **selected** for archive (§6.6). Do **not** open the release PR yet.
+5. For “which PR / commit carried this OpenSpec?”, consult **`DELIVERY-INDEX.md`** (and graphify) before calling GitHub. `/neocom-git` owns that index.
 
-### 6.6 Release PR `develop` → `main` — archive trigger
+### 6.6 OpenSpec archive first, then draft release PR
 
-1. When develop validation is accepted, open PR **`develop` → `main`**, title `Release-<MajorMinorPatch>` (temp worktree: merge develop into main, `gitversion /nocache /showvariable MajorMinorPatch`; do not push that calculation; restore local `main`).
-2. Body **must** satisfy delivery-control §C: develop SHA, **OpenSpec archive** list, **OpenSpec deferred** list, test plan.
-3. Archive **only** the listed changes (`/openspec-archive-change`); update CHANGE-STATUS → **Archived**, main `openspec/specs/`, TRACEABILITY.
-4. Do not merge the release PR unless asked. Tag `vX.Y.Z` only when the user requests a release tag.
-5. Immediately after the OpenSpec archive step succeeds, run **§6.7 Source archive (L2 then L1)** for any files that are now fully complete.
+**Order is fixed:** archive (and L1/L2 tracking) **before** the release PR is made ready. The PR documents what was archived; it does not trigger archive.
+
+#### 6.6.1 Developer selects the archive set
+
+After validation on develop is accepted, the developer names which OpenSpec changes to archive (from the `applied` + validated pool). Changes still `registered` / `applying` / not validated / deferred stay **out of** the set.
+
+#### 6.6.2 Archive selected changes
+
+1. For each selected change, run `/openspec-archive-change` (batch as appropriate).
+2. Same turn: CHANGE-STATUS → **Archived**, sync into `openspec/specs/`, TRACEABILITY OpenSpec status → 📦 `archived`, `DELIVERY-INDEX` archived delivery rows.
+3. **Immediately** run **§6.7 Source archive** eligibility for L2 then L1 touched by that change. Track state on TRACEABILITY **Sections** / **L2 delivery** as files move.
+4. **Collect** each successfully archived change id into the **release archive inventory** (used for the PR body). Do not invent ids that were not archived.
+
+#### 6.6.3 Draft PR `develop` → `main`
+
+1. When the first archive for this release lands (or when the developer asks to open the PR while archive continues), open PR **`develop` → `main`** as a **draft** (`gh pr create --draft`), title `Release-<MajorMinorPatch>` (temp worktree GitVersion calc; do not push that calculation; restore local `main`).
+2. Body **must** satisfy delivery-control §C: develop SHA, **OpenSpec archived (this release)** = inventory so far, **OpenSpec still open / deferred**, test plan, draft note (“not ready until archive set complete”).
+3. **Keep the PR in draft** while any change the developer selected for this release is still not archived, or while other develop-validated changes the developer included in the release set remain pending archive.
+4. After each further archive: refresh the PR body inventory; re-check §6.7; update TRACEABILITY.
+5. When **every** change in the selected release archive set is archived (and inventoriable in the body): **mark the PR ready for review** (leave draft). Spec/`main` programme parity for that set is only claimed at this point — not while the PR is still draft with a partial archive list.
+6. Do **not** merge unless the developer asks after the PR is ready. Tag `vX.Y.Z` only when the user requests a release tag.
+
+**Anti-claim:** do not state that `main` / main specs “match” develop for the release while the draft is open and the archive set is incomplete.
 
 ### 6.7 Source archive — L2 extracts and L1 epics (declutter)
 
@@ -473,15 +510,15 @@ An L1 epic `sources/L1/NN.EPIC-NAME.md` **may** move to `sources/L1/archive/NN.E
 3. **Every** L2 extract that belonged to that epic is already under `sources/L2/archive/` (or never existed).
 4. No Review cells remain at `to review` or `reviewed` that still need extract (leftover `to review` / `reviewed` → do **not** archive the epic; leave it active).
 
-Do **not** move shared index files (`TRACEABILITY.md`, `SPEC-EPIC-INDEX.md`, `00.DUPLICATES.md`, `L2/INDEX.md`) into archive.
+Do **not** move shared index files (`TRACEABILITY.md`, `SPEC-EPIC-INDEX.md` (deprecated, leave in place), `00.DUPLICATES.md`, `L2/INDEX.md`) into archive.
 
 #### Index updates (same turn)
 
 When moving files:
 
-1. Update `sources/L1/TRACEABILITY.md` paths to the archive locations; keep the epic row (status `archived`) so history and skip logic remain.
-2. Sync the epic’s `## Spec traceability` if the file still exists (now under archive) or note the archived path on the TRACEABILITY row.
-3. Update `sources/L1/SPEC-EPIC-INDEX.md` and `sources/L2/INDEX.md` (mark archived / point at `archive/` paths; remove from active inbox lists).
+1. Update `sources/L1/TRACEABILITY.md` L2 delivery paths to the archive locations; keep the epic section (Highest `archived`) so history and skip logic remain.
+2. Sync the epic’s `## Spec traceability` if the file still exists (now under archive) or note the archived path on the TRACEABILITY epic section.
+3. Update `sources/L2/INDEX.md` (mark archived / point at `archive/` paths; remove from active inbox lists). Do **not** update `SPEC-EPIC-INDEX.md`.
 4. Do not invent parallel dashboards; do not delete history — **move**, do not erase.
 
 New work on a formerly archived epic is a **new** L1 append or a new epic (§8); do not silently resurrect by editing only under `archive/` without restoring to the active tree when reopening scope.
@@ -493,8 +530,10 @@ Full tables: `.dsh/templates/openspec-delivery-control.md`. Incomplete control d
 | Gate | Must declare |
 | --- | --- |
 | **feature → develop** | Repos; head/base; OpenSpec ids + N/N; features; `develop..HEAD`; stack; out of scope; validation readiness; test plan; status move `applying` → `applied` on merge |
-| **validate on develop** | Develop tip SHA; change set; validation commands; pass/fail notes; archive eligibility |
-| **develop → main** | `Release-X.Y.Z`; develop SHA; archive list; deferred list; main-spec paths / TRACEABILITY impact |
+| **validate on develop** | Develop tip SHA; change set; validation commands; pass/fail notes; archive **eligibility** (not archive yet) |
+| **select + archive** | Developer-selected OpenSpec ids; archive + §6.7; release inventory grows |
+| **draft develop → main** | `Release-X.Y.Z`; develop SHA; **archived** inventory; deferred/open list; stays draft until set complete |
+| **ready / merge** | Archive set complete → mark PR ready; merge only when asked |
 
 ```mermaid
 sequenceDiagram
@@ -510,11 +549,13 @@ sequenceDiagram
   Dev->>Git: /git:commit then PR feature → develop
   Note over Git: OpenSpec list = ready for validation
   Dev->>Git: merge to develop when asked
-  Dev->>Spec: validate on develop tip
-  Dev->>Git: PR develop → main Release-X.Y.Z
-  Note over Spec,Git: archive list on release PR
-  Spec->>Spec: archive validated OpenSpec changes
-  Spec->>Spec: move completed L2 then L1 → sources/*/archive/
+  Dev->>Spec: validate on develop tip / dev env
+  Dev->>Spec: select OpenSpec changes to archive
+  Spec->>Spec: archive selected changes
+  Spec->>Spec: track L1/L2; source-archive when complete
+  Spec->>Git: collect archived ids → draft Release PR
+  Note over Git: draft until archive set complete
+  Dev->>Git: mark ready; merge when asked
 ```
 
 ---
@@ -527,17 +568,18 @@ These are non-negotiable in the current harness; changing them is a methodology 
 2. **No invented behaviour.** Gaps → ask or mark; never fill from assumption.
 3. **Review gate exactness.** New requirements start at `to review` (not extractable). Only the cell value `reviewed` extracts. `UNREGISTERED REQUIREMENTS` is deprecated.
 4. **Graphify before `/neo:*`.** First action on extract, evolution, and backtrack; stop if update fails.
-5. **Skip indexes are complete.** TRACEABILITY + L2 tree + L2/INDEX (+ CHANGE-STATUS for OpenSpec) — do not invent parallel dashboards.
+5. **Skip indexes are complete.** TRACEABILITY (Sections + L2 delivery) + L2 tree + L2/INDEX (+ CHANGE-STATUS / DELIVERY-INDEX) — do not invent parallel dashboards.
 6. **Repo boundaries.** Spec workflow writes only under `neocom-meta`. Product code only in owning clones. `neocom` / `neocom-esi` aside.
 7. **Git ownership.** Only `neocom-git` (and `/git:*`) commits, branches, and opens PRs. **OpenSpec apply never commits.** Commit only when asked or when `/git:commit` / `/git:pr` run.
 8. **Branch-base consult.** Product OpenSpec branches default from `develop`; if other `feature/*` tips are ahead, ask before stacking — no silent fanning from `develop`.
-9. **PR content control.** Feature→develop and develop→main bodies must carry the OpenSpec control fields in `openspec-delivery-control.md`. No silent bundling; no archive of unlisted changes.
-10. **Validate then archive.** Validation runs on the **`develop` tip** after merge. OpenSpec archive runs from the **release PR archive list**, not from the feature branch.
-11. **Source archive after OpenSpec archive.** When every OpenSpec change for an L2 file (then for an L1 epic) is archived, **move** that file to `sources/L2/archive/` / `sources/L1/archive/` and refresh TRACEABILITY + indexes in the same turn. Do not leave completed epics cluttering the active L1/L2 directories; do not move partial work.
-12. **Deferred search.** Cards and legacy backtrack wait on filled `## Search criteria`.
-13. **No Finder duplicate files.** Never create `* 2.*` conflict copies.
-14. **OpenSpec naming.** Change = `<system>-<feature>` (hyphens only); delta under `specs/<system>/<feature>/spec.md`.
-15. **Destination boundaries.** `/neocom-code` edits only the active destination repo; front≠back≠domain file ownership.
+9. **PR content control.** Feature→develop and develop→main bodies must carry the OpenSpec control fields in `openspec-delivery-control.md`. No silent bundling; no archive of changes the developer did not select.
+10. **Validate → select → archive → draft Release PR.** Validation runs on the **`develop` tip** after merge. OpenSpec archive runs from the **developer-selected set** after validation — **not** from a feature branch and **not** as a side effect of opening the Release PR. The Release PR starts as a **draft** documenting the archive inventory.
+11. **Source archive during OpenSpec archive.** When every OpenSpec change for an L2 file (then for an L1 epic) is archived, **move** that file to `sources/L2/archive/` / `sources/L1/archive/` and refresh TRACEABILITY + indexes in the same turn. Do not leave completed epics cluttering the active L1/L2 dirs; do not move partial work.
+12. **Draft until archive set complete.** Do not mark the Release PR ready (and do not claim main/spec parity for the release) while selected develop-validated changes remain unarchived. Merge only when the developer asks after ready.
+13. **Deferred search.** Cards and legacy backtrack wait on filled `## Search criteria`.
+14. **No Finder duplicate files.** Never create `* 2.*` conflict copies.
+15. **OpenSpec naming.** Change = `<system>-<feature>` (hyphens only); delta under `specs/<system>/<feature>/spec.md`.
+16. **Destination boundaries.** `/neocom-code` edits only the active destination repo; front≠back≠domain file ownership.
 
 ---
 
@@ -549,7 +591,7 @@ Design and spec repeat without resetting delivery:
 2. Set relevant Review cells to `reviewed`.
 3. `/neo:extract-l2` writes new `pending` L2 notes (or moves duplicates to `00.DUPLICATES`).
 4. `/neo:spec-evolution` registers pending notes (or appends `00.DUPLICATES`).
-5. Apply (stop before commit) → commit when asked → PR → develop → validate → Release + OpenSpec archive → source-archive completed L2/L1 (§6.7) as above.
+5. Apply (stop before commit) → commit when asked → PR → develop → validate → select + archive OpenSpec → source-archive L2/L1 (§6.7) → draft Release PR → ready when set complete.
 
 ```mermaid
 flowchart LR
@@ -557,9 +599,10 @@ flowchart LR
   R --> E[extract-l2]
   E --> S[spec-evolution]
   S --> A["apply stop before commit"]
-  A --> P["PR develop → validate → Release"]
-  P --> Arch["OpenSpec archive → L2/L1 source archive"]
-  Arch --> L1u
+  A --> P["PR develop → validate"]
+  P --> Arch["Select + OpenSpec archive → L2/L1"]
+  Arch --> Rel["Draft Release PR → ready"]
+  Rel --> L1u
 ```
 
 ---
@@ -568,7 +611,7 @@ flowchart LR
 
 | Step | Command | Output |
 | --- | --- | --- |
-| 1 | `/epic <name> <description>` | `sources/L1/NN.EPIC-NAME.md`, TRACEABILITY `none` |
+| 1 | `/epic <name> <description>` | `sources/L1/NN.EPIC-NAME.md`, TRACEABILITY epic section Highest `none` |
 | 2 | (human) fill Search criteria; optional re-invoke collector / `/neo:backtrack` | Sources / COLLECTOR |
 | 3 | (human) author L1 sections; new rows at `to review`; set batch → `reviewed` | L1 register / requirements |
 | 4 | `/neo:extract-l2` [`NN`…] | L2 `pending` notes or `00.DUPLICATES`; status ≥ `extracted` |
@@ -576,9 +619,11 @@ flowchart LR
 | 6 | Apply change on `feature/<feature>` (default from `develop`; ask before stacking) | Code — stop before commit |
 | 7 | `/git:commit` then developer review | Commits on feature branch |
 | 8 | `/git:pr <project>` | PR **feature → develop** (OpenSpec ready for validation) |
-| 9 | Validate on **develop** tip | CHANGE-STATUS notes; still `applied` |
-| 10 | Release PR + archive list | `develop` → `main` as `Release-X.Y.Z`; archive validated OpenSpec changes |
-| 11 | Source archive (§6.7) | Move fully archived L2 → `sources/L2/archive/`, then L1 → `sources/L1/archive/`; refresh indexes |
+| 9 | Validate on **develop** tip / dev env | CHANGE-STATUS notes; still `applied` |
+| 10 | Developer selects OpenSpec to archive | Selected ids from validated `applied` pool |
+| 11 | `/openspec-archive-change` (+ §6.7) | Archive selected; track/move L2 then L1; grow release inventory |
+| 12 | Draft Release PR `develop` → `main` | `Release-X.Y.Z` **draft**; body = archived inventory + deferred |
+| 13 | Archive set complete → mark PR ready | Developer completes merge when asked |
 
 Alternate OpenSpec-only planning: `/openspec-explore` → `/openspec-propose` → apply — still lands on the same git delivery rules when implemented for NEOCOM.
 

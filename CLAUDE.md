@@ -29,7 +29,7 @@ Agents and their entry points:
 | `neocom-spec-workflow`  | `/neo:extract-l2`, `/neo:spec-evolution` | Controls the progression L1 (epic) → L2 → OpenSpec                        |
 | `neocom-backtrack`      | `/neo:backtrack`                                                   | Finds in the legacy code the classes, methods, and flows an epic cites    |
 | `neocom-code`           | `/neocom-code`                                                     | Product coding for front and back (destination-selected rules); OpenSpec apply in product repos |
-| `neocom-git`            | `/neocom-git`, `/git:commit <project>`, `/git:pr [project]`        | Commits, branches, PRs, and versions; the only owner of git operations    |
+| `neocom-git`            | `/neocom-git`, `/git:commit <project>`, `/git:pr [project]`        | Commits, branches, PRs, versions, and `openspec/DELIVERY-INDEX.md`; the only owner of git operations |
 | `program-verifier`      | `/program-verifier`                                                | Read-only verification of the `program/` knowledge                        |
 
 For a new task, read `.dsh/AGENT-CATALOG.md` first, then the matching agent or skill. Do not copy their procedures into this file.
@@ -45,7 +45,7 @@ For a new task, read `.dsh/AGENT-CATALOG.md` first, then the matching agent or s
 Rules that are not negotiable:
 
 - **Never rewrite authored L1 sections.** The L1 epic is the source of L2. `/neo:extract-l2` may change only Review cells (`reviewed` → `extracted`) and `## Spec traceability` (keep it at the start of the file: status, L2 paths, skip). Registering in OpenSpec may refresh that same Spec traceability table; it does not rewrite L2 source notes beyond the skill’s move rules.
-- **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative central record of what is generated, extracted, and registered (including **L2 backlog**); each epic’s `## Spec traceability` must stay in sync after extract/register. `sources/L1/SPEC-EPIC-INDEX.md` is the cross-epic Review dashboard (update after `/neo:extract-l2`). `sources/L2/INDEX.md` is the L2 file dashboard (📥 inbox → `/neo:spec-evolution`). `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec changes. Update them in the same turn as any change they reflect.
+- **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative record: per-epic **Sections** + **L2 delivery** (L2-file key → OpenSpec → Delivery). Each epic’s `## Spec traceability` must stay in sync after extract/register/apply. `sources/L2/INDEX.md` is the L2 file backlog (📥 inbox → `/neo:spec-evolution`). `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec programme status. `openspec/DELIVERY-INDEX.md` (owned by `/neocom-git`) feeds TRACEABILITY **Delivery** cells. `sources/L1/SPEC-EPIC-INDEX.md` is **deprecated** — keep the file; do not update it. Update the active indexes in the same turn as any change they reflect.
 - **Only `reviewed` models are extracted** from tables with a Review column. `to review`, `superseded`, and `out of scope` are not extracted.
 - **Do not invent behaviour.** If a note or an epic does not state something, ask or mark the gap; do not fill it in.
 
@@ -72,7 +72,7 @@ Prefer `.venv/bin/graphify update .` when the project venv exists. Then use `gra
 - Work on the current branch. Do not commit on `develop` or `main` unless the user explicitly asks.
 - Do not commit, push, or open a PR unless the user asks. The `/git:*` commands are that request. **OpenSpec apply stops before commit** (`/neocom-code`).
 - Product OpenSpec branches: `feature/<name>` default from `develop`; if other feature tips are ahead, ask before stacking (see `/neocom-git` and `.dsh/METHODOLOGY.md` §6).
-- PR feature → `develop` = validation intake; validate on develop; PR `develop` → `main` (`Release-X.Y.Z`) carries the OpenSpec **archive list** (`.dsh/templates/openspec-delivery-control.md`). After OpenSpec archive, move fully completed L2 then L1 sources to `sources/L2/archive/` / `sources/L1/archive/` (`.dsh/METHODOLOGY.md` §6.7).
+- PR feature → `develop` = validation intake; validate on develop / dev env; developer **selects** OpenSpec to archive; archive (+ L1/L2 source-archive) **before** marking the Release PR ready; open **draft** `develop` → `main` (`Release-X.Y.Z`) documenting the archived inventory; mark ready only when the selected archive set is complete (`.dsh/templates/openspec-delivery-control.md`, `.dsh/METHODOLOGY.md` §6.6–6.7).
 - Do not write `SemVer` into `package.json`. The version is GitVersion `MajorMinorPatch` (hooks/CI).
 
 ## Finder duplicate files

@@ -59,6 +59,7 @@ Apply **in addition to** shared rules when Destination is `front`.
 | Missing repo | If `neocom-front` is missing, stop. If the folder exists without an Angular app, scaffold the recorded stack (do not re-ask) |
 | Page layout | `header` at top; optional `exception` under header; panel boxes use `panel-<colour>`; sections are row or column (gap follows that choice) — from dashboard/page specs when applicable |
 | Renders | Prefer `vn-` versioned renders and `jsonClass` registry lookup (EPIC-002 / `front-node-render`) when painting domain nodes |
+| Model-strip specimens | New visual elements MAY be added as specimens on `model-strip-page` (new items at the **top**). When authoring/registering Appearance docs, capture the live specimen into `neocom-meta/sources/L1/media/*.png` |
 | Version | Hooks/CI sync GitVersion on commit/push. Do not hand-edit SemVer or run `version:sync` as a chore |
 | Verify | Prefer browser check for UI; Vitest/Cypress when named |
 

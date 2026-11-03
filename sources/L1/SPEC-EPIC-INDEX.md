@@ -1,8 +1,12 @@
 # Spec Epic Index: Centralized Review Status Register
 
-Master index of all sections and items across L1 epics with their Review statuses.
+> **DEPRECATED (2026-11-03).** Do **not** update this file. It is kept only for possible recovery.  
+> Authoritative Review / pipeline view: `sources/L1/TRACEABILITY.md` (**### Sections** + **### L2 delivery**).  
+> Extract gate remains the Review column on each L1 epic register.
 
-The **extract gate** is the Review column on each L1 epic register (exact value `reviewed`). This index is the **cross-epic dashboard** and must stay in sync with those cells. `/neo:extract-l2` updates this file in the same turn as it flips epic Review cells to `extracted`.
+Master index of all sections and items across L1 epics with their Review statuses *(frozen snapshot — historical)*.
+
+The **extract gate** is the Review column on each L1 epic register (exact value `reviewed`). This file was formerly the cross-epic dashboard; that role moved to `TRACEABILITY.md`.
 
 ---
 
@@ -164,21 +168,23 @@ Source: `sources/L1/06.EPIC-USER-INTERFACE.md` (lines 16–26)
 
 ---
 
-## How to Update Status
+## How to Update Status *(obsolete — file deprecated)*
 
-### To mark items ready for extract:
+Do **not** follow these steps against this file anymore. Use L1 Review cells + `TRACEABILITY.md` + `L2/INDEX.md`.
+
+### Historical procedure (for recovery only)
 
 1. Set the item’s **Review** cell on the L1 epic register to exactly `reviewed` (that cell is the extract gate).
-2. Mirror the same status in this index (`🟢 reviewed`).
+2. ~~Mirror the same status in this index~~ — **do not**; update `TRACEABILITY.md` ### Sections instead.
 3. Run `/neo:extract-l2` (optionally scoped by epic number).
 
-### What `/neo:extract-l2` updates (mandatory, same turn):
+### What `/neo:extract-l2` updates (current harness):
 
 - Epic register: processed rows `reviewed` → `extracted`
 - Epic `## Spec traceability` (start of file)
-- `sources/L1/TRACEABILITY.md` (Review gate record + Index)
+- `sources/L1/TRACEABILITY.md` (that epic’s ### Sections + ### L2 delivery)
 - `sources/L2/INDEX.md` + L2 file status headers
-- **This file** (`SPEC-EPIC-INDEX.md`): set processed register rows (and their extracted requirement IDs) to 🔵 `extracted`, refresh Notes with the L2 path, and refresh **Current Status Summary**
+- **This file:** no updates
 
 ### Example workflow:
 
@@ -201,7 +207,7 @@ When an extracted item is registered into OpenSpec via `/neo:spec-evolution`:
 
 1. Keep the `Review` column at 🔵 `extracted` (pipeline status lives on TRACEABILITY / Spec traceability)
 2. Add a note in the **Notes** column with the OpenSpec change name (e.g., `domain-locations`, `front-blueprint-page`)
-3. Update `sources/L1/TRACEABILITY.md` and the epic’s `## Spec traceability`
+3. Update `sources/L1/TRACEABILITY.md` (Sections / L2 delivery) and the epic’s `## Spec traceability`
 
 Example:
 | SpaceLocationV1 | Interface artifact | `v1-` | 🔵 `extracted` | 19 | Registered as `domain-locations` in OpenSpec |
@@ -210,9 +216,7 @@ Example:
 
 ## Maintenance
 
-1. **Before `/neo:extract-l2`:** epic Review cells (and this index) show which items are `reviewed`
-2. **After `/neo:extract-l2` (agent, mandatory):** this index — processed items → 🔵 `extracted`; summary counts refreshed
-3. **After `/neo:spec-evolution`:** Notes gain OpenSpec change names; TRACEABILITY / Spec traceability hold pipeline status
+**None.** This file is deprecated. Agents must not refresh it after extract, Spec Evolution, or archive.
 
 ---
 
@@ -234,10 +238,10 @@ Last synced: 2026-11-02 (after `/neo:spec-evolution` on EPIC-009).
 
 | Epic | 🟢 Reviewed | 🟡 To review | 🔵 Extracted | ⚪ Out of scope |
 | --- | --- | --- | --- | --- |
-| EPIC-004 | 0 | 11 | 7 (+ `jsonClass` interchange → `domain-jsonclass`) | 2 |
-| EPIC-006 | 1 (v1-blueprint-list-page) | 3 | 0 | 0 |
-| EPIC-007 | 2 (Flow 06, Flow 07) | 0 | 0 | 0 |
-| EPIC-008 | 0 | 3 register + LOC-090/100/110 | 6 register (SpaceLocation…Structure) + LOC-001/002/010/020/030/040/050/051/060 | 3 register + LOC-003/011/120/121 |
-| EPIC-009 | 0 | 0 | 27 (BACK-SVC-001…072 → 5 OpenSpec changes) | 0 |
+| EPIC-004: Models | 0 | 11 | 7 (+ `jsonClass` interchange → `domain-jsonclass`) | 2 |
+| EPIC-006: User Interface | 1 (v1-blueprint-list-page) | 3 | 0 | 0 |
+| EPIC-007: NeoCom API | 2 (Flow 06, Flow 07) | 0 | 0 | 0 |
+| EPIC-008: Locations | 0 | 3 register + LOC-090/100/110 | 6 register (SpaceLocation…Structure) + LOC-001/002/010/020/030/040/050/051/060 | 3 register + LOC-003/011/120/121 |
+| EPIC-009: Backend services | 0 | 0 | 27 (BACK-SVC-001…072 → 5 OpenSpec changes) | 0 |
 | **Total (register rows)** | **3** | **17** | **39** | **5** |
 

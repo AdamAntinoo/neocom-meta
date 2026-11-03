@@ -1,9 +1,9 @@
 # Dashboard
 
-Status: recorded. OpenSpec change: `front-dashboard`.
+Status: registered. OpenSpec change: `front-dashboard-shell`.
 
-The landing page is the dashboard under `app/pages`. Until login works, an Angular filter treats pages as authenticated. The pilot id is the cookie `neocom-pilot-id`, initialized to `93813310`.
-
-The page has a borderless `header` (`app-info-panel` white, `server-info-panel` blue) and `pilot-dashboard` (`pilot-public-info` green). An `exception` region sits under the header on every page when an exception is present. How the exception is passed is not defined.
+Secured landing page after login and character selection. Layout rows: `app-page-header` (`-APP-`); pilot & corporation; navigable breadcrumb from Dashboard; provider-driven feature list. Parent features open feature dashboards with scoped subfeature lists. Pilot id cookie `neocom-pilot-id` (fixture until login operative).
 
 Source: `sources/L2/FRONT/04.DASHBOARD.md`.
+
+Fold note: Capability `front/dashboard` inside the fold.

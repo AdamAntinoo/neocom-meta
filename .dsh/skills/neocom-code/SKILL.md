@@ -82,7 +82,7 @@ For multi-destination changes, each repo has its own `feature/<feature>` (or sha
 
 1. Check off completed items in `openspec/changes/<…>/tasks.md`.
 2. Update `neocom-meta/openspec/CHANGE-STATUS.md` (`applying`, task counts from `npx openspec list --json`, note destination repos touched).
-3. When the sourcing epic’s Spec traceability should move to `applying`, update it and `sources/L1/TRACEABILITY.md` if this apply starts that transition.
+3. When the sourcing epic’s Spec traceability should move to `applying`, update it and that epic’s TRACEABILITY section (Highest + L2 delivery OpenSpec status) if this apply starts that transition.
 
 ### 7. Stop for developer review (no commit)
 

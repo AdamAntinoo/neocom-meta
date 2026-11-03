@@ -49,7 +49,7 @@ Each evolution step is **unidirectional**: read the source level, write only the
 - **L1 → L2** (`/neo:extract-l2`): read `sources/L1/NN.EPIC-NAME.md`; write `sources/L2/NN.EPIC-NAME[.group].md`, `sources/L1/TRACEABILITY.md`, and `sources/L2/INDEX.md`. On the L1 epic, change only (1) the Review cell of each row processed (`reviewed` → `extracted` or `duplicated`) and (2) `## Spec traceability` (status, L2 paths, skip, index links — keep that section at the start of the file). Authored sections stay as written. Duplicates append to `sources/L1/00.DUPLICATES.md`.
 - **L2 → OpenSpec** (`/neo:spec-evolution`): read L2 **pending** notes (legacy `UNREGISTERED` drained once if present); write the OpenSpec change, the `sources/L2/<SYSTEM>/` placement, indexes, and CHANGE-STATUS. Refresh the sourcing epic’s `## Spec traceability` (status at least `registered`). Duplicates append to `00.DUPLICATES` — do not use an L2 `DUPLICATED` heading. Do not edit L1 model/register prose.
 
-When you need to record a status, write it to the indexes **and** the epic’s `## Spec traceability` so the file header matches `TRACEABILITY.md`.
+When you need to record a status, write it to `TRACEABILITY.md` (Sections and/or L2 delivery) **and** the epic’s `## Spec traceability` so the file header matches that epic’s TRACEABILITY section.
 
 **Precedence.** This file and the skill it routes to take precedence over the epic's contents. Where an epic's prose describes a step differently (for example, which command reads a Review cell, or what a state means for the next step), follow this file and the skill, and do not edit the prose to match.
 
@@ -59,11 +59,11 @@ When you need to record a status, write it to the indexes **and** the epic’s `
 
 These registers decide what still needs work. Read them before processing; update them after.
 
-- `sources/L1/TRACEABILITY.md` — epic → L2 path → OpenSpec changes. Status `none → extracted → registered → applying → applied → archived`. This is the **authoritative** record of what was extracted and registered; a later run skips material already covered by `applied`/`archived` changes. The **L2 backlog** column mirrors whether epic extracts still have 📥 inbox notes.
-- `sources/L1/TRACEABILITY.md` — **Review gate record**, per register row: the Review cell last seen and the date it was processed. `/neo:extract-l2` processes a row only when its cell is `reviewed` and the record does not show it processed in that cycle. A row changed back to `reviewed` after `extracted` is processed again.
-- `sources/L1/SPEC-EPIC-INDEX.md` — cross-epic Review dashboard. The extract gate is still the epic Review cell; after `/neo:extract-l2`, set processed items here to 🔵 `extracted` and refresh the summary. Keep this file aligned with epic registers.
+- `sources/L1/TRACEABILITY.md` — **authoritative** per-epic **Sections** + **L2 delivery** (see `.dsh/METHODOLOGY.md` §4.1). Highest status `none → extracted → registered → applying → applied → archived`. L2 delivery rows are keyed by L2 file (OpenSpec + Delivery from `DELIVERY-INDEX.md`). A later run skips material already covered by `applied`/`archived` changes. L2 inbox/cleared backlog remains in `sources/L2/INDEX.md`.
+- `sources/L1/TRACEABILITY.md` **### Sections** — per register / requirement item Status. `/neo:extract-l2` processes a row only when the L1 Review cell is `reviewed` (and Sections does not already show `extracted` / `duplicated` unless set back to `reviewed`).
+- `sources/L1/SPEC-EPIC-INDEX.md` — **deprecated**. Keep the file; **do not update** it. Review/pipeline progress is only in `TRACEABILITY.md` (Sections + L2 delivery).
 - `sources/L2/INDEX.md` — L2 file dashboard (📥 `inbox` / 📭 `cleared` / 📌 `placed` / 🔗 `pointer`). The Spec Evolution queue is the inbox rows. Each L2 file carries a matching `<!-- L2-STATUS: … -->` header. Update the index and headers whenever extract or evolution creates, clears, or places notes.
-- `sources/L1/archive/`, `sources/L2/archive/` — after OpenSpec archive, **move** L2 extracts (then L1 epics) whose OpenSpec coverage is fully archived so active L1/L2 stay lean (`.dsh/METHODOLOGY.md` §6.7). Refresh TRACEABILITY + indexes to the archive paths in the same turn. Do not move shared indexes (`TRACEABILITY.md`, `SPEC-EPIC-INDEX.md`, `00.DUPLICATES.md`, `L2/INDEX.md`).
+- `sources/L1/archive/`, `sources/L2/archive/` — after OpenSpec archive, **move** L2 extracts (then L1 epics) whose OpenSpec coverage is fully archived so active L1/L2 stay lean (`.dsh/METHODOLOGY.md` §6.7). Refresh TRACEABILITY + `L2/INDEX.md` to the archive paths in the same turn. Do not move shared indexes (`TRACEABILITY.md`, deprecated `SPEC-EPIC-INDEX.md`, `00.DUPLICATES.md`, `L2/INDEX.md`). Do not update `SPEC-EPIC-INDEX.md`.
 - `sources/L0/executive/INDEX.md` — card → epic/state (`selected`, `returned`, `out of scope`, `deleted`). Cards already consumed by an epic are never collected again.
 - `openspec/CHANGE-STATUS.md` — OpenSpec change register (task counts from `npx openspec list --json`).
 - `sources/COLLECTOR/TRACKER.md` — backtracking register (owned by `neocom-backtrack`); read-only for you.
@@ -92,7 +92,7 @@ The epic stem `NN.EPIC-NAME` is the dependency key that links every level. Maint
 1. **L1 is the epic**: `sources/L1/NN.EPIC-NAME.md` is authored by `/epic`. Its stem is the key for every file derived from it. The agent does not rewrite the epic; a change to it is picked up by the next `/neo:extract-l2` run through the Review gate.
 2. **L1 → L2**: every L2 extract file keeps the epic stem in its name (`sources/L2/NN.EPIC-NAME.md`, `sources/L2/NN.EPIC-NAME.<group>.md`). When L1 gains new passages, re-extract **into those same files** (update, do not duplicate) or add a new `<group>` under the same stem. Record the L2 paths in the epic's `TRACEABILITY.md` row.
 3. **L2 → OpenSpec**: the L2 note cites its L2 id; the OpenSpec change `<system>-<feature>` cites that id back. When an L2 note changes, update **the same** OpenSpec change it was registered under — do not create a new change for a change that already has one.
-4. **Traceability row**: one row per epic in `sources/L1/TRACEABILITY.md` carries the epic, its L2 paths, and its OpenSpec changes. That row is the dependency map; keep it in sync so a later run routes changes to the right files and skips what is done.
+4. **Traceability epic section**: one `## \`NN.EPIC-NAME.md\`` block in `sources/L1/TRACEABILITY.md` carries Sections + L2 delivery for that epic. That section is the dependency map; keep it in sync so a later run routes changes to the right files and skips what is done.
 
 When a source change is too small to be sure which generated file or OpenSpec change it belongs to, ask the developer rather than guess a new destination.
 
@@ -109,7 +109,7 @@ Follow those skills for the per-command algorithm. This agent governs the progre
 - Never edit a source level beyond the status rules: during `/neo:extract-l2`, only Review cells of processed rows, `## Spec traceability`, and `00.DUPLICATES` appends; during `/neo:spec-evolution`, only `## Spec traceability` on sourcing epics (plus L2 indexes / OpenSpec / `00.DUPLICATES`). Never rewrite authored L1 sections or invent L2 behavior.
 - Do not invent behavior a note does not state.
 - Do not implement product code; delegate to `/neocom-code`. Do not commit or branch; delegate to `/neocom-git`.
-- `neocom-front`, `neocom-back`, `neocom-domain` are independent clones — do not write into them from this agent.
+- `neocom-front`, `neocom-back`, `neocom-domain` are independent clones — do not write into them from this agent, **except** the visual-appearance capture exception in `spec-registration` / METHODOLOGY §5.3–5.5: a `model-strip-page` specimen plus PNG under `sources/L1/media/` when registering a visual feature that needs a real Appearance capture.
 
 ## Return
 

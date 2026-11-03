@@ -90,15 +90,29 @@ On `/epic`, write the `## Search criteria` section **empty** (only its placehold
 
 ## Register the epic in TRACEABILITY.md
 
-During epic creation, add a row to the `## Index` table of `neocom-meta/sources/L1/TRACEABILITY.md` for the new epic, at status `none`:
+During epic creation, append a new epic section to `neocom-meta/sources/L1/TRACEABILITY.md` (see `.dsh/METHODOLOGY.md` §4.1), at Highest ⚪ `none`:
 
 ```markdown
-| `NN.EPIC-NAME.md` | EPIC-NNN | none | | | YYYY-MM-DD |
+## `NN.EPIC-NAME.md`
+
+Epic id: EPIC-NNN · Highest: ⚪ `none` · Last updated: YYYY-MM-DD
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| — | (no register rows yet) | ⚪ `none` |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| — (no L2 extract) | ⚪ `none` | — | — | YYYY-MM-DD |
 ```
 
-Fill `NN.EPIC-NAME.md` and `EPIC-NNN` from the file name and epic id created above. `Highest OpenSpec status` is `none`, `OpenSpec changes` and `L2 path` are empty, and `Last updated` is today's date.
+Fill `NN.EPIC-NAME.md` and `EPIC-NNN` from the file name and epic id created above.
 
-Later agents update this row (and the epic's `## Spec traceability`) when `/neo:extract-l2`, `/neo:spec-evolution`, apply, or archive touch this epic.
+Later agents update this section (and the epic's `## Spec traceability`) when `/neo:extract-l2`, `/neo:spec-evolution`, apply, `/neocom-git` delivery, or archive touch this epic.
 
 ## Update the graphify index
 

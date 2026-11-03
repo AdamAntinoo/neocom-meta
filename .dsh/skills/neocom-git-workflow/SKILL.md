@@ -74,8 +74,9 @@ EOF
 ```
 
 5. Return the PR URL. Do not merge.
-6. The next OpenSpec apply creates a new `feature/<name>` from `develop`. Do not stack it on the feature branch that already has a pull request.
-7. When the OpenSpec change is archived, open a separate pull request from `develop` into `main` for review and approval. Do not merge it. Its title is `Release-` plus GitVersion `MajorMinorPatch`.
+6. **Same turn:** update `neocom-meta/openspec/DELIVERY-INDEX.md` for every OpenSpec id in the PR body (PR `#N`, URL, head SHA, state `open`). On merge / validate / archive, refresh that index as in `/neocom-git` → OpenSpec delivery index. Prefer the index (and graphify) over repeated GitHub API calls for traceability.
+7. The next OpenSpec apply creates a new `feature/<name>` from `develop`. Do not stack it on the feature branch that already has a pull request.
+8. After develop validation, the developer selects OpenSpec changes to archive; archive those first (with L1/L2 source-archive). Then open or refresh a **draft** `develop` → `main` PR titled `Release-` plus GitVersion `MajorMinorPatch` that lists **already archived** changes. Keep draft until the selected archive set is complete, then mark ready. Do not merge unless asked after ready. See `/neocom-git` § OpenSpec feature flow and delivery-control §C–D.
 
 ### Title for `develop` into `main`
 
