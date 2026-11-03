@@ -6,7 +6,7 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-03 (seeded from develop validation + known `neocom-back#4`).
+Last refreshed: 2026-11-03 (`neocom-meta@6d7986c` on `feature/process-epics` — EPIC-006/010 folds registered).
 
 ## When `/neocom-git` must update this file
 
@@ -75,7 +75,9 @@ Registered / deferred changes appear in CHANGE-STATUS only until `/git:commit` o
 | `nestjs-sso-config` | registered 0/2 — no delivery row yet |
 | `esi-character-api` | deferred (`neocom-esi` aside) |
 | EPIC-003 cluster (`front-bdd-cypress`, …) | registered — no delivery row yet |
-| `front-app-shell`, `front-dashboard-shell`, `front-industry-blueprints`, … | registered — no delivery row yet |
+| `front-app-shell` | registered — no delivery row yet |
+| `front-dashboard-shell` | registered in meta `@ 6d7986c` (`feature/process-epics`); product apply not started |
+| `front-industry-blueprints` | registered in meta `@ 6d7986c` (`feature/process-epics`); product apply not started |
 
 ## Archived delivery (historical)
 
