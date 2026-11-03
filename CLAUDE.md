@@ -72,7 +72,7 @@ Prefer `.venv/bin/graphify update .` when the project venv exists. Then use `gra
 - Work on the current branch. Do not commit on `develop` or `main` unless the user explicitly asks.
 - Do not commit, push, or open a PR unless the user asks. The `/git:*` commands are that request. **OpenSpec apply stops before commit** (`/neocom-code`).
 - Product OpenSpec branches: `feature/<name>` default from `develop`; if other feature tips are ahead, ask before stacking (see `/neocom-git` and `.dsh/METHODOLOGY.md` §6).
-- PR feature → `develop` = validation intake; validate on develop; PR `develop` → `main` (`Release-X.Y.Z`) carries the OpenSpec **archive list** (`.dsh/templates/openspec-delivery-control.md`).
+- PR feature → `develop` = validation intake; validate on develop; PR `develop` → `main` (`Release-X.Y.Z`) carries the OpenSpec **archive list** (`.dsh/templates/openspec-delivery-control.md`). After OpenSpec archive, move fully completed L2 then L1 sources to `sources/L2/archive/` / `sources/L1/archive/` (`.dsh/METHODOLOGY.md` §6.7).
 - Do not write `SemVer` into `package.json`. The version is GitVersion `MajorMinorPatch` (hooks/CI).
 
 ## Finder duplicate files

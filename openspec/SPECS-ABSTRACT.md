@@ -4,7 +4,7 @@ One-page view of active OpenSpec changes for planning a **single feature** that 
 
 Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. This abstract is narrative; re-read each `proposal.md` before merging changes.
 
-**Last refreshed:** 2026-11-02 (EPIC-009: `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints`).
+**Last refreshed:** 2026-11-03 (post-merge validation on develop — 22 changes → `applied`; archive deferred until Release PR).
 
 **How to integrate:** pick a feature name, create or extend one change folder (multi-capability under `specs/<system>/<feature>/`), move or cite the L2 ids, supersede the old change names in the proposal, then archive or drop the superseded folders when apply is complete.
 
@@ -17,38 +17,38 @@ Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. 
 
 | Change                    | Tasks | Status (programme)                  | Cluster                         |
 | ------------------------- | ----- | ----------------------------------- | ------------------------------- |
-| `login`                   | 13/13 | applying                            | Auth / SSO                      |
+| `login`                   | 13/13 | applied (front `@ e3356db`, back `@ 3317849`) | Auth / SSO                      |
 | `nestjs-sso-config`       | 0/2   | registered                          | Auth / SSO                      |
-| `front-infrastructure`    | 8/8   | applying (`feature/infrastructure`) | Front shell & toolchain         |
+| `front-infrastructure`    | 8/8   | applied (`@ e3356db`)               | Front shell & toolchain         |
 | `front-app-shell`         | 0/3   | registered                          | Front shell & toolchain         |
 | `front-dashboard`         | 0/6   | registered                          | Pilot experience                |
-| `front-pilot`             | 5/5   | applying                            | Pilot experience                |
-| `front-pilot-panel`       | 4/4   | applying                            | Pilot experience                |
+| `front-pilot`             | 5/5   | applied (`@ e3356db`)               | Pilot experience                |
+| `front-pilot-panel`       | 4/4   | applied (`@ e3356db`)               | Pilot experience                |
 | `front-universe`          | 0/4   | registered                          | Pilot experience                |
 | `back-service`            | 0/3   | registered                          | Pilot experience                |
 | `domain-module`           | 2/3   | registered                          | Pilot experience                |
-| `domain-pilot`            | 0/5   | registered                          | Domain models (EPIC-004)        |
-| `domain-blueprint`        | 0/2   | registered                          | Domain models (EPIC-004)        |
-| `domain-application-info` | 0/3   | registered                          | Domain models (EPIC-004)        |
-| `domain-server-status`    | 0/2   | registered                          | Domain models (EPIC-004)        |
-| `domain-spacelocation`    | 0/3   | registered                          | Domain models (EPIC-004)        |
-| `domain-jsonclass`        | 3/3   | applying                            | Domain models (EPIC-004)        |
-| `domain-layout`           | 2/2   | applying                            | Backend services (EPIC-009)     |
-| `domain-ports`            | 2/2   | applying                            | Backend services (EPIC-009)     |
-| `domain-deprecations`     | 2/2   | applying                            | Backend services (EPIC-009)     |
-| `back-openapi`            | 3/3   | applying                            | Backend services (EPIC-009)     |
-| `back-industry-blueprints`| 2/2   | applying                            | Backend services (EPIC-009)     |
-| `domain-locations`        | 0/3   | registered                          | Locations (EPIC-008)            |
-| `back-spacelocations`     | 0/2   | registered                          | Locations (EPIC-008)            |
-| `esi-character-api`       | 3/4   | registered                          | Pilot experience                |
+| `domain-pilot`            | 5/5   | applied (`@ 477ee33`)               | Domain models (EPIC-004)        |
+| `domain-blueprint`        | 2/2   | applied (`@ 477ee33`)               | Domain models (EPIC-004)        |
+| `domain-application-info` | 3/3   | applied (`@ 477ee33`)               | Domain models (EPIC-004)        |
+| `domain-server-status`    | 2/2   | applied (`@ 477ee33`)               | Domain models (EPIC-004)        |
+| `domain-spacelocation`    | 3/3   | applied (`@ 477ee33`)               | Domain models (EPIC-004)        |
+| `domain-jsonclass`        | 3/3   | applied                             | Domain models (EPIC-004)        |
+| `domain-layout`           | 2/2   | applied (`@ 477ee33`)               | Backend services (EPIC-009)     |
+| `domain-ports`            | 2/2   | applied (`@ 477ee33`)               | Backend services (EPIC-009)     |
+| `domain-deprecations`     | 2/2   | applied (`@ 477ee33`)               | Backend services (EPIC-009)     |
+| `back-openapi`            | 3/3   | applied (`@ 3317849`)               | Backend services (EPIC-009)     |
+| `back-industry-blueprints`| 2/2   | applied (`@ 3317849`)               | Backend services (EPIC-009)     |
+| `domain-locations`        | 3/3   | applied (`@ 477ee33`)               | Locations (EPIC-008)            |
+| `back-spacelocations`     | 2/2   | applied (`@ 3317849`)               | Locations (EPIC-008)            |
+| `esi-character-api`       | 3/4   | deferred (`neocom-esi` aside)       | Pilot experience                |
 | `infra-developer-install` | 0/4   | registered                          | Front shell & toolchain         |
 | `infra-local-config`      | 0/7   | registered                          | Front shell & toolchain         |
 | `cicd-pipeline`           | 0/8   | registered                          | Delivery                        |
-| `front-angular-structure` | 0/7   | registered                          | Angular codification (EPIC-002) |
-| `front-node-render`       | 0/7   | registered                          | Angular codification (EPIC-002) |
-| `front-async-sse`         | 0/7   | registered                          | Angular codification (EPIC-002) |
-| `back-async-sse`          | 0/7   | registered                          | Angular codification (EPIC-002) |
-| `infra-async-persistence` | 0/4   | registered                          | Angular codification (EPIC-002) |
+| `front-angular-structure` | 7/7   | applied (`@ e3356db`)               | Angular codification (EPIC-002) |
+| `front-node-render`       | 7/7   | applied (`@ e3356db`)               | Angular codification (EPIC-002) |
+| `front-async-sse`         | 7/7   | applied (`@ e3356db`)               | Angular codification (EPIC-002) |
+| `back-async-sse`          | 7/7   | applied (`@ 3317849`)               | Angular codification (EPIC-002) |
+| `infra-async-persistence` | 4/4   | applied (`@ 3317849` + meta tools)  | Angular codification (EPIC-002) |
 | `front-bdd-cypress`       | 0/4   | registered                          | Testing (EPIC-003)              |
 | `front-mock-fixtures`     | 0/4   | registered                          | Testing (EPIC-003)              |
 | `cicd-coverage-sonar`     | 0/5   | registered                          | Testing (EPIC-003)              |
@@ -236,16 +236,17 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 
 
 
-### `esi-character-api` — registered · 3/4
+### `esi-character-api` — deferred · 3/4
 
 
 |                    |                                                                                     |
 | ------------------ | ----------------------------------------------------------------------------------- |
 | **Why**            | Drop generated Character API; high-level data via `@lgriffin/esi.ts` / `neocom-esi` |
 | **Capabilities**   | `esi/character-api`                                                                 |
-| **Owners**         | `neocom-esi` (aside)                                                                |
+| **Owners**         | `neocom-esi` (aside) — **do not apply** until that repo is back in scope             |
 | **Integrate with** | `back-service`, pilot cluster                                                       |
 | **Paths**          | `changes/esi-character-api/`                                                        |
+| **Blocker**        | Remaining ESI-011; programme leaves `neocom-esi` aside (2026-11-03)               |
 
 
 

@@ -113,7 +113,7 @@ Update `CHANGE-STATUS.md` notes for each change: `validated on develop @ <sha>` 
 - [ ] `npx openspec list --json` matches archive list
 ```
 
-After merge to `main` (when the user asks to merge), run `/openspec-archive-change` (or batch) **only** for the archive list in the PR. Refresh `CHANGE-STATUS.md` → **Archived**, sync main specs, update TRACEABILITY.
+After merge to `main` (when the user asks to merge), run `/openspec-archive-change` (or batch) **only** for the archive list in the PR. Refresh `CHANGE-STATUS.md` → **Archived**, sync main specs, update TRACEABILITY. Then source-archive fully completed L2 → `sources/L2/archive/` and L1 → `sources/L1/archive/` (`.dsh/METHODOLOGY.md` §6.7).
 
 ---
 

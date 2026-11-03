@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-03 (`back` `side/industry` @ `2c14f3c` — integrated `a6028c7` async restructure; `back-async-sse` + `infra-async-persistence` reset for reapply/validation).
+Last refreshed: 2026-11-03 (post-merge **validation on develop** — §6.5). Tips: back `3317849` (28/28), front `e3356db` (44/44), domain `477ee33` (11/11). No archive yet (release PR not opened).
 
 ## Status legend
 
@@ -18,12 +18,13 @@ Last refreshed: 2026-11-03 (`back` `side/industry` @ `2c14f3c` — integrated `a
 | `applying` | Implementation on `feature/<feature>` (default base `develop`; may be stacked). Apply stops before commit |
 | `applied` | Merged to `develop` (or ready on develop) and eligible for **validation on develop**; archive not done yet. Note `validated on develop @ <sha>` when validation passes |
 | `archived` | Released via `develop` → `main` archive list; moved to `changes/archive/` and merged into `openspec/specs/` |
+| `deferred` | Registered but **not applyable** until a named blocker clears (e.g. owning repo aside). Do not start `/openspec-apply-change` |
 
 PR content control: `.dsh/templates/openspec-delivery-control.md` (feature → develop = validation intake; develop → main = archive trigger).
 
 Task progress comes from checkboxes in each change’s `tasks.md` (`openspec list`).
 
-**Row order in this file:** archived, then applying (then applied when any), then registered.
+**Row order in this file:** archived, then applying (then applied when any), then deferred, then registered.
 
 ## Archived
 
@@ -35,34 +36,40 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 ## Applying
 
-| Change | System / feature | Tasks | Status | Notes |
-| --- | --- | --- | --- | --- |
-| `login` | front/login, back/login, esi/sso, esi/login | 13/13 | applying | `feature/login` in front and back. Tasks complete; ESI-012 marked fulfilled outside this apply. Meta work on `feature/agents`. Ready for review / `/git:pr` then archive |
-| `front-infrastructure` | front / toolchain | 8/8 | applying | Spec path `front-toolchain`. Branch `feature/infrastructure` from `develop` @ `90a9e42`. WireMock stubs + `npm run wiremock`; Vitest 23/23; Cypress `app.feature` smoke 2/2. Ready for user review (no PR yet) |
-| `front-angular-structure` | front / angular-structure | 7/7 | applying | EPIC-002; STRUCT-001…007. Branch `feature/angular-structure` from `develop` @ `6bc6535`. Ready for user review (no PR) |
-| `front-node-render` | front / node-render | 7/7 | applying | EPIC-002; NODE-001…017. Branch `feature/node-render` rebased onto `feature/angular-structure` @ `28b8334`. Ready for user review (no PR) |
-| `front-async-sse` | front / async-sse | 7/7 | applying | EPIC-002; FASSE-001…010. Branch `feature/async-sse` rebased onto `feature/node-render` @ `96dcabd`. Ready for user review (no PR) |
-| `back-async-sse` | back / async-sse | 0/7 | applying | **REAPPLY** EPIC-002; BASSE-001…012. Integrated `a6028c7` onto `side/industry` @ `2c14f3c` (outbound adapters, Flyway under `tools/db`, docker compose). Manufacture SSE kept at `/v1/pilots/:pilotId/manufacture/*` (not `/industry`). Tasks unchecked for re-validation before PR |
-| `infra-async-persistence` | infra / async-persistence | 0/4 | applying | **REAPPLY** EPIC-002; INFRA-050…055. Back now owns Flyway + `tools/docker` Postgres/Redis (`2c14f3c`); meta compose remains companion. Tasks unchecked for re-validation |
-| `domain-pilot` | domain / pilot | 5/5 | applying | EPIC-004; `feature/domain-models` in `neocom-domain`. PublicPilotV1 + PilotV2. Ready for user review (no PR) |
-| `domain-blueprint` | domain / blueprint | 2/2 | applying | EPIC-004; DOM-BP-001…003. Domain `feature/domain-models` (BlueprintV1 + ME/TE clamp); front `feature/blueprint` (`v1-blueprint` identity for BlueprintV1). Ready for `/neocom-git` + review |
-| `domain-application-info` | domain / application-info | 3/3 | applying | EPIC-004; ApplicationInfoV1 on `feature/domain-models` (accessors). Front render remains consumer. Ready for user review (no PR) |
-| `domain-server-status` | domain / server-status | 2/2 | applying | EPIC-004; ServerStatusV1 on `feature/domain-models`. Ready for user review (no PR) |
-| `domain-spacelocation` | domain / spacelocation | 3/3 | applying | EPIC-004; thin empty interface dropped — `SpaceLocationV1` is the published lookup class on `feature/domain-models` @ `3b0e426`. Ready for user review (no PR) |
-| `domain-locations` | domain / locations | 3/3 | applying | EPIC-008; hierarchy flattened into `SpaceLocationV1` on `feature/domain-models` @ `3b0e426`. Ready for user review (no PR) |
-| `back-spacelocations` | back / spacelocations | 2/2 | applying | EPIC-008; LOC-010 stacked on `side/industry` @ `2c14f3c`. `LOCATION_CATALOG` port moved to `@Domain/ports`. Ready for validation with industry+async coexistence (no PR) |
-| `domain-jsonclass` | domain / jsonclass (+ back, front) | 3/3 | applying | EPIC-004; DOM-JSONCLASS-001…003. Back `feature/jsonclass` (Pilot + SpaceLocation `jsonClass`); front `feature/jsonclass` (select via `jsonClass`); domain `feature/domain-models` (align PilotV2 / SpaceLocation). Ready for `/neocom-git` + user review |
-| `domain-layout` | domain / layout | 2/2 | applying | EPIC-009; BACK-SVC-001…004, 010…013. `feature/domain-models` @ `3b0e426`: models extend `Record`; NeoCom removed from package (front-only); `src/ports` + flat `src/domain`. Committed — review / PR |
-| `domain-ports` | domain / ports | 2/2 | applying | EPIC-009; BACK-SVC-020…022, 030…032. `PilotPort` + `IndustryPort` under `src/ports` @ `3b0e426`. Committed — review / PR |
-| `domain-deprecations` | domain / deprecations | 2/2 | applying | EPIC-009; BACK-SVC-040…042, 050…052. DTOs `@deprecated`; `esi-api/DEPRECATED.md` @ `3b0e426`. Committed — review / PR |
-| `back-openapi` | back / openapi | 3/3 | applying | EPIC-009; BACK-SVC-060…063. `tools/openapi/README.md` + industry YAML uses domain schema name `BlueprintV1`. Branch `feature/industry-blueprints` @ `7bbbea0`. Ready for user review (no PR) |
-| `back-industry-blueprints` | back / industry-blueprints | 2/2 | applying | EPIC-009; BACK-SVC-070…072. Sync `GET /v1/pilots/:pilotId/blueprints` on `side/industry` @ `2c14f3c`; distinct from async manufacture routes. Ready for validation with async+spacelocations coexistence (no PR) |
-| `front-pilot` | front / pilot | 5/5 | applying | EPIC-004 PILOT-002…007. Front uses `neocom-domain` `PublicPilotV1`/`PilotV2` + NeoCom nodes. Committed on `feature/blueprint` @ `6357f65`. Ready for user review (no PR) |
-| `front-pilot-panel` | front / pilot-panel | 4/4 | applying | PANEL-001…012. `v1-pilot-panel` + `v1-public-pilot` / `v2-pilot` renders; variants `-PILOT-*-VARIANT-`. Committed on `feature/blueprint` @ `857933b`. Ready for user review (no PR) |
+*(none — all previously applying changes validated on develop 2026-11-03)*
 
 ## Applied
 
-*(none)*
+| Change | System / feature | Tasks | Status | Notes |
+| --- | --- | --- | --- | --- |
+| `login` | front/login, back/login, esi/sso, esi/login | 13/13 | applied | Validated on develop: front `@ e3356db`, back `@ 3317849` (SSO pages + callback cookies / token storage). Related `nestjs-sso-config` still registered |
+| `front-infrastructure` | front / toolchain | 8/8 | applied | Validated on develop `@ e3356db` (WireMock script + toolchain). Vitest 44/44 |
+| `front-angular-structure` | front / angular-structure | 7/7 | applied | Validated on develop `@ e3356db` (EPIC-002 STRUCT) |
+| `front-node-render` | front / node-render | 7/7 | applied | Validated on develop `@ e3356db` (EPIC-002 NODE) |
+| `front-async-sse` | front / async-sse | 7/7 | applied | Validated on develop `@ e3356db` (adapter cache + SSE merge; `sseBasePath: '/v1'`) |
+| `back-async-sse` | back / async-sse | 7/7 | applied | Validated on develop `@ 3317849` (manufacture SSE, BullMQ/Redis, TypeORM/Flyway). Vitest 28/28. Gap check: routes under `/v1/pilots/:pilotId/manufacture/*` |
+| `infra-async-persistence` | infra / async-persistence | 4/4 | applied | Validated with back develop `@ 3317849` + meta `tools/infra` companion + front `sseBasePath`. Docker/Flyway optional locally |
+| `domain-pilot` | domain / pilot | 5/5 | applied | Validated on develop `@ 477ee33` (PublicPilotV1 + PilotV2). Domain tests 11/11 |
+| `domain-blueprint` | domain / blueprint | 2/2 | applied | Validated on develop `@ 477ee33` (BlueprintV1 + ME/TE clamp) |
+| `domain-application-info` | domain / application-info | 3/3 | applied | Validated on develop `@ 477ee33` |
+| `domain-server-status` | domain / server-status | 2/2 | applied | Validated on develop `@ 477ee33` |
+| `domain-spacelocation` | domain / spacelocation | 3/3 | applied | Validated on develop `@ 477ee33` (`SpaceLocationV1`) |
+| `domain-locations` | domain / locations | 3/3 | applied | Validated on develop `@ 477ee33` (hierarchy in `SpaceLocationV1`) |
+| `back-spacelocations` | back / spacelocations | 2/2 | applied | Validated on develop `@ 3317849` — `GET /api/v1/universe/spacelocations/:locationId` |
+| `domain-jsonclass` | domain / jsonclass (+ back, front) | 3/3 | applied | Validated: domain `@ 477ee33`, front `@ e3356db` (`pilot-from-dto` / render registry), back `@ 3317849` (`SpaceLocation` / BlueprintV1 stamps) |
+| `domain-layout` | domain / layout | 2/2 | applied | Validated on develop `@ 477ee33` (models extend `Record`; flat `src/domain`) |
+| `domain-ports` | domain / ports | 2/2 | applied | Validated on develop `@ 477ee33` (`PilotPort` + `IndustryPort`) |
+| `domain-deprecations` | domain / deprecations | 2/2 | applied | Validated on develop `@ 477ee33` — DTOs `@deprecated`; `src/esi-api/DEPRECATED.md` + `src/dto/DEPRECATED.md` |
+| `back-openapi` | back / openapi | 3/3 | applied | Validated on develop `@ 3317849` — `tools/openapi/` + industry YAML `BlueprintV1` |
+| `back-industry-blueprints` | back / industry-blueprints | 2/2 | applied | Validated on develop `@ 3317849` — sync `GET /v1/pilots/:pilotId/blueprints` via ESI `createClient` (no scaffolds) |
+| `front-pilot` | front / pilot | 5/5 | applied | Validated on develop `@ e3356db` (NeoCom nodes wrapping domain Pilot models) |
+| `front-pilot-panel` | front / pilot-panel | 4/4 | applied | Validated on develop `@ e3356db` (`v1-pilot-panel` + HEADER variants) |
+
+## Deferred
+
+| Change | System / feature | Tasks | Status | Notes |
+| --- | --- | --- | --- | --- |
+| `esi-character-api` | esi / character-api | 3/4 | deferred | Owner `neocom-esi` is **aside**. Remaining ESI-011 (remove OpenAPI + generated Character API). Resume apply only when `neocom-esi` is back in scope. Design note: ESI-005 vs ESI-011 conflict still open |
 
 ## Registered
 
@@ -74,7 +81,6 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `front-dashboard` | front / dashboard | 0/6 | registered | |
 | `back-service` | back / service | 0/3 | registered | |
 | `domain-module` | domain / neocom-domain | 2/3 | registered | |
-| `esi-character-api` | esi / character-api | 3/4 | registered | |
 | `infra-developer-install` | infra / developer-install | 0/4 | registered | |
 | `infra-local-config` | infra / local-config | 0/7 | registered | |
 | `cicd-pipeline` | cicd / pipeline | 0/8 | registered | |
@@ -95,5 +101,6 @@ Delta specs usually live at `changes/<system>-<feature>/specs/<system>/<feature>
 2. When `/feature-delivery` starts, move the row to **Applying** and name the branch if useful.
 3. After the pull request into `develop` is accepted (`/git:pr`), move the row to **Applied**.
 4. After `openspec archive`, move the row to **Archived** and point at the main spec path.
-5. Keep sections in order: **Archived**, **Applying**, **Applied**, **Registered**.
+5. Keep sections in order: **Archived**, **Applying**, **Applied**, **Deferred**, **Registered**.
 6. Refresh task counts with `npx openspec list --json` whenever the register is reviewed.
+7. Move a change to **Deferred** when apply is blocked by programme scope (e.g. owning repo aside); return it to **Registered** or **Applying** when the blocker clears.

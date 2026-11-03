@@ -15,7 +15,7 @@ npm run docker:up
 # or: docker compose -f tools/docker/docker-compose.yml up -d
 ```
 
-Programme mirror (same images/credentials): `neocom-meta/infra/docker-compose.async-persistence.yml` — prefer the **back** `tools/docker` stack for day-to-day Nest development.
+Programme mirror (same images/credentials): `neocom-meta/tools/infra/docker-compose.async-persistence.yml` — prefer the **back** `tools/docker` stack for day-to-day Nest development.
 
 Default local endpoints:
 
@@ -56,21 +56,21 @@ ASYNC_SSE_CHANNEL_PREFIX=neocom:sse:
 ### Front (`neocom-front`)
 
 ```env
-# or environment.ts / environment.development.ts
-sseBasePath=/api/sse
+# environment.ts / environment.development.ts
+sseBasePath=/v1
 ```
 
-Browser calls same-origin `/api/sse/...` (proxied to Nest).
+Browser calls same-origin manufacture SSE under `/v1/pilots/:pilotId/manufacture/blueprints/events` (proxied to Nest).
 
 ## Checklist (INFRA-055)
 
 | Item | Owner | Status |
 | --- | --- | --- |
-| PostgreSQL provisioned | infra compose | provisioned (compose) |
-| Nest persistence module + migrations | `back-async-sse` | applying with companion |
-| Redis + BullMQ | `back-async-sse` | applying with companion |
-| Nest `@Sse()` + Redis fan-out | `back-async-sse` | applying with companion |
-| Front adapter HTTP + cache + SSE | `front-async-sse` | applying with companion |
-| Front panel in-place merge | `front-async-sse` | applying with companion |
-| DB/Redis secrets in back envs | infra + back | documented |
-| SSE base path in front envs | infra + front | documented |
+| PostgreSQL provisioned | infra compose (`neocom-back/tools/docker` + meta mirror) | done |
+| Nest persistence module + migrations | `back-async-sse` | done (TypeORM + Flyway `tools/db`) |
+| Redis + BullMQ | `back-async-sse` | done (when `REDIS_URL` set; else in-process) |
+| Nest `@Sse()` + Redis fan-out | `back-async-sse` | done |
+| Front adapter HTTP + cache + SSE | `front-async-sse` | done (companion PR) |
+| Front panel in-place merge | `front-async-sse` | done (companion PR) |
+| DB/Redis secrets in back envs | infra + back | done (`.env.async`) |
+| SSE base path in front envs | infra + front | done (`sseBasePath: '/v1'`) |
