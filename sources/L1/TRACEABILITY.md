@@ -17,11 +17,11 @@ Last refreshed: 2026-11-03 (format adopted from former POC; develop validation s
 | [`03.EPIC-TESTING.md`](#03epic-testingmd) | EPIC-003 | 📝 `registered` |
 | [`04.EPIC-MODELS.md`](#04epic-modelsmd) | EPIC-004 | ✅ `applied` |
 | [`05.EPIC-ESI-UNIVERSE.md`](#05epic-esi-universemd) | EPIC-005 | ⚪ `none` |
-| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | EPIC-006 | 📝 `registered` |
+| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | EPIC-006 | 🚧 `applying` |
 | [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | EPIC-007 | ⚪ `none` |
 | [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | EPIC-008 | ✅ `applied` |
 | [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | EPIC-009 | ✅ `applied` |
-| [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 📝 `registered` |
+| [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 🚧 `applying` |
 
 Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
 
@@ -162,7 +162,7 @@ Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-10-17
 
 ## `04.EPIC-MODELS.md`
 
-Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-03
+Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-03 (leftover `[x]` → 🔁 duplicates)
 
 ### Sections
 
@@ -175,7 +175,7 @@ Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-03
 | 07 | PilotV2 | ✅ `applied` |
 | 08 | ShipV1 | ⏳ `to review` |
 | 09 | PilotShipV1 | ⏳ `to review` |
-| 10 | BlueprintV1 | ✅ `applied` |
+| 10 | BlueprintV1 | ✅ `applied` (IND-BP-000 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) / DOM-BP-001) |
 | 11 | ProcessedBlueprintSummaryV1 | ⏳ `to review` |
 | 12 | ProcessedBlueprintV1 | ⏳ `to review` |
 | 12 | ResourceV1 | ⏳ `to review` |
@@ -184,10 +184,10 @@ Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-03
 | 15 | BuildActionDtoV1 | ⏳ `to review` |
 | 16 | BOMGroupV1 | ⏳ `to review` |
 | 18 | ApplicationInfoV1 | ✅ `applied` |
-| 19 | ServerStatusV1 | ✅ `applied` (field/render contract **superseded** → EPIC-006 UI-SSP / SRV-005…006 `to review`) |
+| 19 | ServerStatusV1 | ✅ `applied` (SRV-001/004 🔁 `duplicated`; field/render contract **superseded** → EPIC-006 UI-SSP / SRV-005…006 `to review`) |
 | 20 | SpaceLocationV1 | ✅ `applied` |
 | 21 | neocom-domain deploy | ⏳ `to review` |
-| 22 | `jsonClass` interchange | ✅ `applied` |
+| 22 | `jsonClass` interchange | ✅ `applied` (DOM-JSONCLASS-001…003 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md)) |
 | — | EveItem / ESI type mirrors | 🚫 `out of scope` |
 | — | ESI corp / alliance / race | 🚫 `out of scope` |
 
@@ -226,7 +226,7 @@ Epic id: EPIC-005 · Highest: ⚪ `none` · Last updated: 2026-10-19
 
 ## `06.EPIC-USER-INTERFACE.md`
 
-Epic id: EPIC-006 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L1: [`06.EPIC-USER-INTERFACE.md`](./06.EPIC-USER-INTERFACE.md)
+Epic id: EPIC-006 · Highest: 🚧 `applying` · Last updated: 2026-11-03 (spec-evolution DEF-IB amend) · L1: [`06.EPIC-USER-INTERFACE.md`](./06.EPIC-USER-INTERFACE.md)
 
 ### Sections
 
@@ -235,14 +235,15 @@ Epic id: EPIC-006 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L
 | [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Dashboard | 🔁 `duplicated` → [UI-DASH-001](../L2/FRONT/04.DASHBOARD.md) · [00.DUPLICATES](./00.DUPLICATES.md) |
 | [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Feature dashboard | 🔁 `duplicated` → [UI-DASH-013](../L2/FRONT/04.DASHBOARD.md) · [00.DUPLICATES](./00.DUPLICATES.md) |
 | [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Authentication pages | imported (not extractable) |
-| [Versioned panels](./06.EPIC-USER-INTERFACE.md#versioned-panels-and-renders-vn-) | UI-VER-001…003 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Page geometry](./06.EPIC-USER-INTERFACE.md#page-geometry-shared-styles) | UI-GEO-001 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) (DEF-IB-006 token) |
+| [Versioned panels](./06.EPIC-USER-INTERFACE.md#versioned-panels-and-renders-vn-) | UI-VER-001…004 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
 | [Media (EVE Image Server)](./06.EPIC-USER-INTERFACE.md#media-from-the-eve-image-server) | UI-MED-001…008 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/18](../L2/FRONT/18.EVE-MEDIA.md) |
-| [Common header](./06.EPIC-USER-INTERFACE.md#common-header-element-app-page-header) | UI-HDR-001…009 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
-| [Application info panel](./06.EPIC-USER-INTERFACE.md#application-info-panel-v1-application-info-render) | UI-AIP-001…005 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Common header](./06.EPIC-USER-INTERFACE.md#common-header-element-app-page-header) | UI-HDR-001…011 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
+| [Application info panel](./06.EPIC-USER-INTERFACE.md#application-info-panel-v1-application-info-render) | UI-AIP-001…006 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
 | [Server status panel](./06.EPIC-USER-INTERFACE.md#server-status-panel-v1-server-status-render) | UI-SSP-001…007 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/12](../L2/FRONT/12.PAGE-HEADER.md) |
 | [Corporation panel](./06.EPIC-USER-INTERFACE.md#corporation-panel-v1-corporation-render) | UI-CORP-001…013 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/19](../L2/FRONT/19.CORPORATION.md) |
-| [Dashboard](./06.EPIC-USER-INTERFACE.md#dashboard-landing-page) | UI-DASH-001…005, 007…010, 012…014 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/04](../L2/FRONT/04.DASHBOARD.md) |
-| [Dashboard requirements](./06.EPIC-USER-INTERFACE.md#dashboard-requirements) | UI-DASH-006, 011 | ⏳ `to review` |
+| [Dashboard](./06.EPIC-USER-INTERFACE.md#dashboard-landing-page) | UI-DASH-001…005, 007…010, 012…015 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/04](../L2/FRONT/04.DASHBOARD.md) |
+| [Dashboard requirements](./06.EPIC-USER-INTERFACE.md#dashboard-requirements) | UI-DASH-006, 011 | ⏳ `[ ] to review` |
 | [Character selection](./06.EPIC-USER-INTERFACE.md#character-selection-login-006--ui) | UI-CHAR-002 | 📝 `registered` → [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) · [FRONT/20](../L2/FRONT/20.CHARACTER-SELECTION.md) |
 
 ### L2 delivery
@@ -254,11 +255,11 @@ Epic id: EPIC-006 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L
 | [`06.EPIC-USER-INTERFACE.media.md`](../L2/06.EPIC-USER-INTERFACE.media.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
 | [`06.EPIC-USER-INTERFACE.corporation.md`](../L2/06.EPIC-USER-INTERFACE.corporation.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
 | [`06.EPIC-USER-INTERFACE.character.md`](../L2/06.EPIC-USER-INTERFACE.character.md) | 📭 `cleared` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) | — | 2026-11-03 |
-| [`FRONT/12.PAGE-HEADER.md`](../L2/FRONT/12.PAGE-HEADER.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
-| [`FRONT/04.DASHBOARD.md`](../L2/FRONT/04.DASHBOARD.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
-| [`FRONT/18.EVE-MEDIA.md`](../L2/FRONT/18.EVE-MEDIA.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
-| [`FRONT/19.CORPORATION.md`](../L2/FRONT/19.CORPORATION.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
-| [`FRONT/20.CHARACTER-SELECTION.md`](../L2/FRONT/20.CHARACTER-SELECTION.md) | 📝 `registered` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (0/17) | — | 2026-11-03 |
+| [`FRONT/12.PAGE-HEADER.md`](../L2/FRONT/12.PAGE-HEADER.md) | 🚧 `applying` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (17/17) | `neocom-front@1be24de` (`feature/dashboard-shell`) | 2026-11-03 |
+| [`FRONT/04.DASHBOARD.md`](../L2/FRONT/04.DASHBOARD.md) | 🚧 `applying` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (17/17) | `neocom-front@1be24de` (`feature/dashboard-shell`) | 2026-11-03 |
+| [`FRONT/18.EVE-MEDIA.md`](../L2/FRONT/18.EVE-MEDIA.md) | 🚧 `applying` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (17/17) | `neocom-front@1be24de` (`feature/dashboard-shell`) | 2026-11-03 |
+| [`FRONT/19.CORPORATION.md`](../L2/FRONT/19.CORPORATION.md) | 🚧 `applying` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (17/17) | `neocom-front@1be24de` (`feature/dashboard-shell`) | 2026-11-03 |
+| [`FRONT/20.CHARACTER-SELECTION.md`](../L2/FRONT/20.CHARACTER-SELECTION.md) | 🚧 `applying` | [`front-dashboard-shell`](../../openspec/changes/front-dashboard-shell/) (17/17) | `neocom-front@1be24de` (`feature/dashboard-shell`) | 2026-11-03 |
 
 ---
 
@@ -345,7 +346,7 @@ Epic id: EPIC-009 · Highest: ✅ `applied` · Last updated: 2026-11-03
 
 ## `10.EPIC-INDUSTRY-BLUEPRINTS.md`
 
-Epic id: EPIC-010 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L1: [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](./10.EPIC-INDUSTRY-BLUEPRINTS.md)
+Epic id: EPIC-010 · Highest: 🚧 `applying` · Last updated: 2026-11-03 · L1: [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](./10.EPIC-INDUSTRY-BLUEPRINTS.md)
 
 ### Sections
 
@@ -368,11 +369,11 @@ Epic id: EPIC-010 · Highest: 📝 `registered` · Last updated: 2026-11-03 · L
 | L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
 | --- | --- | --- | --- | --- |
 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](../L2/10.EPIC-INDUSTRY-BLUEPRINTS.md) | 📭 `cleared` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) | — | 2026-11-03 |
-| [`FRONT/13.MODEL-STRIP.md`](../L2/FRONT/13.MODEL-STRIP.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
-| [`FRONT/14.COLOR-TABLE.md`](../L2/FRONT/14.COLOR-TABLE.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
-| [`FRONT/15.FEATURE-BUTTON.md`](../L2/FRONT/15.FEATURE-BUTTON.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
-| [`FRONT/16.BLUEPRINT-BY-LOCATION.md`](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
-| [`FRONT/17.SHARED-UI.md`](../L2/FRONT/17.SHARED-UI.md) | 📝 `registered` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (0/17) | — | 2026-11-03 |
+| [`FRONT/13.MODEL-STRIP.md`](../L2/FRONT/13.MODEL-STRIP.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
+| [`FRONT/14.COLOR-TABLE.md`](../L2/FRONT/14.COLOR-TABLE.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
+| [`FRONT/15.FEATURE-BUTTON.md`](../L2/FRONT/15.FEATURE-BUTTON.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
+| [`FRONT/16.BLUEPRINT-BY-LOCATION.md`](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
+| [`FRONT/17.SHARED-UI.md`](../L2/FRONT/17.SHARED-UI.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
 
 ---
 

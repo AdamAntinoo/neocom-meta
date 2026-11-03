@@ -30,15 +30,17 @@ You do **not** author epics (`/epic`, `neocom-spec-collector`), do **not** backt
 
 ## Review gate (replaces `UNREGISTERED REQUIREMENTS`)
 
-Requirements are authored **inside the epic** under sections (register rows and/or per-requirement tables). Each unit has a Review status:
+Requirements are authored **inside the epic** under sections (register rows and/or per-requirement tables). Each unit has a Review status. **Pre-extract states use a Markdown checkbox** in the Review cell (all epics):
 
-| Status | Role |
-| --- | --- |
-| `to review` | Initial. Not extractable. |
-| `reviewed` | Extract this run → then `extracted`, or → `duplicated` if already stated elsewhere |
-| `extracted` | Already in L2 |
-| `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md` |
-| `superseded` / `out of scope` | Never extract |
+| Review cell | Logical status | Role |
+| --- | --- | --- |
+| `[ ]` | `to review` | Unchecked. Initial. Not extractable. |
+| `[x]` / `[X]` | `reviewed` | Checked. Candidate for this extract → then plain `extracted`, or → `duplicated` if already stated elsewhere |
+| `extracted` | `extracted` | Already in L2. **No checkbox.** |
+| `duplicated` | `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md`. **No checkbox.** |
+| `superseded` / `out of scope` | — | Never extract. **No checkbox.** |
+
+Legacy exact words `to review` / `reviewed` remain accepted as aliases of `[ ]` / `[x]`.
 
 `## UNREGISTERED REQUIREMENTS` / `## DUPLICATED` on L1 or new L2 files are **deprecated**. Follow `.dsh/skills/extract-l2/SKILL.md` and `.dsh/skills/spec-registration/SKILL.md`.
 
@@ -46,7 +48,7 @@ Requirements are authored **inside the epic** under sections (register rows and/
 
 Each evolution step is **unidirectional**: read the source level, write only the generated level and the traceability indexes. The one exception is the status rule below.
 
-- **L1 → L2** (`/neo:extract-l2`): read `sources/L1/NN.EPIC-NAME.md`; write `sources/L2/NN.EPIC-NAME[.group].md`, `sources/L1/TRACEABILITY.md`, and `sources/L2/INDEX.md`. On the L1 epic, change only (1) the Review cell of each row processed (`reviewed` → `extracted` or `duplicated`) and (2) `## Spec traceability` (status, L2 paths, skip, index links — keep that section at the start of the file). Authored sections stay as written. Duplicates append to `sources/L1/00.DUPLICATES.md`.
+- **L1 → L2** (`/neo:extract-l2`): read `sources/L1/NN.EPIC-NAME.md`; write `sources/L2/NN.EPIC-NAME[.group].md`, `sources/L1/TRACEABILITY.md`, and `sources/L2/INDEX.md`. On the L1 epic, change only (1) the Review cell of each row processed (`[x]`/`reviewed` → plain `extracted` or `duplicated` — checkbox removed) and (2) `## Spec traceability` (status, L2 paths, skip, index links — keep that section at the start of the file). Authored sections stay as written. Duplicates append to `sources/L1/00.DUPLICATES.md`.
 - **L2 → OpenSpec** (`/neo:spec-evolution`): read L2 **pending** notes (legacy `UNREGISTERED` drained once if present); write the OpenSpec change, the `sources/L2/<SYSTEM>/` placement, indexes, and CHANGE-STATUS. Refresh the sourcing epic’s `## Spec traceability` (status at least `registered`). Duplicates append to `00.DUPLICATES` — do not use an L2 `DUPLICATED` heading. Do not edit L1 model/register prose.
 
 When you need to record a status, write it to `TRACEABILITY.md` (Sections and/or L2 delivery) **and** the epic’s `## Spec traceability` so the file header matches that epic’s TRACEABILITY section.

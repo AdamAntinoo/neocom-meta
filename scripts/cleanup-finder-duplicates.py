@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Remove macOS Finder / sync conflict copies named \"Name 2.ext\" when \"Name.ext\" exists.
+"""Remove macOS Finder / sync conflict copies named \"Name 2.ext\" (or dirs \"Name 2\")
+when the canonical sibling exists.
 
-Origin: copying or syncing into a folder that already has the file (Finder appends \" 2\").
+Origin: copying or syncing into a folder that already has the file/dir (Finder appends \" 2\").
 Typical under Documents when iCloud Drive or Finder duplicate-on-conflict creates sidecars.
 Never invent new \" 2\" files; run this script (or the agent rule) to clean them up.
 
@@ -14,11 +15,16 @@ from __future__ import annotations
 
 import argparse
 import os
+import shutil
 import sys
 from pathlib import Path
 from typing import Optional
 
 PRUNE_DIR_NAMES = {".git", "node_modules", ".venv", "dist", "graphify-out", ".angular"}
+
+
+def is_duplicate_name(name: str) -> bool:
+    return " 2." in name or name.endswith(" 2")
 
 
 def canonical_for(dup: Path) -> Optional[Path]:
@@ -31,10 +37,18 @@ def canonical_for(dup: Path) -> Optional[Path]:
 
 
 def iter_duplicates(root: Path):
-    for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = [d for d in dirnames if d not in PRUNE_DIR_NAMES]
+    """Yield Finder duplicate files and directories (dirs after children)."""
+    for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+        parts = set(Path(dirpath).parts)
+        if parts & PRUNE_DIR_NAMES:
+            continue
         for name in filenames:
-            if " 2." in name or name.endswith(" 2"):
+            if is_duplicate_name(name):
+                yield Path(dirpath) / name
+        for name in dirnames:
+            if name in PRUNE_DIR_NAMES:
+                continue
+            if is_duplicate_name(name):
                 yield Path(dirpath) / name
 
 
@@ -48,8 +62,12 @@ def cleanup(roots: list[Path]) -> int:
             canon = canonical_for(dup)
             if canon is None:
                 continue
-            if canon.is_file():
+            if dup.is_file() and canon.is_file():
                 dup.unlink()
+                print(f"deleted: {dup}")
+                deleted += 1
+            elif dup.is_dir() and canon.is_dir():
+                shutil.rmtree(dup)
                 print(f"deleted: {dup}")
                 deleted += 1
             else:

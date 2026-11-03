@@ -46,7 +46,7 @@ Rules that are not negotiable:
 
 - **Never rewrite authored L1 sections.** The L1 epic is the source of L2. `/neo:extract-l2` may change only Review cells (`reviewed` → `extracted`) and `## Spec traceability` (keep it at the start of the file: status, L2 paths, skip). Registering in OpenSpec may refresh that same Spec traceability table; it does not rewrite L2 source notes beyond the skill’s move rules.
 - **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative record: per-epic **Sections** + **L2 delivery** (L2-file key → OpenSpec → Delivery). Each epic’s `## Spec traceability` must stay in sync after extract/register/apply. `sources/L2/INDEX.md` is the L2 file backlog (📥 inbox → `/neo:spec-evolution`). `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec programme status. `openspec/DELIVERY-INDEX.md` (owned by `/neocom-git`) feeds TRACEABILITY **Delivery** cells. `sources/L1/SPEC-EPIC-INDEX.md` is **deprecated** — keep the file; do not update it. Update the active indexes in the same turn as any change they reflect.
-- **Only `reviewed` models are extracted** from tables with a Review column. `to review`, `superseded`, and `out of scope` are not extracted.
+- **Only checked Review cells (`[x]` / legacy `reviewed`) are extracted** from tables with a Review column. Unchecked `[ ]` (legacy `to review`), `superseded`, and `out of scope` are not extracted. After extract the checkbox is replaced by a plain status word (`extracted` / `duplicated`).
 - **Do not invent behaviour.** If a note or an epic does not state something, ask or mark the gap; do not fill it in.
 
 ## Graphify

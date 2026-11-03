@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-03 (fold A+B → `front-dashboard-shell` + `front-industry-blueprints`). Tips: back `3317849` (28/28), front `e3356db` (44/44), domain `477ee33` (11/11). No archive yet (release PR not opened).
+Last refreshed: 2026-11-03 (`/neo:spec-evolution` DEF-IB amend → `front-dashboard-shell` 17/22; DOM-SRV-004/005 marked registered on L2). Tips: back `3317849` (28/28), front `e3356db` (44/44), domain `477ee33` (11/11). No archive yet (release PR not opened).
 
 ## Status legend
 
@@ -37,7 +37,10 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 ## Applying
 
-*(none — all previously applying changes validated on develop 2026-11-03)*
+| Change | System / feature | Tasks | Status | Notes |
+| --- | --- | --- | --- | --- |
+| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 17/22 | applying | EPIC-006 fold committed on `neocom-front` `feature/dashboard-shell` `@ 1be24de`. DEF-IB amend registered 2026-11-03 (UI-VER-004, UI-GEO-001, UI-HDR-010/011, UI-AIP-006, UI-DASH-015) — 5 tasks open. Prior tip awaiting PR → `develop` |
+| `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 17/17 | applying | EPIC-010 fold committed on `neocom-front` `feature/industry-blueprints` `@ c382959` (stacked on `dashboard-shell`). Awaiting PR → `develop`. Gap: list/SSE `location` chain not yet on back DTO |
 
 ## Applied
 
@@ -79,8 +82,6 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
 | `front-universe` | front / universe | 0/4 | registered | |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |
-| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 0/17 | registered | Fold of page-header, dashboard, eve-media, corporation, character-selection (EPIC-006). Branch `feature/dashboard-shell` |
-| `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 0/17 | registered | Fold of model-strip, color-table, feature-button, blueprint-by-location, shared-ui (EPIC-010). Branch `feature/industry-blueprints` |
 | `back-service` | back / service | 0/3 | registered | |
 | `domain-module` | domain / neocom-domain | 2/3 | registered | |
 | `infra-developer-install` | infra / developer-install | 0/4 | registered | |

@@ -33,3 +33,18 @@ Those change folders are **superseded** by this change and removed from the acti
 - L2: `FRONT/04`, `12`, `18`, `19`, `20` (+ cleared EPIC-006 extracts)
 - Depends on applied: `front-pilot`, `front-pilot-panel`, `login` (session)
 - Still `to review` on L1: UI-DASH-006, UI-DASH-011
+
+## Amend 2026-11-03 (DEF-IB batch)
+
+Registered from EPIC-006 extracts into this change:
+
+| L2 id | Capability | Defect |
+| --- | --- | --- |
+| UI-VER-004 | `front/page-header` | DEF-IB-004 — pages unversioned |
+| UI-GEO-001 | `front/page-header` | DEF-IB-006 token |
+| UI-HDR-010 | `front/page-header` | DEF-IB-002 |
+| UI-HDR-011 | `front/page-header` | DEF-IB-005 |
+| UI-AIP-006 | `front/page-header` | DEF-IB-001 |
+| UI-DASH-015 | `front/dashboard` | DEF-IB-006 application |
+
+Industry page rename called out by UI-VER-004 may touch `feature/industry-blueprints` artefacts when applying; the SHALL is owned here.

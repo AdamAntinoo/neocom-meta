@@ -6,7 +6,7 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-03 (`neocom-meta@6d7986c` on `feature/process-epics` — EPIC-006/010 folds registered).
+Last refreshed: 2026-11-03 (`neocom-front@c382959` on `feature/industry-blueprints` — `front-industry-blueprints` apply committed).
 
 ## When `/neocom-git` must update this file
 
@@ -65,6 +65,8 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 | `domain-layout` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
 | `domain-ports` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
 | `domain-deprecations` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
+| `front-dashboard-shell` | front | `feature/dashboard-shell` (tip also on `feature/industry-blueprints` stack) | `neocom-front@1be24de` (apply; seed `@ 22d2e06`; corp fix `@ 5f681e3`) | — | none | — | — | 2026-11-03 |
+| `front-industry-blueprints` | front | `feature/industry-blueprints` | `neocom-front@c382959` (stacked on `dashboard-shell`) | — | none | — | — | 2026-11-03 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
@@ -76,8 +78,6 @@ Registered / deferred changes appear in CHANGE-STATUS only until `/git:commit` o
 | `esi-character-api` | deferred (`neocom-esi` aside) |
 | EPIC-003 cluster (`front-bdd-cypress`, …) | registered — no delivery row yet |
 | `front-app-shell` | registered — no delivery row yet |
-| `front-dashboard-shell` | registered meta `@ 6d7986c`; seed on `neocom-front` `feature/dashboard-shell` `@ 22d2e06` (apply not finished) |
-| `front-industry-blueprints` | registered meta `@ 6d7986c`; early UI seed also on `feature/dashboard-shell` `@ 22d2e06` (own feature branch not cut yet) |
 
 ## Archived delivery (historical)
 

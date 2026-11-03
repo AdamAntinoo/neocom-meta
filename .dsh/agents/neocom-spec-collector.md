@@ -211,17 +211,17 @@ When an append widens the epic goals, or the developer fills the `## Search crit
 
 New requirements belong **inside epic sections** (register rows and/or per-requirement tables), not under an `UNREGISTERED REQUIREMENTS` heading (deprecated).
 
-Each extractable unit MUST have a **Review** (status) cell. When this agent or a later append adds a new requirement or register row, set Review to **`to review`**. That status is **not** extractable by `/neo:extract-l2`. The developer changes the cell to `reviewed` when the batch is ready to extract.
+Each extractable unit MUST have a **Review** (status) cell. When this agent or a later append adds a new requirement or register row, set Review to **`[ ] to review`** (checkbox + status). That cell is **not** extractable by `/neo:extract-l2`. The developer marks **`[x] reviewed`** when the batch is ready to extract. After extract, the cell is replaced by a plain status word (`extracted` / `duplicated`) — checkbox + status exist only for the pre-extract review gate.
 
-| Status | Meaning |
-| --- | --- |
-| `to review` | Initial. Not extractable. |
-| `reviewed` | Ready for `/neo:extract-l2`. |
-| `extracted` | Already extracted (set by extract). |
-| `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md`. |
-| `superseded` / `out of scope` | Never extract. |
+| Review cell | Logical status | Meaning |
+| --- | --- | --- |
+| `[ ]` | `to review` | Unchecked. Initial. Not extractable. |
+| `[x]` / `[X]` | `reviewed` | Checked. Ready for `/neo:extract-l2`. |
+| `extracted` | `extracted` | Already extracted (set by extract). No checkbox. |
+| `duplicated` | `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md`. No checkbox. |
+| `superseded` / `out of scope` | — | Never extract. No checkbox. |
 
-Do not invent requirement text beyond what the developer prompt states. Do not set new rows to `reviewed` unless the developer asks.
+Do not invent requirement text beyond what the developer prompt states. Do not mark new rows `[x] reviewed` unless the developer asks.
 
 ## Boundaries
 

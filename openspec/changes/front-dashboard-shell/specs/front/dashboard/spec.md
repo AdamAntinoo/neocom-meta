@@ -26,13 +26,19 @@ Dashboard SHALL be the application landing page after successful login and chara
 
 ### Requirement: Dashboard layout rows
 
-Dashboard layout rows SHALL be, in order: `app-page-header`; pilot & corporation; breadcrumb (from Dashboard); feature list listing panel (UI-DASH-003). Dashboard SHALL start with `<app-page-header />` (`-APP-` variant); the header controller provides ApplicationInfoV1 and ServerStatusV1 to their `v1` renders (UI-DASH-005). The second row SHALL include the pilot information panel and the corporation information panel (UI-DASH-007).
+Dashboard layout rows SHALL be, in order: `app-page-header`; pilot & corporation; breadcrumb (from Dashboard); feature list listing panel (UI-DASH-003). Dashboard SHALL start with `<app-page-header />` (`-APP-` variant); the header controller provides ApplicationInfoV1 and ServerStatusV1 to their `v1` renders (UI-DASH-005). The second row SHALL include the pilot information panel and the corporation information panel (UI-DASH-007). On the Dashboard (and secured pages that reuse the same chrome), separations between **header first line** and **pilot & corporation** row, between **pilot** and **corporation**, between **app-info** and **server-info**, and the **border inset** of those panels SHALL use **UI-GEO-001** (default panel gap) — no larger page-local padding/gap on the pilot row (UI-DASH-015).
 
 #### Scenario: Header then pilot row
 
 - **WHEN** Dashboard is shown
 - **THEN** the first row is `app-page-header` in `-APP-` variant
 - **AND** the next content row includes pilot and corporation panels
+
+#### Scenario: Pilot row uses default panel gap
+
+- **WHEN** Dashboard (or secured chrome reusing it) lays out header, pilot, and corporation panels
+- **THEN** separations and border insets use the UI-GEO-001 default panel gap
+- **AND** the pilot row does not use a larger page-local padding/gap
 
 ### Requirement: Navigation breadcrumb
 
