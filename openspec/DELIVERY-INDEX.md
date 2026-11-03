@@ -76,8 +76,8 @@ Registered / deferred changes appear in CHANGE-STATUS only until `/git:commit` o
 | `esi-character-api` | deferred (`neocom-esi` aside) |
 | EPIC-003 cluster (`front-bdd-cypress`, …) | registered — no delivery row yet |
 | `front-app-shell` | registered — no delivery row yet |
-| `front-dashboard-shell` | registered in meta `@ 6d7986c` (`feature/process-epics`); product apply not started |
-| `front-industry-blueprints` | registered in meta `@ 6d7986c` (`feature/process-epics`); product apply not started |
+| `front-dashboard-shell` | registered meta `@ 6d7986c`; seed on `neocom-front` `feature/dashboard-shell` `@ 22d2e06` (apply not finished) |
+| `front-industry-blueprints` | registered meta `@ 6d7986c`; early UI seed also on `feature/dashboard-shell` `@ 22d2e06` (own feature branch not cut yet) |
 
 ## Archived delivery (historical)
 
