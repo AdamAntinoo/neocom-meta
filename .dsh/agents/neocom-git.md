@@ -79,18 +79,10 @@ EOF
 1. Parallel orient: `git status`, `git diff`, tracking/`git status -sb`, `git log` and `git diff [base]...HEAD`
 2. **Do not** run `npm run version:sync` or create a separate version chore commit. App versions are updated by the local `.githooks/pre-commit` and the GitHub `version-sync` workflow (GitVersion `MajorMinorPatch`). Domain versions advance after `npm run distribute` (see Versioning). If a PR still shows a stale app version, say so — do not hand-edit SemVer.
 3. Push with `-u` when the branch has no upstream
-4. Create with `gh pr create`. A pull request into `develop` uses a Conventional Commit title or the branch purpose. A pull request from `develop` into `main` is a release: its title is `Release-` plus GitVersion `MajorMinorPatch` (`X.Y.Z`), for example `Release-0.1.0`. Body:
-
-```markdown
-## Summary
-- …
-
-## Test plan
-- [ ] …
-
-```
-
-5. Name which repository and OpenSpec changes are included
+4. Create with `gh pr create`. Read `.dsh/templates/pull-requests.md` and **`.dsh/templates/openspec-delivery-control.md`** before writing the body.
+   - **Into `develop`:** Conventional Commit title or branch purpose. Body includes Features, **OpenSpec** change ids, Out of scope, Validation readiness, Test plan.
+   - **Into `main`:** title `Release-` plus GitVersion `MajorMinorPatch` (`X.Y.Z`), for example `Release-0.1.0`. Body includes Summary, **OpenSpec archive** list, **OpenSpec deferred**, Test plan.
+5. Name which repository and OpenSpec changes are included; never archive or release an unlisted change
 6. Return the PR URL when done
 7. Do **not** push unless creating a PR (or the user explicitly asks to push)
 
@@ -119,13 +111,23 @@ Do not write GitVersion `SemVer` (no branch pre-release label). Do not use `npm 
 
 ### OpenSpec feature flow
 
-1. **Branch for apply.** Several features can be open in front/back. Create each product feature branch as `feature/<feature-name>` from `develop` when `/neocom-code` needs it. On `neocom-meta`, use `feature/agents` (or `feature/cicd` when that is the commanded branch). Do not create the branch from another feature branch or from `main` (except meta rebasing `feature/cicd` onto `feature/agents` when commanded). Do **not** open a pull request yet. Do **not** run a version chore after branching.
-2. **Apply leaves uncommitted code.** `/neocom-code` (or OpenSpec apply) writes product changes on that branch. **Do not commit when apply finishes.** Applying OpenSpec is not a commit request. Stop so the developer can review the code (and decide whether to continue applying, edit, or discard) before any commit.
+1. **Choose the branch base (consult before stacking).** Default base for a new product OpenSpec branch is **`develop`**. Before creating `feature/<feature-name>` in `neocom-front` / `neocom-back`:
+   1. Ensure `develop` exists (fetch if needed). If missing, stop and ask — do not use `main`.
+   2. List other open local/remote `feature/*` (and `fix/*` if relevant) tips that are **ahead of `develop`** (unique commits not in `develop`).
+   3. If **none** are ahead → create `feature/<feature-name>` from **`develop`**.
+   4. If **one or more** are ahead → **stop and ask the developer** which base to use:
+      - stay on **`develop`** (independent fan from integration), or
+      - **stack** by creating `feature/<feature-name>` from a named sibling tip (when this apply needs that unmerged work).
+      Do **not** invent a stacking base. Do **not** silently fan every apply off `develop` when siblings already carry newer work the feature may need. Do **not** create the branch from `main`.
+   5. On `neocom-meta`, keep using `feature/agents` (or `feature/cicd` when commanded); do not open `feature/<product-feature>` per apply. Meta cicd may rebase onto agents when commanded.
+   6. Do **not** open a pull request yet. Do **not** run a version chore after branching.
+2. **Apply leaves uncommitted code.** `/neocom-code` (or OpenSpec apply) writes product changes on that branch. **Do not commit when apply finishes.** Applying OpenSpec is not a commit request. **Stop before any commit** so the developer can review the code (and decide whether to continue applying, edit, or discard).
 3. **Commit only when the developer asks.** After they have reviewed and explicitly request a commit (`/git:commit`, `/git:pr`, or clear “commit” language), commit on the feature branch — not on `develop` or `main`. Until then, leave the tree as apply left it.
 4. **User review / test (committed or not).** The developer reviews and runs the testing they want. A commit does not by itself authorize the pull request.
-5. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code. Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
-6. **Pull request into `develop`.** After the user says that review and testing are done, open a pull request into `develop`. One pull request can contain several features: stack them in dependency order and open it from the tip. Name every feature in the pull request. The next feature still starts as a new branch from `develop`. Do not implement it by adding commits on the previous feature branch.
-7. **Archive.** When that feature's OpenSpec change is archived, open a pull request from `develop` into `main` for review and approval. Title it `Release-<MajorMinorPatch>`. Do not merge it.
+5. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code (or when the developer chose that stack at branch creation). Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
+6. **Pull request into `develop` (validation intake).** After the developer has committed (or `/git:pr` commits) and is ready, open a PR **feature → `develop`**. The body must list every **OpenSpec change** and **feature** in the tip (see `.dsh/templates/openspec-delivery-control.md` and `pull-requests.md`). Mark the PR as **ready for validation on develop**. One PR may stack several features; name all of them and list **out of scope** changes explicitly. Do not merge unless asked. On accept into `develop`, move those changes in `CHANGE-STATUS.md` to **`applied`** (validation pending). The next OpenSpec apply still runs the **branch-base consult** in step 1.
+7. **Validate on `develop`.** After merge, run / record OpenSpec and product validation against the **new `develop` tip** (not only the old feature branch). Update CHANGE-STATUS notes (`validated on develop @ <sha>` or failure). Do not archive yet.
+8. **Release PR `develop` → `main` (archive trigger).** When validation on develop is accepted, open a PR titled `Release-<MajorMinorPatch>`. The body **must** list OpenSpec changes to **archive** in this release and those **deferred**. Archive runs for the listed completed changes as part of this release path (`/openspec-archive-change`); update CHANGE-STATUS → **Archived**, main specs, TRACEABILITY. Do not merge the release PR unless asked.
 
 ### Release pull request title
 

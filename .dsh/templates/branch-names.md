@@ -2,7 +2,7 @@
 
 ## Recorded guideline
 
-Feature work in product repositories is committed on a branch created from `develop`:
+Feature work in product repositories uses:
 
 ```text
 feature/<feature-name>
@@ -10,7 +10,9 @@ feature/<feature-name>
 
 `<feature-name>` is the feature being applied (`pilot`, `universe`, `login`, `pipeline`, …).
 
-If `develop` does not exist, stop and ask. Do not branch from `main`.
+**Default base:** `develop`. If `develop` does not exist, stop and ask. Do not branch from `main`.
+
+**OpenSpec apply — avoid fanning off `develop`:** before creating a new `feature/<feature-name>`, list other open `feature/*` tips that are ahead of `develop`. If any exist, **ask the developer** whether to create from `develop` or **stack** from a named sibling tip (when this feature needs that unmerged work). Do not invent the stacking base. Applying OpenSpec still **stops before commit** for developer review.
 
 ## User examples
 
@@ -22,7 +24,7 @@ Prefer these examples over the guideline above.
 feature/<feature-name>
 ```
 
-Recorded from the request that OpenSpec feature execution commit on `feature/<feature>`, created from `develop`. Example: `feature/character-api`.
+Recorded from the request that OpenSpec feature execution commit on `feature/<feature>`, created from `develop` by default. Example: `feature/character-api`. When siblings are ahead of `develop`, consult before stacking.
 
 ### `neocom-meta` (no product code)
 

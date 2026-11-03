@@ -40,11 +40,11 @@ Announce once per turn: `Destination: front|back|domain` and the absolute repo p
 
 1. **Repo boundary.** Edit only the destination repository. Never put front UI in `neocom-back` or Nest use cases in `neocom-front`. Domain types live in `neocom-domain` unless the spec says otherwise.
 2. **Node.** `nvm use` in the destination repo before `node` / `npm` / `npx` (alias `neocom` from `.nvmrc`).
-3. **Branch.** Implement on `feature/<feature>` created from `develop` (via `/neocom-git`). If missing, stop and ask for the branch. Do not implement on `develop` / `main`.
+3. **Branch base.** Implement on `feature/<feature>` in the destination repo (via `/neocom-git`). **Default create-from is `develop`.** Before creating the branch, if other open `feature/*` tips are ahead of `develop`, **stop and ask** whether to branch from `develop` or stack onto a named sibling (avoid silent fanning from `develop`). Do not invent a base; do not implement on `develop` / `main`. See `/neocom-git` OpenSpec feature flow step 1.
 4. **OpenSpec apply.** Prefer a registered change: read `neocom-meta/openspec/changes/<system>-<feature>/` (proposal, specs, design, tasks). Implement only what the notes/specs state. Mark finished tasks `- [x]`. Update `openspec/CHANGE-STATUS.md` to `applying` and refresh counts from `npx openspec list --json`.
 5. **No invented behaviour.** Gaps → ask or mark; do not invent API contracts or UI.
 6. **Tests.** Run the tests the change names (or the destination’s default unit suite when applying a small fix).
-7. **Git / review gate.** Leave commits/PRs to `/neocom-git`. After an OpenSpec apply (or a batch of product edits), **stop** with uncommitted changes so the developer can review the code. Do not commit, and do not continue applying the next destination or the next change until they say to continue (or explicitly request a commit). Stage nothing unless the user also invoked a git command.
+7. **Git / review gate.** Leave commits/PRs to `/neocom-git`. After an OpenSpec apply (or a batch of product edits), **stop before committing** with uncommitted changes so the developer can review the code. Do not commit, and do not continue applying the next destination or the next change until they say to continue (or explicitly request a commit). Stage nothing unless the user also invoked a git command.
 8. **Graphify.** When navigating an unfamiliar area of the destination repo, prefer that repo’s graphify index if present; otherwise Read/Grep after stating the destination.
 
 ## Destination: `front`

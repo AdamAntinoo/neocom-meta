@@ -10,14 +10,14 @@ This document extracts the **current** methodology as defined by `.dsh/` (agents
 
 ## 1. Purpose and shape
 
-The methodology moves requirements **unidirectionally** from executive intake through authored epics, extractable notes, registered OpenSpec changes, feature-branch implementation, user review, and pull requests into `develop` (then a release PR into `main` on archive).
+The methodology moves requirements **unidirectionally** from executive intake through authored epics, extractable notes, registered OpenSpec changes, feature-branch apply (**stop before commit**), developer commit, PR into `develop` (**validation intake**), validation on the **`develop` tip**, then a release PR `develop` → `main` that **lists and triggers archive** of validated OpenSpec changes.
 
 | Stage | Intent | Primary owner |
 | --- | --- | --- |
 | Intake | Open an epic; later attach L0 executive cards and optional legacy backtrack | `neocom-spec-collector`, `neocom-backtrack` |
 | Spec progression | L1 → L2 extract → OpenSpec registration | `neocom-spec-workflow` |
-| Delivery | Apply registered change on `feature/<feature>` from `develop` | `neocom-code` (front/back destination rules) + OpenSpec apply |
-| VCS | Commits, branches, PRs, version sync | `neocom-git` |
+| Delivery | Apply on `feature/<feature>` (default base `develop`; ask before stacking); stop before commit | `neocom-code` (destination rules) + OpenSpec apply |
+| VCS + gates | Commit when asked; PR → develop (validation); validate on develop; PR → main (archive list) | `neocom-git` + delivery-control template |
 
 ```mermaid
 flowchart TB
@@ -42,17 +42,19 @@ flowchart TB
   end
 
   subgraph delivery["3. Delivery"]
-    apply["Apply change on<br/>feature/&lt;feature&gt; from develop"]
-    stop["Stop for user review / test"]
-    prDev["PR into develop<br/>/git:pr"]
-    archive["Archive OpenSpec change"]
-    prMain["Release PR develop → main<br/>Release-X.Y.Z"]
-    apply --> stop --> prDev --> archive --> prMain
+    base["Branch base: develop default<br/>ask if siblings ahead"]
+    apply["Apply on feature/&lt;feature&gt;<br/>stop before commit"]
+    commit["/git:commit when asked"]
+    prDev["PR feature → develop<br/>OpenSpec ready for validation"]
+    val["Validate on develop tip"]
+    prMain["PR develop → main<br/>Release-X.Y.Z + archive list"]
+    archive["Archive listed changes"]
+    base --> apply --> commit --> prDev --> val --> prMain --> archive
   end
 
   cards --> review
   backtrack -.-> review
-  evolve --> apply
+  evolve --> base
 ```
 
 The overview stays linear on purpose. **Index and control files** sit beside that chain: agents **read** them to decide what is pending / skippable, and **write** them in the same turn as each transition. That map is a separate diagram so the stage flow above does not grow unreadable.
@@ -66,7 +68,7 @@ flowchart LR
     S2["Developer → reviewed"]
     S3["/neo:extract-l2"]
     S4["/neo:spec-evolution"]
-    S5["Apply → PR → archive"]
+    S5["Apply → commit → PR develop<br/>→ validate → Release + archive"]
     S0 --> S1 --> S2 --> S3 --> S4 --> S5
   end
 
@@ -117,7 +119,8 @@ flowchart LR
 | `sources/L1/SPEC-EPIC-INDEX.md` | Cross-epic Review dashboard (🟢 reviewed → 🔵 extracted, …) | `/neo:extract-l2` |
 | `sources/L1/00.DUPLICATES.md` | Holding epic for near-duplicates (review / reinsert / remove) | extract and evolution when a duplicate is found |
 | `sources/L2/INDEX.md` + `<!-- L2-STATUS -->` | L2 file backlog (📥 inbox / 📭 cleared / 📌 placed / …); Spec Evolution queue | extract and evolution |
-| `openspec/CHANGE-STATUS.md` | OpenSpec change register (task counts from `npx openspec list --json`) | evolution, apply, archive (any OpenSpec write) |
+| `openspec/CHANGE-STATUS.md` | OpenSpec change register (task counts from `npx openspec list --json`); notes for develop validation | evolution, apply, PR accept, validate, archive |
+| `.dsh/templates/openspec-delivery-control.md` | Required fields that **control PR contents** (feature→develop and develop→main) | `/neocom-git` / `/git:pr` when drafting PRs |
 | `sources/COLLECTOR/TRACKER.md` | Legacy backtrack fingerprints / findings paths | `/neo:backtrack` |
 | `graphify-out/graph.json` | Knowledge graph for skip / duplicate detection | **First action** on every `/neo:*` (`graphify update .`) |
 
@@ -134,8 +137,8 @@ Do not invent another dashboard beyond these. Skip decisions come from TRACEABIL
 | `neocom-spec-collector` | `/epic` | Epic creation, deferred card collection, L0 index, L1 TRACEABILITY row at `none` |
 | `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | L1→L2 and L2→OpenSpec; Review cells + Spec traceability; indexes |
 | `neocom-backtrack` | `/neo:backtrack` | Legacy code findings under `sources/COLLECTOR/` (read-only on epics) |
-| `neocom-code` | `/neocom-code` | Product coding in front/back (destination-selected rules); OpenSpec apply in product repos |
-| `neocom-git` | `/neocom-git`, `/git:commit`, `/git:pr` | All VCS: branches, commits, PRs, version sync |
+| `neocom-code` | `/neocom-code` | Product coding: resolve **destination** (`front` / `back` / `domain`) first; shared pipeline + destination stack rules; OpenSpec apply; **never commits** |
+| `neocom-git` | `/neocom-git`, `/git:commit`, `/git:pr` | All VCS: branch-base consult, commits, PRs (validation intake + release/archive), version hooks ownership |
 | `program-verifier` | `/program-verifier` | Read-only check of SPDD `program/` (separate meta tree; not the NEOCOM product pipeline) |
 
 ### 2.2 Spec and OpenSpec skills
@@ -147,28 +150,31 @@ Do not invent another dashboard beyond these. Skip decisions come from TRACEABIL
 | `openspec-explore` | `/openspec-explore` | Discovery only; never implements |
 | `openspec-propose` | `/openspec-propose` | Planning artifacts only (alternate/direct OpenSpec entry) |
 | `openspec-update-change` | `/openspec-update-change` | Revise planning artifacts; no code |
-| `openspec-apply-change` | `/openspec-apply-change` | Implement tasks; mark checkboxes |
+| `openspec-apply-change` | `/openspec-apply-change` | Implement tasks; mark checkboxes (NEOCOM product apply still stops before commit via `neocom-code`) |
 | `openspec-sync-specs` | `/openspec-sync-specs` | Merge deltas into main specs |
-| `openspec-archive-change` | `/openspec-archive-change` | Archive completed change |
+| `openspec-archive-change` | `/openspec-archive-change` | Archive completed change (NEOCOM: after develop validation, driven by release PR archive list) |
+| `neocom-code` | `/neocom-code` | Destination-gated product apply; stop before commit |
 
 ### 2.3 Git skills and templates
 
 | Skill / template | Role |
 | --- | --- |
-| `git-commit` | `/git:commit <project>` — commit on current branch |
-| `git-pr` | `/git:pr [project]` — commit + PR into `develop` |
+| `git-commit` | `/git:commit <project>` — commit on current branch (explicit developer request) |
+| `git-pr` | `/git:pr [project]` — commit + **PR feature → develop** (validation intake); release PR is separate |
 | `neocom-git-workflow` | Playbook loaded by `/neocom-git` |
-| `templates/branch-names.md` | Feature/meta branch conventions |
+| `templates/branch-names.md` | Feature/meta branches; default from `develop`; ask before stacking |
 | `templates/commit-messages.md` | Conventional Commits examples |
 | `templates/pull-requests.md` | PR title/body examples |
+| `templates/openspec-delivery-control.md` | **Required fields** controlling OpenSpec lists on both PR kinds |
 
 ```mermaid
 flowchart LR
   collector["neocom-spec-collector"] --> workflow["neocom-spec-workflow"]
   backtrack["neocom-backtrack"] -.-> workflow
-  workflow --> apply["openspec-apply / product apply"]
-  apply --> git["neocom-git"]
-  git --> pr["PR develop / Release main"]
+  workflow --> code["neocom-code apply<br/>stop before commit"]
+  code --> git["neocom-git commit / PR"]
+  git --> val["validate on develop"]
+  val --> rel["Release PR + archive list"]
 ```
 
 ---
@@ -254,18 +260,28 @@ Each L2 file carries `<!-- L2-STATUS: … -->` aligned with the index. Spec Evol
 
 Never collect `BUG`-tagged cards from `BUGS.md` into specs.
 
-### 4.5 OpenSpec register
+### 4.5 OpenSpec register (`CHANGE-STATUS.md`)
 
 After **any** OpenSpec write: refresh `openspec/CHANGE-STATUS.md` from `npx openspec list --json`. When folding features, refresh `openspec/SPECS-ABSTRACT.md`.
+
+| Status | Meaning (NEOCOM delivery) |
+| --- | --- |
+| `registered` | Change under `openspec/changes/<name>/` with proposal, specs, design, tasks |
+| `applying` | Implementation on `feature/<feature>` (default from `develop`; may be stacked). Apply **stops before commit** |
+| `applied` | Merged (or accepted) onto **`develop`**; eligible for **validation on develop**; not archived yet. Note `validated on develop @ <sha>` when validation passes |
+| `archived` | Listed on a **release PR** archive set; moved to `changes/archive/` and merged into `openspec/specs/` |
+
+PR content control: `.dsh/templates/openspec-delivery-control.md`.
 
 ```mermaid
 stateDiagram-v2
   [*] --> none: /epic
   none --> extracted: /neo:extract-l2
   extracted --> registered: /neo:spec-evolution
-  registered --> applying: apply starts
-  applying --> applied: accepted into develop
-  applied --> archived: /openspec-archive-change
+  registered --> applying: apply starts stop before commit
+  applying --> applied: PR merged to develop
+  applied --> applied: validated on develop tip
+  applied --> archived: Release PR archive list
 ```
 
 ---
@@ -348,71 +364,112 @@ flowchart TD
 
 ---
 
-## 6. Stage detail: registered change → pull request
+## 6. Stage detail: registered change → release
 
-### 6.1 Apply on a feature branch
+Authority for this stage: `.dsh/agents/neocom-code.md`, `.dsh/agents/neocom-git.md` (OpenSpec feature flow), `.dsh/templates/openspec-delivery-control.md`.
 
-NEOCOM delivery intent (harness + programme):
+### 6.0 Pipeline (summary)
 
-1. Integration branch: **`develop`**. If missing, stop and ask — do not branch from `main`.
-2. **Product repos** (`neocom-front`, `neocom-back`): create `feature/<feature-name>` from `develop`. Several features may be open.
-3. **`neocom-meta`:** commit docs/agents/OpenSpec on **`feature/agents`** (default) or **`feature/cicd`** when commanded — not a short-lived `feature/<product-feature>` per apply.
-4. Implement OpenSpec tasks (`openspec-apply-change` / product apply). Mark tasks complete. **Do not commit yet** — leave the working tree for the developer to review the code (and to decide whether to continue applying or edit further).
-5. **Stop.** Commit only when the developer explicitly asks (`/git:commit`, `/git:pr`, or clear “commit” language via `/neocom-git`). Do not open the PR until after that review/testing gate.
+```text
+choose base → apply (stop before commit) → /git:commit when asked
+  → PR feature → develop (validation intake)
+  → merge → validate on develop tip
+  → PR develop → main (Release-X.Y.Z + archive list)
+  → archive only listed validated changes
+```
+
+### 6.1 Destination and branch base
+
+**`/neocom-code`** resolves one primary destination per hop (`front` → `neocom-front`, `back` → `neocom-back`, `domain` → `neocom-domain`). Multi-system changes hop one destination at a time (default **domain → back → front** when types must exist first).
+
+**`/neocom-git`** owns branch creation for product OpenSpec work:
+
+1. Integration branch: **`develop`**. If missing, stop — do not use `main`.
+2. Default create `feature/<feature-name>` from **`develop`**.
+3. Before creating: list open `feature/*` tips **ahead of `develop`**. If any exist → **ask** the developer: stay on `develop`, or **stack** from a named sibling tip. Do not invent a base; do not silently fan every apply off `develop`.
+4. **`neocom-meta`:** use **`feature/agents`** (default) or **`feature/cicd`** when commanded — not `feature/<product-feature>` per apply.
+5. Do not open a PR at branch creation. Do not run an agent `version:sync` chore (hooks/CI own app versions).
+
+### 6.2 Apply — stop before commit
+
+1. Implement OpenSpec tasks for the active destination (`/neocom-code` / `openspec-apply-change`). Mark `- [x]`; refresh CHANGE-STATUS → **`applying`**.
+2. **Stop before any commit.** Leave the working tree dirty for developer review. Applying OpenSpec is **not** a commit request.
+3. Do not start the next destination or next change until the developer says to continue (or asks for a commit).
+4. Commit only via `/git:commit`, `/git:pr`, or clear “commit” language through `/neocom-git`.
 
 ```mermaid
 flowchart TD
-  develop[develop] --> featA["feature/login"]
-  develop --> featB["feature/callback"]
-  featA --> need{"Needs other feature's code?"}
-  featB --> need
-  need -->|yes| rebase["Rebase onto sibling feature tip"]
-  need -->|no| wait["Stay from develop"]
-  rebase --> review["User review + test"]
-  wait --> review
-  review --> stack["Optional: stack reviewed features"]
-  stack --> pr["gh pr create --base develop"]
+  develop[develop] --> check{"Other feature tips ahead of develop?"}
+  check -->|no| fromDev["feature/new from develop"]
+  check -->|yes| ask["Ask developer: develop or stack sibling?"]
+  ask --> fromDev
+  ask --> fromSib["feature/new from sibling tip"]
+  fromDev --> apply["OpenSpec apply — stop before commit"]
+  fromSib --> apply
+  apply --> commit["/git:commit when asked"]
+  commit --> pr["PR feature → develop<br/>validation intake"]
 ```
 
-### 6.2 Rebase rules
+### 6.3 Rebase rules
 
-- Rebase onto another open feature **only** when this feature needs that code; otherwise rebase onto current `develop` before PR.
+- Rebase onto another open feature **only** when this feature needs that code (or that stack was chosen at branch creation); otherwise rebase onto current `develop` before the develop PR.
 - Dependent feature waits until the dependency has been rebased onto `develop`.
 - Ask before force-pushing a rewritten remote feature branch. Never force-push `develop` or `main`.
 
-### 6.3 Pull request into `develop` (`/git:pr`)
+### 6.4 Pull request into `develop` — validation intake (`/git:pr`)
 
-After the user accepts review:
+After apply stopped and the developer asked to commit:
 
-1. Orient: status, diffs, log, base…HEAD.
-2. Ensure work is on the correct feature/fix branch (not `develop`/`main`).
-3. **Version:** do not run an agent `version:sync` chore. front/back hooks/CI (GitVersion); domain after `distribute`; meta none.
-4. Push `-u` if needed; `gh pr create --base develop`. Title: Conventional Commit or branch purpose. Body from templates.
-5. One PR may carry several stacked features; name every feature. Do **not** merge unless asked.
-6. Next apply = **new** `feature/<feature>` from `develop`, not more commits on the PR’d branch.
+1. Orient: status, diffs, log, `develop..HEAD`.
+2. Work must be on the correct feature/fix branch (not `develop`/`main`).
+3. Push `-u` if needed; `gh pr create --base develop`.
+4. Body **must** satisfy `.dsh/templates/openspec-delivery-control.md` §A (and the Features shape in `pull-requests.md`): repositories, head/base, **OpenSpec change ids** + task N/N, feature labels, commit range, stack note, **out of scope**, **validation readiness**, test plan.
+5. One PR may stack several features; every included OpenSpec change is named. Silent bundling of unlisted changes is forbidden.
+6. Do **not** merge unless asked. Do **not** archive on this PR.
+7. On accept into `develop`: CHANGE-STATUS → **`applied`** (awaiting develop validation); sync Spec traceability / TRACEABILITY. Next apply runs the branch-base consult again.
 
-### 6.4 Archive and release PR
+### 6.5 Validation on `develop`
 
-1. Archive OpenSpec change (`/openspec-archive-change` / sync as needed); update CHANGE-STATUS and TRACEABILITY → `archived`.
-2. Open PR **`develop` → `main`**, title `Release-<MajorMinorPatch>` (compute via temporary worktree merge of develop into main + `gitversion`; do not push that calculation).
-3. Do not merge unless asked. Tag `vX.Y.Z` only when the user requests a release tag.
+1. Run against the **post-merge `develop` tip** (SHA recorded), not only the old feature branch.
+2. Commands: those named by the included changes (unit/e2e); `npx openspec list --json`; gap check vs delta specs.
+3. CHANGE-STATUS notes: `validated on develop @ <sha>` or `validation failed: …`.
+4. Only **complete + validated** changes may appear on a release archive list.
+
+### 6.6 Release PR `develop` → `main` — archive trigger
+
+1. When develop validation is accepted, open PR **`develop` → `main`**, title `Release-<MajorMinorPatch>` (temp worktree: merge develop into main, `gitversion /nocache /showvariable MajorMinorPatch`; do not push that calculation; restore local `main`).
+2. Body **must** satisfy delivery-control §C: develop SHA, **OpenSpec archive** list, **OpenSpec deferred** list, test plan.
+3. Archive **only** the listed changes (`/openspec-archive-change`); update CHANGE-STATUS → **Archived**, main `openspec/specs/`, TRACEABILITY.
+4. Do not merge the release PR unless asked. Tag `vX.Y.Z` only when the user requests a release tag.
+
+### 6.7 Information that controls PR contents (required)
+
+Full tables: `.dsh/templates/openspec-delivery-control.md`. Incomplete control data → stop and ask before opening the PR.
+
+| Gate | Must declare |
+| --- | --- |
+| **feature → develop** | Repos; head/base; OpenSpec ids + N/N; features; `develop..HEAD`; stack; out of scope; validation readiness; test plan; status move `applying` → `applied` on merge |
+| **validate on develop** | Develop tip SHA; change set; validation commands; pass/fail notes; archive eligibility |
+| **develop → main** | `Release-X.Y.Z`; develop SHA; archive list; deferred list; main-spec paths / TRACEABILITY impact |
 
 ```mermaid
 sequenceDiagram
   participant Dev as Developer
   participant Spec as Spec agents
-  participant Code as Apply / product
+  participant Code as neocom-code
   participant Git as neocom-git
 
-  Dev->>Spec: /epic … Search criteria … Review=reviewed
+  Dev->>Spec: /epic … Review=reviewed
   Spec->>Spec: extract-l2 → spec-evolution
   Dev->>Code: apply registered change
-  Code->>Git: commits on feature/…
-  Code-->>Dev: stop for review
-  Dev->>Git: /git:pr after accept
-  Git->>Git: PR → develop (version via hooks/CI)
-  Dev->>Spec: archive change
-  Git->>Git: PR develop → main Release-X.Y.Z
+  Code-->>Dev: stop before commit
+  Dev->>Git: /git:commit then PR feature → develop
+  Note over Git: OpenSpec list = ready for validation
+  Dev->>Git: merge to develop when asked
+  Dev->>Spec: validate on develop tip
+  Dev->>Git: PR develop → main Release-X.Y.Z
+  Note over Spec,Git: archive list on release PR
+  Spec->>Spec: archive validated changes
 ```
 
 ---
@@ -427,10 +484,14 @@ These are non-negotiable in the current harness; changing them is a methodology 
 4. **Graphify before `/neo:*`.** First action on extract, evolution, and backtrack; stop if update fails.
 5. **Skip indexes are complete.** TRACEABILITY + L2 tree + L2/INDEX (+ CHANGE-STATUS for OpenSpec) — do not invent parallel dashboards.
 6. **Repo boundaries.** Spec workflow writes only under `neocom-meta`. Product code only in owning clones. `neocom` / `neocom-esi` aside.
-7. **Git ownership.** Only `neocom-git` (and `/git:*`) commits, branches, and opens PRs. Commit only when asked or when those commands run.
-8. **Deferred search.** Cards and legacy backtrack wait on filled `## Search criteria`.
-9. **No Finder duplicate files.** Never create `* 2.*` conflict copies.
-10. **OpenSpec naming.** Change = `<system>-<feature>` (hyphens only); delta under `specs/<system>/<feature>/spec.md`.
+7. **Git ownership.** Only `neocom-git` (and `/git:*`) commits, branches, and opens PRs. **OpenSpec apply never commits.** Commit only when asked or when `/git:commit` / `/git:pr` run.
+8. **Branch-base consult.** Product OpenSpec branches default from `develop`; if other `feature/*` tips are ahead, ask before stacking — no silent fanning from `develop`.
+9. **PR content control.** Feature→develop and develop→main bodies must carry the OpenSpec control fields in `openspec-delivery-control.md`. No silent bundling; no archive of unlisted changes.
+10. **Validate then archive.** Validation runs on the **`develop` tip** after merge. Archive runs from the **release PR archive list**, not from the feature branch.
+11. **Deferred search.** Cards and legacy backtrack wait on filled `## Search criteria`.
+12. **No Finder duplicate files.** Never create `* 2.*` conflict copies.
+13. **OpenSpec naming.** Change = `<system>-<feature>` (hyphens only); delta under `specs/<system>/<feature>/spec.md`.
+14. **Destination boundaries.** `/neocom-code` edits only the active destination repo; front≠back≠domain file ownership.
 
 ---
 
@@ -442,15 +503,16 @@ Design and spec repeat without resetting delivery:
 2. Set relevant Review cells to `reviewed`.
 3. `/neo:extract-l2` writes new `pending` L2 notes (or moves duplicates to `00.DUPLICATES`).
 4. `/neo:spec-evolution` registers pending notes (or appends `00.DUPLICATES`).
-5. Apply / review / PR / archive as above for newly registered features.
+5. Apply (stop before commit) → commit when asked → PR → develop → validate → Release + archive as above.
 
 ```mermaid
 flowchart LR
   L1u["Update L1 at to review"] --> R[reviewed]
   R --> E[extract-l2]
   E --> S[spec-evolution]
-  S --> A[apply + PR]
-  A --> L1u
+  S --> A["apply stop before commit"]
+  A --> P["PR develop → validate → Release"]
+  P --> L1u
 ```
 
 ---
@@ -464,11 +526,11 @@ flowchart LR
 | 3 | (human) author L1 sections; new rows at `to review`; set batch → `reviewed` | L1 register / requirements |
 | 4 | `/neo:extract-l2` [`NN`…] | L2 `pending` notes or `00.DUPLICATES`; status ≥ `extracted` |
 | 5 | `/neo:spec-evolution` [`L2 paths`…] | OpenSpec change; status ≥ `registered` |
-| 6 | Apply change on `feature/<feature>` from `develop` | Code + commits |
-| 7 | User review / test | — |
-| 8 | `/git:pr <project>` | PR into `develop` |
-| 9 | Archive change | CHANGE-STATUS archived |
-| 10 | Release PR | `develop` → `main` as `Release-X.Y.Z` |
+| 6 | Apply change on `feature/<feature>` (default from `develop`; ask before stacking) | Code — stop before commit |
+| 7 | `/git:commit` then developer review | Commits on feature branch |
+| 8 | `/git:pr <project>` | PR **feature → develop** (OpenSpec ready for validation) |
+| 9 | Validate on **develop** tip | CHANGE-STATUS notes; still `applied` |
+| 10 | Release PR + archive list | `develop` → `main` as `Release-X.Y.Z`; archive validated changes |
 
 Alternate OpenSpec-only planning: `/openspec-explore` → `/openspec-propose` → apply — still lands on the same git delivery rules when implemented for NEOCOM.
 
@@ -480,4 +542,4 @@ Alternate OpenSpec-only planning: `/openspec-explore` → `/openspec-propose` �
 - **Adjust agent behaviour:** edit the owning file under `.dsh/agents/` or `.dsh/skills/`, then update **this** file in the same change so the baseline stays true.
 - **Do not** treat `PROGRAMME.md` path leftovers or an epic’s internal procedure prose as overriding `.dsh/` skills.
 
-*Extracted from `.dsh/AGENT-CATALOG.md`, agents (`neocom-spec-collector`, `neocom-spec-workflow`, `neocom-backtrack`, `neocom-git`), skills (`extract-l2`, `spec-registration`, OpenSpec apply/archive/propose, git-*), and templates. Baseline for methodology evolution.*
+*Baseline extracted from `.dsh/AGENT-CATALOG.md`; agents `neocom-spec-collector`, `neocom-spec-workflow`, `neocom-backtrack`, `neocom-code`, `neocom-git`; skills `extract-l2`, `spec-registration`, `neocom-code`, OpenSpec apply/archive/propose, `git-commit`, `git-pr`, `neocom-git-workflow`; templates `branch-names`, `commit-messages`, `pull-requests`, `openspec-delivery-control`. Re-sync this file whenever those specs change.*

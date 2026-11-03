@@ -55,9 +55,10 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 
 | File | Used for |
 | --- | --- |
-| `templates/branch-names.md` | Feature/fix/release branch conventions and recorded user examples |
+| `templates/branch-names.md` | Feature/fix/release branch conventions; default from `develop`; ask before stacking |
 | `templates/commit-messages.md` | Conventional Commit subjects and bodies |
-| `templates/pull-requests.md` | Pull request titles and bodies |
+| `templates/pull-requests.md` | Pull request titles and bodies (feature→develop validation; develop→main release) |
+| `templates/openspec-delivery-control.md` | Required fields controlling OpenSpec lists on PRs and archive timing |
 
 ## Layout
 

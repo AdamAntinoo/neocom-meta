@@ -6,6 +6,7 @@ The user supplies examples of commit messages, branch names, and pull request te
 | --- | --- |
 | `branch-names.md` | Feature branches |
 | `commit-messages.md` | Commit subjects and bodies |
+| `openspec-delivery-control.md` | Required fields for feature→develop (validation) and develop→main (archive) PRs |
 | `pull-requests.md` | Pull request title and body |
 
 Until a file says an example has been recorded, use the fallback written in that file.
