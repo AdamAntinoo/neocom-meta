@@ -64,19 +64,21 @@ Related epics: [EPIC-010](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md), [EPIC-0
 		- [Expected](#expected-8)
 		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-8)
 		- [Notes](#notes-8)
+	- [DEF-IB-010 — Blueprint list panel uses deprecated `SOLAR_SYSTEM_LOOKUP` variant](#def-ib-010--blueprint-list-panel-uses-deprecated-solar_system_lookup-variant)
+		- [Observed](#observed-9)
+		- [Expected](#expected-9)
+		- [Likely sources to amend](#likely-sources-to-amend-9)
+		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-9)
+		- [Notes](#notes-9)
 
 ## How defects resolve (intended programme flow)
 
-Until the programme names a dedicated defect command, treat each accepted defect as follows:
+Use `/defect` (`neocom-defect`) to append new entries on this page (`FEATURE-<branch-stem>_DEFECTS.md`). Treat each accepted defect as follows:
 
-1. **Record here** — status `open`; fill Observed / Expected / Prep below.
-2. **Author or amend L1** — add or refine a requirement row on the owning epic (or a short defect note section). Mark the broken / incomplete prior row meaningfully (e.g. Review `superseded`, or a note that the original behaviour was incomplete). Prefer **not** inventing behaviour beyond what the defect states.
-3. **OpenSpec** — either:
-   - amend the **active** change (`front-industry-blueprints` / `front-dashboard-shell`) if still applying and the fix belongs there, or
-   - register a **fix** change (e.g. `front-<feature>-fix-<id>`) via the normal propose / tasks path when the apply window is closed.
-4. **L2** — `/neo:extract-l2` / `/neo:spec-evolution` only when the L1 row is extractable (`reviewed`). Defects MAY stay as epic-authored + OpenSpec delta without a full L0→L2 cycle when the user chooses a fast fix path; record that choice in the defect section.
-5. **Apply + verify** — product fix on the feature branch; mark defect `fixed` here; sync TRACEABILITY / CHANGE-STATUS when OpenSpec tasks move.
-6. **Close** — status `closed` when verified on the branch / develop.
+1. **Record here** — `/defect`; status `open`; fill Observed / Expected / Prep below.
+2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic with Review `[ ] to review`. Prefer **not** inventing behaviour beyond what the defect states.
+3. **Mark to run the process** (developer, manual) — checking that mark sets Review to `[x] reviewed` and then applies the flow through OpenSpec (`/neo:extract-l2` → `/neo:spec-evolution`; apply via `/neocom-code`). Defect management does **not** keep a separate “run L1 → OpenSpec” checklist step.
+4. **Developer validates** the fix is resolved — mark defect `fixed` / `closed`.
 
 Statuses for this register: `open` · `prep` · `in openspec` · `applying` · `fixed` · `closed` · `wontfix`.
 
@@ -95,6 +97,7 @@ Statuses for this register: `open` · `prep` · `in openspec` · `applying` · `
 | DEF-IB-007 | Pilot panel ≠ model-strip; private data missing when authenticated | `open` | EPIC-004 · PublicPilotV1 / PilotV2 · EPIC-006 UI-DASH pilot row | TBD — `front-pilot` / `front-dashboard-shell` + back pilot DTO | 2026-11-03 |
 | DEF-IB-008 | Breadcrumb: small Elemental in full-width white panel, flush to neighbours | `open` | EPIC-006 · UI-DASH breadcrumb Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 |
 | DEF-IB-009 | Feature list flex layout + icon border + Elemental white name | `open` | EPIC-006 · UI-DASH feature list / feature button Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 |
+| DEF-IB-010 | Blueprint list panel uses deprecated `SOLAR_SYSTEM_LOOKUP`; need `-BLUEPRINT-LIST-` | `open` | EPIC-010 · blueprint-by-location panel variant | TBD — `front-industry-blueprints` + `NeoComVariant` | 2026-11-04 |
 
 ---
 
@@ -130,12 +133,9 @@ Scope note (prep): activation is the **name** control only (not version, not cop
 
 ### Prep for resolution (checklist)
 
-- [x] Confirm route is `/character-selection` and requires auth (existing `authGuard`)
-- [x] Author L1 requirement id (suggested: `UI-AIP-006` or `UI-CHAR-00x`) with Review `to review` → user sets `reviewed` when ready
-- [x] Decide OpenSpec path: amend applying `front-dashboard-shell` vs new fix change after PR. This is a new fix and will be applied on this same run before the PR
-- [x] Mark any prior UI-AIP row incomplete/superseded only if it explicitly forbade interaction (today UI-AIP-001…005 are Appearance-only — likely **add**, not supersede)
-- [x] Implement click/keyboard-accessible name control; Cypress `cy-field-value="app-name"` remains stable
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -182,12 +182,9 @@ The header host SHALL be named consistently as `**app-page-header**` across sele
 
 ### Prep for resolution (checklist)
 
-- [x] Confirm rename scope: folder + class + SCSS only, or also L2 filename + OpenSpec capability folder
-- [x] Author L1 requirement for host naming consistency (`to review` → `reviewed` when ready)
-- [x] Decide OpenSpec path: amend applying `front-dashboard-shell` vs follow-up fix change
-- [x] Mechanical rename in `neocom-front`; grep for `PageHeaderComponent`, `page-header.component`, `class="…page-header"`
-- [x] Update TRACEABILITY / L2 INDEX if L2 path changes
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -246,12 +243,9 @@ Out of scope until stated: inventing rules for `-render` / other suffixes; neste
 
 ### Prep for resolution (checklist)
 
-- [ ] Author L1 rule: strip final suffix ∈ {`panel`,`header`,`page`} from selector → `cy-section-name`
-- [ ] Inventory all current `cy-section-name` vs selectors; list exceptions (if any) explicitly
-- [ ] Supersede / amend UI-HDR-005 and any OpenSpec scenarios that require `cy-section-name="header"`
-- [ ] Decide OpenSpec owner: BDD catalog change vs shell/industry amend
-- [ ] Apply renames + update tests (`dashboard-home-page.component.spec.ts`, `page-header.component.spec.ts`, `app.spec.ts`, …)
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -309,12 +303,9 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [x] Author L1 row: pages **must not** use `vn-` prefix; panels/renders keep `vn-` (UI-VER-001…003)
-- [x] Inventory `*-page` selectors; map outlier `v1-blueprint-by-location-page` → `blueprint-by-location-page`
-- [x] Coordinate with DEF-IB-003 (section names after unversioned rename) and DEF-IB-002 (header stays unversioned)
-- [ ] Amend EPIC-010 / OpenSpec `front-industry-blueprints` page short name when implementing rename
-- [ ] Rename in `neocom-front`; update imports/tests; keep route URL paths stable
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -376,11 +367,9 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [x] Author L1 row(s) for header first-line geometry + responsive stack (`to review` → `reviewed` when ready)
-- [x] Decide OpenSpec path: amend applying `front-dashboard-shell` vs follow-up fix change
-- [x] Implement flex: server content-sized right, app `flex: 1 1 auto` (or grow) for remainder; enable wrap/stack when narrow
-- [x] Verify on dashboard and at least one other `-APP-` page; verify `-AUTH-` still full-width app-only
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -447,11 +436,9 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [x] Author L1 row for default panel gap on header + pilot/corporation separations (`to review` → `reviewed` when ready)
-- [x] Confirm token: `$panel-margin` / `$panel-padding` (both `2px`) vs a single published CSS variable
-- [x] Decide OpenSpec path: amend applying `front-dashboard-shell` vs follow-up fix change
-- [x] Remove dashboard-local `0.75rem` padding/gap; align app↔server, border inset, pilot↔corporation, header→pilot to the token
-- [ ] Verify visually on dashboard; update this defect → `fixed` / `closed` after verify
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -517,12 +504,9 @@ Prep clarifications for L1 / OpenSpec (do not invent beyond this defect until au
 
 ### Prep for resolution (checklist)
 
-- [ ] Side-by-side: model-strip `v1-public-pilot` vs dashboard public lines; list concrete visual diffs
-- [ ] Capture authenticated `GET /v1/pilots/:id` response (`jsonClass`, private fields present or not)
-- [ ] Author / amend L1 rows if Appearance or authenticated data contract is incomplete (`to review` → `reviewed`)
-- [ ] Decide OpenSpec owners: front-only vs front + back change
-- [ ] Fix render/host parity with strip; ensure backend supplies PilotV2 private data for authenticated panel
-- [ ] Verify dashboard shows `v2-pilot` private lines when logged in; update this defect → `fixed` / `closed`
+- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -577,12 +561,9 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [ ] Author L1 Appearance for breadcrumb (Elemental small + white panel + full width + flush neighbours) — `to review` → `reviewed`
-- [ ] Confirm exact size token if programme already has one; otherwise author the size in L1
-- [ ] Align with DEF-IB-006 default panel gap (no *extra* breadcrumb gutter)
-- [ ] Decide OpenSpec path: amend applying `front-dashboard-shell` vs follow-up fix
-- [ ] Update `app-breadcrumb` markup/styles + page stack; verify on Dashboard and a nested feature page
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
@@ -621,12 +602,59 @@ Feature list **layout Appearance** is not specified beyond “listing panel + fe
 
 ### Prep for resolution (checklist)
 
-- [ ] Author L1 Appearance rows for feature list flex + feature button chrome/type — `to review` → `reviewed`
-- [ ] Confirm flex algorithm (`space-evenly` vs padding + `space-between`) matches “equal from them and the borders”
-- [ ] Decide OpenSpec path: amend applying `front-dashboard-shell` vs follow-up fix
-- [ ] Implement list flex + icon white border + Elemental white name; verify with 1, 2, and 3+ features
-- [ ] Update this defect → `fixed` / `closed` after verify
+- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
 
 ### Notes
 
 Not in this L1 batch (prep Author L1 still unchecked). Distinct from DEF-IB-008 (breadcrumb).
+
+---
+
+## DEF-IB-010 — Blueprint list panel uses deprecated `SOLAR_SYSTEM_LOOKUP` variant
+
+| Field | Value |
+| --- | --- |
+| Status | `open` |
+| Severity | Incorrect / deprecated variant on the blueprint list panel |
+| Surfaces | `blueprint-by-location-panel` (`setVariant` in `ngOnInit`); `NeoComVariant` enum |
+| Found on | Blueprint Availability / blueprint-by-location list page |
+| Branch tip | `neocom-front` `feature/industry-blueprints` |
+| L1 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md) — TBD requirement id for panel variant `-BLUEPRINT-LIST-` |
+
+### Observed
+
+`blueprint-by-location-panel` sets its panel variant to `NeoComVariant.SOLAR_SYSTEM_LOOKUP` (`-SOLAR-SYSTEM-LOOKUP-`) in `ngOnInit`:
+
+```40:41:neocom-front/src/app/modules/industry/manufacture/panels/blueprint-by-location-panel/blueprint-by-location-panel.component.ts
+    this.setVariant(NeoComVariant.SOLAR_SYSTEM_LOOKUP);
+    this.startDownloading();
+```
+
+That variant is **deprecated** for the blueprint list page. `NeoComVariant` currently has no `-BLUEPRINT-LIST-` constant.
+
+### Expected
+
+For the **blueprint list** page / `blueprint-by-location-panel`, the panel variant SHALL be **`-BLUEPRINT-LIST-`** (register a matching `NeoComVariant` constant and use it in `setVariant`). Do **not** use `SOLAR_SYSTEM_LOOKUP` / `-SOLAR-SYSTEM-LOOKUP-` for this panel.
+
+### Likely sources to amend
+
+| Layer | Path / id | Notes |
+| --- | --- | --- |
+| L1 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md) | Register panel variant `-BLUEPRINT-LIST-` for the blueprint list / by-location host |
+| L2 | industry / FRONT blueprint panel notes (after extract) | Only if L1 is extracted |
+| OpenSpec | `front-industry-blueprints` | Delta: panel variant `-BLUEPRINT-LIST-` |
+| Code | `NeoComVariant.ts`; `blueprint-by-location-panel.component.ts` | Add enum member; replace `setVariant(NeoComVariant.SOLAR_SYSTEM_LOOKUP)` |
+
+### Prep for resolution (checklist)
+
+- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+
+### Notes
+
+`-SOLAR-SYSTEM-LOOKUP-` remains appropriate for region/system lookup cards/renders; this defect is scoped to the **blueprint list panel** host variant only.
+
+Broader panel processing (models / helper classes) does **not** fit the expected design: that implementation returns to the design table under new epic [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](../sources/L1/11.EPIC-BLUEPRINT-LIST-PROCESSING.md) (EPIC-011), which may deprecate some current applied industry specs.

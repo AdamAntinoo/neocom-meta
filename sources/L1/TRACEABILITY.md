@@ -6,7 +6,7 @@ Delivery SHAs / PR numbers are copied from [`openspec/DELIVERY-INDEX.md`](../../
 
 Companions: `sources/L2/INDEX.md` (L2 backlog), `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). `SPEC-EPIC-INDEX.md` is **deprecated** (do not update).
 
-Last refreshed: 2026-11-03 (format adopted from former POC; develop validation snapshot).
+Last refreshed: 2026-11-04 (EPIC-011 `/neo:spec-evolution`).
 
 ## Table of contents
 
@@ -22,6 +22,7 @@ Last refreshed: 2026-11-03 (format adopted from former POC; develop validation s
 | [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | EPIC-008 | ✅ `applied` |
 | [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | EPIC-009 | ✅ `applied` |
 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 🚧 `applying` |
+| [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | EPIC-011 | 📝 `registered` |
 
 Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
 
@@ -374,6 +375,29 @@ Epic id: EPIC-010 · Highest: 🚧 `applying` · Last updated: 2026-11-03 · L1:
 | [`FRONT/15.FEATURE-BUTTON.md`](../L2/FRONT/15.FEATURE-BUTTON.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
 | [`FRONT/16.BLUEPRINT-BY-LOCATION.md`](../L2/FRONT/16.BLUEPRINT-BY-LOCATION.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
 | [`FRONT/17.SHARED-UI.md`](../L2/FRONT/17.SHARED-UI.md) | 🚧 `applying` | [`front-industry-blueprints`](../../openspec/changes/front-industry-blueprints/) (17/17) | `neocom-front@c382959` (`feature/industry-blueprints`) | 2026-11-03 |
+
+---
+
+## `11.EPIC-BLUEPRINT-LIST-PROCESSING.md`
+
+Epic id: EPIC-011 · Highest: 📝 `registered` · Last updated: 2026-11-04 · L1: [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-01--pilot-blueprint-feed-into-blueprint-by-location-panel) | BLP-001…003, 009…013, 024…025 | 📝 `registered` → [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) · [FRONT/21](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) |
+| [02](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-02--aggregate-into-systems-and-regions-sort-and-node-render) | BLP-004…008 | 📝 `registered` → [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) · [FRONT/21](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) |
+| [03](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-03--blueprint-location-catalog--spacelocationv1dto--spacelocationnodev1) | BLP-014…015, 018…020 (back); BLP-016…017 (front) | 📝 `registered` → front + [`back-blueprint-list-processing`](../../openspec/changes/back-blueprint-list-processing/) |
+| [04](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-021…023 | 📝 `registered` → [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) · [FRONT/21](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) |
+
+### L2 delivery
+
+| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
+| --- | --- | --- | --- | --- |
+| [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](../L2/11.EPIC-BLUEPRINT-LIST-PROCESSING.md) | 📭 `cleared` | `front-blueprint-list-processing`, `back-blueprint-list-processing` | — | 2026-11-04 |
+| [`FRONT/21.BLUEPRINT-LIST-PROCESSING.md`](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) | 📝 `registered` | [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) | — | 2026-11-04 |
+| [`BACK/BACK-BLUEPRINT-LIST-PROCESSING.md`](../L2/BACK/BACK-BLUEPRINT-LIST-PROCESSING.md) | 📝 `registered` | [`back-blueprint-list-processing`](../../openspec/changes/back-blueprint-list-processing/) | — | 2026-11-04 |
 
 ---
 

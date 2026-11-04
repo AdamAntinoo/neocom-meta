@@ -4,7 +4,7 @@ One-page view of active OpenSpec changes for planning a **single feature** that 
 
 Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. This abstract is narrative; re-read each `proposal.md` before merging changes.
 
-**Last refreshed:** 2026-11-03 (`front-dashboard-shell` DEF-IB amend → 17/22 applying; fold A+B with `front-industry-blueprints` retained).
+**Last refreshed:** 2026-11-04 (EPIC-011 registered `front-blueprint-list-processing` + `back-blueprint-list-processing`).
 
 **How to integrate:** pick a feature name, create or extend one change folder (multi-capability under `specs/<system>/<feature>/`), move or cite the L2 ids, supersede the old change names in the proposal, then archive or drop the superseded folders when apply is complete.
 
@@ -21,8 +21,10 @@ Refresh companion counts in `CHANGE-STATUS.md` with `npx openspec list --json`. 
 | `nestjs-sso-config`       | 0/2   | registered                          | Auth / SSO                      |
 | `front-infrastructure`    | 8/8   | applied (`@ e3356db`)               | Front shell & toolchain         |
 | `front-app-shell`         | 0/3   | registered                          | Front shell & toolchain         |
-| `front-dashboard-shell`   | 17/22 | applying (DEF-IB amend open)       | Pilot / UI shell (EPIC-006 fold) |
-| `front-industry-blueprints` | 0/17 | registered                          | Industry blueprints (EPIC-010 fold) |
+| `front-dashboard-shell`   | 22/22 | applying (DEF-IB amend coded)      | Pilot / UI shell (EPIC-006 fold) |
+| `front-industry-blueprints` | 17/17 | applying                          | Industry blueprints (EPIC-010 fold) |
+| `front-blueprint-list-processing` | 0/12 | registered                    | Blueprint list redesign (EPIC-011) |
+| `back-blueprint-list-processing` | 0/5 | registered                     | Blueprint list DTOs (EPIC-011) |
 | `front-pilot`             | 5/5   | applied (`@ e3356db`)               | Pilot experience                |
 | `front-pilot-panel`       | 4/4   | applied (`@ e3356db`)               | Pilot experience                |
 | `front-universe`          | 0/4   | registered                          | Pilot experience                |

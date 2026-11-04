@@ -34,8 +34,8 @@
 
 ## Defect amend (DEF-IB-001 / 002 / 004 / 005 / 006)
 
-- [ ] Keep page hosts unversioned (`*-page` without `vn-`); migrate outliers (e.g. `v1-blueprint-by-location-page` → `blueprint-by-location-page`); keep route URL paths stable (UI-VER-004)
-- [ ] Rename header host artefacts consistently to `app-page-header` (selector, folder/file, class, CSS) (UI-HDR-010)
-- [ ] Header first line: full width; server-info content-sized right; app-info remaining; stack when narrow; `-AUTH-` app-info spans band (UI-HDR-011)
-- [ ] App name (`cy-field-value="app-name"`) navigates to `/character-selection` (UI-AIP-006)
-- [ ] Apply default panel gap (`$panel-margin` / `$panel-padding`) for secured chrome separations and Dashboard pilot-row spacing (UI-GEO-001, UI-DASH-015)
+- [x] Keep page hosts unversioned (`*-page` without `vn-`); migrate outliers (e.g. `v1-blueprint-by-location-page` → `blueprint-by-location-page`); keep route URL paths stable (UI-VER-004)
+- [x] Rename header host artefacts consistently to `app-page-header` (selector, folder/file, class, CSS) (UI-HDR-010)
+- [x] Header first line: full width; server-info content-sized right; app-info remaining; stack when narrow; `-AUTH-` app-info spans band (UI-HDR-011)
+- [x] App name (`cy-field-value="app-name"`) navigates to `/character-selection` (UI-AIP-006)
+- [x] Apply default panel gap (`$panel-margin` / `$panel-padding`) for secured chrome separations and Dashboard pilot-row spacing (UI-GEO-001, UI-DASH-015)
