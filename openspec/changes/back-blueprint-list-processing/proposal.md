@@ -10,6 +10,9 @@ EPIC-011 requires back interchange as **`neocom-back` `*Dto` classes** (not `neo
 - Look up `location_id` in the location catalog → **`SpaceLocationV1Dto`**
 - **`BlueprintV1Dto` contains** that `SpaceLocationV1Dto` instance
 - Interchange types use the **`Dto` suffix** and live on **`neocom-back`**, not `neocom-domain`
+- Place `*Dto` classes under **`infrastructure/adapters/dto`** (adapters top level)
+- Map via a **single static converter class** in that same `dto` package (multiple static methods; not instantiated)
+- `*Dto` classes **extend** back-owned **`Record`** (moved from `neocom-domain` for DTO interchange)
 
 ## Capabilities
 

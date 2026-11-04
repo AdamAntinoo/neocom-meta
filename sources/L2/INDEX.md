@@ -22,7 +22,7 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 
 `UNREGISTERED REQUIREMENTS` / L2 `DUPLICATED` headings are deprecated. L1 Review (`to review` → `reviewed`) gates extract; duplicates hold in `sources/L1/00.DUPLICATES.md`.
 
-**Queue:** 📥 `0` inbox · 📭 `20` cleared · 🔗 `1` pointer · 📌 `47` placed
+**Queue:** 📥 `2` inbox · 📭 `19` cleared · 🔗 `1` pointer · 📌 `47` placed
 
 ## Files
 
@@ -64,7 +64,8 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 | `03.EPIC-TESTING.mock-fixtures.md` | extract | 📭 `cleared` | 0 | `front-mock-fixtures` | EPIC-003 | — |
 | `04.EPIC-MODELS.md` | extract | 📭 `cleared` | 0 | `domain-jsonclass` (+ prior domain-*) | EPIC-004 | — |
 | `DOMAIN/08.JSONCLASS.md` | placed | 📌 `placed` | 0 | `domain-jsonclass` | EPIC-004 | See `openspec/CHANGE-STATUS.md` |
-| `08.EPIC-LOCATIONS.md` | extract | 📭 `cleared` | 0 | `domain-locations`, `back-spacelocations` | EPIC-008 | — |
+| `08.EPIC-LOCATIONS.md` | extract | 📥 `inbox` | LOC-110 | prior `domain-locations`, `back-spacelocations` | EPIC-008 | `/neo:spec-evolution sources/L2/08.EPIC-LOCATIONS.md` |
+| `08.EPIC-LOCATIONS.space-location-service.md` | extract | 📥 `inbox` | LOC-130…142 | — | EPIC-008 | `/neo:spec-evolution sources/L2/08.EPIC-LOCATIONS.space-location-service.md` |
 | `FRONT/01.PILOT-DEFINITION.md` | pointer | 🔗 `pointer` | 0 | `front-pilot` | EPIC-004 | — |
 | `BACK/BACK-ASYNC-SSE.md` | placed | 📌 `placed` | 0 | `back-async-sse` | — | See `openspec/CHANGE-STATUS.md` |
 | `BACK/BACK-HEXAGONAL.md` | placed | 📌 `placed` | 0 | `back-hexagonal` (archived) | — | See `openspec/CHANGE-STATUS.md` |

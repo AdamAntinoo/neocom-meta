@@ -19,10 +19,10 @@ Last refreshed: 2026-11-04 (EPIC-011 `/neo:spec-evolution`).
 | [`05.EPIC-ESI-UNIVERSE.md`](#05epic-esi-universemd) | EPIC-005 | ⚪ `none` |
 | [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | EPIC-006 | 🚧 `applying` |
 | [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | EPIC-007 | ⚪ `none` |
-| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | EPIC-008 | ✅ `applied` |
+| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | EPIC-008 | 📤 `extracted` |
 | [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | EPIC-009 | ✅ `applied` |
 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 🚧 `applying` |
-| [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | EPIC-011 | 📝 `registered` |
+| [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | EPIC-011 | 🔨 `applying` |
 
 Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
 
@@ -285,7 +285,7 @@ Epic id: EPIC-007 · Highest: ⚪ `none` (flows Review-gated; related back work 
 
 ## `08.EPIC-LOCATIONS.md`
 
-Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-03
+Epic id: EPIC-008 · Highest: 📤 `extracted` · Last updated: 2026-11-04
 
 ### Sections
 
@@ -305,14 +305,17 @@ Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-03
 | 10 | ShippingYardLocation | 🚫 `out of scope` |
 | 11 | LookupRegion (LOC-090) | ⏳ `to review` |
 | 12 | LookupSolarSystem (LOC-100) | ⏳ `to review` |
-| 13 | KnownSystem (LOC-110) | ⏳ `to review` |
+| 13 | KnownSystem (LOC-110) | 📤 `extracted` → `L2/08.EPIC-LOCATIONS.md` |
 | 14 | Front stubs (LOC-120, LOC-121) | 🚫 `out of scope` |
+| 15 | Space location service LOC-130…142 (BACK-229) | 📤 `extracted` → `L2/08.EPIC-LOCATIONS.space-location-service.md` |
+| 15 | Space location service register row | ⏳ `to review` |
 
 ### L2 delivery
 
 | L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
 | --- | --- | --- | --- | --- |
-| `08.EPIC-LOCATIONS.md` | ✅ `applied` | cleared epic extract; sourced `domain-locations`, `back-spacelocations` | see placed rows | 2026-11-03 |
+| `08.EPIC-LOCATIONS.md` | 📤 `extracted` | 📥 inbox LOC-110; prior placed `domain-locations`, `back-spacelocations` | — (pending evolution) | 2026-11-04 |
+| `08.EPIC-LOCATIONS.space-location-service.md` | 📤 `extracted` | 📥 inbox LOC-130…142 | — (pending evolution) | 2026-11-04 |
 | `DOMAIN/06.LOCATIONS.md` | ✅ `applied` | `domain-locations` (3/3, validated domain `@ 477ee33`) | `neocom-domain@477ee33` | 2026-11-03 |
 | `BACK/BACK-SPACELOCATIONS.md` | ✅ `applied` | `back-spacelocations` (2/2, validated back `@ 3317849`) | `AdamAntinoo/neocom-back#4` → `@ 3317849` | 2026-11-03 |
 
@@ -380,7 +383,7 @@ Epic id: EPIC-010 · Highest: 🚧 `applying` · Last updated: 2026-11-03 · L1:
 
 ## `11.EPIC-BLUEPRINT-LIST-PROCESSING.md`
 
-Epic id: EPIC-011 · Highest: 📝 `registered` · Last updated: 2026-11-04 · L1: [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md)
+Epic id: EPIC-011 · Highest: 🔨 `applying` · Last updated: 2026-11-04 · L1: [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md)
 
 ### Sections
 
@@ -388,7 +391,7 @@ Epic id: EPIC-011 · Highest: 📝 `registered` · Last updated: 2026-11-04 · L
 | --- | --- | --- |
 | [01](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-01--pilot-blueprint-feed-into-blueprint-by-location-panel) | BLP-001…003, 009…013, 024…025 | 📝 `registered` → [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) · [FRONT/21](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) |
 | [02](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-02--aggregate-into-systems-and-regions-sort-and-node-render) | BLP-004…008 | 📝 `registered` → [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) · [FRONT/21](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) |
-| [03](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-03--blueprint-location-catalog--spacelocationv1dto--spacelocationnodev1) | BLP-014…015, 018…020 (back); BLP-016…017 (front) | 📝 `registered` → front + [`back-blueprint-list-processing`](../../openspec/changes/back-blueprint-list-processing/) |
+| [03](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-03--blueprint-location-catalog--spacelocationv1dto--spacelocationnodev1) | BLP-014…015, 018…020, 026…030 (back); BLP-016…017 (front) | 🔨 `applying` (back 8/8) · 📝 `registered` (front BLP-016…017) → [`back-blueprint-list-processing`](../../openspec/changes/back-blueprint-list-processing/) + [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) |
 | [04](./11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-021…023 | 📝 `registered` → [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) · [FRONT/21](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) |
 
 ### L2 delivery
@@ -397,7 +400,7 @@ Epic id: EPIC-011 · Highest: 📝 `registered` · Last updated: 2026-11-04 · L
 | --- | --- | --- | --- | --- |
 | [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](../L2/11.EPIC-BLUEPRINT-LIST-PROCESSING.md) | 📭 `cleared` | `front-blueprint-list-processing`, `back-blueprint-list-processing` | — | 2026-11-04 |
 | [`FRONT/21.BLUEPRINT-LIST-PROCESSING.md`](../L2/FRONT/21.BLUEPRINT-LIST-PROCESSING.md) | 📝 `registered` | [`front-blueprint-list-processing`](../../openspec/changes/front-blueprint-list-processing/) | — | 2026-11-04 |
-| [`BACK/BACK-BLUEPRINT-LIST-PROCESSING.md`](../L2/BACK/BACK-BLUEPRINT-LIST-PROCESSING.md) | 📝 `registered` | [`back-blueprint-list-processing`](../../openspec/changes/back-blueprint-list-processing/) | — | 2026-11-04 |
+| [`BACK/BACK-BLUEPRINT-LIST-PROCESSING.md`](../L2/BACK/BACK-BLUEPRINT-LIST-PROCESSING.md) | 🔨 `applying` | [`back-blueprint-list-processing`](../../openspec/changes/back-blueprint-list-processing/) | — | 2026-11-04 |
 
 ---
 
