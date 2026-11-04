@@ -6,7 +6,7 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-04 (`neocom-meta@e743ce6` on `feature/process-epics` — registered `front-blueprint-list-processing` / `back-blueprint-list-processing`).
+Last refreshed: 2026-11-04 (`neocom-back@27284c9` on `feature/blueprint-list-processing` — apply commit for `back-blueprint-list-processing` DTOs / catalog compose).
 
 ## When `/neocom-git` must update this file
 
@@ -68,7 +68,7 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 | `front-dashboard-shell` | front | `feature/dashboard-shell` (tip also on `feature/industry-blueprints` stack) | `neocom-front@1be24de` (apply; seed `@ 22d2e06`; corp fix `@ 5f681e3`) | — | none | — | — | 2026-11-03 |
 | `front-industry-blueprints` | front | `feature/industry-blueprints` | `neocom-front@c382959` (stacked on `dashboard-shell`) | — | none | — | — | 2026-11-03 |
 | `front-blueprint-list-processing` | meta | `feature/process-epics` | `neocom-meta@e743ce6` (OpenSpec register; product apply not started) | — | none | — | — | 2026-11-04 |
-| `back-blueprint-list-processing` | meta | `feature/process-epics` | `neocom-meta@e743ce6` (OpenSpec register; product apply not started) | — | none | — | — | 2026-11-04 |
+| `back-blueprint-list-processing` | back, meta | `feature/blueprint-list-processing` | `neocom-back@27284c9` (BlueprintV1Dto + GetSpaceLocationUseCase compose); meta register `neocom-meta@e743ce6` | — | none | — | — | 2026-11-04 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
