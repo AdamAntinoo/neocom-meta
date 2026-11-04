@@ -13,6 +13,7 @@ Agents are long-running, stateful specialists. Invoke them by name.
 | `neocom-spec-collector` | `/epic` | Spec-workflow intake specialist. Opens an epic, writes the L1 file (Spec traceability header + version card footer), collects matching executive cards from `sources/L0/executive/` into the epic's Sources section, and records each copied card in `sources/L0/executive/INDEX.md` so a card is never used twice. |
 | `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | Spec-progression specialist. Owns L1 (epic) → L2 → OpenSpec. **Always runs `graphify update .` first**. Extract gate is the L1 Review cell (`[ ] to review` → not extractable; `[x] reviewed` → extract → plain `extracted`/`duplicated`). Duplicates go to `sources/L1/00.DUPLICATES.md`. Never rewrites authored L1 sections; may flip Review cells and Spec traceability, and append the duplicates holding epic. |
 | `neocom-backtrack` | `/neo:backtrack` | Legacy-code backtracking specialist. When an epic changes version, reads the legacy back/front code under `/Users/adam/IdeaProjects/neocom-infinity` to find the classes, methods, and flows the epic references, and records them in `sources/COLLECTOR/` (findings doc + version register). |
+| `neocom-defect` | `/defect` | Defect intake specialist. Registers validation defects on `neocom-meta/defects/FEATURE-<branch-stem>_DEFECTS.md` (creates the page from the product `feature/<name>` branch when missing; appends `DEF-<CODE>-NNN`). Does not implement code, extract L2, register OpenSpec, or commit. |
 | `program-verifier` | `/program-verifier` | Read-only verifier for `00.PR377-META/program/` knowledge against `00.PR377-META/sources/` and `00.PR377-META/program/CLAUDE.md`. Reports only; never edits. |
 
 ## Skills
@@ -44,6 +45,7 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 | --- | --- | --- |
 | `extract-l2` | `/neo:extract-l2` | Convert L1 epics into epic-named L2 file(s). Review gate only: unchecked `[ ]` is not extractable; checked `[x]` extracts then becomes plain `extracted`. Duplicates move to `sources/L1/00.DUPLICATES.md`. No `UNREGISTERED REQUIREMENTS` heading. |
 | `spec-registration` | `/neo:spec-evolution` | Review L2 **pending** notes and move them into OpenSpec as `<system>-<feature>`. Duplicates go to `00.DUPLICATES`. Status is recorded in the indexes. |
+| `defect-register` | `/defect` | Append (or create) a defect on `defects/FEATURE-<branch-stem>_DEFECTS.md` for the current product feature branch. |
 
 ### Product code skills
 
@@ -68,17 +70,20 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 ├── agents/
 │   ├── neocom-backtrack.md
 │   ├── neocom-code.md
+│   ├── neocom-defect.md
 │   ├── neocom-git.md
 │   ├── neocom-spec-collector.md
 │   ├── neocom-spec-workflow.md
 │   └── program-verifier.md
 ├── commands/
 │   ├── backtrack.md
+│   ├── defect.md
 │   ├── epic.md
 │   ├── extract-l2.md
 │   ├── neocom-code.md
 │   └── spec-evolution.md
 ├── skills/
+│   ├── defect-register/SKILL.md
 │   ├── extract-l2/SKILL.md
 │   ├── git-commit/SKILL.md
 │   ├── git-pr/SKILL.md
@@ -93,4 +98,4 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
     └── pull-requests.md
 ```
 
-> Note: OpenSpec's `init --tools dsh` generates skills only (no command stubs — "no adapter" for `dsh`). The slash-command names above are the canonical invocation forms; `/neocom-git` owns git, `/neocom-code` owns product coding (front/back), `/epic` is owned by `/neocom-spec-collector`, `/neo:backtrack` by `/neocom-backtrack`, and `/neo:extract-l2` + `/neo:spec-evolution` by `/neocom-spec-workflow`.
+> Note: OpenSpec's `init --tools dsh` generates skills only (no command stubs — "no adapter" for `dsh`). The slash-command names above are the canonical invocation forms; `/neocom-git` owns git, `/neocom-code` owns product coding (front/back), `/epic` is owned by `/neocom-spec-collector`, `/neo:backtrack` by `/neocom-backtrack`, `/defect` by `/neocom-defect`, and `/neo:extract-l2` + `/neo:spec-evolution` by `/neocom-spec-workflow`.

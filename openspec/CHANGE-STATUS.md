@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-03 (`/neo:spec-evolution` DEF-IB amend → `front-dashboard-shell` 17/22; DOM-SRV-004/005 marked registered on L2). Tips: back `3317849` (28/28), front `e3356db` (44/44), domain `477ee33` (11/11). No archive yet (release PR not opened).
+Last refreshed: 2026-11-04 (`/neo:spec-evolution` EPIC-011 → registered `front-blueprint-list-processing` 0/12, `back-blueprint-list-processing` 0/5). Prior: front-dashboard-shell 22/22 applying; front-industry-blueprints 17/17 applying.
 
 ## Status legend
 
@@ -39,7 +39,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 17/22 | applying | EPIC-006 fold committed on `neocom-front` `feature/dashboard-shell` `@ 1be24de`. DEF-IB amend registered 2026-11-03 (UI-VER-004, UI-GEO-001, UI-HDR-010/011, UI-AIP-006, UI-DASH-015) — 5 tasks open. Prior tip awaiting PR → `develop` |
+| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 22/22 | applying | DEF-IB amend implemented on stacked tip `feature/industry-blueprints` (header rename, layout, app-name nav, panel gap, blueprint page unversion). Prior apply `@ 1be24de`; new work uncommitted — review then `/git:commit neocom-front` |
 | `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 17/17 | applying | EPIC-010 fold committed on `neocom-front` `feature/industry-blueprints` `@ c382959` (stacked on `dashboard-shell`). Awaiting PR → `develop`. Gap: list/SSE `location` chain not yet on back DTO |
 
 ## Applied
@@ -79,6 +79,8 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
+| `front-blueprint-list-processing` | front / blueprint-list-processing | 0/12 | registered | EPIC-011 BLP front (provider, NeoCom nodes, Observable). L2 `FRONT/21` |
+| `back-blueprint-list-processing` | back / blueprint-list-processing | 0/5 | registered | EPIC-011 BLP back (`BlueprintV1Dto` + `SpaceLocationV1Dto`). L2 `BACK/BACK-BLUEPRINT-LIST-PROCESSING` |
 | `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
 | `front-universe` | front / universe | 0/4 | registered | |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |

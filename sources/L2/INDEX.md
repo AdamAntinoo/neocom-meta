@@ -22,12 +22,15 @@ Agents update this file in the same turn as `/neo:extract-l2` or `/neo:spec-evol
 
 `UNREGISTERED REQUIREMENTS` / L2 `DUPLICATED` headings are deprecated. L1 Review (`to review` → `reviewed`) gates extract; duplicates hold in `sources/L1/00.DUPLICATES.md`.
 
-**Queue:** 📥 `0` inbox · 📭 `19` cleared · 🔗 `1` pointer · 📌 `45` placed
+**Queue:** 📥 `0` inbox · 📭 `20` cleared · 🔗 `1` pointer · 📌 `47` placed
 
 ## Files
 
 | L2 path | Kind | Status | Unregistered | OpenSpec | Epic | Next |
 | --- | --- | --- | --- | --- | --- | --- |
+| `11.EPIC-BLUEPRINT-LIST-PROCESSING.md` | extract | 📭 `cleared` | 0 | `front-blueprint-list-processing`, `back-blueprint-list-processing` | EPIC-011 | — |
+| `FRONT/21.BLUEPRINT-LIST-PROCESSING.md` | placed | 📌 `placed` | 0 | `front-blueprint-list-processing` | EPIC-011 | See `openspec/CHANGE-STATUS.md` |
+| `BACK/BACK-BLUEPRINT-LIST-PROCESSING.md` | placed | 📌 `placed` | 0 | `back-blueprint-list-processing` | EPIC-011 | See `openspec/CHANGE-STATUS.md` |
 | `06.EPIC-USER-INTERFACE.header.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
 | `06.EPIC-USER-INTERFACE.dashboard.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
 | `06.EPIC-USER-INTERFACE.media.md` | extract | 📭 `cleared` | 0 | `front-dashboard-shell` | EPIC-006 | — |
