@@ -23,4 +23,4 @@
 
 ## ESI tool PKCE (`esi/login`)
 
-- [ ] Start PKCE token management for the ESI tool (ESI-012)
+- [x] Start PKCE token management for the ESI tool (ESI-012) — cancelled as a login apply task; already fulfilled outside this change

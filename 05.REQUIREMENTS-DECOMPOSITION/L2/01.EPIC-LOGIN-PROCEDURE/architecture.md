@@ -1,7 +1,0 @@
-# EPIC-001 - LOGIN PROCEDURE — architecture
-
-Extracted from `L1/01.EPIC-LOGIN-PROCEDURE.md`.
-
-Placed requirements: `L2/INFRASTRUCTURE-SPECS.md` (INFRA-042).
-
-## UNREGISTERED REQUIREMENTS

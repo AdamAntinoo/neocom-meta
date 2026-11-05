@@ -44,8 +44,8 @@ Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain
 | Path | What it holds |
 | --- | --- |
 | `01.PROGRAMME-DEFINITION/` | Architecture and active features |
-| `05.REQUIREMENTS-DECOMPOSITION/` | L1 and L2 requirements |
-| `openspec/` | Registered and applied OpenSpec changes |
+| `sources/` | L1 and L2 requirements |
+| `openspec/` | Registered and applied OpenSpec changes. Agents keep `openspec/CHANGE-STATUS.md` current after every OpenSpec change |
 | `.cursor/agents/` | Project agents |
 | `.cursor/commands/` | Slash commands |
 | `.cursor/skills/` | Workflows those commands follow |
@@ -58,9 +58,8 @@ Type the command in chat. A name in `<angle brackets>` is the argument you suppl
 | --- | --- | --- |
 | `/epic` | Open an epic. The same prompt starts with the name and continues with the purpose, scope, and other details. The L1 file is `NN.EPIC-NAME.md`, from `01.EPIC-LOGIN-PROCEDURE.md` | `/epic login procedure A brief description of the purpose, scope, and other details.` |
 | `/neocom-methodology` | Walk design, spec, develop, test, and deploy. Define an epic and extract it from L1 into L2 | `/neocom-methodology` |
-| `/spec-collect` | Turn `02.SOURCES` into the L1 requirements list. Does not register OpenSpec | `/spec-collect` |
-| `/neo:extract-l2` | Convert L1 epics into `L2/NN.EPIC-NAME/` slice files (`front`, `back`, `cicd`, `architecture`, `common`). Passages already in the L2 tree are left in place | `/neo:extract-l2` |
-| `/neo:spec-evolution` | Read L2 only. Review notes under `UNREGISTERED REQUIREMENTS`, place each one on its system and feature, and move it into OpenSpec. Skip `DUPLICATED`. Optional L2 paths limit the run to those files | `/neo:spec-evolution` or `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE.md` |
+| `/neo:extract-l2` | Convert L1 epics into epic-named L2 files. No args: all epics with pending extract work. Args: epic number(s) preferred (`01`, `02`) | `/neo:extract-l2` or `/neo:extract-l2 01` or `/neo:extract-l2 01 02` |
+| `/neo:spec-evolution` | Read L2 only. Review notes with status `pending`, place each one on its system and feature, and move it into OpenSpec. Duplicates go to `sources/L1/00.DUPLICATES.md`. Optional L2 paths limit the run to those files | `/neo:spec-evolution` or `/neo:spec-evolution L2/01.EPIC-LOGIN-PROCEDURE.md` |
 | `/opsx-explore` | Think through an idea, a problem, or a requirement before a change exists | `/opsx-explore` |
 | `/opsx-propose` | Create one OpenSpec change and its proposal, spec, design, and tasks. Planning only | `/opsx-propose <system>-<feature>` |
 | `/opsx-update` | Revise the planning artifacts of an existing change and keep them consistent | `/opsx-update <system>-<feature>` |
@@ -73,7 +72,8 @@ Type the command in chat. A name in `<angle brackets>` is the argument you suppl
 | `/verifier` | Read-only check that a claimed change exists in the owning repository and matches the spec | `/verifier` |
 | `/neocom-git` | Commits, branches, pull requests, tags, and package versions for one repository | `/neocom-git` |
 | `/neocom-git-workflow` | The commit, branch, and pull-request playbook used by `/neocom-git` | `/neocom-git-workflow` |
-| `/neo:pr` | Commit pending work and open the pull request. No project means `neocom-meta`, `neocom-front`, and `neocom-back`. A named aside repository is skipped | `/neo:pr` or `/neo:pr neocom-front` |
+| `/git:commit` | Commit all pending changes on one repository's current branch. Project is required | `/git:commit neocom-front` |
+| `/git:pr` | Commit pending work and open the pull request. No project means `neocom-meta`, `neocom-front`, and `neocom-back`. A named aside repository is skipped | `/git:pr` or `/git:pr neocom-front` |
 
 A pull request into `develop` uses a Conventional Commit title. A pull request from `develop` into `main` is titled `Release-` plus GitVersion `MajorMinorPatch`. Neither pull request is merged unless you ask.
 
@@ -88,17 +88,18 @@ NEOCOM project code is **60**. A service port is that code, then the setup digit
 | Service `1` | `neocom-front` |
 | Service `2` | `neocom-back` |
 
-| Setup | Front | Back |
-| --- | --- | --- |
-| Dev watch | **6001** | **6002** |
-| Stable testing | **6011** | **6012** |
+| Setup | Front | Back | Postgres | Redis |
+| --- | --- | --- | --- | --- |
+| Dev watch | **6001** | **6002** | **6003** | **6004** |
+| Stable testing | **6011** | **6012** | **6013** | **6014** |
 
-Use one setup for both services. The front proxy for `/v1/pilots` in `neocom-front/config/backends.json` must target the back port of that same setup.
+Use one setup for both services. The front proxy for `/v1/pilots` in `neocom-front/config/backends.json` must target the back port of that same setup. After the back port, Postgres takes the next number and Redis the one after that.
 
 | Setup | Where the port is set |
 | --- | --- |
-| Dev watch, back | `PORT=6002` in `neocom-back/.env` (copied from `.env.example`) |
+| Dev watch, back | `PORT=6002` in `neocom-back/.env.application` |
 | Dev watch, front | `npm run start:dev -- --port 6001` |
+| Dev watch, Postgres / Redis | `neocom-back/tools/docker` host ports `6003` / `6004`; `DATABASE_URL` / `REDIS_URL` in `.env.async` |
 | Stable, back | `PORT=6012` |
 | Stable, front | `server.port` in `neocom-front/config/backends.json` is `6011`. The `/v1/pilots` route targets `http://127.0.0.1:6012` |
 
@@ -140,17 +141,27 @@ flowchart LR
 
 The L1 file name is `NN.EPIC-NAME.md`. `NN` is the next two-digit number, starting at `01`. `EPIC-NAME` is `EPIC-` plus the name in uppercase, with words separated by `-`:
 
-`05.REQUIREMENTS-DECOMPOSITION/L1/01.EPIC-LOGIN-PROCEDURE.md`
+`sources/L1/01.EPIC-LOGIN-PROCEDURE.md`
 
 The file uses this template. The title is the id, then the name in uppercase. `## Goals` is the description from the prompt.
 
 ```markdown
 # EPIC-001 - LOGIN PROCEDURE
+
+## Spec traceability
+
+| Field | Value |
+| --- | --- |
+| Status | `none` |
+| L2 | |
+| OpenSpec changes | |
+| Index | `L1/TRACEABILITY.md` |
+
 ## Goals
 The goal of this epic is to define the login procedure for the application.
 ```
 
-An epic collects requirements that usually span more than one repository. Later prompts add templates, designs, and other material that describes the features inside the epic. That material is appended to the same file.
+An epic collects requirements that usually span more than one repository. Later prompts add templates, designs, and other material that describes the features inside the epic. That material is appended to the same file. Agents keep `## Spec traceability` and `L1/TRACEABILITY.md` updated when L2 is extracted and when OpenSpec changes are registered, applying, applied, or archived, so later runs skip work already processed.
 
 ```mermaid
 flowchart TD
@@ -162,98 +173,91 @@ flowchart TD
 
 ### 5.3 Extract an open epic into L2
 
-`/neo:extract-l2` reads L1 only. Each open epic has one L2 directory with the same name:
+`/neo:extract-l2` reads L1 only. With no arguments it processes every epic that still has pending extract work (`L1/TRACEABILITY.md`). With one or more epic references (`01`, `EPIC-001`, `login`, path, …) it processes only those epics. It writes one or more L2 files whose names keep the epic stem for traceability:
 
-`05.REQUIREMENTS-DECOMPOSITION/L2/NN.EPIC-NAME/`
+- one file: `L2/NN.EPIC-NAME.md`
+- several topic groups: `L2/NN.EPIC-NAME.<group>.md` (kebab-case group, e.g. `login`, `dashboard-layout`)
 
-Inside that directory, write a slice file for each owner that has notes: `front.md`, `back.md`, `cicd.md`, `architecture.md`, and any other repository the L1 text names. Create only the files that have notes.
+Do not require an epic directory or a fixed split per repository. Choose a single file when the material belongs together; choose multiple files when topics will likely register as separate OpenSpec capabilities. Specs often aggregate into feature groups later — write L2 for that shape.
 
-When a passage affects more than one repository, choose:
-
-- `common.md` when the note is one shared contract both sides must follow
-- a note in each owning slice when each repository has a distinct implementable part of the same L1 passage
-
-The extraction leaves every new requirement under the heading `UNREGISTERED REQUIREMENTS`. It does not place them in a system feature file and it does not write OpenSpec.
+Requirements are authored **inside the L1 epic** under sections, each with a **Review** status. New requirements start at **`to review`** (not extractable). The old `UNREGISTERED REQUIREMENTS` inbox is deprecated. Extraction writes epic-named L2 notes at status **`pending`** for OpenSpec; it does not place them in a final system feature register and it does not write OpenSpec.
 
 The current L2 tree is the record of work already generated. Before writing a note, compare the L1 passage with:
 
-- any slice under `L2/NN.EPIC-NAME/`, under `UNREGISTERED REQUIREMENTS` or `DUPLICATED`
-- `L2/<SYSTEM>/*.md` (`FRONT`, `BACK`, `DOMAIN`, `ESI`, and later folders)
-- `L2/DOMAIN/MODELS/`
-- `L2/INFRASTRUCTURE-SPECS.md`
+- `L2/NN.EPIC-NAME.md` and `L2/NN.EPIC-NAME.*.md` (and the same under `L2/<SYSTEM>/` when used)
+- legacy `L2/NN.EPIC-NAME/**` directories from earlier extracts
+- `L2/<SYSTEM>/*.md`, `L2/DOMAIN/MODELS/`, `L2/INFRASTRUCTURE-SPECS.md`
+- OpenSpec changes marked `applied` or `archived` on the L1 epic
 
-When that passage is already there, report the L2 path and do not write it again. A later run appends only what those files do not already hold.
+When that passage is already there (or very similar), move the L1 unit to `sources/L1/00.DUPLICATES.md`, set its Review cell to `duplicated`, and do not write a new L2 pending note. A later run appends only what those files do not already hold.
+
+On EPIC-004 (and any later epic with a **Review** column), one iteration extracts only units whose Review cell is exactly `reviewed`. Sections still `to review` stay in the L1 file and are not copied. After those notes are written, that cell becomes `extracted`. The next iteration starts when a pending unit is set to `reviewed`. `superseded`, `out of scope`, and `duplicated` are never extracted. `/neo:spec-evolution` registers the pending L2 notes from that iteration; it does not reach back into `to review` L1 sections.
 
 ```mermaid
 flowchart TD
-  l1["L1/01.EPIC-LOGIN-PROCEDURE.md"] --> dir["L2/01.EPIC-LOGIN-PROCEDURE/"]
-  dir --> front["front.md"]
-  dir --> back["back.md"]
-  dir --> cicd["cicd.md when needed"]
-  dir --> arch["architecture.md when needed"]
-  dir --> common["common.md when a shared contract spans repos"]
+  l1["L1/01.EPIC-LOGIN-PROCEDURE.md"] --> one["L2/01.EPIC-LOGIN-PROCEDURE.md"]
+  l1 --> many["L2/01.EPIC-LOGIN-PROCEDURE.login.md"]
+  l1 --> many2["L2/01.EPIC-LOGIN-PROCEDURE.sso-cookies.md"]
 ```
 
 ### 5.4 Register L2 notes in OpenSpec
 
-`/neo:spec-evolution` reads `05.REQUIREMENTS-DECOMPOSITION/L2/` only. Optional arguments after the command are L2 file paths; when given, only those files are processed. With no arguments, every L2 file is processed. It reads `UNREGISTERED REQUIREMENTS`, puts each note in the system and feature file that owns it, and moves that spec into the OpenSpec change `<system>-<feature>`. The note text is the requirement. The processor adds no behavior the note does not state. It does not read L1.
+`/neo:spec-evolution` reads `sources/L2/` only. Optional arguments after the command are L2 file paths; when given, only those files are processed. With no arguments, every L2 file is processed. It reads notes with status **`pending`** (legacy `UNREGISTERED REQUIREMENTS` may be drained once), puts each note in the system and feature file that owns it, and moves that spec into the OpenSpec change `<system>-<feature>`. The note text is the requirement. The processor adds no behavior the note does not state. It does not read L1 rows that are still `to review`.
 
 ```mermaid
 flowchart TD
-  unreg["UNREGISTERED REQUIREMENTS"] --> place["L2/SYSTEM/feature.md"]
+  pending["L2 notes status pending"] --> place["L2/SYSTEM/feature.md"]
   place --> openspec["/neo:spec-evolution to openspec/changes/system-feature"]
 ```
 
 ### 5.5 A duplicate or a very similar requirement
 
-The same epic can be extracted again. When a note under `UNREGISTERED REQUIREMENTS` duplicates a requirement already stated, or is very similar to one, that note is not registered in OpenSpec. It moves under the heading `DUPLICATED` in that L2 slice file, for the user to review.
+When extract or evolution finds a note that duplicates a requirement already stated, or is very similar to one, that note is **not** written as a new pending L2 / OpenSpec item. It is moved to the holding epic [`sources/L1/00.DUPLICATES.md`](./sources/L1/00.DUPLICATES.md) for user review, reinsertion, or removal. On the source epic, Review becomes `duplicated`.
 
 ```mermaid
 flowchart TD
-  note[Note under UNREGISTERED REQUIREMENTS] --> compare{Same or very similar to an existing requirement?}
-  compare -->|yes| dup["Heading DUPLICATED"]
-  compare -->|no| openspec[Register in OpenSpec]
-  dup --> review[User reviews the section]
+  note[Reviewed or pending note] --> compare{Same or very similar to an existing requirement?}
+  compare -->|yes| dup["sources/L1/00.DUPLICATES.md"]
+  compare -->|no| openspec[Extract / register]
+  dup --> review[User reviews, reinserts, or removes]
 ```
 
 ### 5.6 Processing skips duplicates
 
-A later pass over L2 files ignores every note under `DUPLICATED`. Those notes stay where they are until the user moves or rewrites them. They are not registered, not given an id, and not treated as new requirements.
+`00.DUPLICATES` is not a normal extract source. Notes held there are ignored by later extract/register runs until the user reinserts them into a product epic (typically at `to review` or `reviewed`). They are not registered and not treated as new requirements while they remain in the holding epic.
 
 ```mermaid
 flowchart TD
-  l2[Open L2 file] --> unreg[Read UNREGISTERED REQUIREMENTS]
-  l2 --> skip[Skip DUPLICATED]
-  unreg --> register[Register the notes that are still new]
-  skip --> stop[Leave those notes for the user]
+  l2[Open L2 file] --> pending[Read pending notes]
+  pending --> register[Register notes that are still new]
+  holding["00.DUPLICATES"] --> stop[Leave for the user]
 ```
 
-### 5.7 Headings
+### 5.7 Requirement status on the epic
 
-Both headings are exact:
+Control is the **Review** cell on register / requirement rows inside L1 sections — not an inbox heading:
 
-- `UNREGISTERED REQUIREMENTS` — new notes waiting for registration
-- `DUPLICATED` — notes held for user review
+| Status | Role |
+| --- | --- |
+| `to review` | Initial. Not extractable. |
+| `reviewed` | Ready for `/neo:extract-l2`. |
+| `extracted` | Already in L2. |
+| `duplicated` | Holding copy in `00.DUPLICATES`. |
+| `superseded` / `out of scope` | Never extract. |
 
-```markdown
-## UNREGISTERED REQUIREMENTS
-
-- neocom-front: the pilot panel shows the public pilot
-
-## DUPLICATED
-
-- neocom-back: the pilot endpoint returns the public pilot
-```
+Legacy L2 files may still show empty `UNREGISTERED REQUIREMENTS` / `DUPLICATED` headings; do not add new content there.
 
 ### 5.8 Iteration
 
-Design and spec repeat. A new requirement is added to the epic L1 file. `/neo:extract-l2` writes it into the matching slice under the open epic's L2 directory under `UNREGISTERED REQUIREMENTS` when the L2 tree does not already hold it. `/neo:spec-evolution` then either moves it into OpenSpec or moves it to `DUPLICATED`. Develop, test, and deploy run for the features that were registered. Section 5.9 is how several of those features stay open without colliding.
+Design and spec repeat. A new requirement is added to an L1 epic section at `to review`. When the developer sets it to `reviewed`, `/neo:extract-l2` writes it into an epic-named L2 file as `pending` (or moves it to `00.DUPLICATES`). `/neo:spec-evolution` then either moves it into OpenSpec or appends `00.DUPLICATES`. Develop, test, and deploy run for the features that were registered. Section 5.9 is how several of those features stay open without colliding.
 
 ### 5.9 Develop several features
 
-More than one registered feature can be in progress at the same time. Each one is its own branch, and every one of those branches is created from `develop`.
+More than one registered feature can be in progress at the same time. In **`neocom-front`** and **`neocom-back`**, each one is its own branch created from `develop` (`feature/<feature>`).
 
-`/neocom-code` implements that feature's tasks on `feature/<feature>`. `/neocom-git` commits on that branch. A new feature is not created from another feature branch, and it is not created from `main`.
+`neocom-meta` has no product code. General agents, docs, and OpenSpec work commits on **`feature/agents`** (usually the single active meta branch). CI/CD ecosystem work uses **`feature/cicd`** when commanded; that branch is rebased onto the latest `feature/agents` tip or onto `develop` as instructed. Do not open a short-lived `feature/<product-feature>` on meta for each OpenSpec apply.
+
+`/neocom-code` implements a product feature's tasks on `feature/<feature>`. `/neocom-git` commits on that branch (or on `feature/agents` / `feature/cicd` in meta). A new product feature is not created from another feature branch, and it is not created from `main`.
 
 Two open branches in the same repository must not edit the same files while both still start from `develop`. When they would, stop and choose which branch rebases onto the other before either continues.
 
@@ -261,6 +265,7 @@ A feature rebases onto another open feature only when it needs that feature's co
 
 Before a pull request:
 
+- Sync the package version from GitVersion `MajorMinorPatch` (`npm run version:sync` in `neocom-front` or `neocom-back`). Commit any version file changes. Do not open a PR with a stale version.
 - A feature that depends on no other open feature is rebased onto the current `develop`.
 - A feature that depends on another is rebased only after that other feature has been rebased onto `develop`.
 - A rebase rewrites the feature branch. If that branch is already on the remote, `/neocom-git` asks before a force push. `develop` and `main` are not force-pushed.
@@ -324,7 +329,7 @@ nvm use
 npm install
 ```
 
-In `neocom-back`, copy `.env.example` to `.env` when that file is missing. For the dev-watch setup set `PORT=6002`.
+In `neocom-back`, set `PORT=6002` in `.env.application` for the dev-watch setup.
 
 ### 6.5 Start the service chain
 

@@ -6,5 +6,5 @@
 - [x] Add Cypress + Cucumber preprocessor, sample feature, and npm e2e scripts
 - [x] Update parent and front READMEs for nvm / WireMock / start:dev
 - [x] Record L2 `INFRASTRUCTURE-SPECS.md` and OpenSpec change `front-infrastructure`
-- [ ] Add WireMock stub directory and wire front `dev` API base URL when HTTP clients exist
-- [ ] Run `npm test` and a Cypress smoke against a running `ng serve` in CI or local verification
+- [x] Add WireMock stub directory and wire front `dev` API base URL when HTTP clients exist
+- [x] Run `npm test` and a Cypress smoke against a running `ng serve` in CI or local verification

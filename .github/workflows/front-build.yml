@@ -1,0 +1,33 @@
+# Called by neocom-front. This file does not run on commits to neocom-meta.
+name: Front build
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node.js version passed to the setup-node-environment action.
+        required: true
+        type: string
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node environment
+        uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Front production build
+        uses: AdamAntinoo/neocom-meta/.github/actions/front-production-build@feature/cicd
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: neocom-front-dist
+          path: dist/neocom-front
+          retention-days: 7
+          if-no-files-found: error
