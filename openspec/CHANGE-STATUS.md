@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-04 (`back-blueprint-list-processing` 8/8 applying — BLP-030 compose `GetSpaceLocationUseCase`). Prior: BLP-029 static converter.
+Last refreshed: 2026-11-04 (`back-space-location-service` committed `neocom-back@9b34c95` on `feature/space-location-service`; still applying until PR→develop).
 
 ## Status legend
 
@@ -39,9 +39,11 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `back-blueprint-list-processing` | back / blueprint-list-processing | 8/8 | applying | EPIC-011 BLP-014…020 + BLP-026…030 on `neocom-back` `feature/blueprint-list-processing`. Blueprints use case → `GetSpaceLocationUseCase`. Uncommitted — review then `/git:commit neocom-back` |
-| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 22/22 | applying | DEF-IB amend implemented on stacked tip `feature/industry-blueprints` (header rename, layout, app-name nav, panel gap, blueprint page unversion). Prior apply `@ 1be24de`; new work uncommitted — review then `/git:commit neocom-front` |
-| `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 17/17 | applying | EPIC-010 fold committed on `neocom-front` `feature/industry-blueprints` `@ c382959` (stacked on `dashboard-shell`). Awaiting PR → `develop`. Gap: list/SSE `location` chain not yet on back DTO |
+| `back-space-location-service` | back / space-location-service | 8/8 | applying | EPIC-008 LOC-130…142 on `neocom-back` `feature/space-location-service` (stacked on `feature/blueprint-list-processing`). ESI+Redis catalog; `InMemoryLocationCatalog` removed. Committed `neocom-back@9b34c95` — PR when ready via `/git:pr neocom-back` |
+| `back-blueprint-list-processing` | back / blueprint-list-processing | 8/8 | applying | EPIC-011 BLP-014…020 + BLP-026…030 on tip under space-location-service stack. Blueprints compose `GetSpaceLocationUseCase` |
+| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 22/22 | applying | DEF-IB `/fix:defect` batch on stacked tip `feature/industry-blueprints` `@ b01a213` (cy-section, breadcrumb, feature-list Appearance; prior `@ f7852f6`). Awaiting PR → `develop`; validate then `/defect:fixed` |
+| `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 17/17 | applying | EPIC-010 fold tip `@ b01a213` (`BLUEPRINT_LIST` variant + markers; prior `@ f7852f6` / `@ c382959`). Awaiting PR → `develop`. Gap: list/SSE `location` chain; DEF-IB-007 private PilotV2 needs back |
+| `front-blueprint-list-processing` | front / blueprint-list-processing | 12/12 | applying | EPIC-011 BLP front committed on `neocom-front` `feature/blueprint-list-processing` `@ 8030666` (stacked on `industry-blueprints`). Provider + NeoCom nodes + panel observe. Awaiting PR → `develop` |
 
 ## Applied
 
@@ -80,7 +82,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `front-blueprint-list-processing` | front / blueprint-list-processing | 0/12 | registered | EPIC-011 BLP front (provider, NeoCom nodes, Observable). L2 `FRONT/21` |
+| `front-known-system` | front / known-system | 0/2 | registered | EPIC-008 LOC-110 KnownSystem card. L2 `FRONT/22.KNOWN-SYSTEM.md` |
 | `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
 | `front-universe` | front / universe | 0/4 | registered | |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |

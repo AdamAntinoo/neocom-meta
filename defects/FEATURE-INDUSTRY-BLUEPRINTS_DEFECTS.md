@@ -7,78 +7,79 @@ Related epics: [EPIC-010](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md), [EPIC-0
 
 ## Contents
 
-- [Defects — `feature/industry-blueprints` (and stacked shell)](#defects--featureindustry-blueprints-and-stacked-shell)
-	- [Contents](#contents)
-	- [How defects resolve (intended programme flow)](#how-defects-resolve-intended-programme-flow)
-	- [Register](#register)
-	- [DEF-IB-001 — App name click returns to character selection](#def-ib-001--app-name-click-returns-to-character-selection)
-		- [Observed](#observed)
-		- [Expected](#expected)
-		- [Likely sources to amend](#likely-sources-to-amend)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist)
-		- [Notes](#notes)
-	- [DEF-IB-002 — Header host named `page-header` instead of `app-page-header`](#def-ib-002--header-host-named-page-header-instead-of-app-page-header)
-		- [Observed](#observed-1)
-		- [Expected](#expected-1)
-		- [Likely sources to amend](#likely-sources-to-amend-1)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-1)
-		- [Notes](#notes-1)
-	- [DEF-IB-003 — `cy-section-name` matches component name without type suffix](#def-ib-003--cy-section-name-matches-component-name-without-type-suffix)
-		- [Observed](#observed-2)
-		- [Expected](#expected-2)
-		- [Likely sources to amend](#likely-sources-to-amend-2)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-2)
-		- [Notes](#notes-2)
-	- [DEF-IB-004 — Pages must not use `vn-` version prefix](#def-ib-004--pages-must-not-use-vn--version-prefix)
-		- [Observed](#observed-3)
-		- [Expected](#expected-3)
-		- [Likely sources to amend](#likely-sources-to-amend-3)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-3)
-		- [Notes](#notes-3)
-	- [DEF-IB-005 — Header app-info / server-info row width and responsive stack](#def-ib-005--header-app-info--server-info-row-width-and-responsive-stack)
-		- [Observed](#observed-4)
-		- [Expected](#expected-4)
-		- [Likely sources to amend](#likely-sources-to-amend-4)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-4)
-		- [Notes](#notes-4)
-	- [DEF-IB-006 — Pilot row spacing must use default panel gap](#def-ib-006--pilot-row-spacing-must-use-default-panel-gap)
-		- [Observed](#observed-5)
-		- [Expected](#expected-5)
-		- [Likely sources to amend](#likely-sources-to-amend-5)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-5)
-		- [Notes](#notes-5)
-	- [DEF-IB-007 — Pilot panel render vs model-strip + missing private data](#def-ib-007--pilot-panel-render-vs-model-strip--missing-private-data)
-		- [Observed](#observed-6)
-		- [Expected](#expected-6)
-		- [Likely sources to amend](#likely-sources-to-amend-6)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-6)
-		- [Notes](#notes-6)
-	- [DEF-IB-008 — Breadcrumb: small Elemental in full-width white panel](#def-ib-008--breadcrumb-small-elemental-in-full-width-white-panel)
-		- [Observed](#observed-7)
-		- [Expected](#expected-7)
-		- [Likely sources to amend](#likely-sources-to-amend-7)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-7)
-		- [Notes](#notes-7)
-	- [DEF-IB-009 — Feature list flex layout + icon/name Appearance](#def-ib-009--feature-list-flex-layout--iconname-appearance)
-		- [Observed](#observed-8)
-		- [Expected](#expected-8)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-8)
-		- [Notes](#notes-8)
-	- [DEF-IB-010 — Blueprint list panel uses deprecated `SOLAR_SYSTEM_LOOKUP` variant](#def-ib-010--blueprint-list-panel-uses-deprecated-solar_system_lookup-variant)
-		- [Observed](#observed-9)
-		- [Expected](#expected-9)
-		- [Likely sources to amend](#likely-sources-to-amend-9)
-		- [Prep for resolution (checklist)](#prep-for-resolution-checklist-9)
-		- [Notes](#notes-9)
+- [Defects —](#defects--featureindustry-blueprints-and-stacked-shell) `feature/industry-blueprints` [(and stacked shell)](#defects--featureindustry-blueprints-and-stacked-shell)
+  - [Contents](#contents)
+  - [How defects resolve (intended programme flow)](#how-defects-resolve-intended-programme-flow)
+  - [Register](#register)
+  - [DEF-IB-001 — App name click returns to character selection](#def-ib-001--app-name-click-returns-to-character-selection)
+    - [Observed](#observed)
+    - [Expected](#expected)
+    - [Likely sources to amend](#likely-sources-to-amend)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist)
+    - [Notes](#notes)
+  - [DEF-IB-002 — Header host named](#def-ib-002--header-host-named-page-header-instead-of-app-page-header) `page-header` [instead of](#def-ib-002--header-host-named-page-header-instead-of-app-page-header) `app-page-header`
+    - [Observed](#observed-1)
+    - [Expected](#expected-1)
+    - [Likely sources to amend](#likely-sources-to-amend-1)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-1)
+    - [Notes](#notes-1)
+  - [DEF-IB-003 —](#def-ib-003--cy-section-name-matches-component-name-without-type-suffix) `cy-section-name` [matches component name without type suffix](#def-ib-003--cy-section-name-matches-component-name-without-type-suffix)
+    - [Observed](#observed-2)
+    - [Expected](#expected-2)
+    - [Likely sources to amend](#likely-sources-to-amend-2)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-2)
+    - [Notes](#notes-2)
+  - [DEF-IB-004 — Pages must not use](#def-ib-004--pages-must-not-use-vn--version-prefix) `vn-` [version prefix](#def-ib-004--pages-must-not-use-vn--version-prefix)
+    - [Observed](#observed-3)
+    - [Expected](#expected-3)
+    - [Likely sources to amend](#likely-sources-to-amend-3)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-3)
+    - [Notes](#notes-3)
+  - [DEF-IB-005 — Header app-info / server-info row width and responsive stack](#def-ib-005--header-app-info--server-info-row-width-and-responsive-stack)
+    - [Observed](#observed-4)
+    - [Expected](#expected-4)
+    - [Likely sources to amend](#likely-sources-to-amend-4)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-4)
+    - [Notes](#notes-4)
+  - [DEF-IB-006 — Pilot row spacing must use default panel gap](#def-ib-006--pilot-row-spacing-must-use-default-panel-gap)
+    - [Observed](#observed-5)
+    - [Expected](#expected-5)
+    - [Likely sources to amend](#likely-sources-to-amend-5)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-5)
+    - [Notes](#notes-5)
+  - [DEF-IB-007 — Pilot panel render vs model-strip + missing private data](#def-ib-007--pilot-panel-render-vs-model-strip--missing-private-data)
+    - [Observed](#observed-6)
+    - [Expected](#expected-6)
+    - [Likely sources to amend](#likely-sources-to-amend-6)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-6)
+    - [Notes](#notes-6)
+  - [DEF-IB-008 — Breadcrumb: small Elemental in full-width white panel](#def-ib-008--breadcrumb-small-elemental-in-full-width-white-panel)
+    - [Observed](#observed-7)
+    - [Expected](#expected-7)
+    - [Likely sources to amend](#likely-sources-to-amend-7)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-7)
+    - [Notes](#notes-7)
+  - [DEF-IB-009 — Feature list flex layout + icon/name Appearance](#def-ib-009--feature-list-flex-layout--iconname-appearance)
+    - [Observed](#observed-8)
+    - [Expected](#expected-8)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-8)
+    - [Notes](#notes-8)
+  - [DEF-IB-010 — Blueprint list panel uses deprecated](#def-ib-010--blueprint-list-panel-uses-deprecated-solar_system_lookup-variant) `SOLAR_SYSTEM_LOOKUP` [variant](#def-ib-010--blueprint-list-panel-uses-deprecated-solar_system_lookup-variant)
+    - [Observed](#observed-9)
+    - [Expected](#expected-9)
+    - [Likely sources to amend](#likely-sources-to-amend-9)
+    - [Prep for resolution (checklist)](#prep-for-resolution-checklist-9)
+    - [Notes](#notes-9)
 
 ## How defects resolve (intended programme flow)
 
-Use `/defect` (`neocom-defect`) to append new entries on this page (`FEATURE-<branch-stem>_DEFECTS.md`). Treat each accepted defect as follows:
+Use `/defect` (`neocom-defect`) to append new entries on this page (`FEATURE-<branch-stem>_DEFECTS.md`). Use `/fix:defect` (optional `DEF-…` id) to implement marked / named defects. Treat each accepted defect as follows:
 
 1. **Record here** — `/defect`; status `open`; fill Observed / Expected / Prep below.
 2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic with Review `[ ] to review`. Prefer **not** inventing behaviour beyond what the defect states.
-3. **Mark to run the process** (developer, manual) — checking that mark sets Review to `[x] reviewed` and then applies the flow through OpenSpec (`/neo:extract-l2` → `/neo:spec-evolution`; apply via `/neocom-code`). Defect management does **not** keep a separate “run L1 → OpenSpec” checklist step.
-4. **Developer validates** the fix is resolved — mark defect `fixed` / `closed`.
+3. **Mark to run the process** (developer, manual) — checking that mark sets Review to `[x] reviewed` and authorizes `/fix:defect`.
+4. `/fix:defect` — list defects + planned actions; wait for developer go-ahead; then implement Expected for one id or all ready (Mark to run `[x]`, Developer validates still `[ ]`). Status `applying`. No commit.
+5. **Developer validates** the product fix — then `/defect:fixed DEF-…` moves the defect (same row + section) to [`FIXED-DEFECTS.md`](./FIXED-DEFECTS.md) and removes it from this page.
 
 Statuses for this register: `open` · `prep` · `in openspec` · `applying` · `fixed` · `closed` · `wontfix`.
 
@@ -88,16 +89,16 @@ Statuses for this register: `open` · `prep` · `in openspec` · `applying` · `
 
 | ID | Title | Status | Owning epic / capability | OpenSpec (when known) | Found |
 | --- | --- | --- | --- | --- | --- |
-| DEF-IB-001 | App name click → character selection | `prep` | EPIC-006 · **UI-AIP-006** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
-| DEF-IB-002 | Header host named `page-header` not `app-page-header` | `prep` | EPIC-006 · **UI-HDR-010** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
-| DEF-IB-003 | `cy-section-name` must match component name minus type suffix | `open` | EPIC-003 / EPIC-006 · BDD `cy-*` + UI hosts | TBD — BDD catalog + dashboard-shell / industry specs | 2026-11-03 |
-| DEF-IB-004 | Pages must not use `vn-` version prefix | `prep` | EPIC-006 · **UI-VER-004** `[ ] to review` | after review → extract / amend industry page name | 2026-11-03 |
-| DEF-IB-005 | Header app-info / server-info row width + stack | `prep` | EPIC-006 · **UI-HDR-011** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
-| DEF-IB-006 | Pilot row spacing must use default panel gap | `prep` | EPIC-006 · **UI-GEO-001** + **UI-DASH-015** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
-| DEF-IB-007 | Pilot panel ≠ model-strip; private data missing when authenticated | `open` | EPIC-004 · PublicPilotV1 / PilotV2 · EPIC-006 UI-DASH pilot row | TBD — `front-pilot` / `front-dashboard-shell` + back pilot DTO | 2026-11-03 |
-| DEF-IB-008 | Breadcrumb: small Elemental in full-width white panel, flush to neighbours | `open` | EPIC-006 · UI-DASH breadcrumb Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 |
-| DEF-IB-009 | Feature list flex layout + icon border + Elemental white name | `open` | EPIC-006 · UI-DASH feature list / feature button Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 |
-| DEF-IB-010 | Blueprint list panel uses deprecated `SOLAR_SYSTEM_LOOKUP`; need `-BLUEPRINT-LIST-` | `open` | EPIC-010 · blueprint-by-location panel variant | TBD — `front-industry-blueprints` + `NeoComVariant` | 2026-11-04 |
+| DEF-IB-001 | App name click → character selection | `applying` | EPIC-006 · **UI-AIP-006** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
+| DEF-IB-002 | Header host named `page-header` not `app-page-header` | `applying` | EPIC-006 · **UI-HDR-010** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
+| DEF-IB-003 | `cy-section-name` must match component name minus type suffix | `applying` | EPIC-003 / EPIC-006 · BDD `cy-*` + UI hosts | TBD — BDD catalog + dashboard-shell / industry specs | 2026-11-03 |
+| DEF-IB-004 | Pages must not use `vn-` version prefix | `applying` | EPIC-006 · **UI-VER-004** `[ ] to review` | after review → extract / amend industry page name | 2026-11-03 |
+| DEF-IB-005 | Header app-info / server-info row width + stack | `applying` | EPIC-006 · **UI-HDR-011** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
+| DEF-IB-006 | Pilot row spacing must use default panel gap | `applying` | EPIC-006 · **UI-GEO-001** + **UI-DASH-015** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 |
+| DEF-IB-007 | Pilot panel ≠ model-strip; private data missing when authenticated | `applying` | EPIC-004 · PublicPilotV1 / PilotV2 · EPIC-006 UI-DASH pilot row | TBD — `front-pilot` / `front-dashboard-shell` + back pilot DTO | 2026-11-03 |
+| DEF-IB-008 | Breadcrumb: small Elemental in full-width white panel, flush to neighbours | `applying` | EPIC-006 · UI-DASH breadcrumb Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 |
+| DEF-IB-009 | Feature list flex layout + icon border + Elemental white name | `applying` | EPIC-006 · UI-DASH feature list / feature button Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 |
+| DEF-IB-010 | Blueprint list panel uses deprecated `SOLAR_SYSTEM_LOOKUP`; need `-BLUEPRINT-LIST-` | `applying` | EPIC-010 · blueprint-by-location panel variant | TBD — `front-industry-blueprints` + `NeoComVariant` | 2026-11-04 |
 
 ---
 
@@ -105,7 +106,7 @@ Statuses for this register: `open` · `prep` · `in openspec` · `applying` · `
 
 | Field | Value |
 | --- | --- |
-| Status | `prep` |
+| Status | `applying` |
 | Severity | UX / navigation gap (no alternate path to character selection from secured pages) |
 | Surfaces | `v1-application-info-render` (and transitional `app-info-panel` if still painted) inside `app-page-header` |
 | Found on | Secured pages after Industry / Dashboard (e.g. Blueprint Availability) |
@@ -133,13 +134,15 @@ Scope note (prep): activation is the **name** control only (not version, not cop
 
 ### Prep for resolution (checklist)
 
-- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Found while exercising Industry blueprints secured chrome; root cause is header/ApplicationInfo behaviour (EPIC-006), not Blueprint Availability aggregation itself.
+
+2026-11-05 `/fix:defect`: front already navigates app-name → `/character-selection` (`v1-application-info-render`); L1 UI-AIP-006 already extracted. Status applying — validate in UI then `/defect:fixed`.
 
 ---
 
@@ -147,7 +150,7 @@ Found while exercising Industry blueprints secured chrome; root cause is header/
 
 | Field | Value |
 | --- | --- |
-| Status | `prep` |
+| Status | `applying` |
 | Severity | Naming / consistency (breaks programme naming consistency with UI-HDR-001) |
 | Surfaces | Header host component folder, class, SCSS class; L2 / OpenSpec capability id may also say `page-header` |
 | Found on | `neocom-front` header module while validating secured chrome |
@@ -182,13 +185,15 @@ The header host SHALL be named consistently as `**app-page-header**` across sele
 
 ### Prep for resolution (checklist)
 
-- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Selector already complies with UI-HDR-001; defect is **identifier drift** in source layout and secondary names, not a missing header host.
+
+2026-11-05 `/fix:defect`: host renamed to `app-page-header` on tip; L1 UI-HDR-010 already extracted. Status applying — validate naming then `/defect:fixed`.
 
 ---
 
@@ -196,7 +201,7 @@ Selector already complies with UI-HDR-001; defect is **identifier drift** in sou
 
 | Field | Value |
 | --- | --- |
-| Status | `open` |
+| Status | `applying` |
 | Severity | Test / catalog consistency (Cypress `cy-section-name` drift from component identity) |
 | Surfaces | Host components that publish `cy-section-name` (pages, panels, headers; renders as applicable) |
 | Found on | Header / dashboard / industry chrome while validating secured pages |
@@ -243,13 +248,15 @@ Out of scope until stated: inventing rules for `-render` / other suffixes; neste
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Related to DEF-IB-002 (host identity): once the host is consistently `app-page-header`, its section marker should be `app-page`, not `header`.
+
+2026-11-05 `/fix:defect`: aligned root markers (`app-page`, `dashboard-home`, `v1-pilot`, `blueprint-by-location`); Vitest + Cypress steps updated. Renders kept as-is (out of suffix rule). Status applying.
 
 ---
 
@@ -257,7 +264,7 @@ Related to DEF-IB-002 (host identity): once the host is consistently `app-page-h
 
 | Field | Value |
 | --- | --- |
-| Status | `prep` |
+| Status | `applying` |
 | Severity | Naming / versionability consistency (pages stay unversioned; panels/renders stay versioned) |
 | Surfaces | Page component selectors, folders, classes under `neocom-front` `pages/` and feature `…/pages/` |
 | Found on | Secured and support pages while validating Industry / Dashboard chrome |
@@ -282,12 +289,12 @@ So page naming is **inconsistent**: one feature page was versioned by mistake; t
 
 ### Expected
 
-**Page hosts SHALL NOT carry a `vn-` version prefix** on selector / folder / class. Use unversioned `*-page` names (e.g. `dashboard-home-page`, `character-selection-page`, `blueprint-by-location-page`). Versionability stays on panels/renders (`v1-…-render`, `v1-…-panel`), not on pages.
+**Page hosts SHALL NOT carry a** `vn-` **version prefix** on selector / folder / class. Use unversioned `*-page` names (e.g. `dashboard-home-page`, `character-selection-page`, `blueprint-by-location-page`). Versionability stays on panels/renders (`v1-…-render`, `v1-…-panel`), not on pages.
 
 Prep clarifications for L1 (do not invent beyond this defect until authored):
 
-- Apply to **all `*-page` hosts** under the page register (feature, auth, and support pages alike).
-- Shell-only hosts such as **`app-page-header`** remain unversioned (unchanged).
+- Apply to **all** `*-page` **hosts** under the page register (feature, auth, and support pages alike).
+- Shell-only hosts such as `app-page-header` remain unversioned (unchanged).
 - Migrate the outlier: `v1-blueprint-by-location-page` → `blueprint-by-location-page` (and matching folder / class / short name without `v1-`).
 - After rename, DEF-IB-003 `cy-section-name` derivation uses the unversioned selector (strip final `page` → e.g. `blueprint-by-location`).
 - Route **URL paths** stay stable (`/industry/blueprints-by-location`, `/dashboard`, …) unless a later requirement says otherwise.
@@ -303,13 +310,15 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Earlier prep wrongly proposed versioning all pages to match industry. **Correct direction is the opposite:** strip `v1-` from the industry **page** host; leave most pages as they are. Domain-bound panels/renders on that page stay versioned.
+
+2026-11-05 `/fix:defect`: `blueprint-by-location-page` already unversioned on tip; L1 UI-VER-004 extracted. Status applying — validate then `/defect:fixed`.
 
 ---
 
@@ -317,7 +326,7 @@ Earlier prep wrongly proposed versioning all pages to match industry. **Correct 
 
 | Field | Value |
 | --- | --- |
-| Status | `prep` |
+| Status | `applying` |
 | Severity | Layout / responsive gap (header first line does not use full page width correctly) |
 | Surfaces | `app-page-header` first line: `v1-application-info-render` + `v1-server-status-render` (via `standalone-node-panel`); global `.row` / render `:host` flex |
 | Found on | Dashboard (and any `-APP-` secured page with the same header) |
@@ -367,13 +376,15 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Related to UI-HDR-003 / UI-AIP-005 / UI-SSP (both panels on `-APP-`). Found while validating dashboard chrome on the industry-blueprints stack tip; root cause is header row flex, not Blueprint Availability.
+
+2026-11-05 `/fix:defect`: `app-page-header` SCSS already full-width / server content-right / stack @720px; render hosts width-aligned. Status applying — validate responsive then `/defect:fixed`.
 
 ---
 
@@ -381,7 +392,7 @@ Related to UI-HDR-003 / UI-AIP-005 / UI-SSP (both panels on `-APP-`). Found whil
 
 | Field | Value |
 | --- | --- |
-| Status | `prep` |
+| Status | `applying` |
 | Severity | Layout / spacing inconsistency (pilot row uses ad-hoc `0.75rem` instead of programme panel gap) |
 | Surfaces | Dashboard pilot & corporation row; `app-page-header` sibling spacing; shared panel tokens (`$panel-margin` / `$panel-padding`) |
 | Found on | Dashboard first content after header (`v1-pilot-panel` + `v1-corporation-panel`) |
@@ -436,13 +447,15 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Found while validating dashboard chrome after DEF-IB-005. Root cause is **page-local spacing** on `.pilot-corporation-row`, not pilot/corporation Appearance content.
+
+2026-11-05 `/fix:defect`: dashboard pilot row already uses `$panel-margin` / `$panel-padding`; L1 UI-GEO-001 + UI-DASH-015 extracted. Status applying — validate spacing then `/defect:fixed`.
 
 ---
 
@@ -450,7 +463,7 @@ Found while validating dashboard chrome after DEF-IB-005. Root cause is **page-l
 
 | Field | Value |
 | --- | --- |
-| Status | `open` |
+| Status | `applying` |
 | Severity | Appearance + data contract gap (dashboard pilot ≠ programme specimen; authenticated private fields absent) |
 | Surfaces | Dashboard `v1-pilot-panel`; `v1-public-pilot-render` / `v2-pilot-render`; model-strip specimens `v1-public-pilot` and `v2-pilot`; back `GET /v1/pilots/:id` wire |
 | Found on | Dashboard pilot row after character selection (authenticated session) |
@@ -460,7 +473,7 @@ Found while validating dashboard chrome after DEF-IB-005. Root cause is **page-l
 
 Two related failures on the dashboard pilot panel:
 
-**1. Appearance does not match the model-strip `v1-public-pilot` specimen**
+**1. Appearance does not match the model-strip** `v1-public-pilot` **specimen**
 
 Programme Appearance for the public pilot HEADER is the model-strip specimen `**v1-public-pilot**` (EPIC-004 Section 06; live strip on `model-strip-page`). The dashboard hosts `**v1-pilot-panel**`, which may paint via `v1-public-pilot-render`, but the **on-page result does not match** that specimen (layout / chrome / typography / field arrangement as validated on the strip).
 
@@ -476,13 +489,13 @@ Contributing factors visible in code (prep evidence, not inventing root cause):
 
 After login / character selection the session has a credential. Expected authenticated HEADER is `**v2-pilot**` (same public lines as `v1-public-pilot`, plus skill points, wallet, current ship — EPIC-004 Section 07).
 
-Observed: **private fields are not shown** on the panel. `v1-pilot-panel` only switches to `v2-pilot-render` when the loaded node is a `**PilotV2Node`** and a credential is present (`showPrivate`). If the backend returns `**PublicPilotV1**` (or a wire without PilotV2 private fields / wrong `jsonClass`), the panel stays on the public path and private data never appears.
+Observed: **private fields are not shown** on the panel. `v1-pilot-panel` only switches to `v2-pilot-render` when the loaded node is a `**PilotV2Node`** and a credential is present (`showPrivate`). If the backend returns `**PublicPilotV1`** (or a wire without PilotV2 private fields / wrong `jsonClass`), the panel stays on the public path and private data never appears.
 
 Private PilotV2 data **SHALL come from the backend** (`GET /v1/pilots/:pilotId` with Authorization) and be **ready on the panel** for the authenticated selected pilot — not invented on the client, not left empty while authenticated.
 
 ### Expected
 
-1. **Public Appearance:** the dashboard (and any host using the public pilot HEADER) SHALL match the model-strip `**v1-public-pilot`** specimen for the public lines (portrait, name + id, ancestry, gender, chrome language). Prefer painting through the registered `**v1-public-pilot-render**` (or equivalent) so strip and live panel stay one Appearance.
+1. **Public Appearance:** the dashboard (and any host using the public pilot HEADER) SHALL match the model-strip `**v1-public-pilot`** specimen for the public lines (portrait, name + id, ancestry, gender, chrome language). Prefer painting through the registered `**v1-public-pilot-render`** (or equivalent) so strip and live panel stay one Appearance.
 2. **Authenticated private data:** when the user is authenticated and a pilot is selected, the panel SHALL receive a **PilotV2** (or equivalent authenticated wire) from the **backend**, with private HEADER fields populated (**total skill points, wallet balance, current ship name** per EPIC-004 `v2-pilot` contract), and SHALL render them with `**v2-pilot`** Appearance (model-strip `v2-pilot` specimen) — public lines still aligned with `v1-public-pilot`.
 3. Private fields are **not** optional empty placeholders when the session is authenticated; if the back cannot supply them yet, that is a **back delivery gap** to fix, not a front omission of the contract.
 
@@ -504,13 +517,15 @@ Prep clarifications for L1 / OpenSpec (do not invent beyond this defect until au
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Related to UI-DASH-007 (pilot panel on second row) and EPIC-004 PILOT-008 / `v2-pilot` HEADER contract. Distinct from DEF-IB-006 (spacing only). Found while validating dashboard chrome on the industry-blueprints stack tip.
+
+2026-11-05 `/fix:defect`: **blocked for full Expected** — authenticated PilotV2 private fields need back `GET /v1/pilots/:id` contract (do not invent on front). Front `cy-section-name` → `v1-pilot` only. Status applying (partial); need back follow-up.
 
 ---
 
@@ -518,7 +533,7 @@ Related to UI-DASH-007 (pilot panel on second row) and EPIC-004 PILOT-008 / `v2-
 
 | Field | Value |
 | --- | --- |
-| Status | `open` |
+| Status | `applying` |
 | Severity | Appearance / layout gap (breadcrumb typography, chrome, width, and neighbour spacing undefined / wrong) |
 | Surfaces | `app-breadcrumb` on Dashboard and secured feature pages |
 | Found on | Dashboard breadcrumb row (and same host on Industry / Manufacture pages) |
@@ -561,13 +576,15 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 L1 already deferred detailed breadcrumb styling; this defect **supplies** the missing Appearance (type + chrome + layout) rather than contradicting an existing row. Related to DEF-IB-006 (shared gap token).
+
+2026-11-05 `/fix:defect`: breadcrumb now `neocom-panel panel-white`, Elemental 12px, full width, `$panel-margin` flush. Status applying — validate Appearance then `/defect:fixed`.
 
 ---
 
@@ -575,7 +592,7 @@ L1 already deferred detailed breadcrumb styling; this defect **supplies** the mi
 
 | Field | Value |
 | --- | --- |
-| Status | `open` |
+| Status | `applying` |
 | Severity | Appearance / layout gap (feature list distribution and feature-button chrome undefined / wrong) |
 | Surfaces | `feature-list-panel` + `v1-feature-button` (legacy) on Dashboard and feature dashboards |
 | Found on | Dashboard feature list row |
@@ -602,13 +619,15 @@ Feature list **layout Appearance** is not specified beyond “listing panel + fe
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 Not in this L1 batch (prep Author L1 still unchecked). Distinct from DEF-IB-008 (breadcrumb).
+
+2026-11-05 `/fix:defect`: feature-list `justify-content: space-evenly` + token gap; feature-button fine white icon border + Elemental white label. Status applying — validate then `/defect:fixed`.
 
 ---
 
@@ -616,7 +635,7 @@ Not in this L1 batch (prep Author L1 still unchecked). Distinct from DEF-IB-008 
 
 | Field | Value |
 | --- | --- |
-| Status | `open` |
+| Status | `applying` |
 | Severity | Incorrect / deprecated variant on the blueprint list panel |
 | Surfaces | `blueprint-by-location-panel` (`setVariant` in `ngOnInit`); `NeoComVariant` enum |
 | Found on | Blueprint Availability / blueprint-by-location list page |
@@ -636,7 +655,7 @@ That variant is **deprecated** for the blueprint list page. `NeoComVariant` curr
 
 ### Expected
 
-For the **blueprint list** page / `blueprint-by-location-panel`, the panel variant SHALL be **`-BLUEPRINT-LIST-`** (register a matching `NeoComVariant` constant and use it in `setVariant`). Do **not** use `SOLAR_SYSTEM_LOOKUP` / `-SOLAR-SYSTEM-LOOKUP-` for this panel.
+For the **blueprint list** page / `blueprint-by-location-panel`, the panel variant SHALL be `-BLUEPRINT-LIST-` (register a matching `NeoComVariant` constant and use it in `setVariant`). Do **not** use `SOLAR_SYSTEM_LOOKUP` / `-SOLAR-SYSTEM-LOOKUP-` for this panel.
 
 ### Likely sources to amend
 
@@ -649,12 +668,16 @@ For the **blueprint list** page / `blueprint-by-location-panel`, the panel varia
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
+- [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
+- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
 `-SOLAR-SYSTEM-LOOKUP-` remains appropriate for region/system lookup cards/renders; this defect is scoped to the **blueprint list panel** host variant only.
 
 Broader panel processing (models / helper classes) does **not** fit the expected design: that implementation returns to the design table under new epic [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](../sources/L1/11.EPIC-BLUEPRINT-LIST-PROCESSING.md) (EPIC-011), which may deprecate some current applied industry specs.
+
+2026-11-05 `/fix:defect`: added `NeoComVariant.BLUEPRINT_LIST` (`-BLUEPRINT-LIST-`); `blueprint-by-location-panel` uses it. Status applying — validate then `/defect:fixed`.
+
+---
