@@ -56,8 +56,9 @@ Related epics: _(fill when known)_.
 
 1. **Record here** — `/defect`; status `open` (or `prep`).
 2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic with Review `[ ] to review`. Prefer **not** inventing behaviour beyond what the defect states.
-3. **Mark to run the process** (developer, manual) — checking that mark sets Review to `[x] reviewed` and then applies the flow through OpenSpec (`/neo:extract-l2` → `/neo:spec-evolution`; apply via `/neocom-code`). Defect management does **not** keep a separate “run L1 → OpenSpec” checklist step.
-4. **Developer validates** the fix is resolved — mark defect `fixed` / `closed`.
+3. **Mark to run the process** (developer, manual) — checking that mark sets Review to `[x] reviewed` and authorizes `/fix:defect`.
+4. **`/fix:defect`** — list defects + actions; wait for go-ahead; then implement Expected (all ready, or one `DEF-…`). May run extract → OpenSpec → product apply. Status `applying`. No commit.
+5. **Developer validates** the product fix — then **`/defect:fixed DEF-…`** moves the defect (same structure and contents) to `defects/FIXED-DEFECTS.md` and removes it from this page.
 
 Statuses: `open` · `prep` · `in openspec` · `applying` · `fixed` · `closed` · `wontfix`.
 
@@ -118,8 +119,8 @@ Append a section (before any trailing material only if the page already ends wit
 ### Prep for resolution (checklist)
 
 - [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix is resolved — mark this defect `fixed` / `closed`
+- [ ] Mark to run the process — sets Review to `[x] reviewed` and authorizes `/fix:defect`
+- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 

@@ -47,5 +47,7 @@ Index of features recognized in the programme. Update this file when a feature b
 | Domain deprecations | registered (`domain-deprecations`) | [domain-deprecations.md](./domain-deprecations.md) | domain, back |
 | Back OpenAPI | registered (`back-openapi`) | [back-openapi.md](./back-openapi.md) | back |
 | Back Industry blueprints | registered (`back-industry-blueprints`) | [back-industry-blueprints.md](./back-industry-blueprints.md) | back |
+| KnownSystem | registered (`front-known-system`) | [known-system.md](./known-system.md) | front |
+| Space location service | registered (`back-space-location-service`) | [space-location-service.md](./space-location-service.md) | back |
 
 Status values: `recorded` (documented, not necessarily implemented) · `in-progress` · `done` · `deferred`.

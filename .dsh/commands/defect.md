@@ -24,3 +24,7 @@ neocom-meta/defects/FEATURE-<NAME-UPPERCASE>_DEFECTS.md
 Example: branch `feature/industry-blueprints` → `defects/FEATURE-INDUSTRY-BLUEPRINTS_DEFECTS.md`.
 
 Append the next `DEF-<CODE>-NNN` register row and defect section. Do not implement product code. Do not commit.
+
+To implement marked or named defects, use **`/fix:defect`** (see `.dsh/commands/fix-defect.md`).
+
+After the developer validates a product fix, use **`/defect:fixed DEF-…`** to move the defect into `defects/FIXED-DEFECTS.md` (see `.dsh/commands/defect-fixed.md`).

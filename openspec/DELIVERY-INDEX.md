@@ -6,7 +6,7 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-04 (`neocom-back@27284c9` on `feature/blueprint-list-processing` — apply commit for `back-blueprint-list-processing` DTOs / catalog compose).
+Last refreshed: 2026-11-04 (`neocom-back@9b34c95` on `feature/space-location-service` — apply commit for `back-space-location-service` ESI+Redis catalog).
 
 ## When `/neocom-git` must update this file
 
@@ -65,10 +65,11 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 | `domain-layout` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
 | `domain-ports` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
 | `domain-deprecations` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `front-dashboard-shell` | front | `feature/dashboard-shell` (tip also on `feature/industry-blueprints` stack) | `neocom-front@1be24de` (apply; seed `@ 22d2e06`; corp fix `@ 5f681e3`) | — | none | — | — | 2026-11-03 |
-| `front-industry-blueprints` | front | `feature/industry-blueprints` | `neocom-front@c382959` (stacked on `dashboard-shell`) | — | none | — | — | 2026-11-03 |
-| `front-blueprint-list-processing` | meta | `feature/process-epics` | `neocom-meta@e743ce6` (OpenSpec register; product apply not started) | — | none | — | — | 2026-11-04 |
-| `back-blueprint-list-processing` | back, meta | `feature/blueprint-list-processing` | `neocom-back@27284c9` (BlueprintV1Dto + GetSpaceLocationUseCase compose); meta register `neocom-meta@e743ce6` | — | none | — | — | 2026-11-04 |
+| `front-dashboard-shell` | front | `feature/industry-blueprints` (stack tip; prior `feature/dashboard-shell`) | `neocom-front@b01a213` (DEF-IB fix:defect batch; prior `@ f7852f6` / `@ 1be24de`) | — | none | — | — | 2026-11-05 |
+| `front-industry-blueprints` | front | `feature/industry-blueprints` | `neocom-front@b01a213` (tip; BLUEPRINT_LIST + cy markers; prior `@ f7852f6` / `@ c382959`) | — | none | — | — | 2026-11-05 |
+| `front-blueprint-list-processing` | front, meta | `feature/blueprint-list-processing` (stacked on `industry-blueprints`) | `neocom-front@8030666` (apply); meta register `neocom-meta@e743ce6` | — | none | — | — | 2026-11-05 |
+| `back-blueprint-list-processing` | back, meta | `feature/blueprint-list-processing` (tip under `feature/space-location-service` stack) | `neocom-back@27284c9` (BlueprintV1Dto + GetSpaceLocationUseCase compose); meta register `neocom-meta@e743ce6`; stack tip `@ 9b34c95` | — | none | — | — | 2026-11-04 |
+| `back-space-location-service` | back, meta | `feature/space-location-service` (stacked on `feature/blueprint-list-processing`) | `neocom-back@9b34c95` (ESI+Redis catalog, EsiError filter, OpenAPI/Postman); meta register prior | — | none | — | — | 2026-11-04 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
