@@ -6,7 +6,7 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-06 (`/git:release-done` Release-0.1.0 archived 29 OpenSpec).
+Last refreshed: 2026-11-06 (`/git:commit neocom-meta` — `back-eve-items` registered @ `f94068c`).
 
 Previous Last refreshed: 2026-11-05 (`/git:pr` — front `#5`, back `#5`, meta `#4` opened into `develop`).
 
@@ -45,8 +45,7 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 
 | OpenSpec | Repos | Branch | Commits | PR | PR state | Develop tip | Validated | Updated |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| — | — | — | — | — | — | — | — | — |
-| *(none — Release-0.1.0 OpenSpec set moved to Archived delivery)* | | | | | | | | |
+| `back-eve-items` | meta | `feature/process-epics` | `neocom-meta@f94068c` (register EPIC-013 / OpenSpec) | — | none | — | — | 2026-11-06 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
