@@ -60,7 +60,7 @@ flowchart TB
   backtrack -.-> review
   extract --> base
 
-  classDef manual fill:#f5e6c8,stroke:#8a6d3b,color:#1a1a1a
+  classDef manual fill:#d8efe0,stroke:#3d7a55,color:#1a1a1a
 ```
 
 The overview stays linear on purpose. **Index and control files** sit beside that chain: agents **read** them to decide what is pending / skippable, and **write** them in the same turn as each transition. That map is a separate diagram so the stage flow above does not grow unreadable.
@@ -107,7 +107,7 @@ flowchart LR
   S5 -. write .-> SpcHdr
   S5 -. write .-> CSchg
 
-  classDef manual fill:#f5e6c8,stroke:#8a6d3b,color:#1a1a1a
+  classDef manual fill:#d8efe0,stroke:#3d7a55,color:#1a1a1a
 ```
 
 | Control file | Role | Who updates it |
@@ -182,7 +182,7 @@ flowchart LR
   productVal --> release["/git:release"]
   release --> osVal["OpenSpec validate<br/>while Release PR open"]:::manual
   osVal --> done["/git:release-done<br/>archive + §6.7 L1"]
-  classDef manual fill:#f5e6c8,stroke:#8a6d3b,color:#1a1a1a
+  classDef manual fill:#d8efe0,stroke:#3d7a55,color:#1a1a1a
 ```
 
 ---
@@ -561,7 +561,7 @@ flowchart LR
   P --> Rel["/git:release<br/>OpenSpec validate"]:::manual
   Rel --> Done["/git:release-done<br/>archive + §6.7 L1"]
   Done --> L1u
-  classDef manual fill:#f5e6c8,stroke:#8a6d3b,color:#1a1a1a
+  classDef manual fill:#d8efe0,stroke:#3d7a55,color:#1a1a1a
 ```
 
 ---
