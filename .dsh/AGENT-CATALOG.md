@@ -13,7 +13,7 @@ Agents are long-running, stateful specialists. Invoke them by name.
 | `neocom-spec-collector` | `/epic`, `/epic collect <epic>` | Spec-workflow intake specialist. Opens an epic and writes the L1 file (Spec traceability header + version card footer). Card collection is **on request only** (`/epic collect <epic>`): then collects matching executive cards from `sources/L0/executive/` into Sources and records them in `sources/L0/executive/INDEX.md`. Filling Search criteria alone does not collect. |
 | `neocom-spec-workflow` | `/epic:extract` | Spec-progression specialist. Owns L1 (epic) → OpenSpec. **Always runs `graphify update .` first**. The gate is the L1 Review cell (`[ ] to review` → not registrable; `[x] reviewed` → OpenSpec → plain `registered`/`duplicated`). Duplicates go to `sources/L1/00.DUPLICATES.md`. There is no L2 copy. Never rewrites authored L1 sections; may flip Review cells and Spec traceability, and append the duplicates holding epic. |
 | `neocom-backtrack` | `/neo:backtrack <epic…>` | Legacy-code backtracking specialist. **On request only** (named epic required). Reads legacy back/front under `/Users/adam/IdeaProjects/neocom-infinity` for those epics and records findings in `sources/COLLECTOR/`. Does not auto-scan on epic create/update or fingerprint change. |
-| `neocom-defect` | `/defect`, `/fix:defect`, `/defect:fixed` | Defect specialist. Register on `FEATURE-*_DEFECTS.md`; fix marked defects; after validation move to `defects/FIXED-DEFECTS.md`. Does not commit. |
+| `neocom-defect` | `/defect`, `/fix:defect`, `/defect:fixed` | Defect specialist. Register on `*_DEFECTS.md`; fix marked defects; after validation move to `defects/FIXED-DEFECTS.md`. Does not commit. |
 | `program-verifier` | `/program-verifier` | Read-only verifier for `00.PR377-META/program/` knowledge against `00.PR377-META/sources/` and `00.PR377-META/program/CLAUDE.md`. Reports only; never edits. |
 
 ## Skills
@@ -46,7 +46,7 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 | Skill | Slash command | Purpose |
 | --- | --- | --- |
 | `epic-extract` | `/epic:extract` | Register reviewed L1 units directly into OpenSpec as `<system>-<feature>`. Unchecked `[ ]` is not registrable; checked `[x]` registers then becomes plain `registered`. Duplicates move to `sources/L1/00.DUPLICATES.md`. No L2 copy. |
-| `defect-register` | `/defect` | Append (or create) a defect on `defects/FEATURE-<branch-stem>_DEFECTS.md` for the current product feature branch. |
+| `defect-register` | `/defect` | Append (or create) a defect on `defects/<branch-stem>_DEFECTS.md` for the current product feature branch. |
 | `defect-fix` | `/fix:defect [DEF-id]` | Plan (list defects + actions, wait for go-ahead) then implement Expected for one id or all ready. Status `applying`; no commit. |
 | `defect-fixed` | `/defect:fixed DEF-id…` | After developer validation, move defect row + section into `defects/FIXED-DEFECTS.md` and remove from the open feature page. |
 

@@ -1,6 +1,6 @@
 # Fixed defects
 
-Archive of defects whose product fix the developer has **validated**. Entries are **moved** here from `FEATURE-<stem>_DEFECTS.md` via `/defect:fixed`. Structure matches the open register (Register row + defect section).
+Archive of defects whose product fix the developer has **validated**. Entries are **moved** here from `<stem>_DEFECTS.md` via `/defect:fixed`. Structure matches the open register (Register row + defect section).
 
 ## Contents
 
@@ -28,7 +28,7 @@ Archive of defects whose product fix the developer has **validated**. Entries ar
 
 ## How entries land here
 
-1. Defect lived on `defects/FEATURE-<STEM>_DEFECTS.md`.
+1. Defect lived on `defects/<STEM>_DEFECTS.md`.
 2. Developer validated the product fix.
 3. `/defect:fixed DEF-…` sets status `fixed` (or `closed`), appends the same row + section here, and removes them from the open feature page.
 

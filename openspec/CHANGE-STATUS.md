@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-06 (`/git:release-done` — archived 29 OpenSpec changes from Release-0.1.0; front PR#6 / back PR#7 merged).
+Last refreshed: 2026-11-06 (`/epic:extract 13` — registered `back-eve-items` 0/9).
 
 ## Status legend
 
@@ -45,6 +45,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `cicd-testing-gates` | cicd / testing-gates | 0/3 | registered | EPIC-003; GATE-001…003. Parallel unit/acceptance before Sonar |
 | `infra-test-commands` | infra / test-commands | 0/5 | registered | EPIC-003; INFRA-060…064. Shared TDD/BDD/SDD command catalog |
 | `back-testing` | back / testing | 0/5 | registered | EPIC-003; BTEST-001…005. Back guidelines, WireMock, Gherkin |
+| `back-eve-items` | back / eve-items | 0/9 | registered | EPIC-013; ITEM-001…007, ITEM-010…013. EveItemV1Dto / PricedItemV1Dto. §05 use cases/HTTP/Redis still L1 `to review` |
 
 ## Deferred
 
@@ -124,6 +125,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Front domain NeoCom nodes (EPIC-006)** | `front-domain-nodes` | File naming, `@domain` alias, render≡jsonClass, hierarchy children, BlueprintV1DtoWire |
 | **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain; `jsonClass` wire interchange |
 | **Locations (EPIC-008)**                | `domain-locations`, `back-spacelocations`, `domain-spacelocation`, `front-known-system`, `back-space-location-service` | Hierarchy + lookup API + KnownSystem card + Nest ESI/Redis space-location service (BACK-229) |
+| **Eve items (EPIC-013)**                | `back-eve-items` | ESI type → EveItemV1Dto → PricedItemV1Dto; later §05 get-by-id / Redis when reviewed |
 | **Backend services (EPIC-009)**         | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | Domain truth/ports/deprecations → OpenAPI rules → Industry pilot blueprints |
 | **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`, `infra-developer-install`, `infra-local-config`                                    | Install, Node/Angular stack, canvas chrome, local WireMock config                                    |
 | **Auth / SSO**                          | `login` (already multi-system), `nestjs-sso-config`                                                                           | Session already unified; NestJS SSO env/config still separate                                        |
@@ -276,6 +278,19 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Owners**         | `neocom-back`                                                                     |
 | **Integrate with** | `front-pilot`, `esi-character-api`, archived `back-esi-client` / `back-hexagonal` |
 | **Paths**          | `changes/back-service/`                                                           |
+
+
+### `back-eve-items` — registered · 0/9
+
+
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | ESI universe type → `EveItemV1Dto` → `PricedItemV1Dto` (hub prices + nested `marketHub`) |
+| **Capabilities**   | `back/eve-items`                                                |
+| **Owners**         | `neocom-back`                                                   |
+| **Requirements**   | ITEM-001…007, ITEM-010…013 (EPIC-013)                         |
+| **Integrate with** | EPIC-012 EveLocation / market; later §05 get-by-id when reviewed |
+| **Paths**          | `changes/back-eve-items/`                                       |
 
 
 ### `domain-module` — archived · 3/3
@@ -499,6 +514,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | `front/pilot-panel`       | `front-pilot-panel`       |
 | `front/universe`          | `front-universe`          |
 | `back/service`            | `back-service`            |
+| `back/eve-items`          | `back-eve-items`          |
 | `domain/neocom-domain`    | `domain-module`           |
 | `esi/character-api`       | `esi-character-api`       |
 | `infra/developer-install` | `infra-developer-install` |

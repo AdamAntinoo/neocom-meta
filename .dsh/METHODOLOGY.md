@@ -153,7 +153,7 @@ Do not invent another dashboard beyond these. Skip decisions come from TRACEABIL
 | `openspec-sync-specs` | `/openspec-sync-specs` | Merge deltas into main specs |
 | `openspec-archive-change` | `/openspec-archive-change` | Archive completed change (NEOCOM: via `/git:release-done` after Release PR merge; selected set from that PR) |
 | `neocom-code` | `/neocom-code` | Destination-gated product apply; stop before commit |
-| `defect-register` | `/defect` | Intake defect on `FEATURE-*_DEFECTS.md` |
+| `defect-register` | `/defect` | Intake defect on `*_DEFECTS.md` |
 | `defect-fix` | `/fix:defect` | Plan then implement Expected; stop before commit |
 | `defect-fixed` | `/defect:fixed` | After validation, move defect to `FIXED-DEFECTS.md` |
 

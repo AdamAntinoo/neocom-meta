@@ -1,7 +1,7 @@
 ---
 name: defect-fix
 description: >-
-  Fix NEOCOM validation defects from defects/FEATURE-<branch-stem>_DEFECTS.md.
+  Fix NEOCOM validation defects from defects/<branch-stem>_DEFECTS.md.
   Used by /fix:defect (neocom-defect). Optional DEF-<CODE>-NNN; with no id,
   fix every defect marked ready on the page. Always lists defects and planned
   actions first and waits for developer go-ahead before processing.
@@ -46,7 +46,7 @@ Same rules as `defect-register`:
 
 1. Product `feature/<name>`: prompt override, else `neocom-front` current branch when `feature/*`, else `neocom-back`, else ask.
 2. Reject `develop` / `main` / meta-only branches unless the user names a product `feature/<name>`.
-3. Page = `neocom-meta/defects/FEATURE-<STEM>_DEFECTS.md` (stem = name uppercased, `_` → `-`).
+3. Page = `neocom-meta/defects/<STEM>_DEFECTS.md` (stem = name uppercased, `_` → `-`).
 
 Stop if the page is missing.
 

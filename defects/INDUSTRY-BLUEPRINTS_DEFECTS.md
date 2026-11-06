@@ -13,7 +13,7 @@ Related epics: [EPIC-010](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md), [EPIC-0
 
 ## How defects resolve (intended programme flow)
 
-Use `/defect` (`neocom-defect`) to append new entries on this page (`FEATURE-<branch-stem>_DEFECTS.md`). Use `/fix:defect` (optional `DEF-…` id) to implement marked / named defects. Treat each accepted defect as follows:
+Use `/defect` (`neocom-defect`) to append new entries on this page (`<branch-stem>_DEFECTS.md`). Use `/fix:defect` (optional `DEF-…` id) to implement marked / named defects. Treat each accepted defect as follows:
 
 1. **Record here** — `/defect`; status `open`; fill Observed / Expected / Prep below.
 2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic with Review `[ ] to review`. Prefer **not** inventing behaviour beyond what the defect states.
@@ -150,5 +150,7 @@ For the **blueprint list** page / `blueprint-by-location-panel`, the panel varia
 Broader panel processing (models / helper classes) does **not** fit the expected design: that implementation returns to the design table under new epic [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](../sources/L1/11.EPIC-BLUEPRINT-LIST-PROCESSING.md) (EPIC-011), which may deprecate some current applied industry specs.
 
 2026-11-05 `/fix:defect`: added `NeoComVariant.BLUEPRINT_LIST` (`-BLUEPRINT-LIST-`); `blueprint-by-location-panel` uses it. Status applying — validate then `/defect:fixed`.
+
+Expand-toggle alignment defect moved to [`UI-DEFECTS.md`](./UI-DEFECTS.md) **DEF-UI-001** (was DEF-IB-011 / DEF-BLP-016).
 
 ---

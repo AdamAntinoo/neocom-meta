@@ -2,7 +2,7 @@
 name: defect-register
 description: >-
   Register a NEOCOM validation defect under neocom-meta/defects/ on the page
-  FEATURE-<branch-stem>_DEFECTS.md. Used by /defect (neocom-defect). Creates the
+  <branch-stem>_DEFECTS.md. Used by /defect (neocom-defect). Creates the
   page when missing; otherwise appends the next DEF-<CODE>-NNN entry.
 ---
 
@@ -32,9 +32,9 @@ If Observed or Expected is missing, ask once; do not invent.
 1. Product feature branch: prompt override, else `git -C <neocom-front> rev-parse --abbrev-ref HEAD` when `feature/*`, else same for `neocom-back`, else ask.
 2. Reject `develop` / `main` / meta-only branches unless the user names a product `feature/<name>`.
 3. Stem = branch name with optional `feature/` stripped, then uppercased, `_` → `-`.
-4. Page = `neocom-meta/defects/FEATURE-<STEM>_DEFECTS.md`.
+4. Page = `neocom-meta/defects/<STEM>_DEFECTS.md`.
 
-Example: `feature/industry-blueprints` → `FEATURE-INDUSTRY-BLUEPRINTS_DEFECTS.md`.
+Example: `feature/industry-blueprints` → `INDUSTRY-BLUEPRINTS_DEFECTS.md`.
 
 ### 3. Create page if missing
 
