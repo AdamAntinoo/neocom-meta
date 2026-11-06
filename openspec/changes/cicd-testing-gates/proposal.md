@@ -23,6 +23,6 @@ EPIC-003 requires unit and acceptance CI tasks to be separable (and optionally p
 ## Impact
 
 - Owning repositories: CI workflows in **`neocom-front`** / **`neocom-back`**
-- L2 IDs: GATE-001 … GATE-003 (`L2/CICD/02.TESTING-GATES.md`)
-- Source extract: `L2/03.EPIC-TESTING.cicd-gates.md`
+- Requirement ids: GATE-001 … GATE-003 
+- Source extract: 
 - Companion: `cicd-coverage-sonar`, `cicd-pipeline`

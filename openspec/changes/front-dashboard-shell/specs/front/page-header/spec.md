@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shared page header controller and Appearances for ApplicationInfo / ServerStatus renders. Source: UI-VER / UI-HDR / UI-AIP / UI-SSP in `L2/FRONT/12.PAGE-HEADER.md` (EPIC-006).
+Shared page header controller and Appearances for ApplicationInfo / ServerStatus renders. Source: UI-VER / UI-HDR / UI-AIP / UI-SSP in  (EPIC-006).
 
 ## ADDED Requirements
 
@@ -35,6 +35,16 @@ Secured chrome that places NeoCom panels side by side or stacked SHALL separate 
 - **WHEN** two NeoCom panels sit side by side or stacked in secured chrome
 - **THEN** separation uses `$panel-margin` / `$panel-padding`
 - **AND** the page does not invent a larger local gutter for that separation
+
+### Requirement: Section/row gap uses section-padding
+
+Gap between **rows** or **sections** SHALL use the default **`$section-padding`**; that token’s default SHALL equal **`$panel-padding`** (UI-GEO-002 / DEF-BLP-005).
+
+#### Scenario: Section gap equals panel padding
+
+- **WHEN** page geometry spaces rows or sections
+- **THEN** the gap is `$section-padding`
+- **AND** `$section-padding` defaults to the same value as `$panel-padding`
 
 ### Requirement: app-page-header is the header controller
 

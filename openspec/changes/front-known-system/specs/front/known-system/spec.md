@@ -2,7 +2,7 @@
 
 ## Purpose
 
-KnownSystem planetary card fields. Source: LOC-110 in `L2/FRONT/22.KNOWN-SYSTEM.md` (EPIC-008 Section 13).
+KnownSystem planetary card fields. Source: LOC-110 in  (EPIC-008 Section 13).
 
 ## ADDED Requirements
 

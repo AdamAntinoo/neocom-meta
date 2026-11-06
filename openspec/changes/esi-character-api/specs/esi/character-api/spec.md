@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`neocom-esi` drops the generated Character API and uses `@lgriffin/esi.ts` for high-level data. ESI-001, ESI-002, ESI-003, and ESI-004 are cancelled. Source: `L2/ESI/ESI-SPECS.md`.
+`neocom-esi` drops the generated Character API and uses `@lgriffin/esi.ts` for high-level data. ESI-001, ESI-002, ESI-003, and ESI-004 are cancelled. Source: .
 
 ## ADDED Requirements
 

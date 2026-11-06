@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Support page listing the application colour table. Source: IND-BP-040…042 in `L2/FRONT/14.COLOR-TABLE.md`.
+Support page listing the application colour table. Source: IND-BP-040…042 in .
 
 ## ADDED Requirements
 

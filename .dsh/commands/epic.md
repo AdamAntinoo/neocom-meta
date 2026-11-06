@@ -2,10 +2,12 @@
 name: "/epic"
 id: "epic"
 category: "NEOCOM Spec"
-description: "Open a new epic. The prompt is the epic name, then a brief description of its purpose, scope, and other details"
+description: "Open a new epic, append material, or (on explicit request) collect L0 cards. Card collection is disabled by default."
 ---
 
 Run **`/epic`** for the `neocom-spec-collector` agent.
+
+## Create
 
 The prompt is one sequence. The name and the description are not placed on separate lines.
 
@@ -17,27 +19,21 @@ The prompt is one sequence. The name and the description are not placed on separ
 
 Create `neocom-meta/sources/L1/NN.EPIC-NAME.md`. `NN` is the next two-digit number, starting at `01`. `EPIC-NAME` is `EPIC-` plus the name in uppercase, with words separated by `-`. The first login epic is `01.EPIC-LOGIN-PROCEDURE.md`.
 
-The file matches this template. The title is the id, then the name in uppercase. `## Goals` is the description from the prompt.
+The file matches this template. The title is the id, then the name in uppercase. `## Goals` is the description from the prompt. Leave `## Search criteria` and `## Sources` empty. Register the epic in `sources/L1/TRACEABILITY.md`. Append the version card footer.
 
-```markdown
-# EPIC-NNN - NAME
+**Do not** collect executive cards and **do not** run `/neo:backtrack` during creation. Those run only on explicit request.
 
-## Spec traceability
+## Collect cards (on request only)
 
-| Field | Value |
-| --- | --- |
-| Status | `none` |
-| L2 | |
-| OpenSpec changes | |
-| Skip | |
-| Index | `L1/TRACEABILITY.md` |
-
-## Goals
-The goal of this epic is to define the login procedure for the application.
+```text
+/epic collect 06
+/epic collect EPIC-USER-INTERFACE
 ```
 
-Then collect the matching executive cards from `sources/L0/executive/` into the epic's `## Sources` section, record each copied card in `sources/L0/executive/INDEX.md`, and append the version card footer.
+Only then scan `sources/L0/executive/` into the epic’s `## Sources` and update `sources/L0/executive/INDEX.md`. Require filled `## Search criteria`. Filling criteria alone does not trigger collection.
 
-Later prompts add templates, designs, and other material that describes the features inside this epic. Append that material to the same file.
+## Append
+
+Later prompts add templates, designs, and other material that describes the features inside this epic. Append that material to the same file. Do not collect cards unless the developer also requests collect.
 
 Do not implement product features. Do not commit.

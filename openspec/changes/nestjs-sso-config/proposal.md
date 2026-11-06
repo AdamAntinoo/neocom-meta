@@ -2,7 +2,7 @@
 
 ## Why
 
-NestJS on `neocom-back` needs named SSO environment variables and a deployment path for the client id and secret (ConfigModule / env contract). Source: INFRA-041 and INFRA-042 in `L2/INFRASTRUCTURE-SPECS.md`. Change name: `nestjs-sso-config` (formerly `back-nestjs-sso-config`, earlier `infra-sso-config`).
+NestJS on `neocom-back` needs named SSO environment variables and a deployment path for the client id and secret (ConfigModule / env contract). Source: INFRA-041 and INFRA-042 in . Change name: `nestjs-sso-config` (formerly `back-nestjs-sso-config`, earlier `infra-sso-config`).
 
 ## What Changes
 

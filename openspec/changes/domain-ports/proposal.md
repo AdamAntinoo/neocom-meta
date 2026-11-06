@@ -26,4 +26,4 @@ Service APIs need ports in `neocom-domain`: keep Pilot separate, expose other en
 
 - Owners: **`neocom-domain`** (interfaces), **`neocom-back`** (adapters)
 - Out of scope: Industry HTTP path details and Blueprint list endpoint (see `back-industry-blueprints`); OpenAPI update rules (see `back-openapi`)
-- L2 ids: BACK-SVC-020…022, BACK-SVC-030…032 from `L2/09.EPIC-BACKEND-SERVICES.md` → `L2/DOMAIN/10.PORTS.md`
+- L2 ids: BACK-SVC-020…022, BACK-SVC-030…032 from  

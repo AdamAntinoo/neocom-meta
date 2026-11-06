@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Hexagonal NestJS backend whose first endpoint returns the Pilot model. Source: `L2/BACK/BACK.md`.
+Hexagonal NestJS backend whose first endpoint returns the Pilot model. Source: .
 
 ## Requirements
 

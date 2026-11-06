@@ -31,7 +31,7 @@ New Node packages test with `node --test` (`node:test` and `node:assert/strict`)
 
 ## Requirements intake
 
-That run used `/neo:register-spec`. The same review and move into OpenSpec is now `/neo:spec-evolution`. It reviews every `UNREGISTERED REQUIREMENTS` section in L2, places each note in the system file, and registers an OpenSpec change `<system>-<feature>`.
+That run used `/neo:register-spec`. Registration of reviewed L1 units is now `/epic:extract`, which writes an OpenSpec change `<system>-<feature>` directly. The L2 copy has been removed.
 
 Registered from that run:
 

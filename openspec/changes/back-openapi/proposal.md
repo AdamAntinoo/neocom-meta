@@ -26,4 +26,4 @@ New back work must update OpenAPI first when it applies, name schemas after doma
 - Owner: **`neocom-back`**
 - Related (not duplicated): archived `back-hexagonal` already requires an OpenAPI document and generator; this change adds precedence and naming rules from EPIC-009
 - Out of scope: choosing concrete generator flags; Industry blueprint path shape beyond version prefix (see `back-industry-blueprints`)
-- L2 ids: BACK-SVC-060…063 from `L2/09.EPIC-BACKEND-SERVICES.md` → `L2/BACK/BACK-OPENAPI.md`
+- L2 ids: BACK-SVC-060…063 from  

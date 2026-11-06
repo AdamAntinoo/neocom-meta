@@ -24,4 +24,4 @@ EPIC-008 defines the infinity space-location chain (identity + Region…Structur
 
 - **`neocom-domain`**
 - Related: `back-spacelocations` (LOC-010), `domain-spacelocation` (thin V1 interface)
-- L2 ids from `L2/DOMAIN/06.LOCATIONS.md`
+- L2 ids from 

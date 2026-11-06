@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Client-side EVE Image Server URL contract for portraits, logos, and type icons. Source: UI-MED-001…008 in `L2/FRONT/18.EVE-MEDIA.md`.
+Client-side EVE Image Server URL contract for portraits, logos, and type icons. Source: UI-MED-001…008 in .
 
 ## ADDED Requirements
 

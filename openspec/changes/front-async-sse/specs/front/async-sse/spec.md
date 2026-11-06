@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Front adapter cache, SSE consumption, and in-place enrichment for heavy node lists. Source: FASSE-001 … FASSE-010 in `L2/FRONT/09.ASYNC-SSE.md`.
+Front adapter cache, SSE consumption, and in-place enrichment for heavy node lists. Source: FASSE-001 … FASSE-010 in .
 
 ## ADDED Requirements
 
@@ -38,7 +38,7 @@ The front adapter cache SHALL be a store of truth for heavy pages: fast return o
 
 ### Requirement: Front request and enrichment path
 
-The page SHALL ask the front adapter for the node list. On cache hit, the adapter SHALL return the cache and still open (or keep) SSE. On miss, it SHALL HTTP GET Nest, feed the panel (`completeDowload` / merge into `dataModelRoot`), paint via the normal viewer path, use `NeoComDelayed` / `isReady()` for not-ready nodes, and open a scoped SSE channel. On each SSE event the adapter SHALL merge into cache and notify the panel so `notifyDataChanged` re-runs and the row updates in place (FASSE-004, FASSE-005).
+The page SHALL ask the front adapter for the node list. On cache hit, the adapter SHALL return the cache and still open (or keep) SSE. On miss, it SHALL HTTP GET Nest, feed the panel (`completeDowload` / merge into `dataModelRoot`), paint via the normal viewer path, use `NeoComDelayed` / `isReady` for not-ready nodes, and open a scoped SSE channel. On each SSE event the adapter SHALL merge into cache and notify the panel so `notifyDataChanged` re-runs and the row updates in place (FASSE-004, FASSE-005).
 
 #### Scenario: SSE merges update a row in place
 

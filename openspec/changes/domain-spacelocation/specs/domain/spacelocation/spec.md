@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Thin SpaceLocationV1 interface artifact. Source: DOM-SLOCV1-001…003 in `L2/DOMAIN/07.SPACELOCATION-V1.md`.
+Thin SpaceLocationV1 interface artifact. Source: DOM-SLOCV1-001…003 in .
 
 ## ADDED Requirements
 
@@ -26,7 +26,7 @@ L1 states SpaceLocationV1 as the former `lastKnownLocation` type that declared n
 
 ### Requirement: Historical ESI mirrors stay internal
 
-Historical ESI-matching field lists under former `L2/DOMAIN/MODELS/` stay out of scope / server-internal; L2 pointers only (DOM-SLOCV1-003).
+Historical ESI-matching field lists under former  stay out of scope / server-internal; L2 pointers only (DOM-SLOCV1-003).
 
 #### Scenario: No public ESI Station mirror required
 

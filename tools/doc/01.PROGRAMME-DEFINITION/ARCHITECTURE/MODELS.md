@@ -7,7 +7,7 @@ This file is the programme home for **applied and implemented** domain-model doc
 | Concern | Where |
 | --- | --- |
 | Requirements, field review, versioning rules | **EPIC-004** — [`L1/04.EPIC-MODELS.md`](../../../../sources/L1/04.EPIC-MODELS.md) |
-| L2 pointers (no field lists) | [`L2/DOMAIN/MODELS/`](../../../../sources/L2/DOMAIN/MODELS/) |
+| L2 pointers (no field lists) |  |
 | **Implemented** model docs, hierarchy diagrams, package notes | **This file** (and linked assets under `ARCHITECTURE/` as they appear) |
 
 Do not put unreviewed requirements here. Do not treat this file as a substitute for EPIC-004 while models are still only specified.

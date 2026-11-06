@@ -18,12 +18,11 @@ context: |
   and non-obvious constraints when proposing or applying changes.
 
   Requirement intake: users author requirements inside L1 epic sections with a Review
-  status (initial `to review`, not extractable). When Review is `reviewed`, `/neo:extract-l2`
-  writes epic-named L2 notes at status `pending`. Duplicates go to `sources/L1/00.DUPLICATES.md`.
-  `/neo:spec-evolution` moves pending L2 specs into an OpenSpec change named
-  `<system>-<feature>` whose delta spec is `specs/<system>/<feature>/spec.md`.
-  Systems include front, infra, cicd, back, and domain. Cite L2 ids in registered specs.
-  Do not use UNREGISTERED REQUIREMENTS headings for new work.
+  status (initial `to review`, not registrable). When Review is `reviewed`, `/epic:extract`
+  registers that unit into an OpenSpec change named `<system>-<feature>` whose delta
+  spec is `specs/<system>/<feature>/spec.md`. Duplicates go to `sources/L1/00.DUPLICATES.md`.
+  Systems include front, infra, cicd, back, and domain. Cite the L1 epic and L1 ids.
+  There is no L2 copy. Do not use UNREGISTERED REQUIREMENTS headings for new work.
 
   Applying a feature commits on `feature/<feature>` created from `develop`. The user
   reviews and tests that branch. After that review, open a pull request into `develop`.

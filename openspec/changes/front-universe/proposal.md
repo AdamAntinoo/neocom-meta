@@ -23,4 +23,4 @@ Pilot details such as bloodline and race are ids until the unauthenticated ESI r
 ## Impact
 
 - Consumers: **`neocom-front`** and the Pilot model in **`neocom-domain`**
-- Out of scope: authenticated ESI routes, market data, and any Universe endpoint not listed in `L2/FRONT/02.UNIVERSE.md`
+- Out of scope: authenticated ESI routes, market data, and any Universe endpoint not listed in 

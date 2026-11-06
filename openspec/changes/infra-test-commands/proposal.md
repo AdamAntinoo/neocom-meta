@@ -24,6 +24,6 @@ EPIC-003 needs one shared vocabulary of short testing commands (TDD / BDD / SDD 
 ## Impact
 
 - Owning docs: **`neocom-meta`**; npm scripts in **`neocom-front`** / **`neocom-back`**
-- L2 IDs: INFRA-060 … INFRA-064 (`L2/INFRASTRUCTURE-SPECS.md` §I)
-- Source extract: `L2/03.EPIC-TESTING.command-catalog.md`
+- Requirement ids: INFRA-060 … INFRA-064 ( §I)
+- Source extract: 
 - SDD tooling details remain “defined later” per L2

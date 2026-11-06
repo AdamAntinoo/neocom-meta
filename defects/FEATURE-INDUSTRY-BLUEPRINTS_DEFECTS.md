@@ -111,7 +111,7 @@ Statuses for this register: `open` · `prep` · `in openspec` · `applying` · `
 | Surfaces | `v1-application-info-render` (and transitional `app-info-panel` if still painted) inside `app-page-header` |
 | Found on | Secured pages after Industry / Dashboard (e.g. Blueprint Availability) |
 | Branch tip | `neocom-front` `feature/industry-blueprints` |
-| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-AIP-006** Review `[ ]` — check to `[x]` when ready for `/neo:extract-l2` |
+| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-AIP-006** Review `[ ]` — check to `[x]` when ready for `/epic:extract` |
 
 ### Observed
 
@@ -128,7 +128,6 @@ Scope note (prep): activation is the **name** control only (not version, not cop
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) — Application info panel (UI-AIP-*) and/or Character selection (UI-CHAR-*) | Add a Review row for name → character-selection navigation; leave Appearance rows intact unless they conflict |
-| L2 | `FRONT/12.PAGE-HEADER.md` and/or `FRONT/20.CHARACTER-SELECTION.md` (after extract) | Only if L1 is extracted |
 | OpenSpec | `front-dashboard-shell` specs `front/page-header` or `front/character-selection` (or a small fix change) | Delta: clickable name → `/character-selection` |
 | Code | `neocom-front` `v1-application-info-render` (+ router link / click handler); ensure auth guard still applies | Do not invent SSO behaviour |
 
@@ -155,7 +154,7 @@ Found while exercising Industry blueprints secured chrome; root cause is header/
 | Surfaces | Header host component folder, class, SCSS class; L2 / OpenSpec capability id may also say `page-header` |
 | Found on | `neocom-front` header module while validating secured chrome |
 | Branch tip | `neocom-front` `feature/industry-blueprints` |
-| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-HDR-010** Review `[ ]` — check to `[x]` when ready for `/neo:extract-l2` |
+| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-HDR-010** Review `[ ]` — check to `[x]` when ready for `/epic:extract` |
 
 ### Observed
 
@@ -179,7 +178,6 @@ The header host SHALL be named consistently as `**app-page-header**` across sele
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) — Common header (`app-page-header`, UI-HDR-*) | Add a naming-consistency row (suggested `UI-HDR-010`) or clarify that folder/class MUST match the selector |
-| L2 | `FRONT/12.PAGE-HEADER.md` → consider rename / alias to `APP-PAGE-HEADER` when extracted again | Avoid silent path breaks; update INDEX / TRACEABILITY |
 | OpenSpec | `front-dashboard-shell` → `specs/front/page-header/` (rename or alias to `app-page-header`) | Delta + tasks for rename |
 | Code | Rename `page-header/` → `app-page-header/`, class → `AppPageHeaderComponent`, CSS `page-header` → `app-page-header`; update imports | Keep selector `app-page-header` (already correct) |
 
@@ -242,7 +240,6 @@ Out of scope until stated: inventing rules for `-render` / other suffixes; neste
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | EPIC-003 testing / Cypress catalog; EPIC-006 UI-HDR / UI-AIP / UI-SSP rows that hard-code `header`, `app-info`, `server-info` | Add global `cy-section-name` derivation rule; mark UI-HDR-005 (and similar) superseded or amended where they force `header` |
-| L2 | `FRONT/10.BDD-CYPRESS.md`, `FRONT/12.PAGE-HEADER.md`, industry/dashboard L2 as needed | After extract |
 | OpenSpec | `front-bdd-cypress` and/or `front-dashboard-shell` / `front-industry-blueprints` deltas | Catalog + concrete host markers |
 | Code | Align root `cy-section-name` on each host; update Vitest/Cypress queries | Mechanical rename; keep field-level `cy-field-*` unchanged |
 
@@ -269,7 +266,7 @@ Related to DEF-IB-002 (host identity): once the host is consistently `app-page-h
 | Surfaces | Page component selectors, folders, classes under `neocom-front` `pages/` and feature `…/pages/` |
 | Found on | Secured and support pages while validating Industry / Dashboard chrome |
 | Branch tip | `neocom-front` `feature/industry-blueprints` |
-| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-VER-004** Review `[ ] to review` — mark `[x] reviewed` when ready for `/neo:extract-l2` |
+| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-VER-004** Review `[ ] to review` — mark `[x] reviewed` when ready for `/epic:extract` |
 
 ### Observed
 
@@ -304,7 +301,6 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-VER-004**; [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md) Section 04 page short name / selector | UI-VER: pages unversioned; EPIC-010: drop `v1-` from page name (panels/renders keep `vn-`) |
-| L2 | Industry page L2 / FRONT/16 after extract or amend | Reflect unversioned page selector |
 | OpenSpec | `front-industry-blueprints` (page rename); shell only if any page was wrongly versioned | Delta + rename tasks; keep URL paths |
 | Code | Rename `v1-blueprint-by-location-page` → `blueprint-by-location-page`; update imports/tests | Prefer keep URL paths stable |
 
@@ -331,7 +327,7 @@ Earlier prep wrongly proposed versioning all pages to match industry. **Correct 
 | Surfaces | `app-page-header` first line: `v1-application-info-render` + `v1-server-status-render` (via `standalone-node-panel`); global `.row` / render `:host` flex |
 | Found on | Dashboard (and any `-APP-` secured page with the same header) |
 | Branch tip | `neocom-front` `feature/industry-blueprints` |
-| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-HDR-011** Review `[ ]` — check to `[x]` when ready for `/neo:extract-l2` |
+| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-HDR-011** Review `[ ]` — check to `[x]` when ready for `/epic:extract` |
 
 ### Observed
 
@@ -370,7 +366,6 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) — Common header (UI-HDR-*) and/or UI-AIP / UI-SSP | Add layout row requirement (suggested `UI-HDR-010` or `UI-HDR-011` if 010 used by DEF-IB-002 naming); leave Appearance rows intact |
-| L2 | `FRONT/12.PAGE-HEADER.md` (after extract) | Header band geometry |
 | OpenSpec | `front-dashboard-shell` → `front/page-header` (or small fix change) | Delta: full-width band; server content-right; app fill; stack when narrow |
 | Code | `page-header.component.scss` (facade today); `v1-application-info-render` / `v1-server-status-render` `:host` flex; optionally `.row--wrap` / header-specific modifier | Avoid breaking other `.row` consumers; prefer header-scoped rules |
 
@@ -397,7 +392,7 @@ Related to UI-HDR-003 / UI-AIP-005 / UI-SSP (both panels on `-APP-`). Found whil
 | Surfaces | Dashboard pilot & corporation row; `app-page-header` sibling spacing; shared panel tokens (`$panel-margin` / `$panel-padding`) |
 | Found on | Dashboard first content after header (`v1-pilot-panel` + `v1-corporation-panel`) |
 | Branch tip | `neocom-front` `feature/industry-blueprints` |
-| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-GEO-001** + **UI-DASH-015** Review `[ ]` — check to `[x]` when ready for `/neo:extract-l2` |
+| L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) **UI-GEO-001** + **UI-DASH-015** Review `[ ]` — check to `[x]` when ready for `/epic:extract` |
 
 ### Observed
 
@@ -441,7 +436,6 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) — Page geometry + UI-DASH / Pilot and corporation row | Add spacing rule: secured chrome panels use default panel gap for inter-panel and border inset |
-| L2 | `FRONT/04.DASHBOARD.md` / `FRONT/12.PAGE-HEADER.md` after extract | Geometry + gap token |
 | OpenSpec | `front-dashboard-shell` (`front/dashboard`, `front/page-header`) | Delta: remove `0.75rem` pilot-row padding/gap; use `$panel-margin` |
 | Code | `dashboard-home-page.component.scss` (drop/replace `0.75rem`); ensure header row + renders use the same token; optionally publish `--neo-panel-margin` if not already | Keep Appearance chrome intact |
 
@@ -449,7 +443,7 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 
 - [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and applies the flow through OpenSpec
-- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
@@ -510,7 +504,6 @@ Prep clarifications for L1 / OpenSpec (do not invent beyond this defect until au
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`04.EPIC-MODELS.md`](../sources/L1/04.EPIC-MODELS.md) — `v1-public-pilot` / `v2-pilot`; [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) — Pilot and corporation row | Clarify dashboard uses strip-aligned render; authenticated HEADER requires PilotV2 from back |
-| L2 | Pilot / dashboard L2 as applicable | After extract |
 | OpenSpec | `front-pilot` / `front-dashboard-shell`; back pilot / character endpoint change if needed | Delta: Appearance parity + authenticated PilotV2 wire |
 | Code (front) | `v1-pilot-panel`, `v1-public-pilot-render`, `v2-pilot-render`, `PilotService.getPilot` | Align chrome with strip; ensure private path when PilotV2 arrives |
 | Code (back) | Pilot `GET /v1/pilots/:id` authenticated response | Return PilotV2 with private HEADER fields when credential present |
@@ -570,7 +563,6 @@ Prep clarifications for L1 (do not invent beyond this defect until authored):
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`06.EPIC-USER-INTERFACE.md`](../sources/L1/06.EPIC-USER-INTERFACE.md) — Breadcrumb row / UI-DASH-* | Add Appearance: Elemental small; `neocom-panel panel-white`; full width; flush to previous/next |
-| L2 | Dashboard / shared breadcrumb L2 after extract | |
 | OpenSpec | `front-dashboard-shell` (breadcrumb / dashboard capability) | Delta: typography + white panel + width + flush stacking |
 | Code | `app-breadcrumb.component.html` / `.scss`; dashboard (and feature) page stacking | Add `neocom-panel panel-white`; Elemental small; width 100%; remove extra gutters vs pilot row / feature list |
 
@@ -648,7 +640,7 @@ Not in this L1 batch (prep Author L1 still unchecked). Distinct from DEF-IB-008 
 
 ```40:41:neocom-front/src/app/modules/industry/manufacture/panels/blueprint-by-location-panel/blueprint-by-location-panel.component.ts
     this.setVariant(NeoComVariant.SOLAR_SYSTEM_LOOKUP);
-    this.startDownloading();
+    this.startDownloading;
 ```
 
 That variant is **deprecated** for the blueprint list page. `NeoComVariant` currently has no `-BLUEPRINT-LIST-` constant.
@@ -662,7 +654,6 @@ For the **blueprint list** page / `blueprint-by-location-panel`, the panel varia
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](../sources/L1/10.EPIC-INDUSTRY-BLUEPRINTS.md) | Register panel variant `-BLUEPRINT-LIST-` for the blueprint list / by-location host |
-| L2 | industry / FRONT blueprint panel notes (after extract) | Only if L1 is extracted |
 | OpenSpec | `front-industry-blueprints` | Delta: panel variant `-BLUEPRINT-LIST-` |
 | Code | `NeoComVariant.ts`; `blueprint-by-location-panel.component.ts` | Add enum member; replace `setVariant(NeoComVariant.SOLAR_SYSTEM_LOOKUP)` |
 

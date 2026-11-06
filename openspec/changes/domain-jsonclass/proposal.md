@@ -27,4 +27,4 @@ Published domain models returned by the back must carry a stable `jsonClass` on 
 - **`neocom-back`**: serializers / response shaping for published domain models
 - **`neocom-front`**: consumers of those payloads (complements EPIC-002 node render registry)
 - **`neocom-domain`**: type names / `jsonClass` alignment with EPIC-004 register
-- L2 ids: DOM-JSONCLASS-001…003 from `L2/04.EPIC-MODELS.md` → placed `L2/DOMAIN/08.JSONCLASS.md`
+- L2 ids: DOM-JSONCLASS-001…003 from  → placed 

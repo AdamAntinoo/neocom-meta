@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Unauthenticated ESI reference data that completes the Pilot model. Source: `L2/FRONT/02.UNIVERSE.md`.
+Unauthenticated ESI reference data that completes the Pilot model. Source: .
 
 ## ADDED Requirements
 

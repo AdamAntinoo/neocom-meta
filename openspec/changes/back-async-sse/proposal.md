@@ -9,7 +9,7 @@ Nest must return partial or stored node lists quickly, enrich items one-by-one i
 - HTTP list API: persistence first, ESI on miss, return partial/stored lists, start background enrichment without blocking
 - Persist processed/calculated records via ORM; prefer PostgreSQL (provisioned by infra)
 - Background jobs via BullMQ + Redis; Redis pub/sub for multi-replica SSE fan-out
-- Nest `@Sse()` streams per list scope; emit node-updated (or patch) events
+- Nest `@Sse` streams per list scope; emit node-updated (or patch) events
 - Keep ESI client for persistence misses
 
 ## Capabilities
@@ -25,5 +25,5 @@ Nest must return partial or stored node lists quickly, enrich items one-by-one i
 ## Impact
 
 - Owning repository: **`neocom-back`**
-- L2 IDs: BASSE-001 … BASSE-012 (`L2/BACK/BACK-ASYNC-SSE.md`)
+- Requirement ids: BASSE-001 … BASSE-012 
 - Companions: `front-async-sse`, `infra-async-persistence`

@@ -2,7 +2,7 @@
 
 ## Approach
 
-Follow `L2/INFRASTRUCTURE-SPECS.md` section B (INFRA-010 … INFRA-016). Document the commands; do not add a second installer.
+Follow  section B (INFRA-010 … INFRA-016). Document the commands; do not add a second installer.
 
 ## Decisions
 

@@ -115,8 +115,8 @@ New defects start at `open` unless the user states prep work already done (`prep
 ## Resolution flow
 
 1. Record here — `/defect`; status `open` / `prep`.
-2. **Register the spec on the epic** — author or amend L1 on the owning epic with Review `[ ] to review`. Prefer not inventing behaviour beyond the defect.
-3. **Mark to run the process** (developer, manual) — that mark sets Review to `[x] reviewed` and authorizes the OpenSpec flow.
+2. **Register the spec on the epic** — author or amend L1 on the owning epic. **Selecting/checking this item assumes Review is accepted** → L1 Review **`[x] reviewed`** (never leave new defect-driven rows at `to review` when this box is checked). Prefer not inventing behaviour beyond the defect.
+3. **Mark to run the process** (developer, manual) — authorizes `/fix:defect` (Review already `[x] reviewed` when step 2 is checked).
 4. **`/fix:defect`** — list defects + actions; wait for developer plan approval; then implement Expected. Status `applying`. Stop before commit.
 5. **Developer validates** the product fix — then **`/defect:fixed DEF-…`**: move the defect (same structure and contents) to `defects/FIXED-DEFECTS.md` and remove it from the open feature page.
 

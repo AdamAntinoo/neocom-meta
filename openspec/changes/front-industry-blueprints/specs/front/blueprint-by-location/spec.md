@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Industry page listing pilot blueprints by location, with Region / System / Blueprint renders and hierarchy aggregation from sync/SSE. Source: IND-BP-030…036, 060…072, 090…095, 100…105, 110…118 in `L2/FRONT/16.BLUEPRINT-BY-LOCATION.md`.
+Industry page listing pilot blueprints by location, with Region / System / Blueprint renders and hierarchy aggregation from sync/SSE. Source: IND-BP-030…036, 060…072, 090…095, 100…105, 110…118 in .
 
 ## ADDED Requirements
 

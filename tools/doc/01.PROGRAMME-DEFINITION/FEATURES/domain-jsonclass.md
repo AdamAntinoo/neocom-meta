@@ -6,7 +6,7 @@
 | Status | registered |
 | Owners | `neocom-back`, `neocom-front`, `neocom-domain` |
 | L2 IDs | DOM-JSONCLASS-001 … DOM-JSONCLASS-003 |
-| Source | `sources/L2/DOMAIN/08.JSONCLASS.md` (EPIC-004 Section 22) |
+| Source |  (EPIC-004 Section 22) |
 
 ## Intent
 

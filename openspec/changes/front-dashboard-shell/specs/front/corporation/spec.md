@@ -2,13 +2,13 @@
 
 ## Purpose
 
-Corporation information panel and `v1-corporation-render`. Source: UI-CORP-001…013 in `L2/FRONT/19.CORPORATION.md`.
+Corporation information panel and `v1-corporation-render`. Source: UI-CORP-001…014 in EPIC-006.
 
 ## ADDED Requirements
 
 ### Requirement: Placement and pilot corporation id
 
-Corporation information panel SHALL sit to the **right** of the pilot panel on the Pilot & corporation row (not inside `app-page-header`) (UI-CORP-001). Corporation id SHALL come from the selected Pilot (`getCorporationId()` / PilotV2 corporation link) (UI-CORP-003).
+Corporation information panel SHALL sit to the **right** of the pilot panel on the Pilot & corporation row (not inside `app-page-header`) (UI-CORP-001). Corporation id SHALL come from the selected Pilot (`getCorporationId` / PilotV2 corporation link) (UI-CORP-003).
 
 #### Scenario: Right of pilot
 
@@ -34,3 +34,13 @@ New work SHALL paint with versioned **`v1-corporation-render`** (UI-CORP-006). P
 - **WHEN** a corporation node is painted
 - **THEN** the name line shows `Name [TICKER]`
 - **AND** members and tax percent appear as meta lines
+
+### Requirement: HEADER identity flex row 3 → 2 → 1
+
+On `v1-corporation-render` HEADER, identity lines **1** (name/ticker), **2** (members), and **3** (tax) SHALL sit on **one flex row** in content order **3 → 2 → 1** (left to right); column gap on that row SHALL be **double** the common panel column gap (UI-CORP-014 / DEF-BLP-004).
+
+#### Scenario: Compact identity row
+
+- **WHEN** the corporation HEADER paints name, members, and tax
+- **THEN** those three contents share one flex row ordered tax → members → name/ticker
+- **AND** the column gap is twice the common panel column gap

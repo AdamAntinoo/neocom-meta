@@ -2,7 +2,7 @@
 
 ## Purpose
 
-A panel that renders the Pilot model. Source: `L2/FRONT/05.PILOT-PANEL.md`.
+A panel that renders the Pilot model. Source: .
 
 ## ADDED Requirements
 

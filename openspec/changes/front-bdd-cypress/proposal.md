@@ -23,7 +23,7 @@ EPIC-003 requires an SDD→BDD→TDD design model and Cypress acceptance that va
 ## Impact
 
 - Owning repository: **`neocom-front`**
-- L2 IDs: BDD-001 … BDD-004 (`L2/FRONT/10.BDD-CYPRESS.md`)
-- Source extract: `L2/03.EPIC-TESTING.bdd-cypress.md`
+- Requirement ids: BDD-001 … BDD-004 
+- Source extract: 
 - Related (not duplicated): Cypress+Cucumber toolchain (`front-infrastructure` / INFRA-005); pilot-panel-specific markers (PANEL-010/012)
 - Out of scope: inventing new `cy-*` attribute names beyond those already documented in L2

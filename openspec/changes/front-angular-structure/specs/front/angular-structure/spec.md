@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Application structure for pages, panels, section modules, and shared modules. Source: STRUCT-001 … STRUCT-007 in `L2/FRONT/07.ANGULAR-STRUCTURE.md`.
+Application structure for pages, panels, section modules, and shared modules. Source: STRUCT-001 … STRUCT-007 in .
 
 ## ADDED Requirements
 

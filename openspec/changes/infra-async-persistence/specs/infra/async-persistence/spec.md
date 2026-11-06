@@ -2,7 +2,7 @@
 
 ## Purpose
 
-PostgreSQL/Redis provision and persistence contract for async node enrichment. Source: INFRA-050 … INFRA-055 in `L2/INFRASTRUCTURE-SPECS.md`.
+PostgreSQL/Redis provision and persistence contract for async node enrichment. Source: INFRA-050 … INFRA-055 in .
 
 ## ADDED Requirements
 
@@ -47,7 +47,7 @@ PostgreSQL (persistence) and Redis (queue and optional pub/sub for SSE fan-out) 
 
 ### Requirement: Infrastructure checklist
 
-The programme checklist SHALL include: PostgreSQL (or approved equivalent) for processed/calculated node data; Nest persistence module + migrations for list/item records and staleness fields; Redis + BullMQ (or approved queue) for one-by-one background enrichment; Nest `@Sse()` endpoints per list scope with Redis pub/sub if multiple replicas; front adapter with HTTP + cache + authenticated SSE consumer; front panel wiring for in-place SSE merge; DB/Redis secrets in back envs; SSE base path in front envs (INFRA-055).
+The programme checklist SHALL include: PostgreSQL (or approved equivalent) for processed/calculated node data; Nest persistence module + migrations for list/item records and staleness fields; Redis + BullMQ (or approved queue) for one-by-one background enrichment; Nest `@Sse` endpoints per list scope with Redis pub/sub if multiple replicas; front adapter with HTTP + cache + authenticated SSE consumer; front panel wiring for in-place SSE merge; DB/Redis secrets in back envs; SSE base path in front envs (INFRA-055).
 
 #### Scenario: Checklist gates apply readiness
 

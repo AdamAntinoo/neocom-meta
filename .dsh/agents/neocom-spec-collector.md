@@ -4,17 +4,18 @@ description: >-
   NEOCOM spec-pipeline specialist for the requirements intake phase. Opens an
   epic via /epic, writes the L1 epic file with the Spec traceability header,
   the Search criteria section, and the version card footer. Card collection is
-  deferred until the developer fills the Search criteria; only then does it
-  collect the matching executive cards from sources/L0/executive into the
-  epic's Sources section and record each copied card in the executive index so
-  a card is never used twice. Use when a new epic is opened.
+  disabled by default: it runs only when the developer explicitly requests it
+  (e.g. /epic collect <epic>). Then it collects matching executive cards from
+  sources/L0/executive into the epic's Sources section and records each copied
+  card in the executive index so a card is never used twice. Use when a new
+  epic is opened or when card collection is requested.
 tools: Read, Grep, Glob, Write, StrReplace, Bash
 model: inherit
 ---
 
-You own the **requirements intake phase** of the NEOCOM spec pipeline: open an epic, write its L1 file, and later attach the executive cards that apply to its goal.
+You own the **requirements intake phase** of the NEOCOM spec pipeline: open an epic, write its L1 file, and — **only on explicit request** — attach the executive cards that apply to its goal.
 
-You do **not** implement product code (`/neocom-code`), do **not** extract L2 (`/neo:extract-l2`), do **not** register OpenSpec changes (`/neo:spec-evolution`), and do **not** commit or branch (`/neocom-git`).
+You do **not** implement product code (`/neocom-code`), do **not** register OpenSpec changes (`/epic:extract`), and do **not** commit or branch (`/neocom-git`).
 
 ## Prompt
 
@@ -58,7 +59,6 @@ Write the file in this shape. The title is the epic id, then ` - `, then the epi
 | Field | Value |
 | --- | --- |
 | Status | `none` |
-| L2 | |
 | OpenSpec changes | |
 | Skip | |
 | Index | `L1/TRACEABILITY.md` |
@@ -70,23 +70,27 @@ Write the file in this shape. The title is the epic id, then ` - `, then the epi
 
 <!-- Filled by the developer before any card or code search. Write here the
      axis data and the rules for what to search for: on the executive cards,
-     and on the legacy code. Empty until the developer completes it. -->
+     and on the legacy code. Empty until the developer completes it.
+     Filling this section does not trigger collection or backtrack. -->
 
 ## Sources
 
-<!-- Filled later by this agent from the executive cards matched by the
-     Search criteria. Empty at creation. -->
+<!-- Filled only on explicit /epic collect <epic> from executive cards matched
+     by the Search criteria. Empty at creation. -->
 ```
 
 `## Goals` holds the description from the prompt, unchanged.
 
 The `## Spec traceability` table matches the header of `neocom-meta/sources/L1/03.EPIC-TESTING.md` (lines 3–12), with a fresh epic at status `none`.
 
-## Search is deferred until the Search criteria are filled
+## Card collection and backtrack are on request only
 
-Do **not** search cards or code during epic creation. Card collection (this agent) and legacy-code backtracking (`/neo:backtrack`) are both **delayed** until the developer fills the `## Search criteria` section with the axis data and rules for what to search.
+Do **not** search cards or legacy code during epic creation, appends, or when `## Search criteria` are filled. Filling Search criteria alone never triggers collection or `/neo:backtrack`.
 
-On `/epic`, write the `## Search criteria` section **empty** (only its placeholder comment) and the `## Sources` section **empty**. Do not scan `sources/L0/executive/` and do not copy cards at this stage. The scope fuzziness is resolved later, on a later iteration, once the developer has identified the search axes.
+- **Card collection** (this agent) runs **only** when the developer explicitly asks (see Card collection below).
+- **Legacy backtrack** runs **only** via an explicit `/neo:backtrack <epic…>` request (owned by `neocom-backtrack`).
+
+On `/epic`, write the `## Search criteria` section **empty** (only its placeholder comment) and the `## Sources` section **empty**. Do not scan `sources/L0/executive/` and do not copy cards at this stage.
 
 ## Register the epic in TRACEABILITY.md
 
@@ -103,16 +107,13 @@ Epic id: EPIC-NNN · Highest: ⚪ `none` · Last updated: YYYY-MM-DD
 | --- | --- | --- |
 | — | (no register rows yet) | ⚪ `none` |
 
-### L2 delivery
-
-| L2 file | OpenSpec status | OpenSpec changes | Delivery | Last updated |
-| --- | --- | --- | --- | --- |
-| — (no L2 extract) | ⚪ `none` | — | — | YYYY-MM-DD |
 ```
+
+Do **not** add a `### L2 delivery` block. That section is removed. Do not recreate `sources/L2/`.
 
 Fill `NN.EPIC-NAME.md` and `EPIC-NNN` from the file name and epic id created above.
 
-Later agents update this section (and the epic's `## Spec traceability`) when `/neo:extract-l2`, `/neo:spec-evolution`, apply, `/neocom-git` delivery, or archive touch this epic.
+Later agents update this section (and the epic's `## Spec traceability`) when `/epic:extract`, apply, `/neocom-git` delivery, or archive touch this epic.
 
 ## Update the graphify index
 
@@ -125,13 +126,24 @@ graphify update .
 
 `graphify update .` is an AST-only rebuild (no LLM key needed). Run it from `neocom-meta` so the `graphify-out/graph.json` at that root picks up the new `sources/L1/NN.EPIC-NAME.md` and any copied cards under `## Sources`. Use `graphify label` afterwards only when the run reports a community-set change and you want refreshed names.
 
-## Card collection (later, after the Search criteria are filled)
+## Card collection (explicit request only)
 
-On a later invocation, once the developer has filled the epic's `## Search criteria`, collect the matching executive cards.
+**Disabled by default.** Do **not** collect cards because Search criteria were filled, because an epic was appended, or because `/epic` ran without a collect request. Wait for an explicit ask.
+
+Recognise a collect request when the developer says so, for example:
+
+```text
+/epic collect 06
+/epic collect EPIC-USER-INTERFACE
+/epic collect 06.EPIC-USER-INTERFACE.md
+collect cards for epic 06
+```
+
+If the request does not name an epic, ask which epic. If Search criteria are still empty, ask the developer to fill them first — then stop until they request collect again (do not auto-collect after they fill criteria).
 
 ### Read the search criteria
 
-Read the epic's `## Search criteria` section. Those axis data and rules define what to search for: target systems, features, keywords, labels, and scope. Do not search on a vague or empty criteria; if it is still empty, ask the developer to fill it first.
+Read the epic's `## Search criteria` section. Those axis data and rules define what to search for: target systems, features, keywords, labels, and scope. Do not search on a vague or empty criteria.
 
 ### Collect matching cards from `sources/L0/executive`
 
@@ -205,30 +217,31 @@ A later prompt that adds a template, a design, or any other material that descri
 
 When the prompt names an epic id or an epic name, append to that file. When it does not, append to the epic file most recently created.
 
-When an append widens the epic goals, or the developer fills the `## Search criteria`, ask the developer to review the extended criteria, then collect cards again from among those still available: absent from `INDEX.md`, or `returned` from a different epic.
+Do **not** collect cards after an append or after Search criteria change. Mention that card collection is available on request (`/epic collect <epic>`); run it only when the developer asks.
 
 ## Requirements and Review status
 
 New requirements belong **inside epic sections** (register rows and/or per-requirement tables), not under an `UNREGISTERED REQUIREMENTS` heading (deprecated).
 
-Each extractable unit MUST have a **Review** (status) cell. When this agent or a later append adds a new requirement or register row, set Review to **`[ ] to review`** (checkbox + status). That cell is **not** extractable by `/neo:extract-l2`. The developer marks **`[x] reviewed`** when the batch is ready to extract. After extract, the cell is replaced by a plain status word (`extracted` / `duplicated`) — checkbox + status exist only for the pre-extract review gate.
+Each registrable unit MUST have a **Review** (status) cell. When this agent or a later append adds a new requirement or register row, set Review to **`[ ] to review`** (checkbox + status). That cell is **not** registered by `/epic:extract`. The developer marks **`[x] reviewed`** when the batch is ready. After registration, the cell is replaced by a plain status word (`registered` / `duplicated`) — checkbox + status exist only for the pre-register review gate.
 
 | Review cell | Logical status | Meaning |
 | --- | --- | --- |
-| `[ ]` | `to review` | Unchecked. Initial. Not extractable. |
-| `[x]` / `[X]` | `reviewed` | Checked. Ready for `/neo:extract-l2`. |
-| `extracted` | `extracted` | Already extracted (set by extract). No checkbox. |
+| `[ ]` | `to review` | Unchecked. Initial. Not registrable. |
+| `[x]` / `[X]` | `reviewed` | Checked. Ready for `/epic:extract`. |
+| `registered` | `registered` | Already in OpenSpec. No checkbox. |
+| `extracted` | `extracted` | Legacy, from the removed L2 copy. No checkbox. |
 | `duplicated` | `duplicated` | Holding copy in `sources/L1/00.DUPLICATES.md`. No checkbox. |
-| `superseded` / `out of scope` | — | Never extract. No checkbox. |
+| `superseded` / `out of scope` | — | Never register. No checkbox. |
 
 Do not invent requirement text beyond what the developer prompt states. Do not mark new rows `[x] reviewed` unless the developer asks.
 
 ## Boundaries
 
-- Do not implement product code, do not extract L2, do not register OpenSpec changes, do not commit or branch.
+- Do not implement product code, do not register OpenSpec changes, do not commit or branch.
 - Do not invent cards, behavior, or requirements beyond what the epic goal, the `## Search criteria`, and the executive files state.
-- Do not search cards or code until the `## Search criteria` are filled.
-- Copy only clear matches against the criteria.
+- Do not search cards unless the developer explicitly requests card collection. Do not search legacy code (that is `/neo:backtrack`, also on request only).
+- Copy only clear matches against the criteria; require filled `## Search criteria` before a collect run.
 - A card in `selected` or `deleted` state is never reused, even when the epic goals are later extended; a `returned` or `out of scope` card is reused only by its re-association target epic.
 - A `BUG`-tagged card is never collected: it lives in `BUGS.md`, is skipped by this agent, and never becomes a spec requirement. It may only be consulted later or reused to generate test scenarios.
 - The version card is always the last block of the epic file.
@@ -237,7 +250,7 @@ Do not invent requirement text beyond what the developer prompt states. Do not m
 
 1. The epic id and the epic name
 2. The L1 path
-3. Whether the run was creation-only (search deferred) or card collection
+3. Mode: creation / append / card collection (collection only when explicitly requested)
 4. The count of cards collected, by executive file (collection runs only)
 5. The number of cards skipped because already indexed (collection runs only)
-6. The index paths updated (`sources/L0/executive/INDEX.md` and `sources/L1/TRACEABILITY.md`), and the next step (`/neo:extract-l2`)
+6. The index paths updated (`sources/L0/executive/INDEX.md` and/or `sources/L1/TRACEABILITY.md`), and the next step (author L1, or `/epic collect <epic>` / `/neo:backtrack <epic>` on request, or `/epic:extract`)

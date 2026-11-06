@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Application Dashboard and feature dashboards (provider-driven feature lists). Source: UI-DASH-* in `L2/FRONT/04.DASHBOARD.md` (EPIC-006). Legacy DASH-001…009 retained only where they do not conflict.
+Application Dashboard and feature dashboards (provider-driven feature lists). Source: UI-DASH-* in  (EPIC-006). Legacy DASH-001…009 retained only where they do not conflict.
 
 ## REMOVED Requirements
 

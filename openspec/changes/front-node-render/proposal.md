@@ -25,6 +25,6 @@ EPIC-002 needs a stable node → Part → render pipeline with a registry (repla
 ## Impact
 
 - Owning repository: **`neocom-front`**
-- L2 IDs: NODE-001 … NODE-017 (`L2/FRONT/08.NODE-RENDER.md`)
-- Source extract: `L2/02.EPIC-ANGULAR-CODIFICATION.nodes.md`
+- Requirement ids: NODE-001 … NODE-017 
+- Source extract: 
 - Async fetch/SSE owned by `front-async-sse` / `back-async-sse` (condensed notes moved to DUPLICATED)

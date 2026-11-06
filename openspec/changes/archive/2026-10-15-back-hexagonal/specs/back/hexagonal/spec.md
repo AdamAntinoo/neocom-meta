@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Hexagonal NestJS backend whose first endpoint returns the Pilot model. Source: `L2/BACK/BACK.md`.
+Hexagonal NestJS backend whose first endpoint returns the Pilot model. Source: .
 
 ## ADDED Requirements
 
@@ -36,7 +36,7 @@ The publication SHALL be a port with the endpoints and the business-object model
 
 ### Requirement: Pilot endpoint returns a PilotDto
 
-The Pilot endpoint SHALL return a `PilotDto`, a JSON view of the Pilot model in `L2/DOMAIN/MODELS/Pilot.md` (BACK-007). The endpoint SHALL accept the pilot identifier as a parameter (BACK-008).
+The Pilot endpoint SHALL return a `PilotDto`, a JSON view of the Pilot model in  (BACK-007). The endpoint SHALL accept the pilot identifier as a parameter (BACK-008).
 
 #### Scenario: A pilot identifier returns the model
 

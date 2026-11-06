@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Character selection UI before Dashboard. Source: UI-CHAR-002 in `L2/FRONT/20.CHARACTER-SELECTION.md`.
+Character selection UI before Dashboard. Source: UI-CHAR-002 in .
 
 ## ADDED Requirements
 

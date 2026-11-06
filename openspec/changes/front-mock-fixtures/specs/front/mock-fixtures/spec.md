@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Mocked scenarios and fixtures from real runs for Cypress, with replaceable test adapters. Source: FIX-001 … FIX-004 in `L2/FRONT/11.MOCK-FIXTURES.md`.
+Mocked scenarios and fixtures from real runs for Cypress, with replaceable test adapters. Source: FIX-001 … FIX-004 in .
 
 ## ADDED Requirements
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Front SSO login: guard, authorize link, cookies, login page, and callback. Source: LOGIN-001 … LOGIN-008 in `L2/FRONT/06.LOGIN.md`.
+Front SSO login: guard, authorize link, cookies, login page, and callback. Source: LOGIN-001 … LOGIN-008 in .
 
 ## ADDED Requirements
 
@@ -28,17 +28,17 @@ The development registration SHALL be named New Neocom Infinity. The callback SH
 
 ### Requirement: Authorize link from OAuthEnabledComponent
 
-The login page SHALL reuse `OAuthEnabledComponent` through `BackgroundOauthEnabledComponent`. `getLoginLink()` SHALL call `composeLoginLink()`, which reads `environment.loginLinkData` and appends `response_type`, `client_id`, `state`, `redirect_uri`, and `scope`. The scope value SHALL be `environment.loginLinkData.scope`, the same `EVE_SSO_SCOPES` value. The page SHALL write that same `state` into `neocom_sso_state` before the browser leaves for EVE. The back SHALL NOT build the authorize URL (LOGIN-003).
+The login page SHALL reuse `OAuthEnabledComponent` through `BackgroundOauthEnabledComponent`. `getLoginLink` SHALL call `composeLoginLink`, which reads `environment.loginLinkData` and appends `response_type`, `client_id`, `state`, `redirect_uri`, and `scope`. The scope value SHALL be `environment.loginLinkData.scope`, the same `EVE_SSO_SCOPES` value. The page SHALL write that same `state` into `neocom_sso_state` before the browser leaves for EVE. The back SHALL NOT build the authorize URL (LOGIN-003).
 
 #### Scenario: Login button opens the composed authorize URL
 
 - **WHEN** the player activates the EVE login button
-- **THEN** the href is `getLoginLink()`
+- **THEN** the href is `getLoginLink`
 - **AND** `neocom_sso_state` matches the `state` in that URL
 
 ### Requirement: SSO state cookie
 
-`neocom_sso_state` SHALL use `Path=/` and `SameSite=Lax`. It SHALL hold the `state` from `getLoginLink()` and last until the callback accepts or rejects it, or 20 minutes. The callback SHALL reject the request when the query `state` differs from this cookie and SHALL NOT call `addCharacter`. On a match it SHALL clear `neocom_sso_state`. If the player cancels at EVE, the browser SHALL return with no code, the login page SHALL be shown again, and `neocom_return` SHALL stay (LOGIN-004).
+`neocom_sso_state` SHALL use `Path=/` and `SameSite=Lax`. It SHALL hold the `state` from `getLoginLink` and last until the callback accepts or rejects it, or 20 minutes. The callback SHALL reject the request when the query `state` differs from this cookie and SHALL NOT call `addCharacter`. On a match it SHALL clear `neocom_sso_state`. If the player cancels at EVE, the browser SHALL return with no code, the login page SHALL be shown again, and `neocom_return` SHALL stay (LOGIN-004).
 
 #### Scenario: State mismatch rejects the callback
 
@@ -68,7 +68,7 @@ The UI SHALL be able to change the active character without a new login. It SHAL
 
 ### Requirement: Login page
 
-The login page SHALL follow `neocom-infinity-frontend` `v1-start-page`, with `app-info-panel` above that panel. `app-info-panel` SHALL show the application name in uppercase, the version, and the copyright from the front environment. The title SHALL be `NeoCom / SSO EVE Online`. While the page is checking the session it SHALL show `VALIDANDO AUTENTICACION DEL PILOTO...`. When there is no session it SHALL show the EVE login button, `cy-name="EVE-login-button"`, using `assets/media/eve-sso-login-white-large.png`, with href `getLoginLink()`. A footer SHALL carry the copyright line. The validation message and the login button SHALL be alternatives (LOGIN-007).
+The login page SHALL follow `neocom-infinity-frontend` `v1-start-page`, with `app-info-panel` above that panel. `app-info-panel` SHALL show the application name in uppercase, the version, and the copyright from the front environment. The title SHALL be `NeoCom / SSO EVE Online`. While the page is checking the session it SHALL show `VALIDANDO AUTENTICACION DEL PILOTO...`. When there is no session it SHALL show the EVE login button, `cy-name="EVE-login-button"`, using `assets/media/eve-sso-login-white-large.png`, with href `getLoginLink`. A footer SHALL carry the copyright line. The validation message and the login button SHALL be alternatives (LOGIN-007).
 
 #### Scenario: No session shows the EVE button
 

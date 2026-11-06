@@ -6,7 +6,7 @@
 | Status | registered |
 | Owners | `neocom-domain`, `neocom-back` |
 | L2 IDs | BACK-SVC-040…042, BACK-SVC-050…052 |
-| Source | `sources/L2/DOMAIN/11.DEPRECATIONS.md` (EPIC-009) |
+| Source |  (EPIC-009) |
 
 ## Intent
 

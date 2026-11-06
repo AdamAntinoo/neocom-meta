@@ -2,7 +2,7 @@
 
 ## Purpose
 
-NestJS SSO environment variables and deployment secrets for `neocom-back`. Source: INFRA-041 and INFRA-042 in `L2/INFRASTRUCTURE-SPECS.md`.
+NestJS SSO environment variables and deployment secrets for `neocom-back`. Source: INFRA-041 and INFRA-042 in .
 
 ## ADDED Requirements
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-EVE SSO Authorization Code contract and shared login cookies. Source: ESI-013 and ESI-014 in `L2/ESI/ESI-SSO.md`. Distinct from `esi/login` (PKCE, ESI-012).
+EVE SSO Authorization Code contract and shared login cookies. Source: ESI-013 and ESI-014 in . Distinct from `esi/login` (PKCE, ESI-012).
 
 ## ADDED Requirements
 

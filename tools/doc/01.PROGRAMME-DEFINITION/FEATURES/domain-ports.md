@@ -6,7 +6,7 @@
 | Status | registered |
 | Owners | `neocom-domain`, `neocom-back` |
 | L2 IDs | BACK-SVC-020…022, BACK-SVC-030…032 |
-| Source | `sources/L2/DOMAIN/10.PORTS.md` (EPIC-009) |
+| Source |  (EPIC-009) |
 
 ## Intent
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-CI for the front application and the limit of CD. Source: INFRA-030 … INFRA-039 and the local Kubernetes note in `L2/INFRASTRUCTURE-SPECS.md`.
+CI for the front application and the limit of CD. Source: INFRA-030 … INFRA-039 and the local Kubernetes note in .
 
 ## ADDED Requirements
 

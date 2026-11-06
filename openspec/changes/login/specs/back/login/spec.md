@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Back SSO token storage, code exchange, and `neocom_access` lifecycle. Source: BACK-014 … BACK-017 in `L2/BACK/BACK-LOGIN.md`.
+Back SSO token storage, code exchange, and `neocom_access` lifecycle. Source: BACK-014 … BACK-017 in .
 
 ## ADDED Requirements
 

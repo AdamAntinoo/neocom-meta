@@ -2,7 +2,7 @@
 
 ## Purpose
 
-ApplicationInfoV1 for header identity. Source: DOM-APPINFO-001…003 in `L2/DOMAIN/04.APPLICATION-INFO.md`.
+ApplicationInfoV1 for header identity. Source: DOM-APPINFO-001…003 in .
 
 ## ADDED Requirements
 
@@ -17,7 +17,7 @@ ApplicationInfoV1 for header identity. Source: DOM-APPINFO-001…003 in `L2/DOMA
 
 ### Requirement: Provider and render methods
 
-Values today from front environment (`appName`, `appVersion`, `copyright`). Provider builds **ApplicationInfoV1**; render reads only `getName()`, `getVersion()`, `getCopyright()`. Name displayed uppercase in default header render (DOM-APPINFO-002).
+Values today from front environment (`appName`, `appVersion`, `copyright`). Provider builds **ApplicationInfoV1**; render reads only `getName`, `getVersion`, `getCopyright`. Name displayed uppercase in default header render (DOM-APPINFO-002).
 
 #### Scenario: Render does not read environment directly
 

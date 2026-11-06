@@ -21,7 +21,6 @@ Applied `back-spacelocations` covers only LOC-010 (HTTP lookup path). Runtime st
 ## Impact
 
 - Owner: **`neocom-back`**
-- L2: `BACK/BACK-SPACE-LOCATION-SERVICE.md` (from `L2/08.EPIC-LOCATIONS.space-location-service.md`)
 - Depends on: applied `domain-locations`, `back-spacelocations` (path), Redis via `REDIS_URL` / tools docker
 - Unblocks: blueprint list location resolve (DEF-BLP-001 / BLP compose of `GetSpaceLocationUseCase`)
 - LOC-142 is evaluation-only until a recorded decision; do not ship a third-party adapter in this change’s apply without that record

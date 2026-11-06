@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Full-canvas frame for the Angular application. Source: SHELL-001 … SHELL-003 in `L2/FRONT/03.APP-SHELL.md`.
+Full-canvas frame for the Angular application. Source: SHELL-001 … SHELL-003 in .
 
 ## ADDED Requirements
 

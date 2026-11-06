@@ -2,7 +2,7 @@
 
 ## Purpose
 
-ESI pilot blueprints → `neocom-back` interchange DTOs with embedded catalog location. Source: BLP-014, 015, 018…020 in `L2/BACK/BACK-BLUEPRINT-LIST-PROCESSING.md` (EPIC-011).
+ESI pilot blueprints → `neocom-back` interchange DTOs with embedded catalog location. Source: BLP-014, 015, 018…020 in  (EPIC-011).
 
 ## ADDED Requirements
 

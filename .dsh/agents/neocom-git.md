@@ -27,7 +27,7 @@ Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), packag
 ## Boundaries
 
 - Do not edit product application code to “fix” features; only git metadata, commit messages, PR bodies, tags, and pointer SHAs. Do **not** run `version:sync` as an agent chore — hooks and CI own app versions; domain versions after `distribute`.
-- Do not invent undeclared deploy targets. Align promotions with pending L2 CI/CD (`INFRA-036` … `INFRA-039`); until CD is defined, document intent only — do not implement pipelines or invent staging/prod hosts.
+- Do not invent undeclared deploy targets. Align promotions with pending CI/CD requirements (`INFRA-036` … `INFRA-039`); until CD is defined, document intent only — do not implement pipelines or invent staging/prod hosts.
 - Never update git config. Never force-push `main`/`master`. Never skip hooks unless the user explicitly allows it.
 - Commit **only** when the user asks, when `/git:commit` or `/git:pr` is invoked, or when this agent is explicitly invoked to create a commit.
 - **After OpenSpec apply:** do **not** commit (and do not treat apply as a commit request). Leave the working tree for the developer to review the code. Commit only after they explicitly say to (e.g. `/git:commit`, “commit”, or `/git:pr`). Do not start the next apply or further product edits as a side effect of a commit either — that stays with `/neocom-code` after the developer continues.
@@ -126,10 +126,10 @@ Do not write GitVersion `SemVer` (no branch pre-release label). Do not use `npm 
 3. **Commit only when the developer asks.** After they have reviewed and explicitly request a commit (`/git:commit`, `/git:pr`, or clear “commit” language), commit on the feature branch — not on `develop` or `main`. Until then, leave the tree as apply left it.
 4. **User review / test (committed or not).** The developer reviews and runs the testing they want. A commit does not by itself authorize the pull request.
 5. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code (or when the developer chose that stack at branch creation). Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
-6. **Pull request into `develop` (validation intake).** After the developer has committed (or `/git:pr` commits) and is ready, open a PR **feature → `develop`**. The body must list every **OpenSpec change** and **feature** in the tip (see `.dsh/templates/openspec-delivery-control.md` and `pull-requests.md`). Mark the PR as **ready for validation on develop**. One PR may stack several features; name all of them and list **out of scope** changes explicitly. Do not merge unless asked. On accept into `develop`, move those changes in `CHANGE-STATUS.md` to **`applied`** (validation pending); mark matching rows in `openspec/DELIVERY-INDEX.md` as `merged` with the develop tip SHA(s); **and** refresh `sources/L1/TRACEABILITY.md` L2 delivery **Delivery** / OpenSpec status for those changes. The next OpenSpec apply still runs the **branch-base consult** in step 1.
+6. **Pull request into `develop` (validation intake).** After the developer has committed (or `/git:pr` commits) and is ready, open a PR **feature → `develop`**. The body must list every **OpenSpec change** and **feature** in the tip (see `.dsh/templates/openspec-delivery-control.md` and `pull-requests.md`). Mark the PR as **ready for validation on develop**. One PR may stack several features; name all of them and list **out of scope** changes explicitly. Do not merge unless asked. On accept into `develop`, move those changes in `CHANGE-STATUS.md` to **`applied`** (validation pending); mark matching rows in `openspec/DELIVERY-INDEX.md` as `merged` with the develop tip SHA(s); **and** refresh `sources/L1/TRACEABILITY.md` **Sections** / Highest (and epic Spec traceability) for those changes. Do **not** recreate TRACEABILITY **`### L2 delivery`**. The next OpenSpec apply still runs the **branch-base consult** in step 1.
 7. **Validate on `develop`.** After merge, run / record OpenSpec and product validation against the **new `develop` tip** (and the developer’s **dev environment** checks). Update CHANGE-STATUS notes (`validated on develop @ <sha>` or failure), the **Validated** column in `DELIVERY-INDEX.md`, and TRACEABILITY Delivery validation tips. Do **not** archive yet. Do **not** open the Release PR yet.
-8. **Archive selected OpenSpec changes (before Release PR ready).** When the developer **selects** which validated `applied` changes to archive, run `/openspec-archive-change` for that set (coordinate with OpenSpec archive skill). Same turn: CHANGE-STATUS → **Archived**, main `openspec/specs/`, TRACEABILITY → 📦 `archived`, `DELIVERY-INDEX` archived rows, and **§6.7** source-archive for any fully completed L2 then L1. **Collect** archived ids into the release inventory. Do not archive changes the developer did not select.
-9. **Draft Release PR `develop` → `main`.** Open (or refresh) a **draft** PR titled `Release-<MajorMinorPatch>` whose body lists **OpenSpec already archived** (inventory), deferred/open leftovers, and L1/L2 source-archive notes (`.dsh/templates/openspec-delivery-control.md` §D). Keep it **draft** until every change in the developer’s selected archive set for this release is archived and listed. Then **mark the PR ready**. Do not claim main/spec parity while draft with a partial inventory. Do not merge unless asked after ready.
+8. **Archive selected OpenSpec changes (before Release PR ready).** When the developer **selects** which validated `applied` changes to archive, run `/openspec-archive-change` for that set (coordinate with OpenSpec archive skill). Same turn: CHANGE-STATUS → **Archived**, main `openspec/specs/`, TRACEABILITY → 📦 `archived`, `DELIVERY-INDEX` archived rows, and **§6.7** source-archive for any fully completed L1 epic. **Collect** archived ids into the release inventory. Do not archive changes the developer did not select.
+9. **Draft Release PR `develop` → `main`.** Open (or refresh) a **draft** PR titled `Release-<MajorMinorPatch>` whose body lists **OpenSpec already archived** (inventory), deferred/open leftovers, and L1 source-archive notes (`.dsh/templates/openspec-delivery-control.md` §D). Keep it **draft** until every change in the developer’s selected archive set for this release is archived and listed. Then **mark the PR ready**. Do not claim main/spec parity while draft with a partial inventory. Do not merge unless asked after ready.
 
 ### OpenSpec delivery index (commits & PRs)
 
@@ -162,7 +162,7 @@ The title is `Release-` immediately followed by that value. Use `MajorMinorPatch
 
 Read `.dsh/templates/` before writing a commit message, branch name, or pull request body. A stored user example overrides the fallback in that file. When the user gives a new example, record it there before the next commit or pull request.
 
-**Promotion notes:** track `dev → staging → prod` only when those environments are defined (see L2 `INFRA-036`). Until then, CD promotion is out of scope for implementation — record planned steps in PR/release notes without inventing hosts or pipelines.
+**Promotion notes:** track `dev → staging → prod` only when those environments are defined (see `INFRA-036`). Until then, CD promotion is out of scope for implementation — record planned steps in PR/release notes without inventing hosts or pipelines.
 
 ### Release checklist (brief)
 
@@ -172,7 +172,7 @@ Read `.dsh/templates/` before writing a commit message, branch name, or pull req
 - [ ] Tag `vX.Y.Z` only when the user asks for a release tag
 - [ ] No secrets; CI secrets stay in the host secret store (`INFRA-039`)
 
-Align wording with pending L2 IDs `INFRA-030` … `INFRA-039` without registering or inventing undeclared deploy targets.
+Align wording with pending requirement IDs `INFRA-030` … `INFRA-039` without registering or inventing undeclared deploy targets.
 
 ## Versioning
 
@@ -190,21 +190,22 @@ Front sync also updates both `appVersion` fields, `index.html`, Cypress expectat
 
 Do not use bare `npm version` on apps. Version-source tags stay `vX.Y.Z`. Do not hand-edit SemVer.
 
-### Node library `neocom-domain` (publication / distribute-led)
+### Node library `neocom-domain` (GitHub Actions + npm; no GitVersion)
 
-Do **not** use GitVersion for this library. Do **not** run `distribute` or `version:sync` as an agent chore.
+Do **not** use GitVersion in `neocom-domain`. Do **not** bump or publish from local `.githooks` (post-commit is a no-op). **npm / `package.json`** are the source of truth. All versioning runs on **GitHub Actions** with `npm version patch|minor|major --no-git-tag-version`.
 
 | When | What runs |
 | --- | --- |
-| After every local commit | `.githooks/post-commit` → `npm run distribute` (test + build + patch bump). If `package.json` changed, a follow-up `ci(version): bump after distribute` commit is created with `SKIP_DOMAIN_DISTRIBUTE=1` |
-| Align to registry | `npm run version:sync` — uses `npm view` when published; **no-op keep local** when not on npm |
-| Publish (user asked) | `npm run publish:lib` — sync → bump **minor** → test/build → `npm publish` → sync → `version:tag` |
+| Every **push** | `npm-publish.yml` → **`npm version patch`** (unless head commit is already a PR minor/major bump) → ensure unique → **`npm publish`** → CHANGELOG from commit message → sync → tag `vX.Y.Z` (secret `NPM_TOKEN`) → **bump `neocom-front` / `neocom-back` `develop`** to that version + `npm install` (secret `NEOCOM_REPO_TOKEN`) |
+| PR opened → **`develop`** | `version-on-pr-open.yml` → **`npm version minor`** on PR head → push → publish workflow |
+| PR opened → **`main`** | `version-on-pr-open.yml` → **`npm version major`** on PR head → push → publish workflow |
+| Align to registry | `npm run version:sync` — optional local helper |
 
-`prepare` sets `core.hooksPath` to `.githooks`. While consumed via `file:../neocom-domain`, registry semver does not constrain dependents. When publishing resumes, `version:sync` / `publish:lib` stay npm-led.
+`/git:pr` for **neocom-domain**: open the PR; CI owns minor/major + publish + consumer bumps. If `NPM_TOKEN` / `NEOCOM_REPO_TOKEN` is missing or CI failed, report the blocker (fallback: `npm run publish:ci` locally, then bump front/back deps manually). Do **not** invent a second version scheme.
 
-`GitVersion.yml` in this repo is historical and must not drive `package.json`. `/neocom-code` does not keep a second version scheme for the library.
+**Consumers (`neocom-front` / `neocom-back`) use the published npm package**, not `file:../neocom-domain`, for CI (see DEF-BLP-002). Post-publish CI keeps their `package.json` / lockfiles on the new exact version.
 
-Tokens stay outside the repository. npm publish reads `NPM_TOKEN` from `~/.zshenv` through `~/.npmrc`. GitHub uses `gh` and `GH_TOKEN`.
+Tokens stay outside the repository. GitHub Actions uses `NPM_TOKEN` + `NEOCOM_REPO_TOKEN`. Local fallback publish may use `~/.npmrc`. `gh` uses `GH_TOKEN`.
 
 ## Skill
 

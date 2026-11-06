@@ -21,5 +21,4 @@ EPIC-008 Section 13 defines the KnownSystem planetary card. Pilots need a card t
 ## Impact
 
 - Owner: **`neocom-front`**
-- L2: `FRONT/22.KNOWN-SYSTEM.md` (from `L2/08.EPIC-LOCATIONS.md`)
 - Related: applied `domain-locations` / solar-system identity fields; planetary list (not universe catalog `locationType`)

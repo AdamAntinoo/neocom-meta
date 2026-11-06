@@ -26,6 +26,6 @@ EPIC-002 needs a durable front structure: core pages/panels vs section modules (
 ## Impact
 
 - Owning repository: **`neocom-front`**
-- L2 IDs: STRUCT-001 … STRUCT-007 (`L2/FRONT/07.ANGULAR-STRUCTURE.md`)
-- Source extract: `L2/02.EPIC-ANGULAR-CODIFICATION.structure.md`
+- Requirement ids: STRUCT-001 … STRUCT-007 
+- Source extract: 
 - Out of scope: planetary/loyalty/fittings sections (deferred); login/dashboard product behaviour (separate changes)

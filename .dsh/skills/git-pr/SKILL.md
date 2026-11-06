@@ -30,7 +30,7 @@ No argument means `neocom-meta`, `neocom-front`, and `neocom-back`. Name `neocom
 
 `neocom` is deprecated. `neocom-esi` is aside. If the argument names one of those, stop that repository and report that it is aside. Do not commit it and do not open a pull request for it.
 
-For **`neocom-domain`** PRs: do not run GitVersion. Version advances after `npm run distribute` (patch) or `publish:lib` (npm-led). Publish to npm only when the user asks.
+For **`neocom-domain`** PRs: do **not** run GitVersion and do **not** bump versions locally. All versioning is **GitHub Actions**: PR→**`develop`** → CI **`npm version minor`**; PR→**`main`** → **`npm version major`**; every push → **`npm-publish.yml`** (patch unless already minor/major → publish → CHANGELOG → bump **front/back** `develop` + `npm install`; needs `NPM_TOKEN` + `NEOCOM_REPO_TOKEN`). After the PR exists, confirm CI publish and consumer bumps. Report the published version. Do **not** leave consumers on `file:../neocom-domain`.
 
 An unknown argument stops the command. Do not guess a repository.
 
@@ -51,9 +51,10 @@ An unknown argument stops the command. Do not guess a repository.
    - Listed features are **ready for validation on develop** after merge. Do not archive on this PR.
    - Same turn: upsert `neocom-meta/openspec/DELIVERY-INDEX.md` for each OpenSpec id (`owner/repo#N`, head SHA, state `open`). See `/neocom-git` OpenSpec delivery index.
    - For `neocom-meta` `feature/cicd`, rebase onto latest `feature/agents` or `develop` when the user commands that update, before opening or updating the pull request. Ask before a force push.
+   - **`neocom-domain` only:** after the PR URL exists, note that CI bumps **minor** (base `develop`) or **major** (base `main`) and **`npm-publish.yml`** publishes on push. Report the PR URL and the expected / published npm version when known. If Actions lack `NPM_TOKEN` or publish failed, from the domain repo (`nvm use`) run `npm run publish:ci` and report the version. Dependents must consume that registry version (not `file:../neocom-domain`).
 8. A **release** PR (`develop` → `main`) is separate and normally **draft**: title `Release-<MajorMinorPatch>`; body lists OpenSpec **already archived** and deferred/open (delivery-control §D). Archive selected changes **before** marking the PR ready (methodology §6.6); refresh `DELIVERY-INDEX.md` when archive runs.
 9. Do not merge unless asked. Leave secrets out of the commit and the pull request.
 
 ## Return
 
-For each repository: commits created (SHA and message), the pull request URL, `DELIVERY-INDEX.md` updates, or why that repository was skipped.
+For each repository: commits created (SHA and message), the pull request URL, `DELIVERY-INDEX.md` updates, or why that repository was skipped. For **`neocom-domain`**: also the npm published version (or publish failure reason).

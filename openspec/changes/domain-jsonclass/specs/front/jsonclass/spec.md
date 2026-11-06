@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Front consumers of published domain model payloads from the back select renders via `jsonClass` (same contract as NeoCom nodes / EPIC-002). Source: DOM-JSONCLASS-002 in `L2/DOMAIN/08.JSONCLASS.md`.
+Front consumers of published domain model payloads from the back select renders via `jsonClass` (same contract as NeoCom nodes / EPIC-002). Source: DOM-JSONCLASS-002 in .
 
 ## ADDED Requirements
 
