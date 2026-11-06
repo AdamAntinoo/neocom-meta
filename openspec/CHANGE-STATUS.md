@@ -17,10 +17,10 @@ Last refreshed: 2026-11-06 (`front-domain-nodes` apply 5/5 on `neocom-front` `fe
 | `registered` | Change exists under `changes/<name>/` with proposal, specs, design, and tasks |
 | `deferred` | Registered but **not applyable** until a named blocker clears (e.g. owning repo aside). Do not start `/openspec-apply-change` |
 | `applying` | Implementation on `feature/<feature>` (default base `develop`; may be stacked). Apply stops before commit |
-| `applied` | Merged to `develop` (or ready on develop) and eligible for **validation on develop**; archive not done yet. Note `validated on develop @ <sha>` when validation passes |
-| `archived` | Developer-selected after develop validation; `/openspec-archive-change` done (`changes/archive/` + `openspec/specs/`). Draft Release PR may still be open — main/spec parity for the release only when the selected archive set is complete and the PR is marked ready |
+| `applied` | Merged to `develop` (or ready on develop); product validation may continue; eligible for `/git:release`. Notes: `in release PR #N` while OpenSpec validation is open; `validated for release @ <sha>` when that passes |
+| `archived` | `/git:release-done` after Release PR merge ran `/openspec-archive-change` (`changes/archive/` + `openspec/specs/`) for ids listed on that PR |
 
-PR content control: `.dsh/templates/openspec-delivery-control.md` (feature → develop = validation intake; **archive then** draft `develop` → `main`).  
+PR content control: `.dsh/templates/openspec-delivery-control.md` (feature → develop = product intake; `/git:release` = OpenSpec validate while open; `/git:release-done` = archive + L1).  
 Commit / PR / develop-tip evidence per change: [`DELIVERY-INDEX.md`](./DELIVERY-INDEX.md) (owned by `/neocom-git`; graphify-indexed — prefer over live GitHub).
 
 Task progress comes from checkboxes in each change’s `tasks.md` (`openspec list`).

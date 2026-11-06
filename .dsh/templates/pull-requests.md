@@ -4,17 +4,15 @@ Control fields for OpenSpec delivery: **`.dsh/templates/openspec-delivery-contro
 
 ## Recorded guideline
 
-### 1. Feature → `develop` (validation intake)
+### 1. Feature → `develop` (product validation intake)
 
-After apply **stops before commit**, the developer reviews, then commits (`/git:commit` / `/git:pr`). Open a pull request from `feature/<feature-name>` (or stacked tip) into **`develop`**. That PR declares the OpenSpec features **ready for validation**. Do not merge unless the user asks.
+After apply **stops before commit**, the developer reviews, then commits (`/git:commit` / `/git:pr`). Open a pull request from `feature/<feature-name>` (or stacked tip) into **`develop`**. That PR declares the features **ready for product validation** on develop. Do not merge unless the user asks. Do not archive OpenSpec on this PR.
 
-Validation of OpenSpec / programme acceptance runs on **`develop` after merge**, not only on the feature branch.
+### 2. `develop` → `main` (Release — OpenSpec validation gate)
 
-### 2. `develop` → `main` (release + archive trigger)
+When the developer is ready to release, run **`/git:release`**. Open a pull request from `develop` into **`main`**. Title: `Release-` plus GitVersion `MajorMinorPatch` (example `Release-0.1.0`). Calculate with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary `main` after merging `origin/develop`. Restore the local `main` pointer; do not push that merge.
 
-When changes are **validated on develop**, open a pull request from `develop` into **`main`**. Title: `Release-` plus GitVersion `MajorMinorPatch` (example `Release-0.1.0`). Calculate with `gitversion /nocache /showvariable MajorMinorPatch` on a temporary `main` after merging `origin/develop`. Restore the local `main` pointer; do not push that merge.
-
-The release PR **lists the OpenSpec changes to archive**. Archiving those completed, validated changes is part of the release path (see delivery-control template). Do not merge unless the user asks.
+The Release PR body lists **OpenSpec to validate (this release)**. Programme OpenSpec validation runs **while the PR is open**. After the developer merges the Release PR, run **`/git:release-done`** to archive those OpenSpec changes and launch L1 source-archive (§6.7). Do not merge unless the user asks. Do not archive before merge.
 
 ## Fallback body
 

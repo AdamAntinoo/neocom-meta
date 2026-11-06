@@ -7,22 +7,23 @@ Use this checklist so agents and developers control **what enters each pull requ
 ```text
 apply (feature/<name>) → stop before commit
   → developer review → /git:commit (optional)
-  → PR feature → develop   = features ready for validation
+  → PR feature → develop   = product / PR validation intake
   → merge to develop (when asked)
-  → OpenSpec + product validation on develop / dev environment
-  → developer selects OpenSpec changes to archive
-  → archive selected changes (+ L1 source-archive when complete)
-  → collect archived ids → draft PR develop → main (Release-X.Y.Z)
-  → keep draft until archive set complete → mark ready → merge when asked
+  → product smoke / optional /defect on develop tip
+  → /git:release [project…]   = open develop → main (Release-X.Y.Z)
+       list OpenSpec to validate while PR open
+  → validate listed OpenSpec while Release PR is open
+  → merge Release PR (when asked)
+  → /git:release-done         = archive listed OpenSpec + §6.7 L1
 ```
 
 Do **not** archive while the change is only on a feature branch.  
-Do **not** treat the Release PR as the archive trigger — **archive first**, then document.  
-Do **not** mark the Release PR ready (or claim main/spec parity) while the selected archive set is incomplete.
+Do **not** archive while the Release PR is still open.  
+Do **not** claim main/spec parity until `/git:release-done` finishes for that release set.
 
 ---
 
-## A. Information required before **PR → `develop`** (validation intake)
+## A. Information required before **PR → `develop`** (product validation intake)
 
 Fill this for every product / meta PR into `develop`. Incomplete rows → stop and ask.
 
@@ -36,10 +37,10 @@ Fill this for every product / meta PR into `develop`. Incomplete rows → stop a
 | **Feature names** | Human labels for the Features list (same shape as recorded PR example) | `.dsh/templates/pull-requests.md` |
 | **Commit range** | Commits this PR adds vs `develop` | `git log develop..HEAD --oneline` |
 | **Dependencies / stack** | Sibling features already merged or stacked under this tip | PR body note |
-| **Validation readiness** | Explicit: “ready for validation on develop” | PR body checkbox |
+| **Validation readiness** | Explicit: “ready for product validation on develop” | PR body checkbox |
 | **Test plan** | Concrete commands / checks for reviewers | PR **Test plan** |
 | **Out of scope** | OpenSpec changes **not** in this PR (prevent silent bundling) | PR body |
-| **Status move on merge** | After accept into `develop`: `applying` → `applied` (validation pending; archive later) | `CHANGE-STATUS.md`, epic Spec traceability, `TRACEABILITY.md` |
+| **Status move on merge** | After accept into `develop`: `applying` → `applied` (eligible for `/git:release`; archive later via `/git:release-done`) | `CHANGE-STATUS.md`, epic Spec traceability, `TRACEABILITY.md` |
 | **Delivery index** | Record commits / PR `#N` / develop tip per OpenSpec id (local; graphify) | `openspec/DELIVERY-INDEX.md` — owned by `/neocom-git` |
 
 ### PR → `develop` body shape (extend Features example)
@@ -49,7 +50,7 @@ Fill this for every product / meta PR into `develop`. Incomplete rows → stop a
 - <feature label>: <one sentence what lands>
 
 ## OpenSpec
-- `<system>-<feature>` — tasks N/N — status after merge: `applied` (validation on develop)
+- `<system>-<feature>` — tasks N/N — status after merge: `applied` (product validation on develop; OpenSpec programme validation on Release PR)
 - …
 
 ## Out of scope
@@ -61,7 +62,7 @@ Fill this for every product / meta PR into `develop`. Incomplete rows → stop a
 - Stacked on (if any): `feature/<sibling>` @ `<sha>`
 
 ## Validation readiness
-- [x] Ready for OpenSpec / programme validation on `develop` after merge
+- [x] Ready for product validation on `develop` after merge
 - [ ] Blocked: <reason>
 
 ## Test plan
@@ -70,86 +71,84 @@ Fill this for every product / meta PR into `develop`. Incomplete rows → stop a
 
 ---
 
-## B. Information required for **validation on `develop`**
+## B. Information required for **product validation on `develop`**
 
-Run after the feature PR is **merged** into `develop` (or on a checkout of post-merge `develop`), including developer checks in the **dev environment**. Do not treat feature-branch checks as the validation gate.
+Run after the feature PR is **merged** into `develop` (or on a checkout of post-merge `develop`), including developer checks in the **dev environment**. This gate is **product / smoke**, not OpenSpec archive.
 
 | Field | Purpose |
 | --- | --- |
-| **Develop tip SHA** | Exact commit under validation |
+| **Develop tip SHA** | Exact commit under product validation |
 | **Change set under test** | OpenSpec ids marked `applied` that this develop tip contains |
-| **Validation commands** | Product: `nvm use` + unit / e2e named in each change; meta: `npx openspec list --json`, doctor/validate if used |
-| **Spec vs code gaps** | Any `tasks.md` still open or behaviour missing vs delta specs |
-| **Pass / fail** | Developer (or CI) decision recorded in CHANGE-STATUS notes |
-| **Archive eligibility** | Only `applied` + tasks complete + **validated on develop** may be **selected** for archive (§C) |
+| **Validation commands** | Product: `nvm use` + unit / e2e named in each change |
+| **Pass / fail** | Developer (or CI) decision; optional `/defect` path |
+| **Release eligibility** | `applied` + tasks complete may be **selected** on `/git:release` (§C) |
 
-Update `CHANGE-STATUS.md` notes for each change: `validated on develop @ <sha>` or `validation failed: …`.  
-Update `openspec/DELIVERY-INDEX.md` **Validated**. Prefer the index over live GitHub for later traceability.
-
-Do **not** open the Release PR in this step. Do **not** archive yet.
+Do **not** archive yet. Do **not** require OpenSpec programme validation here (that runs while the Release PR is open).
 
 ---
 
-## C. Select + archive (before Release PR ready)
+## C. Information required for **`/git:release`** (`develop` → `main`)
 
-After validation passes, the **developer selects** which eligible OpenSpec changes to archive.
-
-| Field | Purpose |
-| --- | --- |
-| **Selected to archive** | Explicit change ids from the validated pool |
-| **Left open / deferred** | Still `applied` but not in this release set, or not validated / still registered |
-| **Archive run** | `/openspec-archive-change` per selected id; CHANGE-STATUS → Archived; `openspec/specs/` synced |
-| **L1 tracking** | Same turn: TRACEABILITY; §6.7 source-archive when an L1 epic is fully covered |
-| **Release inventory** | Growing list of **successfully archived** ids (feeds the draft PR body) |
-
----
-
-## D. Information required for **draft PR `develop` → `main`** (documents archive; not the trigger)
+Opens (or refreshes) the Release PR. OpenSpec listed here is **to validate while the PR is open** — not already archived.
 
 | Field | Purpose |
 | --- | --- |
 | **Release title** | `Release-<MajorMinorPatch>` (GitVersion on temp main∪develop merge; do not push that calc) |
 | **Develop SHA** | Tip being released |
-| **OpenSpec archived (this release)** | Inventory of changes **already archived** (not a to-do list) |
-| **OpenSpec still open / deferred** | Not in this archive set — must remain unarchived |
-| **Draft until** | Every selected change for this release is in the archived inventory |
-| **Main specs impact** | Which `openspec/specs/<system>/<feature>/` paths already received deltas |
-| **TRACEABILITY** | Epics/models at 📦 `archived` / source-archived paths |
+| **OpenSpec to validate (this release)** | Developer-selected ids from the `applied` pool |
+| **OpenSpec deferred / still open** | Not in this release set — must remain unarchived |
 | **Product repos in release** | Which app work already landed on develop for this release |
+| **Delivery index** | Release PR `#N`, OpenSpec ids, state `open`; CHANGE-STATUS note `in release PR #N` |
 
 ### PR → `main` body shape
 
 ```markdown
 ## Summary
 - Release develop @ <sha> as Release-<X.Y.Z>
-- Status: **draft** until archive set complete / **ready** when inventory matches selection
+- OpenSpec listed below is validated **while this PR is open**; archive runs after merge via `/git:release-done`
 
-## OpenSpec archived (this release)
-- `<system>-<feature>` — validated on develop @ <sha> — archived to `specs/…`
+## OpenSpec to validate (this release)
+- `<system>-<feature>` — tasks N/N — `applied` on develop @ <sha>
 - …
 
 ## OpenSpec deferred / still open (do not archive in this release)
 - `<system>-<feature>` — reason
 
-## L1 source archive
-- Moved / still active (per §6.7)
+## Product repos
+- `neocom-front` / `neocom-back` / … @ develop tips
 
 ## Test plan
-- [ ] Validation on develop accepted
-- [ ] Selected archive set fully archived (`npx openspec list` / CHANGE-STATUS)
-- [ ] Draft → ready only when inventory complete
+- [ ] OpenSpec programme validation (spec vs code) for each listed change
+- [ ] `npx openspec list --json` / CHANGE-STATUS notes `validated for release @ <sha>`
+- [ ] Merge only when asked after OpenSpec validation passes
 ```
 
-Open with `gh pr create --draft` (or equivalent). Refresh the body as more selected changes are archived. **Mark ready** only when the selected archive set is complete. Merge only when the developer asks after ready.
+Do **not** archive on this command. Do **not** merge unless asked.
+
+---
+
+## D. Information required for **`/git:release-done`** (archive after Release merge)
+
+Run after the Release PR is **merged**. Archives the same OpenSpec ids listed on that PR, then §6.7 L1 source-archive.
+
+| Field | Purpose |
+| --- | --- |
+| **Release PR** | Merged `#N` / URL; confirm state `merged` |
+| **OpenSpec to archive** | Exact ids from the Release PR body (or developer reconfirm) |
+| **Archive run** | `/openspec-archive-change` per id; CHANGE-STATUS → Archived; `openspec/specs/` synced |
+| **L1 tracking** | Same turn: TRACEABILITY; §6.7 source-archive when an L1 epic is fully covered |
+| **Delivery index** | Move/refresh archived rows; Release PR state `merged` |
+
+Stop if the Release PR is still open. Do not archive ids never listed on that PR.
 
 ---
 
 ## E. Anti-patterns
 
 - Bundling unlisted OpenSpec changes into a develop or release PR
-- Archiving from a feature branch before develop validation
-- Opening a **ready** `develop` → `main` PR before the selected archive set is complete
-- Treating the Release PR as the thing that “triggers” archive (archive runs first)
-- Claiming main/spec parity while the Release PR is still draft with a partial inventory
+- Archiving from a feature branch
+- Archiving while the Release PR is still open
+- Archiving before `/git:release-done` (or an explicit developer archive ask outside a release)
+- Claiming main/spec parity before `/git:release-done` completes for the listed set
 - Silent fan of every apply from `develop` when siblings are ahead (see branch-names / neocom-git)
 - Committing as part of apply without an explicit `/git:commit` / `/git:pr` / commit request

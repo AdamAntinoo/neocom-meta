@@ -30,7 +30,7 @@ Agents and their entry points:
 | `neocom-backtrack`      | `/neo:backtrack <epic…>`                                           | Legacy backtrack **only on explicit request** (named epic required)       |
 | `neocom-defect`         | `/defect`, `/fix:defect`, `/defect:fixed`                          | Register; fix marked defects; archive validated ones to `FIXED-DEFECTS.md` |
 | `neocom-code`           | `/neocom-code`                                                     | Product coding for front and back (destination-selected rules); OpenSpec apply in product repos |
-| `neocom-git`            | `/neocom-git`, `/git:commit <project>`, `/git:pr [project]`        | Commits, branches, PRs, versions, and `openspec/DELIVERY-INDEX.md`; the only owner of git operations |
+| `neocom-git`            | `/neocom-git`, `/git:commit`, `/git:pr`, `/git:release`, `/git:release-done` | Commits, branches, PRs, releases, versions, and `openspec/DELIVERY-INDEX.md`; the only owner of git operations |
 | `program-verifier`      | `/program-verifier`                                                | Read-only verification of the `program/` knowledge                        |
 
 For a new task, read `.dsh/AGENT-CATALOG.md` first, then the matching agent or skill. Do not copy their procedures into this file.
@@ -72,7 +72,7 @@ Prefer `.venv/bin/graphify update .` when the project venv exists. Then use `gra
 - Work on the current branch. Do not commit on `develop` or `main` unless the user explicitly asks.
 - Do not commit, push, or open a PR unless the user asks. The `/git:*` commands are that request. **OpenSpec apply stops before commit** (`/neocom-code`).
 - Product OpenSpec branches: `feature/<name>` default from `develop`; if other feature tips are ahead, ask before stacking (see `/neocom-git` and `.dsh/METHODOLOGY.md` §6).
-- PR feature → `develop` = validation intake; validate on develop / dev env; developer **selects** OpenSpec to archive; archive (+ L1 source-archive) **before** marking the Release PR ready; open **draft** `develop` → `main` (`Release-X.Y.Z`) documenting the archived inventory; mark ready only when the selected archive set is complete (`.dsh/templates/openspec-delivery-control.md`, `.dsh/METHODOLOGY.md` §6.6–6.7).
+- PR feature → `develop` = product / PR validation intake; product smoke on develop / optional `/defect`. **`/git:release`** opens `develop` → `main` (`Release-X.Y.Z`) listing OpenSpec **to validate while the PR is open**. After merge, **`/git:release-done`** archives those OpenSpec changes and runs L1 source-archive (`.dsh/templates/openspec-delivery-control.md`, `.dsh/METHODOLOGY.md` §6.6–6.7).
 - Do not write `SemVer` into `package.json`. The version is GitVersion `MajorMinorPatch` (hooks/CI).
 
 ## Finder duplicate files
