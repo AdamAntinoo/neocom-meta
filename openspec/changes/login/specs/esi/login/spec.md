@@ -2,7 +2,7 @@
 
 ## Purpose
 
-PKCE token management for the ESI tool. Source: `L2/ESI/ESI-LOGIN.md`.
+PKCE token management for the ESI tool. Source: .
 
 ## ADDED Requirements
 

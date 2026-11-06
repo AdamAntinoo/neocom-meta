@@ -6,10 +6,10 @@ One OpenSpec change holds every login capability. Delta specs keep their origina
 
 | Capability | Spec | Source L2 |
 | --- | --- | --- |
-| `front/login` | `specs/front/login/spec.md` | `L2/FRONT/06.LOGIN.md` |
-| `back/login` | `specs/back/login/spec.md` | `L2/BACK/BACK-LOGIN.md` |
-| `esi/sso` | `specs/esi/sso/spec.md` | `L2/ESI/ESI-SSO.md` |
-| `esi/login` | `specs/esi/login/spec.md` | `L2/ESI/ESI-LOGIN.md` |
+| `front/login` | `specs/front/login/spec.md` |  |
+| `back/login` | `specs/back/login/spec.md` |  |
+| `esi/sso` | `specs/esi/sso/spec.md` |  |
+| `esi/login` | `specs/esi/login/spec.md` |  |
 
 - Front builds the authorize URL (`OAuthEnabledComponent`) and owns `neocom_return` / `neocom_sso_state` / readable `neocom_access`.
 - Back owns `FileTokenStorage`, `addCharacter`, refresh, and rewriting `neocom_access`.

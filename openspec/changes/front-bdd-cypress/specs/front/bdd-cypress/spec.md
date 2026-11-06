@@ -2,7 +2,7 @@
 
 ## Purpose
 
-SDD→BDD→TDD methodology and Cypress validation of navigation, content, and UI via documented `cy-*` attributes. Source: BDD-001 … BDD-004 in `L2/FRONT/10.BDD-CYPRESS.md`.
+SDD→BDD→TDD methodology and Cypress validation of navigation, content, and UI via documented `cy-*` attributes. Source: BDD-001 … BDD-004 in .
 
 ## ADDED Requirements
 

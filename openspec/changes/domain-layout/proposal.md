@@ -25,4 +25,4 @@ Backend services need a single truth place in `neocom-domain` for interchange mo
 
 - Owner: **`neocom-domain`**
 - Out of scope: further subfolder taxonomy beyond `src/domain` / `src/ports`; Pilot/Industry port contents (see `domain-ports`); DTO/`esi-api` deprecation (see `domain-deprecations`)
-- L2 ids: BACK-SVC-001…004, BACK-SVC-010…013 from `L2/09.EPIC-BACKEND-SERVICES.md` → `L2/DOMAIN/09.LAYOUT.md`
+- L2 ids: BACK-SVC-001…004, BACK-SVC-010…013 from  

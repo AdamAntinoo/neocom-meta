@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Space location identity and hierarchy levels. Source: `L2/DOMAIN/06.LOCATIONS.md` (from `L2/08.EPIC-LOCATIONS.md`).
+Space location identity and hierarchy levels. Source: L1.
 
 ## ADDED Requirements
 

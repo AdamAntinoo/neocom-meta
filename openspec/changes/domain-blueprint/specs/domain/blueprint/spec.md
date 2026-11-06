@@ -2,7 +2,7 @@
 
 ## Purpose
 
-BlueprintV1 base domain model. Source: DOM-BP-001…003 in `L2/DOMAIN/03.BLUEPRINT.md`.
+BlueprintV1 base domain model. Source: DOM-BP-001…003 in .
 
 ## ADDED Requirements
 

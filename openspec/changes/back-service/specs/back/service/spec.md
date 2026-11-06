@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The pilot use case reads public ESI information through the installed ESI tool and converts it into the pilot DTO. Source: `L2/BACK/BACK-SERVICE.md`.
+The pilot use case reads public ESI information through the installed ESI tool and converts it into the pilot DTO. Source: .
 
 ## ADDED Requirements
 

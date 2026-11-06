@@ -21,4 +21,4 @@ The application header needs a published **ApplicationInfoV1** domain node, not 
 ## Impact
 
 - **`neocom-domain`** / front header provider
-- L2 ids: DOM-APPINFO-001…003 from `L2/DOMAIN/04.APPLICATION-INFO.md`
+- L2 ids: DOM-APPINFO-001…003 from 

@@ -23,5 +23,5 @@
 ## Impact
 
 - Owner: **`neocom-back`**
-- The Pilot JSON view follows `L2/DOMAIN/MODELS/Pilot.md`
+- The Pilot JSON view follows 
 - Out of scope: the universe and market endpoints in the sample. That sample only shows the controller and use-case shape.

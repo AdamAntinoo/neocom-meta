@@ -24,6 +24,6 @@ EPIC-003 needs stable, realistic mock fixtures (including errors and stale/incor
 ## Impact
 
 - Owning repository: **`neocom-front`** (adapters/fixtures); WireMock stubs as needed
-- L2 IDs: FIX-001 … FIX-004 (`L2/FRONT/11.MOCK-FIXTURES.md`)
-- Source extract: `L2/03.EPIC-TESTING.mock-fixtures.md`
+- Requirement ids: FIX-001 … FIX-004 
+- Source extract: 
 - Related: WireMock front-dev (`front-infrastructure` / INFRA-008); acceptance without live back (`cicd-pipeline`)

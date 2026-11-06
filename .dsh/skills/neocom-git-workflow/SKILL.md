@@ -76,7 +76,7 @@ EOF
 5. Return the PR URL. Do not merge.
 6. **Same turn:** update `neocom-meta/openspec/DELIVERY-INDEX.md` for every OpenSpec id in the PR body (PR `#N`, URL, head SHA, state `open`). On merge / validate / archive, refresh that index as in `/neocom-git` → OpenSpec delivery index. Prefer the index (and graphify) over repeated GitHub API calls for traceability.
 7. The next OpenSpec apply creates a new `feature/<name>` from `develop`. Do not stack it on the feature branch that already has a pull request.
-8. After develop validation, the developer selects OpenSpec changes to archive; archive those first (with L1/L2 source-archive). Then open or refresh a **draft** `develop` → `main` PR titled `Release-` plus GitVersion `MajorMinorPatch` that lists **already archived** changes. Keep draft until the selected archive set is complete, then mark ready. Do not merge unless asked after ready. See `/neocom-git` § OpenSpec feature flow and delivery-control §C–D.
+8. After develop validation, the developer selects OpenSpec changes to archive; archive those first (with L1 source-archive). Then open or refresh a **draft** `develop` → `main` PR titled `Release-` plus GitVersion `MajorMinorPatch` that lists **already archived** changes. Keep draft until the selected archive set is complete, then mark ready. Do not merge unless asked after ready. See `/neocom-git` § OpenSpec feature flow and delivery-control §C–D.
 
 ### Title for `develop` into `main`
 
@@ -112,11 +112,10 @@ Do **not** run `version:sync` as an agent chore or invent a version commit.
 | Repository | Who writes the version |
 | --- | --- |
 | `neocom-front` / `neocom-back` | `.githooks/pre-commit` + GitHub `version-sync` → GitVersion `MajorMinorPatch` |
-| `neocom-domain` | After `npm run distribute` (patch; above npm when published). Not GitVersion |
+| `neocom-domain` | **GitHub Actions only** (no GitVersion, no local version hooks): push → **patch** + publish; PR→develop → **minor**; PR→main → **major** |
 | `neocom-meta` | No package version |
 
-Do not write GitVersion `SemVer`. Do not use `npm version` on apps.
-
+Do not write GitVersion `SemVer` on apps or domain. Do not use bare `npm version` on apps (hooks/GitVersion). Domain uses `npm version patch|minor|major --no-git-tag-version`. Front/back depend on **registry** `neocom-domain`, not `file:../neocom-domain`, when CI must resolve the package.
 **Checklist before tagging / promoting:**
 
 - [ ] App version files match hooks/CI (no manual SemVer edit)
@@ -125,7 +124,7 @@ Do not write GitVersion `SemVer`. Do not use `npm version` on apps.
 - [ ] The release stays inside the repository that owns it
 - [ ] No secrets in tree or CI config (`INFRA-039`)
 
-**Promotions:** note `dev → staging → prod` only when defined. Pending L2 `INFRA-036` … `INFRA-039` — do not invent undeclared deploy targets or CD pipelines until Spec Registration defines them.
+**Promotions:** note `dev → staging → prod` only when defined. Pending `INFRA-036` … `INFRA-039` — do not invent undeclared deploy targets or CD pipelines until `/epic:extract` registers them.
 
 ## Versioning
 

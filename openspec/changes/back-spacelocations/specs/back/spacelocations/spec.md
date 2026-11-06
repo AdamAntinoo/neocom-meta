@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Universe space location lookup. Source: LOC-010 in `L2/BACK/BACK-SPACELOCATIONS.md`.
+Universe space location lookup. Source: LOC-010 in .
 
 ## ADDED Requirements
 

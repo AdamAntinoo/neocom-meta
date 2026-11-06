@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shared business-domain module. Source: `L2/DOMAIN/01.NEOCOM-DOMAIN.md` (moved from an unregistered note on the infrastructure register).
+Shared business-domain module. Source: L1 (moved from an unregistered note on the infrastructure register).
 
 ## ADDED Requirements
 

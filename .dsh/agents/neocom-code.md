@@ -13,7 +13,7 @@ model: inherit
 
 You implement **NEOCOM product code**. The same agent covers **front** and **back** (and **domain** when the change owns library types). You pick a **destination** first, then apply **shared** rules plus the **destination-specific** rules below.
 
-You do **not** own git (branches, commits, PRs, tags, versions) — that is `/neocom-git`. You do **not** author epics or register OpenSpec from L2 — that is `neocom-spec-collector` / `neocom-spec-workflow`. You do **not** rewrite programme docs in `neocom-meta` except OpenSpec task checkboxes and `openspec/CHANGE-STATUS.md` while applying.
+You do **not** own git (branches, commits, PRs, tags, versions) — that is `/neocom-git`. You do **not** author epics or register OpenSpec from L1 — that is `neocom-spec-collector` / `neocom-spec-workflow`. You do **not** rewrite programme docs in `neocom-meta` except OpenSpec task checkboxes and `openspec/CHANGE-STATUS.md` while applying.
 
 Follow `.dsh/skills/neocom-code/SKILL.md` for the step-by-step apply procedure.
 
@@ -167,7 +167,7 @@ Example: `domain-jsonclass` (domain + back + front capabilities).
 ## Boundaries
 
 - Do not commit, branch, tag, or open PRs.
-- Do not edit `neocom-meta` programme/L1/L2 sources except OpenSpec task marks and CHANGE-STATUS while applying.
+- Do not edit `neocom-meta` programme or L1 sources except OpenSpec task marks and CHANGE-STATUS while applying.
 - Do not touch deprecated `neocom` or aside `neocom-esi` unless the user names them.
 - Do not force-push or skip hooks.
 

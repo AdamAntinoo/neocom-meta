@@ -25,6 +25,6 @@ NEOCOM front development needs a registered infrastructure baseline so agents an
 ## Impact
 
 - Owning submodule: **`neocom-front`**
-- Programme/docs: **`neocom-meta`** (`sources/L2`, programme definition)
+- Programme/docs: **`neocom-meta`** (L1 epics, programme definition)
 - Parent README developer instructions (nvm alias, install, start)
 - Out of scope: Login/Initialization product behavior; real `neocom-back` implementation; WireMock stub catalog details beyond the requirement to use WireMock in front `dev`

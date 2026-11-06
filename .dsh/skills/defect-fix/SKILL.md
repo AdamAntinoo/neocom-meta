@@ -73,13 +73,12 @@ For each selected defect, show:
 
 **Actions** (only those that apply for that defect), for example:
 
-1. Set L1 Review to `[x] reviewed` for named requirement ids (when Mark to run is already `[x]` and cells are still unchecked).
-2. Run `/neo:extract-l2` for owning epic(s).
-3. Run `/neo:spec-evolution` for resulting L2 path(s).
-4. Apply / amend OpenSpec change `<system>-<feature>` (name it when known).
-5. Implement Expected in listed Code paths (name concrete files/folders when Likely sources has them).
-6. Set defect Status → `applying` and append a Notes line.
-7. Leave uncommitted for developer product validation (Developer validates checklist stays `[ ]`).
+1. Set L1 Review to `[x] reviewed` for named requirement ids when **Register the spec** and/or **Mark to run** is `[x]` and cells are still at `to review` (selecting Register the spec **assumes Review accepted**).
+2. Run `/epic:extract` for owning epic(s).
+3. Apply / amend OpenSpec change `<system>-<feature>` (name it when known).
+4. Implement Expected in listed Code paths (name concrete files/folders when Likely sources has them).
+5. Set defect Status → `applying` and append a Notes line.
+6. Leave uncommitted for developer product validation (Developer validates checklist stays `[ ]`).
 
 Also state once for the whole run:
 
@@ -96,9 +95,9 @@ If the developer rejects or edits the plan, update the work list and re-show the
 Process **one approved defect at a time**. Do not invent behaviour beyond **Expected** (and linked L1 / OpenSpec text). Follow the approved Actions for that id.
 
 1. **Status → `applying`** on the Register row and the section Status field (same turn as the first product edit for that defect).
-2. **Spec readiness (when Mark to run is `[x]` and the plan included it):**
-   - Set named L1 Review cells to `[x] reviewed` only when authorized; do not invent new L1 rows.
-   - Run `.dsh/skills/extract-l2/SKILL.md` then `.dsh/skills/spec-registration/SKILL.md` when the plan said so. Graphify first when those skills require it.
+2. **Spec readiness (when Register the spec and/or Mark to run is `[x]` and the plan included it):**
+   - Set named L1 Review cells to `[x] reviewed` (Register-the-spec checked ⇒ Review accepted). Do not invent new L1 rows beyond the defect Expected.
+   - Run `.dsh/skills/epic-extract/SKILL.md` when the plan said so. Graphify first, as that skill requires.
    - When OpenSpec is already named and registered, skip re-registration unless the plan said amend.
 3. **Implement** Expected in the product repo:
    - Follow `.dsh/skills/neocom-code/SKILL.md` (destination rules, branch gate on `feature/<name>`, verify, CHANGE-STATUS when touching OpenSpec tasks).

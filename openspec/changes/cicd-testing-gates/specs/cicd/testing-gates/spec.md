@@ -2,7 +2,7 @@
 
 ## Purpose
 
-CI/CD ordering of unit testing, acceptance testing, and SonarCloud quality-gate. Source: GATE-001 … GATE-003 in `L2/CICD/02.TESTING-GATES.md`.
+CI/CD ordering of unit testing, acceptance testing, and SonarCloud quality-gate. Source: GATE-001 … GATE-003 in .
 
 ## ADDED Requirements
 

@@ -22,4 +22,4 @@ Industry features need a published **BlueprintV1** base in `neocom-domain` befor
 
 - **`neocom-domain`** publishes BlueprintV1
 - ProcessedBlueprintSummaryV1 / ProcessedBlueprintV1 remain unextracted on EPIC-004
-- L2 ids: DOM-BP-001…003 from `L2/DOMAIN/03.BLUEPRINT.md`
+- L2 ids: DOM-BP-001…003 from 

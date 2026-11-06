@@ -21,4 +21,4 @@ The application header needs a published **ServerStatusV1** model distinct from 
 ## Impact
 
 - **`neocom-domain`** / front header provider
-- L2 ids: DOM-SRV-001…003 from `L2/DOMAIN/05.SERVER-STATUS.md`
+- L2 ids: DOM-SRV-001…003 from 

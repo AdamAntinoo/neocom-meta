@@ -24,6 +24,6 @@ Heavy industry pages must paint a partial node list immediately and enrich rows 
 ## Impact
 
 - Owning repository: **`neocom-front`**
-- L2 IDs: FASSE-001 … FASSE-010 (`L2/FRONT/09.ASYNC-SSE.md`)
+- Requirement ids: FASSE-001 … FASSE-010 
 - Companions: `back-async-sse`, `infra-async-persistence`
 - Reuses `front-node-render` viewer/registry pipeline

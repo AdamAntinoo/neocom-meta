@@ -23,4 +23,4 @@ EPIC-004 marks **SpaceLocationV1** as an interface artifact for referencing loca
 
 - **`neocom-domain`**
 - Related: `domain-locations`, future EveLocationV1 extract
-- L2 ids: DOM-SLOCV1-001…003 from `L2/DOMAIN/07.SPACELOCATION-V1.md`
+- L2 ids: DOM-SLOCV1-001…003 from 

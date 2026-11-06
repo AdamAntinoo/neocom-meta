@@ -2,7 +2,7 @@
 
 ## Purpose
 
-FeatureV1 display element and procedural Feature panel population. Source: IND-BP-010…012, 020, 021, 023 in `L2/FRONT/15.FEATURE-BUTTON.md`.
+FeatureV1 display element and procedural Feature panel population. Source: IND-BP-010…012, 020, 021, 023 in .
 
 ## ADDED Requirements
 

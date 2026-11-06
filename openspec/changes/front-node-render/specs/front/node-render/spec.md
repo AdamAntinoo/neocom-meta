@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Node MVC, render registry, hierarchy flattening, viewer, and panel roles. Source: NODE-001 … NODE-017 in `L2/FRONT/08.NODE-RENDER.md`.
+Node MVC, render registry, hierarchy flattening, viewer, and panel roles. Source: NODE-001 … NODE-017 in .
 
 ## ADDED Requirements
 
@@ -38,7 +38,7 @@ Nodes SHALL form a hierarchy. Rendering SHALL convert that hierarchy into a list
 
 ### Requirement: Container panel and viewer
 
-A container panel SHALL own the nodes it shows and feed the viewer `nodes2render` and a `variant`. When a page hosts `neocom-viewer-panel` (or `viewer-panel`), that viewer SHALL process the flat list and place one node container per entry. Identification SHALL use `jsonClass` via the render registry. Panels SHALL bind `[nodes2render]="getNodes2Render()"` and `[variant]="getVariant()"`. The viewer SHALL NOT walk the hierarchy (NODE-004, NODE-009).
+A container panel SHALL own the nodes it shows and feed the viewer `nodes2render` and a `variant`. When a page hosts `neocom-viewer-panel` (or `viewer-panel`), that viewer SHALL process the flat list and place one node container per entry. Identification SHALL use `jsonClass` via the render registry. Panels SHALL bind `[nodes2render]="getNodes2Render"` and `[variant]="getVariant"`. The viewer SHALL NOT walk the hierarchy (NODE-004, NODE-009).
 
 #### Scenario: Viewer iterates only the flat list
 

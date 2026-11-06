@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Backend testing guidelines, mocked upstream sources, and Gherkin acceptance. Source: BTEST-001 … BTEST-005 in `L2/BACK/BACK-TESTING.md`.
+Backend testing guidelines, mocked upstream sources, and Gherkin acceptance. Source: BTEST-001 … BTEST-005 in .
 
 ## ADDED Requirements
 

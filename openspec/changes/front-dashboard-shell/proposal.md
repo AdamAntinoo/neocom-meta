@@ -48,3 +48,12 @@ Registered from EPIC-006 extracts into this change:
 | UI-DASH-015 | `front/dashboard` | DEF-IB-006 application |
 
 Industry page rename called out by UI-VER-004 may touch `feature/industry-blueprints` artefacts when applying; the SHALL is owned here.
+
+## Amend 2026-11-06 (DEF-BLP-004 / 005)
+
+Registered from EPIC-006 into this change:
+
+| L1 id | Capability | Defect |
+| --- | --- | --- |
+| UI-CORP-014 | `front/corporation` | DEF-BLP-004 — flex row 3→2→1, 2× gap |
+| UI-GEO-002 | `front/page-header` | DEF-BLP-005 — `$section-padding` = `$panel-padding` |

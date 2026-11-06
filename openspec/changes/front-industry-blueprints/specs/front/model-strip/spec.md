@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Support / documentation page that catalogues render specimens. Source: IND-BP-001…007 in `L2/FRONT/13.MODEL-STRIP.md`.
+Support / documentation page that catalogues render specimens. Source: IND-BP-001…007 in .
 
 ## ADDED Requirements
 

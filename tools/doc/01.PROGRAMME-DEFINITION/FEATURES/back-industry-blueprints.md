@@ -6,7 +6,7 @@
 | Status | registered |
 | Owners | `neocom-back` |
 | L2 IDs | BACK-SVC-070…072 |
-| Source | `sources/L2/BACK/BACK-INDUSTRY-BLUEPRINTS.md` (EPIC-009) |
+| Source |  (EPIC-009) |
 
 ## Intent
 

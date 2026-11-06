@@ -10,9 +10,9 @@ Agents are long-running, stateful specialists. Invoke them by name.
 | --- | --- | --- |
 | `neocom-git` | `/neocom-git` | Git and versioning specialist: commits, branches, tags, PRs, releases, npm package versions, and `openspec/DELIVERY-INDEX.md` (OpenSpec ↔ commit/PR map for traceability / graphify). Primary entry point for all VCS work. |
 | `neocom-code` | `/neocom-code` | Product coding specialist for **front** and **back** (and domain when needed). One agent; resolves destination first, then applies shared pipeline rules plus destination stack rules (Angular/Vitest/Cypress vs NestJS hexagonal). Applies registered OpenSpec changes; git stays with `/neocom-git`. |
-| `neocom-spec-collector` | `/epic` | Spec-workflow intake specialist. Opens an epic, writes the L1 file (Spec traceability header + version card footer), collects matching executive cards from `sources/L0/executive/` into the epic's Sources section, and records each copied card in `sources/L0/executive/INDEX.md` so a card is never used twice. |
-| `neocom-spec-workflow` | `/neo:extract-l2`, `/neo:spec-evolution` | Spec-progression specialist. Owns L1 (epic) → L2 → OpenSpec. **Always runs `graphify update .` first**. Extract gate is the L1 Review cell (`[ ] to review` → not extractable; `[x] reviewed` → extract → plain `extracted`/`duplicated`). Duplicates go to `sources/L1/00.DUPLICATES.md`. Never rewrites authored L1 sections; may flip Review cells and Spec traceability, and append the duplicates holding epic. |
-| `neocom-backtrack` | `/neo:backtrack` | Legacy-code backtracking specialist. When an epic changes version, reads the legacy back/front code under `/Users/adam/IdeaProjects/neocom-infinity` to find the classes, methods, and flows the epic references, and records them in `sources/COLLECTOR/` (findings doc + version register). |
+| `neocom-spec-collector` | `/epic`, `/epic collect <epic>` | Spec-workflow intake specialist. Opens an epic and writes the L1 file (Spec traceability header + version card footer). Card collection is **on request only** (`/epic collect <epic>`): then collects matching executive cards from `sources/L0/executive/` into Sources and records them in `sources/L0/executive/INDEX.md`. Filling Search criteria alone does not collect. |
+| `neocom-spec-workflow` | `/epic:extract` | Spec-progression specialist. Owns L1 (epic) → OpenSpec. **Always runs `graphify update .` first**. The gate is the L1 Review cell (`[ ] to review` → not registrable; `[x] reviewed` → OpenSpec → plain `registered`/`duplicated`). Duplicates go to `sources/L1/00.DUPLICATES.md`. There is no L2 copy. Never rewrites authored L1 sections; may flip Review cells and Spec traceability, and append the duplicates holding epic. |
+| `neocom-backtrack` | `/neo:backtrack <epic…>` | Legacy-code backtracking specialist. **On request only** (named epic required). Reads legacy back/front under `/Users/adam/IdeaProjects/neocom-infinity` for those epics and records findings in `sources/COLLECTOR/`. Does not auto-scan on epic create/update or fingerprint change. |
 | `neocom-defect` | `/defect`, `/fix:defect`, `/defect:fixed` | Defect specialist. Register on `FEATURE-*_DEFECTS.md`; fix marked defects; after validation move to `defects/FIXED-DEFECTS.md`. Does not commit. |
 | `program-verifier` | `/program-verifier` | Read-only verifier for `00.PR377-META/program/` knowledge against `00.PR377-META/sources/` and `00.PR377-META/program/CLAUDE.md`. Reports only; never edits. |
 
@@ -43,8 +43,7 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 
 | Skill | Slash command | Purpose |
 | --- | --- | --- |
-| `extract-l2` | `/neo:extract-l2` | Convert L1 epics into epic-named L2 file(s). Review gate only: unchecked `[ ]` is not extractable; checked `[x]` extracts then becomes plain `extracted`. Duplicates move to `sources/L1/00.DUPLICATES.md`. No `UNREGISTERED REQUIREMENTS` heading. |
-| `spec-registration` | `/neo:spec-evolution` | Review L2 **pending** notes and move them into OpenSpec as `<system>-<feature>`. Duplicates go to `00.DUPLICATES`. Status is recorded in the indexes. |
+| `epic-extract` | `/epic:extract` | Register reviewed L1 units directly into OpenSpec as `<system>-<feature>`. Unchecked `[ ]` is not registrable; checked `[x]` registers then becomes plain `registered`. Duplicates move to `sources/L1/00.DUPLICATES.md`. No L2 copy. |
 | `defect-register` | `/defect` | Append (or create) a defect on `defects/FEATURE-<branch-stem>_DEFECTS.md` for the current product feature branch. |
 | `defect-fix` | `/fix:defect [DEF-id]` | Plan (list defects + actions, wait for go-ahead) then implement Expected for one id or all ready. Status `applying`; no commit. |
 | `defect-fixed` | `/defect:fixed DEF-id…` | After developer validation, move defect row + section into `defects/FIXED-DEFECTS.md` and remove from the open feature page. |
@@ -83,20 +82,18 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
 │   ├── defect-fixed.md
 │   ├── fix-defect.md
 │   ├── epic.md
-│   ├── extract-l2.md
-│   ├── neocom-code.md
-│   └── spec-evolution.md
+│   ├── epic-extract.md
+│   └── neocom-code.md
 ├── skills/
 │   ├── defect-fix/SKILL.md
 │   ├── defect-fixed/SKILL.md
 │   ├── defect-register/SKILL.md
-│   ├── extract-l2/SKILL.md
+│   ├── epic-extract/SKILL.md
 │   ├── git-commit/SKILL.md
 │   ├── git-pr/SKILL.md
 │   ├── neocom-code/SKILL.md
 │   ├── neocom-git-workflow/SKILL.md
-│   ├── openspec-*/SKILL.md        (6 skills)
-│   └── spec-registration/SKILL.md
+│   └── openspec-*/SKILL.md        (6 skills)
 └── templates/
     ├── README.md
     ├── branch-names.md
@@ -104,4 +101,4 @@ Skills are self-contained workflows. OpenSpec installed the six `openspec-*` ski
     └── pull-requests.md
 ```
 
-> Note: OpenSpec's `init --tools dsh` generates skills only (no command stubs — "no adapter" for `dsh`). The slash-command names above are the canonical invocation forms; `/neocom-git` owns git, `/neocom-code` owns product coding (front/back), `/epic` is owned by `/neocom-spec-collector`, `/neo:backtrack` by `/neocom-backtrack`, `/defect` + `/fix:defect` + `/defect:fixed` by `/neocom-defect`, and `/neo:extract-l2` + `/neo:spec-evolution` by `/neocom-spec-workflow`.
+> Note: OpenSpec's `init --tools dsh` generates skills only (no command stubs — "no adapter" for `dsh`). The slash-command names above are the canonical invocation forms; `/neocom-git` owns git, `/neocom-code` owns product coding (front/back), `/epic` (+ `/epic collect <epic>` on request) is owned by `/neocom-spec-collector`, `/neo:backtrack <epic…>` (on request) by `/neocom-backtrack`, `/defect` + `/fix:defect` + `/defect:fixed` by `/neocom-defect`, and `/epic:extract` by `/neocom-spec-workflow`. `/neo:extract-l2` and `/neo:spec-evolution` are removed.

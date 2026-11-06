@@ -24,6 +24,6 @@ EPIC-003 extends the same testing guidelines to `neocom-back`, with WireMock (or
 ## Impact
 
 - Owning repository: **`neocom-back`**
-- L2 IDs: BTEST-001 … BTEST-005 (`L2/BACK/BACK-TESTING.md`)
-- Source extract: `L2/03.EPIC-TESTING.backend-testing.md`
+- Requirement ids: BTEST-001 … BTEST-005 
+- Source extract: 
 - Related: front methodology (`front-bdd-cypress`, `cicd-coverage-sonar`, `infra-test-commands`, `front-mock-fixtures`)

@@ -26,6 +26,7 @@
 - [x] Place corporation panel right of pilot; id from selected Pilot (UI-CORP-001, UI-CORP-003)
 - [x] Obtain public corp data via NeoCom back/provider; consume name/ticker/members/tax/ceo/home/alliance fields (UI-CORP-002, UI-CORP-004, UI-CORP-012)
 - [x] Implement `v1-corporation-render` HEADER Appearance + model-strip specimen (UI-CORP-005…011, UI-CORP-013)
+- [ ] HEADER identity lines 1–3 on one flex row order 3 → 2 → 1 with 2× column gap (UI-CORP-014 / DEF-BLP-004)
 
 ## Character selection
 
@@ -39,3 +40,4 @@
 - [x] Header first line: full width; server-info content-sized right; app-info remaining; stack when narrow; `-AUTH-` app-info spans band (UI-HDR-011)
 - [x] App name (`cy-field-value="app-name"`) navigates to `/character-selection` (UI-AIP-006)
 - [x] Apply default panel gap (`$panel-margin` / `$panel-padding`) for secured chrome separations and Dashboard pilot-row spacing (UI-GEO-001, UI-DASH-015)
+- [ ] Row/section gap uses `$section-padding` with default equal to `$panel-padding` (UI-GEO-002 / DEF-BLP-005)

@@ -29,8 +29,7 @@ Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain
 | Command | Skill | What it does |
 | --- | --- | --- |
 | `/epic` | `epic` | Author an L1 epic under `sources/L1/` |
-| `/neo:extract-l2` | `extract-l2` | Convert L1 epics into epic-named L2 files |
-| `/neo:spec-evolution` | `spec-registration` | Review L2 notes and register them in OpenSpec |
+| `/epic:extract` | `epic-extract` | Register reviewed L1 units directly into OpenSpec |
 | `/feature-delivery` | `feature-delivery` | Apply one registered feature on `feature/<feature>` from `develop`, then commit |
 | `/neocom-git-workflow` | `neocom-git-workflow` | Commit, branch, and pull-request playbook for `/neocom-git` |
 | `/git:commit` | `git-commit` | Commit all pending changes on one repository's current branch. `/git:commit neocom-front` requires a project |

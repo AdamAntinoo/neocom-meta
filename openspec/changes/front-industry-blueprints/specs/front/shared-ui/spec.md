@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Programme-wide UI tokens for faces, field labels, icon sizes, and expand chevrons. Source: IND-BP-080…083, 088 in `L2/FRONT/17.SHARED-UI.md`.
+Programme-wide UI tokens for faces, field labels, icon sizes, and expand chevrons. Source: IND-BP-080…083, 088 in .
 
 ## ADDED Requirements
 

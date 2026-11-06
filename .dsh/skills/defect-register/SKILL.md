@@ -55,8 +55,8 @@ Related epics: _(fill when known)_.
 ## How defects resolve (intended programme flow)
 
 1. **Record here** — `/defect`; status `open` (or `prep`).
-2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic with Review `[ ] to review`. Prefer **not** inventing behaviour beyond what the defect states.
-3. **Mark to run the process** (developer, manual) — checking that mark sets Review to `[x] reviewed` and authorizes `/fix:defect`.
+2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic. **Checking this checklist item assumes Review is accepted** → set the L1 cell to **`[x] reviewed`** (do **not** leave it at `[ ] to review`). Prefer **not** inventing behaviour beyond what the defect states.
+3. **Mark to run the process** (developer, manual) — authorizes `/fix:defect` (Review is already `[x] reviewed` from step 2 when that item is checked).
 4. **`/fix:defect`** — list defects + actions; wait for go-ahead; then implement Expected (all ready, or one `DEF-…`). May run extract → OpenSpec → product apply. Status `applying`. No commit.
 5. **Developer validates** the product fix — then **`/defect:fixed DEF-…`** moves the defect (same structure and contents) to `defects/FIXED-DEFECTS.md` and removes it from this page.
 
@@ -112,14 +112,13 @@ Append a section (before any trailing material only if the page already ends wit
 | Layer | Path / id | Notes |
 | --- | --- | --- |
 | L1 | TBD | |
-| L2 | TBD | |
 | OpenSpec | TBD | |
 | Code | TBD | |
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; Review starts `[ ] to review`)
-- [ ] Mark to run the process — sets Review to `[x] reviewed` and authorizes `/fix:defect`
+- [ ] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
+- [ ] Mark to run the process — authorizes `/fix:defect`
 - [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
@@ -138,5 +137,5 @@ Short confirmation: id, path relative to `neocom-meta`, status, branch. No commi
 ## Boundaries
 
 - Write only under `neocom-meta/defects/`.
-- Do not implement product code, extract L2, or run OpenSpec registration in this skill.
+- Do not implement product code or run `/epic:extract` in this skill.
 - Do not rewrite authored L1 from `/defect`.

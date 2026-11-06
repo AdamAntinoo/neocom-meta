@@ -24,4 +24,4 @@ Published Pilot types (**PublicPilotV1**, **PilotV2**) must live in `neocom-doma
 - **`neocom-domain`** publishes the types
 - **`neocom-front`** / **`neocom-back`** consume via package dependency
 - Related: `front-pilot` (front apply), `domain-module` (package)
-- L2 ids: DOM-PILOT-001…007 from `L2/DOMAIN/02.PILOT.md`
+- L2 ids: DOM-PILOT-001…007 from 

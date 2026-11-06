@@ -355,9 +355,9 @@ Before processing EPIC-008 and defining a new Industry Page epic, answer these:
 - ✅ Model hierarchy clarified: location types use SpaceLocationV1 interface
 - ✅ Render data and variant rules documented (panel colors, SOLAR-SYSTEM-LOOKUP variant)
 
-**Next action:** Run `/neo:extract-l2` to extract Region, Constellation, and Solar System sections into L2
+**Next action:** Mark Region, Constellation, and Solar System `[x] reviewed` if they are not already registered, then run `/epic:extract`.
 
-### 5.2 After L2 Extraction: OpenSpec Registration
+### 5.2 OpenSpec registration
 
 1. **Register location models** into OpenSpec as `domain-locations` change
 2. **Include in change:**
@@ -391,13 +391,13 @@ Before processing EPIC-008 and defining a new Industry Page epic, answer these:
 1. **This week:** Answer Q1–Q12 above
 2. **Next:** Process EPIC-004 models (blueprints + locations) to unblock renders
 3. **Parallel:** Create L1 epic for Industry Page with clarified requirements
-4. **Then:** Extract L2 and apply features in dependency order
+4. **Then:** Register reviewed units with `/epic:extract` and apply features in dependency order
 
 ---
 
 ## 6. Template: Questions Checklist for Epic Processing Readiness
 
-Use this before /neo:extract-l2 or /neo:spec-evolution:
+Use this before `/epic:extract`:
 
 - [ ] **Models:** all referenced models are defined and marked `reviewed` (or dependency epic is listed)
 - [ ] **Renders:** all vn- selectors, templates, and variants are documented

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define the Pilot as the Eve Online user's game presence. The field model is the canonical Pilot section in `L1/04.EPIC-MODELS.md` (EPIC-004). PILOT-004 is cancelled. Source: `L2/FRONT/01.PILOT-DEFINITION.md`.
+Define the Pilot as the Eve Online user's game presence. The field model is the canonical Pilot section in `L1/04.EPIC-MODELS.md` (EPIC-004). PILOT-004 is cancelled. Source: .
 
 ## ADDED Requirements
 

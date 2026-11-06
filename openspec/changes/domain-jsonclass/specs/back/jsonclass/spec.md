@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Back responses for published domain models identify the programme type on the wire via `jsonClass`. Source: DOM-JSONCLASS-001 in `L2/DOMAIN/08.JSONCLASS.md`.
+Back responses for published domain models identify the programme type on the wire via `jsonClass`. Source: DOM-JSONCLASS-001 in .
 
 ## ADDED Requirements
 

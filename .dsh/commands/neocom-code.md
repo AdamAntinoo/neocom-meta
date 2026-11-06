@@ -20,4 +20,4 @@ Run **`/neocom-code`** for the `neocom-code` agent.
 2. Apply **shared** coding rules, then the **destination-specific** rules in `.dsh/agents/neocom-code.md`.
 3. Follow `.dsh/skills/neocom-code/SKILL.md` for OpenSpec apply, branch gate, implement, verify, and CHANGE-STATUS updates.
 
-Do not commit or open a pull request — that is `/neocom-git`. Do not register new OpenSpec changes from L2 — that is `/neo:spec-evolution`.
+Do not commit or open a pull request — that is `/neocom-git`. Do not register new OpenSpec changes from L1 — that is `/epic:extract`.

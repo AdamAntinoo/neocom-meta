@@ -2,7 +2,7 @@
 
 ## Purpose
 
-ServerStatusV1 for header EVE server info. Source: DOM-SRV-* in `L2/DOMAIN/05.SERVER-STATUS.md`; panel Appearance owned by EPIC-006 UI-SSP.
+ServerStatusV1 for header EVE server info. Source: DOM-SRV-* in ; panel Appearance owned by EPIC-006 UI-SSP.
 
 **Evolution:** the applied ADDED field/render contract that included `start_time`, `backendVersion`, and `startAgo` (and Backend on the render) is **superseded** by the EPIC-006 panel field set. On L1 that is Review=`superseded`. In OpenSpec, replace it with a follow-up delta using **`## MODIFIED Requirements`** and/or **`## REMOVED Requirements`** (below records the intent against the applied text).
 
@@ -31,12 +31,12 @@ ServerStatusV1 for header EVE server info. Source: DOM-SRV-* in `L2/DOMAIN/05.SE
 
 ### Requirement: ServerStatusV1 fields (header panel)
 
-Published **ServerStatusV1** SHALL expose **only** `server` (`getServerName()`), `players` (`getPlayersCount()`, default `0`), `SDEVersion` (`getSDEVersion()`), `nextDowntime` (`getNextDowntime()`) (DOM-SRV-004 / EPIC-004 SRV-005).
+Published **ServerStatusV1** SHALL expose **only** `server` (`getServerName`), `players` (`getPlayersCount`, default `0`), `SDEVersion` (`getSDEVersion`), `nextDowntime` (`getNextDowntime`) (DOM-SRV-004 / EPIC-004 SRV-005).
 
 #### Scenario: Players default
 
 - **WHEN** players count is missing
-- **THEN** `getPlayersCount()` defaults to `0`
+- **THEN** `getPlayersCount` defaults to `0`
 
 #### Scenario: No Backend on published contract
 

@@ -24,5 +24,5 @@ The async/SSE enrichment path needs provisioned durable storage and a queue brok
 ## Impact
 
 - Owning docs: **`neocom-meta`**; runtime provision used by **`neocom-back`** (and front SSE URL config)
-- L2 IDs: INFRA-050 … INFRA-055 (`L2/INFRASTRUCTURE-SPECS.md` §H)
+- Requirement ids: INFRA-050 … INFRA-055 ( §H)
 - Companions: `back-async-sse`, `front-async-sse`

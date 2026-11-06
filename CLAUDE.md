@@ -1,6 +1,6 @@
 # NEOCOM meta · documentation and harness repository
 
-Meta repository for the NEOCOM project: programme definition, requirements (L0 → L1 → L2), OpenSpec specifications, agent rules, and the shared harness. Product code lives in independent repositories (`neocom-front`, `neocom-back`, `neocom-domain`). This repository does not implement product code.
+Meta repository for the NEOCOM project: programme definition, requirements (L0 → L1), OpenSpec specifications, agent rules, and the shared harness. Product code lives in independent repositories (`neocom-front`, `neocom-back`, `neocom-domain`). This repository does not implement product code.
 
 This file is the Claude entry point. The harness itself is model-neutral and lives in **`.dsh/`** (the DeepSeek Harness). It is the source of truth for agents, commands, skills, and templates, whichever model runs them. If this file and `.dsh/` disagree, `.dsh/` wins.
 
@@ -25,9 +25,9 @@ Agents and their entry points:
 
 | Agent                   | Commands                                                           | Role                                                                      |
 | ----------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| `neocom-spec-collector` | `/epic`                                                            | Opens an L1 epic and collects the L0 cards that match its search criteria |
-| `neocom-spec-workflow`  | `/neo:extract-l2`, `/neo:spec-evolution` | Controls the progression L1 (epic) → L2 → OpenSpec                        |
-| `neocom-backtrack`      | `/neo:backtrack`                                                   | Finds in the legacy code the classes, methods, and flows an epic cites    |
+| `neocom-spec-collector` | `/epic`, `/epic collect <epic>`                                   | Opens an L1 epic; collects L0 cards **only on explicit request**          |
+| `neocom-spec-workflow`  | `/epic:extract`                          | Registers reviewed L1 units directly into OpenSpec                       |
+| `neocom-backtrack`      | `/neo:backtrack <epic…>`                                           | Legacy backtrack **only on explicit request** (named epic required)       |
 | `neocom-defect`         | `/defect`, `/fix:defect`, `/defect:fixed`                          | Register; fix marked defects; archive validated ones to `FIXED-DEFECTS.md` |
 | `neocom-code`           | `/neocom-code`                                                     | Product coding for front and back (destination-selected rules); OpenSpec apply in product repos |
 | `neocom-git`            | `/neocom-git`, `/git:commit <project>`, `/git:pr [project]`        | Commits, branches, PRs, versions, and `openspec/DELIVERY-INDEX.md`; the only owner of git operations |
@@ -39,20 +39,19 @@ For a new task, read `.dsh/AGENT-CATALOG.md` first, then the matching agent or s
 
 ```text
 /epic  →  sources/L1/NN.EPIC-NAME.md  (the L1 epic; its authored sections are read-only)
-/neo:extract-l2  →  sources/L2/NN.EPIC-NAME[.group].md  (under UNREGISTERED REQUIREMENTS; sets the processed Review cell to extracted)
-/neo:spec-evolution  →  openspec/changes/<system>-<feature>/  and sources/L2/<SYSTEM>/
+/epic:extract  →  openspec/changes/<system>-<feature>/  (reviewed L1 units; Review cell becomes registered)
 ```
 
 Rules that are not negotiable:
 
-- **Never rewrite authored L1 sections.** The L1 epic is the source of L2. `/neo:extract-l2` may change only Review cells (`reviewed` → `extracted`) and `## Spec traceability` (keep it at the start of the file: status, L2 paths, skip). Registering in OpenSpec may refresh that same Spec traceability table; it does not rewrite L2 source notes beyond the skill’s move rules.
-- **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative record: per-epic **Sections** + **L2 delivery** (L2-file key → OpenSpec → Delivery). Each epic’s `## Spec traceability` must stay in sync after extract/register/apply. `sources/L2/INDEX.md` is the L2 file backlog (📥 inbox → `/neo:spec-evolution`). `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec programme status. `openspec/DELIVERY-INDEX.md` (owned by `/neocom-git`) feeds TRACEABILITY **Delivery** cells. `sources/L1/SPEC-EPIC-INDEX.md` is **deprecated** — keep the file; do not update it. Update the active indexes in the same turn as any change they reflect.
-- **Only checked Review cells (`[x]` / legacy `reviewed`) are extracted** from tables with a Review column. Unchecked `[ ]` (legacy `to review`), `superseded`, and `out of scope` are not extracted. After extract the checkbox is replaced by a plain status word (`extracted` / `duplicated`).
+- **Never rewrite authored L1 sections.** The L1 epic is the source of OpenSpec. `/epic:extract` may change only Review cells (`reviewed` → `registered` or `duplicated`) and `## Spec traceability` (keep it at the start of the file: status, OpenSpec changes, skip).
+- **Traceability indexes:** `sources/L1/TRACEABILITY.md` is the authoritative record via per-epic **### Sections** (Review / pipeline). Each epic’s `## Spec traceability` must stay in sync after extract/apply. `sources/L0/executive/INDEX.md` records each card's state (`selected`, `returned`, `out of scope`, `deleted`). `openspec/CHANGE-STATUS.md` records OpenSpec programme status. `openspec/DELIVERY-INDEX.md` (owned by `/neocom-git`) holds commit/PR evidence. **Removed (do not recreate):** `sources/L2/`, `SPEC-EPIC-INDEX.md`, and TRACEABILITY **`### L2 delivery`**. Update the active indexes in the same turn as any change they reflect.
+- **Only checked Review cells (`[x]` / legacy `reviewed`) are registered** from tables with a Review column. Unchecked `[ ]` (legacy `to review`), `superseded`, and `out of scope` are not registered. After registration the checkbox is replaced by a plain status word (`registered` / `duplicated`).
 - **Do not invent behaviour.** If a note or an epic does not state something, ask or mark the gap; do not fill it in.
 
 ## Graphify
 
-**Automatic before every `/neo:*` command** (`/neo:extract-l2`, `/neo:spec-evolution`, `/neo:backtrack`). The agent runs this as its first action — do not ask the user, do not skip, stop if it fails:
+**Automatic before `/epic:extract` and `/neo:backtrack`.** The agent runs this as its first action — do not ask the user, do not skip, stop if it fails:
 
 ```bash
 cd neocom-meta
@@ -73,7 +72,7 @@ Prefer `.venv/bin/graphify update .` when the project venv exists. Then use `gra
 - Work on the current branch. Do not commit on `develop` or `main` unless the user explicitly asks.
 - Do not commit, push, or open a PR unless the user asks. The `/git:*` commands are that request. **OpenSpec apply stops before commit** (`/neocom-code`).
 - Product OpenSpec branches: `feature/<name>` default from `develop`; if other feature tips are ahead, ask before stacking (see `/neocom-git` and `.dsh/METHODOLOGY.md` §6).
-- PR feature → `develop` = validation intake; validate on develop / dev env; developer **selects** OpenSpec to archive; archive (+ L1/L2 source-archive) **before** marking the Release PR ready; open **draft** `develop` → `main` (`Release-X.Y.Z`) documenting the archived inventory; mark ready only when the selected archive set is complete (`.dsh/templates/openspec-delivery-control.md`, `.dsh/METHODOLOGY.md` §6.6–6.7).
+- PR feature → `develop` = validation intake; validate on develop / dev env; developer **selects** OpenSpec to archive; archive (+ L1 source-archive) **before** marking the Release PR ready; open **draft** `develop` → `main` (`Release-X.Y.Z`) documenting the archived inventory; mark ready only when the selected archive set is complete (`.dsh/templates/openspec-delivery-control.md`, `.dsh/METHODOLOGY.md` §6.6–6.7).
 - Do not write `SemVer` into `package.json`. The version is GitVersion `MajorMinorPatch` (hooks/CI).
 
 ## Finder duplicate files

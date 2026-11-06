@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Coverage measurement, quality-gate rules, and SonarCloud reporting. Source: COV-001 … COV-005 in `L2/CICD/01.COVERAGE-SONAR.md`.
+Coverage measurement, quality-gate rules, and SonarCloud reporting. Source: COV-001 … COV-005 in .
 
 ## ADDED Requirements
 

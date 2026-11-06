@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Nest list persistence, background enrichment, and SSE push for heavy node lists. Source: BASSE-001 … BASSE-012 in `L2/BACK/BACK-ASYNC-SSE.md`.
+Nest list persistence, background enrichment, and SSE push for heavy node lists. Source: BASSE-001 … BASSE-012 in .
 
 ## ADDED Requirements
 

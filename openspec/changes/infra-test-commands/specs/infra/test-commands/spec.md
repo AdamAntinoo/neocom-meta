@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shared catalog of stable testing commands across NEOCOM projects. Source: INFRA-060 … INFRA-064 in `L2/INFRASTRUCTURE-SPECS.md` §I.
+Shared catalog of stable testing commands across NEOCOM projects. Source: INFRA-060 … INFRA-064 in  §I.
 
 ## ADDED Requirements
 

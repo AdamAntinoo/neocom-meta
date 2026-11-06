@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Align `jsonClass` values for published programme domain models with `neocom-domain` and EPIC-004. Source: DOM-JSONCLASS-003 in `L2/DOMAIN/08.JSONCLASS.md`.
+Align `jsonClass` values for published programme domain models with `neocom-domain` and EPIC-004. Source: DOM-JSONCLASS-003 in .
 
 ## ADDED Requirements
 

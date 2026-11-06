@@ -11,7 +11,7 @@ apply (feature/<name>) → stop before commit
   → merge to develop (when asked)
   → OpenSpec + product validation on develop / dev environment
   → developer selects OpenSpec changes to archive
-  → archive selected changes (+ L1/L2 source-archive when complete)
+  → archive selected changes (+ L1 source-archive when complete)
   → collect archived ids → draft PR develop → main (Release-X.Y.Z)
   → keep draft until archive set complete → mark ready → merge when asked
 ```
@@ -99,7 +99,7 @@ After validation passes, the **developer selects** which eligible OpenSpec chang
 | **Selected to archive** | Explicit change ids from the validated pool |
 | **Left open / deferred** | Still `applied` but not in this release set, or not validated / still registered |
 | **Archive run** | `/openspec-archive-change` per selected id; CHANGE-STATUS → Archived; `openspec/specs/` synced |
-| **L1/L2 tracking** | Same turn: TRACEABILITY; §6.7 source-archive when an L2 then L1 is fully covered |
+| **L1 tracking** | Same turn: TRACEABILITY; §6.7 source-archive when an L1 epic is fully covered |
 | **Release inventory** | Growing list of **successfully archived** ids (feeds the draft PR body) |
 
 ---
@@ -131,7 +131,7 @@ After validation passes, the **developer selects** which eligible OpenSpec chang
 ## OpenSpec deferred / still open (do not archive in this release)
 - `<system>-<feature>` — reason
 
-## L1 / L2 source archive
+## L1 source archive
 - Moved / still active (per §6.7)
 
 ## Test plan

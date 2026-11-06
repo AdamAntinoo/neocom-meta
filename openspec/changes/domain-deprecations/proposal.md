@@ -23,4 +23,4 @@ Legacy domain DTOs and `src/esi-api` must leave the active interchange path so p
 
 - Owner: **`neocom-domain`** (mark/remove); **`neocom-back`** keeps ESI types internally
 - Out of scope: inventing replacement DTO shapes; deleting every consumer in the same change; Industry HTTP endpoint (see `back-industry-blueprints`)
-- L2 ids: BACK-SVC-040…042, BACK-SVC-050…052 from `L2/09.EPIC-BACKEND-SERVICES.md` → `L2/DOMAIN/11.DEPRECATIONS.md`
+- L2 ids: BACK-SVC-040…042, BACK-SVC-050…052 from  

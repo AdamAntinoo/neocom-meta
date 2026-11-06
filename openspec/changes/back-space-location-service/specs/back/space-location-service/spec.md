@@ -2,7 +2,7 @@
 
 ## Purpose
 
-NestJS space-location application service (BACK-229). Sources: LOC-130…142 in `L2/BACK/BACK-SPACE-LOCATION-SERVICE.md`. Lookup HTTP path remains as applied `back-spacelocations` (LOC-010); this capability owns catalog resolve, ESI, Redis, and compose rules.
+NestJS space-location application service (BACK-229). Sources: LOC-130…142 in . Lookup HTTP path remains as applied `back-spacelocations` (LOC-010); this capability owns catalog resolve, ESI, Redis, and compose rules.
 
 ## ADDED Requirements
 

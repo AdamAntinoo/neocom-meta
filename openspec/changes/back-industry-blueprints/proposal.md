@@ -24,4 +24,4 @@ The Industry API starts with retrieving a pilot’s blueprints as `BlueprintV1[]
 
 - Owners: **`neocom-back`** (endpoint/adapters); depends on published **`BlueprintV1`** (`domain-blueprint`) and Industry port (`domain-ports`)
 - Out of scope: inventing the detailed ESI↔BlueprintV1 field map (BACK-SVC-072 marks it for review); front list UI
-- L2 ids: BACK-SVC-070…072 from `L2/09.EPIC-BACKEND-SERVICES.md` → `L2/BACK/BACK-INDUSTRY-BLUEPRINTS.md`
+- L2 ids: BACK-SVC-070…072 from  

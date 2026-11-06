@@ -2,14 +2,22 @@
 name: "/neo:backtrack"
 id: "neo-backtrack"
 category: "NEOCOM Spec"
-description: "Backtrack legacy code referenced by an epic. Searches /Users/adam/IdeaProjects/neocom-infinity for the classes, methods, and flows an epic names, and records them in sources/COLLECTOR."
+description: "On explicit request, backtrack legacy code for named epic(s). Requires epic argument(s). Disabled by default — does not auto-scan on epic change."
 ---
 
 Run **`/neo:backtrack`** for the `neocom-backtrack` agent.
 
-**First action (automatic):** refresh graphify indexes (meta `graphify update .`, then legacy extract if needed). Do not ask. Do not skip.
+**On request only.** Name one or more epics. With no epic argument, stop and ask — do not scan all L1 epics or all fingerprint-changed rows.
 
-Then the agent detects which epics changed version (SHA-256 fingerprint against `neocom-meta/sources/COLLECTOR/TRACKER.md`), reads each due epic for the classes, methods, and flows it references, and backtracks them in the legacy code under `/Users/adam/IdeaProjects/neocom-infinity`.
+```text
+/neo:backtrack 06
+/neo:backtrack EPIC-USER-INTERFACE
+/neo:backtrack 06.EPIC-USER-INTERFACE.md
+```
+
+**First action (after epics resolve):** refresh graphify indexes (meta `graphify update .`, then legacy extract if needed). Do not ask. Do not skip.
+
+Then for each **named** epic whose `## Search criteria` are filled, backtrack classes, methods, and flows in the legacy code under `/Users/adam/IdeaProjects/neocom-infinity`. Empty criteria → skip that epic and report; do not invent a search.
 
 Findings are written to `neocom-meta/sources/COLLECTOR/NN.EPIC-NAME.md` (indexed, with a mermaid diagram when elements connect), and the register is updated. When the search target is unclear, the agent asks the developer and records the answer to trim later runs.
 

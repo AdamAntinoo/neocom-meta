@@ -23,6 +23,6 @@ EPIC-003 requires measurable coverage, recorded quality-gate rules, and SonarClo
 ## Impact
 
 - Owning repositories: **`neocom-front`**, **`neocom-back`**, CI workflows; programme docs in `neocom-meta`
-- L2 IDs: COV-001 … COV-005 (`L2/CICD/01.COVERAGE-SONAR.md`)
-- Source extract: `L2/03.EPIC-TESTING.coverage-sonar.md`
+- Requirement ids: COV-001 … COV-005 
+- Source extract: 
 - Companion: `cicd-testing-gates` (job order before Sonar); `cicd-pipeline` (existing unit/acceptance jobs)

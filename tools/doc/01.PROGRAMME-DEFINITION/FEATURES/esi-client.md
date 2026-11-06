@@ -8,4 +8,4 @@ Status: recorded. OpenSpec change: `back-esi-client`.
 
 `@lgriffin/esi.ts` 12.0.0 is useful as the ESI client for `neocom-back`. It is a TypeScript client for the ESI API, it runs on Node 22.12 or later (the `neocom` Node alias is 24), and public calls need no token. `esijs` is not used. Zod validation, ETag caching, rate limiting, and retry are upstream behavior. They are not NEOCOM requirements.
 
-Source: `sources/L2/ESI/ESI-CLIENT.md` (ESI-006 … ESI-010).
+Source: L1 (ESI-006 … ESI-010).

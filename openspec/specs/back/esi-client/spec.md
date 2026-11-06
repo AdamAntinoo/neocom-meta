@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use `@lgriffin/esi.ts` in `neocom-back`. References to `esijs` are removed. Source: `L2/ESI/ESI-CLIENT.md`.
+Use `@lgriffin/esi.ts` in `neocom-back`. References to `esijs` are removed. Source: .
 
 ## Requirements
 
