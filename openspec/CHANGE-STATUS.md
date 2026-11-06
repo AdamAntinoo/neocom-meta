@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-06 (`front-domain-nodes` apply 5/5 on `neocom-front` `feature/blueprint-list-processing`; `front-app-shell` still pending).
+Last refreshed: 2026-11-06 (`/git:release-done` — archived 29 OpenSpec changes from Release-0.1.0; front PR#6 / back PR#7 merged).
 
 ## Status legend
 
@@ -56,40 +56,13 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `back-space-location-service` | back / space-location-service | 8/8 | applying | EPIC-008 LOC-130…142 on `neocom-back` `feature/space-location-service` (stacked on `feature/blueprint-list-processing`). ESI+Redis catalog; `InMemoryLocationCatalog` removed. Committed `neocom-back@9b34c95` — PR when ready via `/git:pr neocom-back` |
-| `back-blueprint-list-processing` | back / blueprint-list-processing | 8/8 | applying | EPIC-011 BLP-014…020 + BLP-026…030 on tip under space-location-service stack. Blueprints compose `GetSpaceLocationUseCase` |
-| `front-dashboard-shell` | front / dashboard-shell (multi-cap) | 22/24 | applying | Prior DEF-IB batch on tip; **2026-11-06** registered UI-CORP-014 + UI-GEO-002 (DEF-BLP-004/005) — 2 tasks open. Awaiting apply + PR → `develop` |
-| `front-industry-blueprints` | front / industry-blueprints (multi-cap) | 17/17 | applying | EPIC-010 fold tip `@ b01a213` (`BLUEPRINT_LIST` variant + markers; prior `@ f7852f6` / `@ c382959`). Awaiting PR → `develop`. Gap: list/SSE `location` chain; DEF-IB-007 private PilotV2 needs back |
-| `front-blueprint-list-processing` | front / blueprint-list-processing | 11/14 | applying | EPIC-011 on `feature/blueprint-list-processing` `@ 8030666`. **2026-11-06** BLP-031…034 park-SSE/HTTP registered — 3 tasks open; prior provider/cache tasks remain checked |
-| `front-domain-nodes` | front / domain-nodes | 5/5 | applying | UI-DOM-001…005 applied on `neocom-front` `feature/blueprint-list-processing` (same tip as BLP). `@domain` imports wired; aggregate/registry/provider specs green via `ng test` |
+| — | — | — | — | None |
 
 ## Applied
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `login` | front/login, back/login, esi/sso, esi/login | 13/13 | applied | Validated on develop: front `@ e3356db`, back `@ 3317849` (SSO pages + callback cookies / token storage). Related `nestjs-sso-config` still registered |
-| `front-infrastructure` | front / toolchain | 8/8 | applied | Validated on develop `@ e3356db` (WireMock script + toolchain). Vitest 44/44 |
-| `front-angular-structure` | front / angular-structure | 7/7 | applied | Validated on develop `@ e3356db` (EPIC-002 STRUCT) |
-| `front-node-render` | front / node-render | 7/7 | applied | Validated on develop `@ e3356db` (EPIC-002 NODE) |
-| `front-async-sse` | front / async-sse | 7/7 | applied | Validated on develop `@ e3356db` (adapter cache + SSE merge; `sseBasePath: '/v1'`) |
-| `back-async-sse` | back / async-sse | 7/7 | applied | Validated on develop `@ 3317849` (manufacture SSE, BullMQ/Redis, TypeORM/Flyway). Vitest 28/28. Gap check: routes under `/v1/pilots/:pilotId/manufacture/*` |
-| `infra-async-persistence` | infra / async-persistence | 4/4 | applied | Validated with back develop `@ 3317849` + meta `tools/infra` companion + front `sseBasePath`. Docker/Flyway optional locally |
-| `domain-module` | domain / neocom-domain | 3/3 | applied | DOMAIN-001 cancelled; DOMAIN-002 scaffold done; DOMAIN-003 satisfied — package `neocom-domain` on npm (registry `@0.29.4`; apps pin `0.29.3` via registry tarball). Front + back `package.json` / lock resolve `registry.npmjs.org/neocom-domain` |
-| `domain-pilot` | domain / pilot | 5/5 | applied | Validated on develop `@ 477ee33` (PublicPilotV1 + PilotV2). Domain tests 11/11 |
-| `domain-blueprint` | domain / blueprint | 2/2 | applied | Validated on develop `@ 477ee33` (BlueprintV1 + ME/TE clamp) |
-| `domain-application-info` | domain / application-info | 3/3 | applied | Validated on develop `@ 477ee33` |
-| `domain-server-status` | domain / server-status | 2/2 | applied | Validated on develop `@ 477ee33`. Field/render ADDED text **superseded** by EPIC-006 panel set — delta draft uses **REMOVED** + replacement **ADDED** in change `specs/domain/server-status/spec.md`; register/apply follow-up when reviewed |
-| `domain-spacelocation` | domain / spacelocation | 3/3 | applied | Validated on develop `@ 477ee33` (`SpaceLocationV1`) |
-| `domain-locations` | domain / locations | 3/3 | applied | Validated on develop `@ 477ee33` (hierarchy in `SpaceLocationV1`) |
-| `back-spacelocations` | back / spacelocations | 2/2 | applied | Validated on develop `@ 3317849` — `GET /api/v1/universe/spacelocations/:locationId` |
-| `domain-jsonclass` | domain / jsonclass (+ back, front) | 3/3 | applied | Validated: domain `@ 477ee33`, front `@ e3356db` (`pilot-from-dto` / render registry), back `@ 3317849` (`SpaceLocation` / BlueprintV1 stamps) |
-| `domain-layout` | domain / layout | 2/2 | applied | Validated on develop `@ 477ee33` (models extend `Record`; flat `src/domain`) |
-| `domain-ports` | domain / ports | 2/2 | applied | Validated on develop `@ 477ee33` (`PilotPort` + `IndustryPort`) |
-| `domain-deprecations` | domain / deprecations | 2/2 | applied | Validated on develop `@ 477ee33` — DTOs `@deprecated`; `src/esi-api/DEPRECATED.md` + `src/dto/DEPRECATED.md` |
-| `back-openapi` | back / openapi | 3/3 | applied | Validated on develop `@ 3317849` — `tools/openapi/` + industry YAML `BlueprintV1` |
-| `back-industry-blueprints` | back / industry-blueprints | 2/2 | applied | Validated on develop `@ 3317849` — sync `GET /v1/pilots/:pilotId/blueprints` via ESI `createClient` (no scaffolds) |
-| `front-pilot` | front / pilot | 5/5 | applied | Validated on develop `@ e3356db` (NeoCom nodes wrapping domain Pilot models) |
-| `front-pilot-panel` | front / pilot-panel | 4/4 | applied | Validated on develop `@ e3356db` (`v1-pilot-panel` + HEADER variants) |
+| — | — | — | — | None — Release-0.1.0 set archived 2026-11-06 |
 
 ## Archived
 
@@ -98,10 +71,42 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `2026-10-15-back-esi-client` | `specs/back/esi-client/spec.md` |
 | `2026-10-15-back-hexagonal` | `specs/back/hexagonal/spec.md` |
 | `2026-10-15-infra-style-modules` | `specs/infra/style-modules/spec.md` |
+| `2026-11-06-login` | `specs/front/login/spec.md (+ back/esi)` |
+| `2026-11-06-front-infrastructure` | `specs/front-toolchain/spec.md` |
+| `2026-11-06-front-angular-structure` | `specs/front/angular-structure/spec.md` |
+| `2026-11-06-front-node-render` | `specs/front/node-render/spec.md` |
+| `2026-11-06-front-async-sse` | `specs/front/async-sse/spec.md` |
+| `2026-11-06-front-pilot` | `specs/front/pilot/spec.md` |
+| `2026-11-06-front-pilot-panel` | `specs/front/pilot-panel/spec.md` |
+| `2026-11-06-front-dashboard-shell` | `specs/front/dashboard-shell/spec.md` |
+| `2026-11-06-front-industry-blueprints` | `specs/front/industry-blueprints/spec.md` |
+| `2026-11-06-front-blueprint-list-processing` | `specs/front/blueprint-list-processing/spec.md` |
+| `2026-11-06-front-domain-nodes` | `specs/front/domain-nodes/spec.md` |
+| `2026-11-06-back-async-sse` | `specs/back/async-sse/spec.md` |
+| `2026-11-06-back-spacelocations` | `specs/back/spacelocations/spec.md` |
+| `2026-11-06-back-openapi` | `specs/back/openapi/spec.md` |
+| `2026-11-06-back-industry-blueprints` | `specs/back/industry-blueprints/spec.md` |
+| `2026-11-06-back-blueprint-list-processing` | `specs/back/blueprint-list-processing/spec.md` |
+| `2026-11-06-back-space-location-service` | `specs/back/space-location-service/spec.md` |
+| `2026-11-06-infra-async-persistence` | `specs/infra/async-persistence/spec.md` |
+| `2026-11-06-domain-module` | `specs/domain/neocom-domain/spec.md` |
+| `2026-11-06-domain-pilot` | `specs/domain/pilot/spec.md` |
+| `2026-11-06-domain-blueprint` | `specs/domain/blueprint/spec.md` |
+| `2026-11-06-domain-application-info` | `specs/domain/application-info/spec.md` |
+| `2026-11-06-domain-server-status` | `specs/domain/server-status/spec.md` |
+| `2026-11-06-domain-spacelocation` | `specs/domain/spacelocation/spec.md` |
+| `2026-11-06-domain-locations` | `specs/domain/locations/spec.md` |
+| `2026-11-06-domain-jsonclass` | `specs/domain/jsonclass/spec.md` |
+| `2026-11-06-domain-layout` | `specs/domain/layout/spec.md` |
+| `2026-11-06-domain-ports` | `specs/domain/ports/spec.md` |
+| `2026-11-06-domain-deprecations` | `specs/domain/deprecations/spec.md` |
+
 
 Delta specs usually live at `changes/<system>-<feature>/specs/<system>/<feature>/spec.md`. A multi-system feature may use one change folder (for example `changes/login/`) with several capability specs underneath.
 
 ## Specs abstract
+
+**2026-11-06:** 29 OpenSpec changes from Release-0.1.0 are **archived** (see Archived table). Abstracts below may still describe historical intent; prefer `openspec/specs/` + archive folders for current truth.
 
 One-page planning view for folding several registered capabilities into a **single feature** (as `login` did for front/back/esi login). Status and task counts live in the sections above; refresh those with `npx openspec list --json`. Re-read each `proposal.md` before merging changes.
 
@@ -134,7 +139,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 ## Change abstracts
 
 
-### `login` — applying · 13/13 · multi-system
+### `login` — archived · 13/13 · multi-system
 
 
 |                          |                                                                                                                                                                                                                                                              |
@@ -160,7 +165,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/nestjs-sso-config/` (formerly `back-nestjs-sso-config` / `infra-sso-config`) |
 
 
-### `front-infrastructure` — applying · 8/8
+### `front-infrastructure` — archived · 8/8
 
 
 |                    |                                                                                                              |
@@ -185,7 +190,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-app-shell/`                                       |
 
 
-### `front-domain-nodes` — applying · 5/5
+### `front-domain-nodes` — archived · 5/5
 
 
 |                    |                                                                 |
@@ -198,7 +203,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-domain-nodes/`                                   |
 
 
-### `front-dashboard-shell` — applying · 22/24
+### `front-dashboard-shell` — archived · 22/24
 
 
 |                    |                                                                 |
@@ -212,7 +217,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-dashboard-shell/`                                |
 
 
-### `front-industry-blueprints` — registered · 0/17
+### `front-industry-blueprints` — archived · 0/17
 
 
 |                    |                                                                 |
@@ -225,7 +230,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-industry-blueprints/`                            |
 
 
-### `front-pilot` — applying · 5/5
+### `front-pilot` — archived · 5/5
 
 
 |                    |                                                                                            |
@@ -237,7 +242,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-pilot/`                                                                     |
 
 
-### `front-pilot-panel` — applying · 4/4
+### `front-pilot-panel` — archived · 4/4
 
 
 |                    |                                                                   |
@@ -273,7 +278,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/back-service/`                                                           |
 
 
-### `domain-module` — applied · 3/3
+### `domain-module` — archived · 3/3
 
 
 |                    |                                                                 |
@@ -333,7 +338,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/cicd-pipeline/`                                                                                                                           |
 
 
-### `front-angular-structure` — registered · 0/7
+### `front-angular-structure` — archived · 0/7
 
 
 |                    |                                                                              |
@@ -345,7 +350,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-angular-structure/`                                           |
 
 
-### `front-node-render` — registered · 0/7
+### `front-node-render` — archived · 0/7
 
 
 |                    |                                                                                          |
@@ -357,7 +362,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-node-render/`                                                             |
 
 
-### `front-async-sse` — registered · 0/7
+### `front-async-sse` — archived · 0/7
 
 
 |                    |                                                                                       |
@@ -369,7 +374,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-async-sse/`                                                            |
 
 
-### `back-async-sse` — registered · 0/7
+### `back-async-sse` — archived · 0/7
 
 
 |                    |                                                                      |
@@ -381,7 +386,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/back-async-sse/`                                            |
 
 
-### `infra-async-persistence` — registered · 0/4
+### `infra-async-persistence` — archived · 0/4
 
 
 |                    |                                                                                   |

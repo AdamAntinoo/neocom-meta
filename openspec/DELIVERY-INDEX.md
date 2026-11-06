@@ -6,7 +6,9 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-05 (`/git:pr` — front `#5`, back `#5`, meta `#4` opened into `develop`).
+Last refreshed: 2026-11-06 (`/git:release-done` Release-0.1.0 archived 29 OpenSpec).
+
+Previous Last refreshed: 2026-11-05 (`/git:pr` — front `#5`, back `#5`, meta `#4` opened into `develop`).
 
 ## When `/neocom-git` must update this file
 
@@ -43,34 +45,8 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 
 | OpenSpec | Repos | Branch | Commits | PR | PR state | Develop tip | Validated | Updated |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `login` | front, back | (merged; was `feature/login`) | `neocom-front@e3356db`; `neocom-back@3317849` (SSO commits on develop; distinct login PR id not recorded locally) | — | none | front `e3356db` · back `3317849` | front `@ e3356db` · back `@ 3317849` | 2026-11-03 |
-| `front-infrastructure` | front | (merged) | `neocom-front@e3356db` | — | none | `e3356db` | `@ e3356db` | 2026-11-03 |
-| `front-angular-structure` | front | (merged) | `neocom-front@e3356db` | — | none | `e3356db` | `@ e3356db` | 2026-11-03 |
-| `front-node-render` | front | (merged) | `neocom-front@e3356db` | — | none | `e3356db` | `@ e3356db` | 2026-11-03 |
-| `front-async-sse` | front | (merged) | `neocom-front@e3356db` | — | none | `e3356db` | `@ e3356db` | 2026-11-03 |
-| `front-pilot` | front | (merged) | `neocom-front@e3356db` | — | none | `e3356db` | `@ e3356db` | 2026-11-03 |
-| `front-pilot-panel` | front | (merged) | `neocom-front@e3356db` | — | none | `e3356db` | `@ e3356db` | 2026-11-03 |
-| `back-async-sse` | back | `feature/industry` | tip before merge included session bind; develop `@ 3317849` | `AdamAntinoo/neocom-back#4` | merged | `3317849` | `@ 3317849` | 2026-11-03 |
-| `infra-async-persistence` | back, meta | `feature/industry` (+ meta tools) | back `@ 3317849`; meta companion under `tools/infra` | `AdamAntinoo/neocom-back#4` (back portion) | merged | back `3317849` | back `@ 3317849` | 2026-11-03 |
-| `back-spacelocations` | back | `feature/industry` | `@ 3317849` | `AdamAntinoo/neocom-back#4` | merged | `3317849` | `@ 3317849` | 2026-11-03 |
-| `back-openapi` | back | `feature/industry` | `@ 3317849` | `AdamAntinoo/neocom-back#4` | merged | `3317849` | `@ 3317849` | 2026-11-03 |
-| `back-industry-blueprints` | back | `feature/industry` | `@ 3317849` | `AdamAntinoo/neocom-back#4` | merged | `3317849` | `@ 3317849` | 2026-11-03 |
-| `domain-pilot` | domain | (merged; was `feature/domain-models`) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-blueprint` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-application-info` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-server-status` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-spacelocation` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-locations` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-jsonclass` | domain, front, back | (merged) | domain `@ 477ee33`; front `@ e3356db`; back `@ 3317849` | back portion `AdamAntinoo/neocom-back#4` | mixed | see tips | multi-repo tips 2026-11-03 | 2026-11-03 |
-| `domain-layout` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-ports` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `domain-deprecations` | domain | (merged) | `neocom-domain@477ee33` | — | none | `477ee33` | `@ 477ee33` | 2026-11-03 |
-| `front-dashboard-shell` | front | `feature/blueprint-list-processing` (stack tip; prior `feature/dashboard-shell` / `industry-blueprints`) | `neocom-front@ec02b7c` (stack tip; prior tip `@ 8030666`; DEF-IB `@ b01a213`; shell `@ 1be24de`) | [AdamAntinoo/neocom-front#5](https://github.com/AdamAntinoo/neocom-front/pull/5) | open | — | — | 2026-11-06 |
-| `front-industry-blueprints` | front | `feature/blueprint-list-processing` (stacked) | `neocom-front@ec02b7c` (tip; prior `@ 8030666`; IB `@ b01a213` / `@ c382959`) | [AdamAntinoo/neocom-front#5](https://github.com/AdamAntinoo/neocom-front/pull/5) | open | — | — | 2026-11-06 |
-| `front-blueprint-list-processing` | front, meta | `feature/blueprint-list-processing` (stacked on `industry-blueprints`) | `neocom-front@ec02b7c` (list layout + industry flatten); prior apply `@ 8030666`; meta register `neocom-meta@e743ce6` | [AdamAntinoo/neocom-front#5](https://github.com/AdamAntinoo/neocom-front/pull/5) | open | — | — | 2026-11-06 |
-| `front-domain-nodes` | front, meta | `feature/blueprint-list-processing` (same tip as BLP) | `neocom-front@ec02b7c` (UI-DOM-001…005 apply 5/5); meta register on `feature/process-epics` | [AdamAntinoo/neocom-front#5](https://github.com/AdamAntinoo/neocom-front/pull/5) | open | — | — | 2026-11-06 |
-| `back-blueprint-list-processing` | back, meta | `feature/space-location-service` (stack tip; DTO on `feature/blueprint-list-processing`) | `neocom-back@27284c9` (BlueprintV1Dto + GetSpaceLocationUseCase compose); meta register `neocom-meta@e743ce6`; stack tip `@ 9b34c95` | [AdamAntinoo/neocom-back#5](https://github.com/AdamAntinoo/neocom-back/pull/5) | open | — | — | 2026-11-05 |
-| `back-space-location-service` | back, meta | `feature/space-location-service` (stacked on `feature/blueprint-list-processing`) | `neocom-back@9b34c95` (ESI+Redis catalog, EsiError filter, OpenAPI/Postman); meta register prior | [AdamAntinoo/neocom-back#5](https://github.com/AdamAntinoo/neocom-back/pull/5) | open | — | — | 2026-11-05 |
+| — | — | — | — | — | — | — | — | — |
+| *(none — Release-0.1.0 OpenSpec set moved to Archived delivery)* | | | | | | | | |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
@@ -89,7 +65,35 @@ When a change is OpenSpec-archived, **move** its row here (keep PR/SHA forever).
 
 | OpenSpec | Repos | PR / commits | Archived | Updated |
 | --- | --- | --- | --- | --- |
-| *(none yet beyond pre-index archives)* | | See CHANGE-STATUS Archived for `2026-10-15-*` — delivery SHAs not backfilled | | |
+| `domain-module` | domain, front, back | develop tips; Release-0.1.0 set | 2026-11-06 Release-0.1.0 | 2026-11-06 |
+| `login` | front, back | —; commits: `neocom-front@e3356db`; `neocom-back@3317849` (SSO commits on develop; distinct login PR id not recorded locally); develop `front `e3356db` · back `3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-infrastructure` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-angular-structure` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-node-render` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-async-sse` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-pilot` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-pilot-panel` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `back-async-sse` | back | `AdamAntinoo/neocom-back#4`; commits: tip before merge included session bind; develop `@ 3317849`; develop ``3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `infra-async-persistence` | back, meta | `AdamAntinoo/neocom-back#4` (back portion); commits: back `@ 3317849`; meta companion under `tools/infra`; develop `back `3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `back-spacelocations` | back | `AdamAntinoo/neocom-back#4`; commits: `@ 3317849`; develop ``3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `back-openapi` | back | `AdamAntinoo/neocom-back#4`; commits: `@ 3317849`; develop ``3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `back-industry-blueprints` | back | `AdamAntinoo/neocom-back#4`; commits: `@ 3317849`; develop ``3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-pilot` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-blueprint` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-application-info` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-server-status` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-spacelocation` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-locations` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-jsonclass` | domain, front, back | back portion `AdamAntinoo/neocom-back#4`; commits: domain `@ 477ee33`; front `@ e3356db`; back `@ 3317849`; develop `see tips` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-layout` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-ports` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `domain-deprecations` | domain | —; commits: `neocom-domain@477ee33`; develop ``477ee33`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
+| `front-dashboard-shell` | front | feature [front#5](https://github.com/AdamAntinoo/neocom-front/pull/5) merged; Release [front#6](https://github.com/AdamAntinoo/neocom-front/pull/6) `Release-0.1.0`; commits: `neocom-front@1c78473` (develop tip); develop ``1c78473`` | 2026-11-06 Release-0.1.0 | 2026-11-06 |
+| `front-industry-blueprints` | front | feature #5 merged; Release [front#6](https://github.com/AdamAntinoo/neocom-front/pull/6); commits: `neocom-front@1c78473`; develop ``1c78473`` | 2026-11-06 Release-0.1.0 | 2026-11-06 |
+| `front-blueprint-list-processing` | front, meta | feature #5 merged; Release [front#6](https://github.com/AdamAntinoo/neocom-front/pull/6); commits: `neocom-front@1c78473`; meta register prior; develop ``1c78473`` | 2026-11-06 Release-0.1.0 | 2026-11-06 |
+| `front-domain-nodes` | front, meta | feature #5 merged; Release [front#6](https://github.com/AdamAntinoo/neocom-front/pull/6); commits: `neocom-front@1c78473`; develop ``1c78473`` | 2026-11-06 Release-0.1.0 | 2026-11-06 |
+| `back-blueprint-list-processing` | back, meta | feature [back#5](https://github.com/AdamAntinoo/neocom-back/pull/5) merged; Release [back#7](https://github.com/AdamAntinoo/neocom-back/pull/7) `Release-0.1.0`; commits: `neocom-back@3424886`; develop ``3424886`` | 2026-11-06 Release-0.1.0 | 2026-11-06 |
+| `back-space-location-service` | back, meta | feature #5 merged; Release [back#7](https://github.com/AdamAntinoo/neocom-back/pull/7); commits: `neocom-back@3424886` (npm pin via [back#6](https://github.com/AdamAntinoo/neocom-back/pull/6)); develop ``3424886`` | 2026-11-06 Release-0.1.0 | 2026-11-06 |
 
 ---
 
