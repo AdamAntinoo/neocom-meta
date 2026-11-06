@@ -2,8 +2,9 @@
 name: neocom-git
 description: >-
   NEOCOM Git and versioning specialist. Use proactively for commits, PRs,
-  releases, and package versions. Each repository is an independent project.
-  The parent neocom repository is deprecated.
+  /git:release, /git:release-done, releases, and package versions. Each
+  repository is an independent project. The parent neocom repository is
+  deprecated.
 model: inherit
 ---
 
@@ -80,8 +81,8 @@ EOF
 2. **Do not** run `npm run version:sync` or create a separate version chore commit. App versions are updated by the local `.githooks/pre-commit` and the GitHub `version-sync` workflow (GitVersion `MajorMinorPatch`). Domain versions advance after `npm run distribute` (see Versioning). If a PR still shows a stale app version, say so — do not hand-edit SemVer.
 3. Push with `-u` when the branch has no upstream
 4. Create with `gh pr create`. Read `.dsh/templates/pull-requests.md` and **`.dsh/templates/openspec-delivery-control.md`** before writing the body.
-   - **Into `develop`:** Conventional Commit title or branch purpose. Body includes Features, **OpenSpec** change ids, Out of scope, Validation readiness, Test plan.
-   - **Into `main`:** title `Release-` plus GitVersion `MajorMinorPatch` (`X.Y.Z`), for example `Release-0.1.0`. Body includes Summary, **OpenSpec archive** list, **OpenSpec deferred**, Test plan.
+   - **Into `develop`:** Conventional Commit title or branch purpose. Body includes Features, **OpenSpec** change ids, Out of scope, product Validation readiness, Test plan (`/git:pr`).
+   - **Into `main`:** only via **`/git:release`**. Title `Release-` plus GitVersion `MajorMinorPatch` (`X.Y.Z`). Body lists **OpenSpec to validate** (not already archived), **OpenSpec deferred**, Test plan.
 5. Name which repository and OpenSpec changes are included; never archive or release an unlisted change
 6. **Update `openspec/DELIVERY-INDEX.md`** in the same turn (see OpenSpec delivery index below): PR number, URL, head SHA, OpenSpec ids, state `open`
 7. Return the PR URL when done
@@ -126,10 +127,11 @@ Do not write GitVersion `SemVer` (no branch pre-release label). Do not use `npm 
 3. **Commit only when the developer asks.** After they have reviewed and explicitly request a commit (`/git:commit`, `/git:pr`, or clear “commit” language), commit on the feature branch — not on `develop` or `main`. Until then, leave the tree as apply left it.
 4. **User review / test (committed or not).** The developer reviews and runs the testing they want. A commit does not by itself authorize the pull request.
 5. **Rebase.** Rebase onto another open `feature/<other>` only when this feature needs that code (or when the developer chose that stack at branch creation). Otherwise rebase onto the current `develop` before the pull request. A feature that depends on another waits until that other feature has been rebased onto `develop`. Resolve conflicts on the branch being rebased. If the branch is already on the remote, ask before a force push. Do not force-push `develop` or `main`.
-6. **Pull request into `develop` (validation intake).** After the developer has committed (or `/git:pr` commits) and is ready, open a PR **feature → `develop`**. The body must list every **OpenSpec change** and **feature** in the tip (see `.dsh/templates/openspec-delivery-control.md` and `pull-requests.md`). Mark the PR as **ready for validation on develop**. One PR may stack several features; name all of them and list **out of scope** changes explicitly. Do not merge unless asked. On accept into `develop`, move those changes in `CHANGE-STATUS.md` to **`applied`** (validation pending); mark matching rows in `openspec/DELIVERY-INDEX.md` as `merged` with the develop tip SHA(s); **and** refresh `sources/L1/TRACEABILITY.md` **Sections** / Highest (and epic Spec traceability) for those changes. Do **not** recreate TRACEABILITY **`### L2 delivery`**. The next OpenSpec apply still runs the **branch-base consult** in step 1.
-7. **Validate on `develop`.** After merge, run / record OpenSpec and product validation against the **new `develop` tip** (and the developer’s **dev environment** checks). Update CHANGE-STATUS notes (`validated on develop @ <sha>` or failure), the **Validated** column in `DELIVERY-INDEX.md`, and TRACEABILITY Delivery validation tips. Do **not** archive yet. Do **not** open the Release PR yet.
-8. **Archive selected OpenSpec changes (before Release PR ready).** When the developer **selects** which validated `applied` changes to archive, run `/openspec-archive-change` for that set (coordinate with OpenSpec archive skill). Same turn: CHANGE-STATUS → **Archived**, main `openspec/specs/`, TRACEABILITY → 📦 `archived`, `DELIVERY-INDEX` archived rows, and **§6.7** source-archive for any fully completed L1 epic. **Collect** archived ids into the release inventory. Do not archive changes the developer did not select.
-9. **Draft Release PR `develop` → `main`.** Open (or refresh) a **draft** PR titled `Release-<MajorMinorPatch>` whose body lists **OpenSpec already archived** (inventory), deferred/open leftovers, and L1 source-archive notes (`.dsh/templates/openspec-delivery-control.md` §D). Keep it **draft** until every change in the developer’s selected archive set for this release is archived and listed. Then **mark the PR ready**. Do not claim main/spec parity while draft with a partial inventory. Do not merge unless asked after ready.
+6. **Pull request into `develop` (product validation intake).** After the developer has committed (or `/git:pr` commits) and is ready, open a PR **feature → `develop`**. The body must list every **OpenSpec change** and **feature** in the tip (see `.dsh/templates/openspec-delivery-control.md` and `pull-requests.md`). Mark the PR as **ready for product validation on develop**. One PR may stack several features; name all of them and list **out of scope** changes explicitly. Do not merge unless asked. On accept into `develop`, move those changes in `CHANGE-STATUS.md` to **`applied`**; mark matching rows in `openspec/DELIVERY-INDEX.md` as `merged` with the develop tip SHA(s); **and** refresh `sources/L1/TRACEABILITY.md` **Sections** / Highest (and epic Spec traceability) for those changes. Do **not** recreate TRACEABILITY **`### L2 delivery`**. The next OpenSpec apply still runs the **branch-base consult** in step 1.
+7. **Product validation on `develop`.** After merge, product smoke / optional `/defect` against the **new `develop` tip**. Do **not** archive yet. OpenSpec programme validation waits for the Release PR.
+8. **`/git:release` — open Release PR `develop` → `main`.** Follow `.dsh/skills/git-release/SKILL.md`. Developer selects OpenSpec ids from the `applied` pool. Title `Release-<MajorMinorPatch>`; body lists **OpenSpec to validate** + deferred (delivery-control §C). CHANGE-STATUS note `in release PR #N`. Upsert DELIVERY-INDEX. Do **not** archive. Do **not** merge unless asked.
+9. **OpenSpec validation while Release PR is open.** Record `validated for release @ <sha>` (or failure) in CHANGE-STATUS / DELIVERY-INDEX. Do **not** archive yet.
+10. **`/git:release-done` — after Release merge.** Follow `.dsh/skills/git-release-done/SKILL.md`. For each id listed on the merged Release PR: `/openspec-archive-change`; CHANGE-STATUS → **Archived**; TRACEABILITY; DELIVERY-INDEX; **§6.7** L1 source-archive. Stop if the PR is still open.
 
 ### OpenSpec delivery index (commits & PRs)
 
@@ -140,11 +142,11 @@ Purpose: keep a **local, graphify-indexed** map from each OpenSpec change id →
 
 **Rules:**
 
-1. **Write on every delivery event** listed in `DELIVERY-INDEX.md` (commit with OpenSpec scope, PR open/update, merge to develop, validate on develop, release/archive). Same turn as the git action and as CHANGE-STATUS / TRACEABILITY updates when those apply.
+1. **Write on every delivery event** listed in `DELIVERY-INDEX.md` (commit with OpenSpec scope, PR open/update, merge to develop, product validate, `/git:release`, OpenSpec validate for release, `/git:release-done` archive). Same turn as the git action and as CHANGE-STATUS / TRACEABILITY updates when those apply.
 2. **After `/git:commit`** that lands OpenSpec-scoped work: upsert **Commits** (`repo@sha`) and **Branch** for each OpenSpec id in the commit (from CHANGE-STATUS applying rows, PR draft list, or explicit user list). If the OpenSpec set is unclear, ask once — do not guess ids.
 3. **After `/git:pr` / `gh pr create`:** record **PR** number + URL, head SHA, OpenSpec ids from the PR body, state `open`. On later pushes to that PR, refresh head SHA.
 4. **On merge into `develop`:** set PR state `merged`, **Develop tip** SHA(s) from local `origin/develop` (fetch first). Prefer local git over GitHub API when API is blocked.
-5. **On develop validation:** fill **Validated** (`validated on develop @ <sha>` per repo).
+5. **On OpenSpec validation for release:** fill **Validated** (`validated for release @ <sha>` per repo). Product smoke may note develop tip separately.
 6. **Never invent a PR number.** Use `—` / state `none` until `gh pr create` succeeds or the user supplies `#N`.
 7. **Lookup order** for “where did this OpenSpec land?”: `graphify query` / `explain` → `DELIVERY-INDEX.md` → local `git log` → `gh` only if the index row is missing or incomplete.
 8. Graphify: after editing the index under `neocom-meta`, a later `graphify update .` (or the next `/neo:*` mandatory update) picks it up; do not skip writing the file because the graph is stale.
