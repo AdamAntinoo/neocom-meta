@@ -9,7 +9,7 @@ Related epics: [EPIC-011](../sources/L1/11.EPIC-BLUEPRINT-LIST-PROCESSING.md), [
 
 - [Register](#register)
 - [DEF-BLP-002 — CI/CD front build cannot resolve neocom-domain](#def-blp-002-ci-cd-front-build-cannot-resolve-neocom-domain)
-- [DEF-BLP-004 — Corporation panel: single flex row 3·2·1 with double column gap](#def-blp-004-corporation-panel-single-flex-row-3-2-1-with-double-column-gap)
+- [DEF-BLP-015 — Blueprint type names missing; resolve type_id via ESI and Redis](#def-blp-015-blueprint-type-names-missing-resolve-type_id-via-esi-and-redis)
 
 ## How defects resolve (intended programme flow)
 
@@ -28,7 +28,7 @@ Statuses: `open` · `prep` · `in openspec` · `applying` · `fixed` · `closed`
 | ID | Title | Status | Owning epic / capability | OpenSpec (when known) | Found |
 | --- | --- | --- | --- | --- | --- |
 | DEF-BLP-002 | CI/CD front build cannot resolve neocom-domain | `open` | Front CI/CD · `neocom-domain` dependency | TBD — front / cicd package install | 2026-11-05 |
-| DEF-BLP-004 | Corporation panel: single flex row 3·2·1 with double column gap | `in openspec` | EPIC-006 · UI-CORP-014 | `front-dashboard-shell` | 2026-11-05 |
+| DEF-BLP-015 | Blueprint type names missing; resolve type_id via ESI and Redis | `open` | EPIC-011 · back blueprint list | TBD — `back-blueprint-list-processing` / ESI type lookup | 2026-11-06 |
 
 ---
 
@@ -82,48 +82,49 @@ Local builds can still succeed with `file:` + a sibling `neocom-domain` `dist`; 
 
 ---
 
-## DEF-BLP-004 — Corporation panel: single flex row 3·2·1 with double column gap
+Corporation panel layout defect moved to [`UI-DEFECTS.md`](./UI-DEFECTS.md) **DEF-UI-002** (was DEF-BLP-004).
+
+## DEF-BLP-015 — Blueprint type names missing; resolve type_id via ESI and Redis
 
 | Field | Value |
 | --- | --- |
-| Status | `in openspec` |
+| Status | `open` |
 | Severity | `TBD` |
-| Surfaces | `v1-corporation-panel` (corporation panel content lines / columns) |
-| Found on | Dashboard corporation panel layout height / column arrangement |
-| Branch tip | `neocom-front` `feature/blueprint-list-processing` `@ 8030666` |
-| L1 | EPIC-006 **UI-CORP-014** `registered` → `front-dashboard-shell` |
+| Surfaces | Back blueprint list DTO / industry ESI transform; front `v1-blueprint-render` name; Redis type cache |
+| Found on | Back blueprint payloads expose `type_id` codes without resolved type names (`blueprintTypeName` left empty) |
+| Branch tip | `neocom-back` `develop` `@ 3424886` (defect page: `feature/blueprint-list-processing`) |
+| L1 | TBD — EPIC-011 blueprint list / type enrichment (archive §03 BLP-018 has `type_id` only) |
 
 ### Observed
 
-The corporation panel lays out its content across **multiple lines** (lines **1**, **2**, and **3** stacked), which makes the panel taller than needed. Lines **2** and **3** are separate; the three content lines are not on one compact flex row in the desired order.
+Back blueprint data **does not include the type name**. ESI (and the current converter) supply type identifiers as **codes** (`type_id` → `blueprintTypeId`); `blueprintTypeName` is left empty (e.g. `blueprint-list-dto.converter.ts` sets `blueprintTypeName: ''`). Downstream list/render falls back to placeholders such as `Blueprint {id}` instead of the universe type name.
 
 ### Expected
 
-1. Integrate **lines 2 and 3** into a **single line** so the panel **height is reduced**.
-2. Integrate **lines 1, 2, and 3** onto a **single flex row** in content order **3 → 2 → 1** (left to right).
-3. Column separation on that row SHALL be **double** the common / predefined gap used between columns elsewhere in the panel chrome (2× the usual column gap).
+1. When building blueprint DTOs / list responses, the back SHALL **resolve each blueprint `type_id`** to its universe **type name**.
+2. Resolution SHALL query the **ESI API** for type information (universe type by id).
+3. Resolved type data SHALL be **cached in Redis**, keyed by the **`type_id`** (typeid identifier), so repeated blueprints / requests do not re-hit ESI for the same type.
+4. The outbound blueprint payload SHALL include the resolved **type name** (e.g. `blueprintTypeName`), not only the numeric type code.
 
 ### Likely sources to amend
 
 | Layer | Path / id | Notes |
 | --- | --- | --- |
-| L1 | TBD — EPIC-006 / UI dashboard | Corporation panel Appearance layout |
-| OpenSpec | TBD — `front-dashboard-shell` / corporation panel | Flex row 3·2·1; 2× gap; shorter height |
-| Code | `neocom-front` `v1-corporation-panel` (template / styles) | Merge lines; flex order 3 2 1; gap |
+| L1 | TBD — EPIC-011 (archived) / new BLP type-resolve rows | Type name enrichment + Redis cache by `type_id` |
+| OpenSpec | TBD — `back-blueprint-list-processing` (archived 2026-11-06) or successor | ESI type lookup + Redis |
+| Code | `neocom-back` `blueprint-list-dto.converter.ts`; industry / blueprint-list services; Redis adapter | Replace empty `blueprintTypeName`; cache by typeid |
 
 ### Prep for resolution (checklist)
 
-- [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
-- [x] Mark to run the process — sets Review to `[x] reviewed` and authorizes `/fix:defect`
+- [ ] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
+- [ ] Mark to run the process — authorizes `/fix:defect`
 - [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
-Stacked tip still carries dashboard-shell / industry-blueprints UI; defect logged on current `feature/blueprint-list-processing` page.
+Same enrichment pattern as location catalog / Redis (DEF-BLP-001 lineage), applied to universe **types** for blueprint `type_id`.
 
-`/fix:defect` 2026-11-05: `v1-corporation-render` main line is flex order tax → members → name/ticker with `gap: 2× $panel-padding`.
-
-`/epic:extract` 2026-11-06: UI-CORP-014 → `front-dashboard-shell` (1 apply task open).
+Expand-toggle alignment defect moved to [`UI-DEFECTS.md`](./UI-DEFECTS.md) **DEF-UI-001** (was DEF-BLP-016 / DEF-IB-011).
 
 ---
 

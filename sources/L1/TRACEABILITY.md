@@ -6,7 +6,7 @@ Delivery SHAs / PR numbers live in [`openspec/DELIVERY-INDEX.md`](../../openspec
 
 Companions: `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). **Removed (do not recreate):** `sources/L2/`, `SPEC-EPIC-INDEX.md`, and **`### L2 delivery`**.
 
-Last refreshed: 2026-11-06 (`/git:release-done` Release-0.1.0 — 29 OpenSpec archived; L1 source-archive for fully covered epics).
+Last refreshed: 2026-11-06 (`/epic:extract 13` → `back-eve-items` ITEM-001…007, ITEM-010…013).
 
 ## Table of contents
 
@@ -23,6 +23,8 @@ Last refreshed: 2026-11-06 (`/git:release-done` Release-0.1.0 — 29 OpenSpec ar
 | [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | EPIC-009 | 📦 `archived` |
 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 📦 `archived` |
 | [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | EPIC-011 | 📦 `archived` |
+| [`12.EPIC-PROCESSED-BLUEPRINT.md`](#12epic-processed-blueprintmd) | EPIC-012 | ⚪ `none` |
+| [`13.EPIC-EVE-ITEMS.md`](#13epic-eve-itemsmd) | EPIC-013 | 📝 `registered` |
 
 Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
 
@@ -71,7 +73,7 @@ Epic id: EPIC-001 · Highest: ✅ `applied` · Last updated: 2026-11-03
 
 ## `02.EPIC-ANGULAR-CODIFICATION.md`
 
-Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-03
+Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-06 (Domain module ANG-DOM-001…006 `[ ] to review`; innovative-core deprecated)
 
 ### Sections
 
@@ -86,12 +88,13 @@ Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-03
 | Related — app shell | Canvas chrome | 📝 `registered` (`front-app-shell` 0/3) |
 | Related — dashboard | Dashboard feature | 📦 `archived` (`front-dashboard-shell`) |
 | Related — infrastructure | Toolchain / WireMock | 📦 `archived` (`front-infrastructure`) |
+| [Domain module](./02.EPIC-ANGULAR-CODIFICATION.md#domain-module-neocom-nodes) | ANG-DOM-001…006 (`modules/domain`, flat nodes, deprecate innovative-core) | ⏳ `[ ] to review` |
 
 ---
 
 ## `03.EPIC-TESTING.md`
 
-Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-10-17
+Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-11-06 (Domain node unit tests DNODE-001…004 `[ ] to review`)
 
 ### Sections
 
@@ -103,38 +106,33 @@ Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-10-17
 | CI/CD test jobs and Sonar gate order | Testing gates | 📝 `registered` (`cicd-testing-gates` 0/3) |
 | Testing command catalog | Shared TDD/BDD/SDD commands | 📝 `registered` (`infra-test-commands` 0/5) |
 | Backend testing | Back guidelines / WireMock / Gherkin | 📝 `registered` (`back-testing` 0/5) |
+| [Domain node unit tests](./03.EPIC-TESTING.md#domain-node-unit-tests) | DNODE-001…004 (review + create Vitest for NeoCom nodes) | ⏳ `[ ] to review` |
 
 ---
 
 ## `04.EPIC-MODELS.md`
 
-Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (`domain-module` DOMAIN-003 closed; §21 applied)
+Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (§04 EveLocationV1 + §11–17 ProcessedBlueprint/BOM → EPIC-012)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| 03 | PricedItemV1 | ⏳ `to review` |
-| 04 | EveLocationV1 | ⏳ `to review` |
+| 03 | PricedItemV1Dto | ➡️ moved → [EPIC-013 §04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) |
+| 04 | EveLocationV1Dto | ➡️ moved → [EPIC-012 §09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) |
 | 05 | EveAssetV1 | ⏳ `to review` |
 | 06 | PublicPilotV1 | ✅ `applied` |
 | 07 | PilotV2 | ✅ `applied` |
 | 08 | ShipV1 | ⏳ `to review` |
 | 09 | PilotShipV1 | ⏳ `to review` |
 | 10 | BlueprintV1 | ✅ `applied` (✅ `duplicated`) / DOM-BP-001) |
-| 11 | ProcessedBlueprintSummaryV1 | ⏳ `to review` |
-| 12 | ProcessedBlueprintV1 | ⏳ `to review` |
-| 12 | ResourceV1 | ⏳ `to review` |
-| 13 | IndustryResourceV1 | ⏳ `to review` |
-| 14 | BOMResourceV1 | ⏳ `to review` |
-| 15 | BuildActionDtoV1 | ⏳ `to review` |
-| 16 | BOMGroupV1 | ⏳ `to review` |
+| 11–17 | Processed blueprint / BOM stack | ➡️ moved → [EPIC-012](./12.EPIC-PROCESSED-BLUEPRINT.md) |
 | 18 | ApplicationInfoV1 | ✅ `applied` |
 | 19 | ServerStatusV1 | ✅ `applied` (✅ `duplicated`, ✅ `to review`) |
 | 20 | SpaceLocationV1 | ✅ `applied` |
 | 21 | neocom-domain deploy | 📦 `archived` (`domain-module`) |
 | 22 | `jsonClass` interchange | ✅ `applied` (✅ `duplicated`)) |
-| — | EveItem / ESI type mirrors | 🚫 `out of scope` |
+| — | EveItem / ESI type → EveItemV1Dto | ➡️ moved → [EPIC-013](./13.EPIC-EVE-ITEMS.md) |
 | — | ESI corp / alliance / race | 🚫 `out of scope` |
 
 ---
@@ -153,7 +151,7 @@ Epic id: EPIC-005 · Highest: ⚪ `none` · Last updated: 2026-10-19
 
 ## `06.EPIC-USER-INTERFACE.md`
 
-Epic id: EPIC-006 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftover UI-DASH to review; OpenSpec for cited changes archived)
+Epic id: EPIC-006 · Highest: ✅ `applied` · Last updated: 2026-11-06 (UI-SHELL / UI-VAR / UI-BP / UI-STYLE / UI-MS `[ ] to review`; leftover UI-DASH to review; prior OpenSpec archived)
 
 ### Sections
 
@@ -161,9 +159,12 @@ Epic id: EPIC-006 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftove
 | --- | --- | --- |
 | [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Dashboard | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
 | [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Feature dashboard | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
+| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Model strip | ⏳ `[ ] to review` |
 | [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Authentication pages | imported (not extractable) |
 | [Page geometry](./06.EPIC-USER-INTERFACE.md#page-geometry-shared-styles) | UI-GEO-001 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  (DEF-IB-006 token) |
 | [Page geometry](./06.EPIC-USER-INTERFACE.md#page-geometry-shared-styles) | UI-GEO-002 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  (DEF-BLP-005) |
+| [Secured page chrome](./06.EPIC-USER-INTERFACE.md#secured-page-chrome-pilot--corporation) | UI-SHELL-001…002 | ⏳ `[ ] to review` |
+| [Variant naming](./06.EPIC-USER-INTERFACE.md#variant-naming) / [Render variant templates](./06.EPIC-USER-INTERFACE.md#render-variant-templates) | UI-VAR-001…002 | ⏳ `[ ] to review` |
 | [Versioned panels](./06.EPIC-USER-INTERFACE.md#versioned-panels-and-renders-vn-) | UI-VER-001…004 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
 | [Front domain NeoCom nodes](./06.EPIC-USER-INTERFACE.md#front-domain-neocom-nodes-file-alias-render-key) | UI-DOM-001…005 | 📦 `archived` → [`front-domain-nodes`](../../openspec/changes/archive/2026-11-06-front-domain-nodes/) ·  (`@domain`) |
 | [Media (EVE Image Server)](./06.EPIC-USER-INTERFACE.md#media-from-the-eve-image-server) | UI-MED-001…008 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
@@ -171,6 +172,9 @@ Epic id: EPIC-006 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftove
 | [Application info panel](./06.EPIC-USER-INTERFACE.md#application-info-panel-v1-application-info-render) | UI-AIP-001…006 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
 | [Server status panel](./06.EPIC-USER-INTERFACE.md#server-status-panel-v1-server-status-render) | UI-SSP-001…007 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
 | [Corporation panel](./06.EPIC-USER-INTERFACE.md#corporation-panel-v1-corporation-render) | UI-CORP-001…014 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  (014 = DEF-BLP-004) |
+| [Blueprint render](./06.EPIC-USER-INTERFACE.md#blueprint-render-v1-blueprint-render) | UI-BP-001…003 | ➡️ moved → [EPIC-012 §08](./12.EPIC-PROCESSED-BLUEPRINT.md#section-08--blueprint-render-runs-v1-blueprint-render) |
+| [Style catalog](./06.EPIC-USER-INTERFACE.md#style-catalog-programme) | UI-STYLE-001…005 | ⏳ `[ ] to review` |
+| [Model strip](./06.EPIC-USER-INTERFACE.md#model-strip-model-strip-page) | UI-MS-001…007 | ⏳ `[ ] to review` (007 = catalog specimens under font sample) |
 | [Dashboard](./06.EPIC-USER-INTERFACE.md#dashboard-landing-page) | UI-DASH-001…005, 007…010, 012…015 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
 | [Dashboard requirements](./06.EPIC-USER-INTERFACE.md#dashboard-requirements) | UI-DASH-006, 011 | ⏳ `[ ] to review` |
 | [Character selection](./06.EPIC-USER-INTERFACE.md#character-selection-login-006--ui) | UI-CHAR-002 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
@@ -271,6 +275,46 @@ Epic id: EPIC-011 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Relea
 | [04](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-021…023 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (SSE approach A deferred via BLP-034) |
 | [01 interim](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#interim--park-front-sse-http-back-endpoints-def-blp-003) | BLP-031…033 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (DEF-BLP-003) |
 | [04](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-034 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (DEF-BLP-003) |
+
+---
+
+## `12.EPIC-PROCESSED-BLUEPRINT.md`
+
+Epic id: EPIC-012 · Highest: ⚪ `none` · Last updated: 2026-11-06 (ProcessedBlueprintV1 rename; former BOM detail discarded; Jita market §02)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./12.EPIC-PROCESSED-BLUEPRINT.md#section-01--processedblueprintv1) | ProcessedBlueprintV1 / IND-BP-001, 005…012 · `v1-processed-blueprint-render` | ⏳ `[ ] to review` (was Summary; name reassigned; model-strip specimen) |
+| [02](./12.EPIC-PROCESSED-BLUEPRINT.md#section-02--market-pricing-jita-buy--sell) | MKT-001…007 Jita buy/sell | ⏳ `[ ] to review` |
+| [03](./12.EPIC-PROCESSED-BLUEPRINT.md#section-03--resourcev1) | ResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §13) |
+| [04](./12.EPIC-PROCESSED-BLUEPRINT.md#section-04--industryresourcev1) | IndustryResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §14) |
+| [05](./12.EPIC-PROCESSED-BLUEPRINT.md#section-05--bomresourcev1) | BOMResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §15) |
+| [06](./12.EPIC-PROCESSED-BLUEPRINT.md#section-06--buildactiondtov1) | BuildActionDtoV1 | ⏳ `[ ] to review` (from EPIC-004 §16) |
+| [07](./12.EPIC-PROCESSED-BLUEPRINT.md#section-07--bomgroupv1) | BOMGroupV1 / IND-BP-003…004 | ⏳ `[ ] to review` (from EPIC-004 §17) |
+| [08](./12.EPIC-PROCESSED-BLUEPRINT.md#section-08--blueprint-render-runs-v1-blueprint-render) | UI-BP-001…003 | ⏳ `[ ] to review` (from EPIC-006) |
+| [09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) | EveLocationV1Dto / ELOC-001…008 (back Dto; front mapper WIP) | ⏳ `[ ] to review` |
+| — | Former §02 BOM ProcessedBlueprint / IND-BP-002 | 🚫 `discarded` |
+| — | Flow 06 / 07 (EPIC-007) | 👀 `reviewed` — pending move confirm |
+| — | EPIC-002 ProcessedBlueprint prose | applied narrative — pending move confirm |
+
+---
+
+## `13.EPIC-EVE-ITEMS.md`
+
+Epic id: EPIC-013 · Highest: 📝 `registered` · Last updated: 2026-11-06 (`/epic:extract` → `back-eve-items`)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./13.EPIC-EVE-ITEMS.md#section-01--hierarchy-esi-type--eveitemv1dto--priceditemv1dto) | Hierarchy ESI → EveItemV1Dto → PricedItemV1Dto | 📝 `registered` → `back-eve-items` |
+| [02](./13.EPIC-EVE-ITEMS.md#section-02--esi-universe-type-fields) | ESI universe type fields / ITEM-001…002 | 📝 `registered` → `back-eve-items` |
+| [03](./13.EPIC-EVE-ITEMS.md#section-03--eveitemv1dto-back-interchange) | EveItemV1Dto / ITEM-003…007 (group→category ESI; iconUrl) | 📝 `registered` → `back-eve-items` |
+| [04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) | PricedItemV1Dto extends EveItemV1Dto / ITEM-010…013 | 📝 `registered` → `back-eve-items` |
+| [05](./13.EPIC-EVE-ITEMS.md#section-05--back-use-cases-get-by-item-id) | eveitems + pricedeveitems (auth HTTP + authenticated GetPricedItemById UC); Redis; compose / ITEM-014…021 | ⏳ `[ ] to review` |
+| — | EveAssetV1 / ShipV1 | stay EPIC-004 — pending move confirm if desired |
 
 ---
 

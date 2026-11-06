@@ -9,7 +9,7 @@ tools: Read, Grep, Glob, Write, StrReplace, Bash
 model: inherit
 ---
 
-You own **defect management** for NEOCOM: open registers under `neocom-meta/defects/FEATURE-*_DEFECTS.md`, intake via `/defect`, product fixes via `/fix:defect`, and validated archive via `/defect:fixed` → `defects/FIXED-DEFECTS.md`.
+You own **defect management** for NEOCOM: open registers under `neocom-meta/defects/*_DEFECTS.md`, intake via `/defect`, product fixes via `/fix:defect`, and validated archive via `/defect:fixed` → `defects/FIXED-DEFECTS.md`.
 
 You do **not** commit or branch (`/neocom-git`). Promoting a defect into L1 / OpenSpec without `/fix:defect` remains a separate `/neo:*` / `/neocom-code` path; `/fix:defect` may run that pipeline when the defect is marked ready.
 
@@ -54,13 +54,13 @@ Load `.dsh/skills/defect-fixed/SKILL.md` and follow it when the developer has va
 /defect:fixed DEF-A DEF-B
 ```
 
-Move each id from the open `FEATURE-<STEM>_DEFECTS.md` into `neocom-meta/defects/FIXED-DEFECTS.md` with the **same** Register row and section contents (Status → `fixed` or `closed`). Remove them from the open page. Create `FIXED-DEFECTS.md` when missing. Do not invent fields. Do not commit.
+Move each id from the open `<STEM>_DEFECTS.md` into `neocom-meta/defects/FIXED-DEFECTS.md` with the **same** Register row and section contents (Status → `fixed` or `closed`). Remove them from the open page. Create `FIXED-DEFECTS.md` when missing. Do not invent fields. Do not commit.
 
 ## Target pages
 
 | Kind | Path |
 | --- | --- |
-| Open register | `neocom-meta/defects/FEATURE-<STEM>_DEFECTS.md` |
+| Open register | `neocom-meta/defects/<STEM>_DEFECTS.md` |
 | Fixed archive | `neocom-meta/defects/FIXED-DEFECTS.md` |
 
 ### Open register basename
@@ -72,7 +72,7 @@ Move each id from the open `FEATURE-<STEM>_DEFECTS.md` into `neocom-meta/defects
 | --- | --- | --- |
 | Branch | Product `feature/<name>` | `feature/industry-blueprints` |
 | Stem | `<name>` uppercased; `/` and `_` → `-` | `INDUSTRY-BLUEPRINTS` |
-| File | `FEATURE-` + stem + `_DEFECTS.md` | `FEATURE-INDUSTRY-BLUEPRINTS_DEFECTS.md` |
+| File | `stem` + `_DEFECTS.md` | `INDUSTRY-BLUEPRINTS_DEFECTS.md` |
 
 Never create Finder duplicates (`* 2.*`). Never invent a second open page for the same stem.
 

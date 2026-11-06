@@ -2,7 +2,7 @@
 name: defect-fixed
 description: >-
   When the developer has validated a product fix, move the defect from
-  FEATURE-<stem>_DEFECTS.md into neocom-meta/defects/FIXED-DEFECTS.md with the
+  <stem>_DEFECTS.md into neocom-meta/defects/FIXED-DEFECTS.md with the
   same register row and section contents. Used by /defect:fixed (neocom-defect).
 ---
 
@@ -31,7 +31,7 @@ Refuse `wontfix` unless the user explicitly asks to archive that outcome into FI
 
 | Role | Path |
 | --- | --- |
-| Open register | `neocom-meta/defects/FEATURE-<STEM>_DEFECTS.md` (resolve stem like `defect-register`) |
+| Open register | `neocom-meta/defects/<STEM>_DEFECTS.md` (resolve stem like `defect-register`) |
 | Fixed archive | `neocom-meta/defects/FIXED-DEFECTS.md` (single programme file; create if missing) |
 
 Never create Finder `* 2.*` copies.
@@ -41,7 +41,7 @@ Never create Finder `* 2.*` copies.
 ### 1. Resolve source page and ids
 
 1. Resolve product `feature/<name>` → open register path (same branch rules as `/defect`).
-2. Normalize each id. Stop if an id is missing from the open register (search other `FEATURE-*_DEFECTS.md` only when the user names that feature or the id is unique across pages — otherwise ask).
+2. Normalize each id. Stop if an id is missing from the open register (search other `*_DEFECTS.md` only when the user names that feature or the id is unique across pages — otherwise ask).
 
 ### 2. Prepare the moved payload
 
@@ -62,7 +62,7 @@ Then **normalize** on the copy only:
 ```markdown
 # Fixed defects
 
-Archive of defects whose product fix the developer has **validated**. Entries are **moved** here from `FEATURE-<stem>_DEFECTS.md` via `/defect:fixed`. Structure matches the open register (Register row + defect section).
+Archive of defects whose product fix the developer has **validated**. Entries are **moved** here from `<stem>_DEFECTS.md` via `/defect:fixed`. Structure matches the open register (Register row + defect section).
 
 ## Contents
 
@@ -70,7 +70,7 @@ Archive of defects whose product fix the developer has **validated**. Entries ar
 
 ## How entries land here
 
-1. Defect lived on `defects/FEATURE-<STEM>_DEFECTS.md`.
+1. Defect lived on `defects/<STEM>_DEFECTS.md`.
 2. Developer validated the product fix.
 3. `/defect:fixed DEF-…` sets status `fixed` (or `closed`), appends the same row + section here, and removes them from the open feature page.
 
