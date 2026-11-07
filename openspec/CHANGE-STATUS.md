@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-06 (`/epic:extract 13` — registered `back-eve-items` 0/9).
+Last refreshed: 2026-11-07 (`/git:pr neocom-back` — `back-eve-items` [PR #8](https://github.com/AdamAntinoo/neocom-back/pull/8) @ `56d5144`; 22/22 applying).
 
 ## Status legend
 
@@ -45,8 +45,6 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `cicd-testing-gates` | cicd / testing-gates | 0/3 | registered | EPIC-003; GATE-001…003. Parallel unit/acceptance before Sonar |
 | `infra-test-commands` | infra / test-commands | 0/5 | registered | EPIC-003; INFRA-060…064. Shared TDD/BDD/SDD command catalog |
 | `back-testing` | back / testing | 0/5 | registered | EPIC-003; BTEST-001…005. Back guidelines, WireMock, Gherkin |
-| `back-eve-items` | back / eve-items | 0/9 | registered | EPIC-013; ITEM-001…007, ITEM-010…013. EveItemV1Dto / PricedItemV1Dto. §05 use cases/HTTP/Redis still L1 `to review` |
-
 ## Deferred
 
 | Change | System / feature | Tasks | Status | Notes |
@@ -57,7 +55,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| — | — | — | — | None |
+| `back-eve-items` | back / eve-items | 22/22 | applying | EPIC-013 ITEM-001…026; [neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) `feature/eve-items` @ `56d5144` → `develop` |
 
 ## Applied
 
@@ -125,7 +123,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Front domain NeoCom nodes (EPIC-006)** | `front-domain-nodes` | File naming, `@domain` alias, render≡jsonClass, hierarchy children, BlueprintV1DtoWire |
 | **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain; `jsonClass` wire interchange |
 | **Locations (EPIC-008)**                | `domain-locations`, `back-spacelocations`, `domain-spacelocation`, `front-known-system`, `back-space-location-service` | Hierarchy + lookup API + KnownSystem card + Nest ESI/Redis space-location service (BACK-229) |
-| **Eve items (EPIC-013)**                | `back-eve-items` | ESI type → EveItemV1Dto → PricedItemV1Dto; later §05 get-by-id / Redis when reviewed |
+| **Eve items (EPIC-013)**                | `back-eve-items` | ESI type → EveItemV1Dto → PricedItemV1Dto; get-by-id / Redis; Jita hub prices; 5‑min market TTL caches (ITEM-025…026) |
 | **Backend services (EPIC-009)**         | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | Domain truth/ports/deprecations → OpenAPI rules → Industry pilot blueprints |
 | **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`, `infra-developer-install`, `infra-local-config`                                    | Install, Node/Angular stack, canvas chrome, local WireMock config                                    |
 | **Auth / SSO**                          | `login` (already multi-system), `nestjs-sso-config`                                                                           | Session already unified; NestJS SSO env/config still separate                                        |
@@ -280,16 +278,17 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/back-service/`                                                           |
 
 
-### `back-eve-items` — registered · 0/9
+### `back-eve-items` — applying · 22/22
 
 
 |                    |                                                                 |
 | ------------------ | --------------------------------------------------------------- |
-| **Why**            | ESI universe type → `EveItemV1Dto` → `PricedItemV1Dto` (hub prices + nested `marketHub`) |
+| **Why**            | ESI type → EveItem/PricedItem DTOs + get-by-id HTTP/Redis       |
 | **Capabilities**   | `back/eve-items`                                                |
 | **Owners**         | `neocom-back`                                                   |
-| **Requirements**   | ITEM-001…007, ITEM-010…013 (EPIC-013)                         |
-| **Integrate with** | EPIC-012 EveLocation / market; later §05 get-by-id when reviewed |
+| **Requirements**   | ITEM-001…007, ITEM-010…026; DEF-EI-001/002/003                  |
+| **Branch**         | `feature/eve-items` from `develop`                              |
+| **Integrate with** | EPIC-012 EveLocation / market (hub buy/sell from The Forge orders @ Jita 4-4) |
 | **Paths**          | `changes/back-eve-items/`                                       |
 
 

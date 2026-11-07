@@ -95,8 +95,9 @@ That pattern repeats `code` / `description` templates / `field` / `container` / 
 1. **Parametrized catalog entry (minimal)** — each logical error is a catalog record with **only**:
    - stable **`code`**
    - **parametrized message** (template; slots filled when throwing)
+   - mapped **`httpStatus`** (required third arg to `catalogEntry` — owned by the entry so it cannot silently fall through to 500)
    
-   The catalog does **not** store `field`, `container`, `value`, or other entry attributes. The mapping service still resolves **HTTP status** from the `code` (map/catalog side-table is fine; those fields are not part of the message entry).
+   The catalog does **not** store `field`, `container`, `value`, or other entry attributes. Do **not** keep a secondary code→status map; unknown/unmapped codes defaulting to 500 is a defect.
 
 2. **Referenced payload** — attributes such as `field`, `container`, `value`, and any later extras live on a **payload** object referenced at throw time, not on the catalog entry. There is a **default payload** shape that includes at least `field`, `container`, and `value` (and can grow). Call sites fill only the params that apply.
 
@@ -126,13 +127,13 @@ throw new NeocomBackendError(HttpStatus.NOT_FOUND, [
 ```
 
 ```text
-ExceptionCatalog.ENTRY            → { code, messageTemplate } + mapped HttpStatus
+ExceptionCatalog.ENTRY            → { code, messageTemplate, httpStatus }
 payloadBuilder…build()            → { field?, container?, value?, … }  ← builder HERE only
-ENTRY.doThrow(msgParams, payload) → NeocomBackendError                 ← construct/return only
+ENTRY.doThrow(msgParams, payload) → NeocomBackendError(httpStatus, …)  ← construct/return only
 throw <that result>               → actual throw at the call site
 ```
 
-**When possible:** use this path for new throws and for refactors of existing throws. Direct `new NeocomBackendError(...)` is allowed only when no catalog entry can cover the case yet — then add a catalog entry (code + message only) in the same change when the error is a stable domain/API fault, or ask if the shape is unclear.
+**When possible:** use this path for new throws and for refactors of existing throws. Direct `new NeocomBackendError(httpStatus, …)` is allowed only when no catalog entry can cover the case yet — then add a catalog entry (`catalogEntry(code, message, httpStatus)`) in the same change when the error is a stable domain/API fault, or ask if the shape is unclear.
 
 Keep the filter as the HTTP renderer; catalog/`doThrow` own **what** is constructed; the call site owns the **`throw`**.
 

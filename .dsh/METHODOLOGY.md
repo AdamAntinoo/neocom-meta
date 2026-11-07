@@ -225,7 +225,7 @@ none → registered → applying → applied → archived
 
 Legacy rows may still say `extracted`. That status belonged to the removed L2 copy. `/epic:extract` does not write it. A developer who wants those units in OpenSpec sets the Review cell back to `[x] reviewed`.
 
-**File shape (authoritative):** one Markdown section per epic named `## \`NN.EPIC-NAME.md\``. Inside each section:
+**File shape (authoritative):** one Markdown section per epic named `## \`NN.EPIC-NAME.md\``. List epics (Table of contents **and** body sections) in **reverse epic number order** (highest `NN` first) so recent / active work sits above older archived epics. Inside each section:
 
 1. One-line header: Epic id · **Highest** OpenSpec status · Last updated.
 2. **### Sections** — table `Section | Item | Status` (Review gate and/or pipeline for every register / requirement slice). **Active.**
@@ -295,7 +295,7 @@ stateDiagram-v2
 1. Prompt is one sequence: short name, then purpose/scope description. Missing either → ask; do not invent.
 2. Create `sources/L1/NN.EPIC-NAME.md` (`NN` = next number; name collision → stop / merge / rename — ask).
 3. Write skeleton: `## Spec traceability` (`none`), `## Goals`, empty `## Search criteria`, empty `## Sources`, `## Version card`.
-4. Add epic section in `sources/L1/TRACEABILITY.md` at Highest ⚪ `none` (empty **Sections** placeholder only).
+4. Add epic section in `sources/L1/TRACEABILITY.md` at Highest ⚪ `none` (empty **Sections** placeholder only), **at the top** of the epic list / TOC (reverse `NN` order).
 5. `graphify update .` in `neocom-meta`.
 6. **Do not** search cards or legacy code on create. Card collection and backtrack run **only on explicit request** (and still require filled Search criteria).
 
