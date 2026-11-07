@@ -6,33 +6,39 @@ Delivery SHAs / PR numbers live in [`openspec/DELIVERY-INDEX.md`](../../openspec
 
 Companions: `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). **Removed (do not recreate):** `sources/L2/`, `SPEC-EPIC-INDEX.md`, and **`### L2 delivery`**.
 
-Last refreshed: 2026-11-06 (`/epic:extract 13` → `back-eve-items` ITEM-001…007, ITEM-010…013).
+Last refreshed: 2026-11-07 (`openspec-apply-change back-eve-items` → ITEM-025…026 applied; 22/22).
 
 ## Table of contents
 
-| Epic file | Id | Highest |
-| --- | --- | --- |
-| [`01.EPIC-LOGIN-PROCEDURE.md`](#01epic-login-proceduremd) | EPIC-001 | ✅ `applied` |
-| [`02.EPIC-ANGULAR-CODIFICATION.md`](#02epic-angular-codificationmd) | EPIC-002 | ✅ `applied` |
-| [`03.EPIC-TESTING.md`](#03epic-testingmd) | EPIC-003 | 📝 `registered` |
-| [`04.EPIC-MODELS.md`](#04epic-modelsmd) | EPIC-004 | ✅ `applied` |
-| [`05.EPIC-ESI-UNIVERSE.md`](#05epic-esi-universemd) | EPIC-005 | ⚪ `none` |
-| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | EPIC-006 | ✅ `applied` |
-| [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | EPIC-007 | ⚪ `none` (flows Review-gated; related back work under other epics) |
-| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | EPIC-008 | ✅ `applied` |
-| [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | EPIC-009 | 📦 `archived` |
-| [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | EPIC-010 | 📦 `archived` |
-| [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | EPIC-011 | 📦 `archived` |
-| [`12.EPIC-PROCESSED-BLUEPRINT.md`](#12epic-processed-blueprintmd) | EPIC-012 | ⚪ `none` |
-| [`13.EPIC-EVE-ITEMS.md`](#13epic-eve-itemsmd) | EPIC-013 | 📝 `registered` |
+Epic sections and the Table of contents are listed in **reverse epic number order** (highest `NN` first) so the most recent / active epics appear above older archived ones.
+
+**Sections** column: per-status counts as `icon` + number only (see legend under How to read).
+
+| Epic | Sections |
+| --- | --- |
+| [`13.EPIC-EVE-ITEMS.md`](#13epic-eve-itemsmd) | 📝 5 |
+| [`12.EPIC-PROCESSED-BLUEPRINT.md`](#12epic-processed-blueprintmd) | 👀 1 · ⏳ 9 · 🚫 1 |
+| [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | 📦 6 |
+| [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | 📦 10 · 🔁 1 |
+| [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | 📦 5 |
+| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | 📝 1 · ⏳ 3 · 📦 9 · 🚫 5 |
+| [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | 👀 2 |
+| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | ⏳ 6 · 📦 11 · 🔁 2 · ➡️ 1 |
+| [`05.EPIC-ESI-UNIVERSE.md`](#05epic-esi-universemd) | ⚪ 1 |
+| [`04.EPIC-MODELS.md`](#04epic-modelsmd) | ⏳ 3 · ✅ 7 · 📦 1 · ➡️ 4 · 🚫 1 |
+| [`03.EPIC-TESTING.md`](#03epic-testingmd) | 📝 6 · ⏳ 1 |
+| [`02.EPIC-ANGULAR-CODIFICATION.md`](#02epic-angular-codificationmd) | 📝 1 · ⏳ 1 · 📦 8 |
+| [`01.EPIC-LOGIN-PROCEDURE.md`](#01epic-login-proceduremd) | 📝 1 · 📦 7 |
 
 Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
+
+
 
 ## How to read
 
 Each epic is a section headed with the L1 filename (for example `## \`01.EPIC-LOGIN-PROCEDURE.md\``) containing:
 
-1. **Sections** — L1 register / requirement slices and their status (Review gate and/or pipeline). **This is the active record.**
+1. **Sections** — L1 register / requirement slices and their status (Review gate and/or pipeline). **This is the active record.** The Table of contents **Sections** cell summarises those rows as icon counts.
 2. Delivery evidence lives in `openspec/DELIVERY-INDEX.md` and `openspec/CHANGE-STATUS.md`. Do not recreate an L2 delivery section.
 
 | Column (Sections) | Meaning |
@@ -52,102 +58,148 @@ Pipeline: `none` → `registered` → `applying` → `applied` → `archived`. L
 | `neocom-domain` | `477ee33` | tip commit |
 
 
-## `01.EPIC-LOGIN-PROCEDURE.md`
+## `13.EPIC-EVE-ITEMS.md`
 
-Epic id: EPIC-001 · Highest: ✅ `applied` · Last updated: 2026-11-03
-
-### Sections
-
-| Section | Item | Status |
-| --- | --- | --- |
-| Login flow | SSO / Authorization Code procedure | 📦 `archived` (`login`) |
-| Development registration | Dev app registration + callback | 📦 `archived` (`login`) |
-| Environment | Front/back env for SSO | 📦 `archived` (`login`); related `nestjs-sso-config` 📝 `registered` |
-| Proposed solution | Token storage / refresh on back | 📦 `archived` (`login`) |
-| State flow | Auth state machine | 📦 `archived` (`login`) |
-| How the code follows the states | Implementation mapping | 📦 `archived` (`login`) |
-| Login page | Front login UI | 📦 `archived` (`login`) |
-| Login progress | Progress / callback UX | 📦 `archived` (`login`) |
-
----
-
-## `02.EPIC-ANGULAR-CODIFICATION.md`
-
-Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-06 (Domain module ANG-DOM-001…006 `[ ] to review`; innovative-core deprecated)
+Epic id: EPIC-013 · Highest: 🔨 `applying` · Last updated: 2026-11-07 (ITEM-025…026 apply complete on `feature/eve-items`)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| Division / structure | Pages, panels, section modules | 📦 `archived` (`front-angular-structure`) |
-| Node | Node MVC, render registry, viewer | 📦 `archived` (`front-node-render`) |
-| Synchronous processing / asynchronous rendering | Front async SSE + adapter cache | 📦 `archived` (`front-async-sse`) |
-| Async infra (extract `.async-infra`) | Persistence / Redis companion | 📦 `archived` (`infra-async-persistence`, `back-async-sse`) |
-| Related — pilot panel | `v1-pilot-panel` / HEADER variants | 📦 `archived` (`front-pilot-panel`) |
-| Related — pilot definition | NeoCom pilot nodes | 📦 `archived` (`front-pilot`) |
-| Related — app shell | Canvas chrome | 📝 `registered` (`front-app-shell` 0/3) |
-| Related — dashboard | Dashboard feature | 📦 `archived` (`front-dashboard-shell`) |
-| Related — infrastructure | Toolchain / WireMock | 📦 `archived` (`front-infrastructure`) |
-| [Domain module](./02.EPIC-ANGULAR-CODIFICATION.md#domain-module-neocom-nodes) | ANG-DOM-001…006 (`modules/domain`, flat nodes, deprecate innovative-core) | ⏳ `[ ] to review` |
+| [01](./13.EPIC-EVE-ITEMS.md#section-01--hierarchy-esi-type--eveitemv1dto--priceditemv1dto) | Hierarchy ESI → EveItemV1Dto → PricedItemV1Dto · ITEM-023 outbound by function | 📝 `registered` → `back-eve-items` |
+| [02](./13.EPIC-EVE-ITEMS.md#section-02--esi-universe-type-fields) | ESI universe type fields / ITEM-001…002 · ITEM-022 types pairing | 📝 `registered` → `back-eve-items` |
+| [03](./13.EPIC-EVE-ITEMS.md#section-03--eveitemv1dto-back-interchange) | EveItemV1Dto / ITEM-003…007 (group→category ESI; iconUrl) | 📝 `registered` → `back-eve-items` |
+| [04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) | PricedItemV1Dto extends EveItemV1Dto / ITEM-010…013 | 📝 `registered` → `back-eve-items` |
+| [05](./13.EPIC-EVE-ITEMS.md#section-05--back-use-cases-get-by-item-id) | eveitems (public) + pricedeveitems (auth); Redis; compose / ITEM-014…021 · ITEM-024 Jita orders · ITEM-025…026 TTL caches | 📝 `registered` → `back-eve-items` |
+| — | EveAssetV1 / ShipV1 | stay EPIC-004 — pending move confirm if desired |
 
 ---
 
-## `03.EPIC-TESTING.md`
+## `12.EPIC-PROCESSED-BLUEPRINT.md`
 
-Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-11-06 (Domain node unit tests DNODE-001…004 `[ ] to review`)
+Epic id: EPIC-012 · Highest: ⚪ `none` · Last updated: 2026-11-06 (ProcessedBlueprintV1 rename; former BOM detail discarded; Jita market §02)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| Cypress UI and content validation | BDD / Cypress | 📝 `registered` (`front-bdd-cypress` 0/4) |
-| Mock data from real runs | Fixtures | 📝 `registered` (`front-mock-fixtures` 0/4) |
-| Coverage control and quality gates | Sonar / coverage | 📝 `registered` (`cicd-coverage-sonar` 0/5) |
-| CI/CD test jobs and Sonar gate order | Testing gates | 📝 `registered` (`cicd-testing-gates` 0/3) |
-| Testing command catalog | Shared TDD/BDD/SDD commands | 📝 `registered` (`infra-test-commands` 0/5) |
-| Backend testing | Back guidelines / WireMock / Gherkin | 📝 `registered` (`back-testing` 0/5) |
-| [Domain node unit tests](./03.EPIC-TESTING.md#domain-node-unit-tests) | DNODE-001…004 (review + create Vitest for NeoCom nodes) | ⏳ `[ ] to review` |
+| [01](./12.EPIC-PROCESSED-BLUEPRINT.md#section-01--processedblueprintv1) | ProcessedBlueprintV1 / IND-BP-001, 005…012 · `v1-processed-blueprint-render` | ⏳ `[ ] to review` (was Summary; name reassigned; model-strip specimen) |
+| [02](./12.EPIC-PROCESSED-BLUEPRINT.md#section-02--market-pricing-jita-buy--sell) | MKT-001…007 Jita buy/sell | ⏳ `[ ] to review` |
+| [03](./12.EPIC-PROCESSED-BLUEPRINT.md#section-03--resourcev1) | ResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §13) |
+| [04](./12.EPIC-PROCESSED-BLUEPRINT.md#section-04--industryresourcev1) | IndustryResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §14) |
+| [05](./12.EPIC-PROCESSED-BLUEPRINT.md#section-05--bomresourcev1) | BOMResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §15) |
+| [06](./12.EPIC-PROCESSED-BLUEPRINT.md#section-06--buildactiondtov1) | BuildActionDtoV1 | ⏳ `[ ] to review` (from EPIC-004 §16) |
+| [07](./12.EPIC-PROCESSED-BLUEPRINT.md#section-07--bomgroupv1) | BOMGroupV1 / IND-BP-003…004 | ⏳ `[ ] to review` (from EPIC-004 §17) |
+| [08](./12.EPIC-PROCESSED-BLUEPRINT.md#section-08--blueprint-render-runs-v1-blueprint-render) | UI-BP-001…003 | ⏳ `[ ] to review` (from EPIC-006) |
+| [09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) | EveLocationV1Dto / ELOC-001…008 (back Dto; front mapper WIP) | ⏳ `[ ] to review` |
+| — | Former §02 BOM ProcessedBlueprint / IND-BP-002 | 🚫 `discarded` |
+| — | Flow 06 / 07 (EPIC-007) | 👀 `reviewed` — pending move confirm |
+| — | EPIC-002 ProcessedBlueprint prose | applied narrative — pending move confirm |
 
 ---
 
-## `04.EPIC-MODELS.md`
 
-Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (§04 EveLocationV1 + §11–17 ProcessedBlueprint/BOM → EPIC-012)
+## `11.EPIC-BLUEPRINT-LIST-PROCESSING.md`
+
+Epic id: EPIC-011 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Release-0.1.0 archive) · **source-archived** → [`archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| 03 | PricedItemV1Dto | ➡️ moved → [EPIC-013 §04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) |
-| 04 | EveLocationV1Dto | ➡️ moved → [EPIC-012 §09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) |
-| 05 | EveAssetV1 | ⏳ `to review` |
-| 06 | PublicPilotV1 | ✅ `applied` |
-| 07 | PilotV2 | ✅ `applied` |
-| 08 | ShipV1 | ⏳ `to review` |
-| 09 | PilotShipV1 | ⏳ `to review` |
-| 10 | BlueprintV1 | ✅ `applied` (✅ `duplicated`) / DOM-BP-001) |
-| 11–17 | Processed blueprint / BOM stack | ➡️ moved → [EPIC-012](./12.EPIC-PROCESSED-BLUEPRINT.md) |
-| 18 | ApplicationInfoV1 | ✅ `applied` |
-| 19 | ServerStatusV1 | ✅ `applied` (✅ `duplicated`, ✅ `to review`) |
-| 20 | SpaceLocationV1 | ✅ `applied` |
-| 21 | neocom-domain deploy | 📦 `archived` (`domain-module`) |
-| 22 | `jsonClass` interchange | ✅ `applied` (✅ `duplicated`)) |
-| — | EveItem / ESI type → EveItemV1Dto | ➡️ moved → [EPIC-013](./13.EPIC-EVE-ITEMS.md) |
-| — | ESI corp / alliance / race | 🚫 `out of scope` |
+| [01](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-01--pilot-blueprint-feed-into-blueprint-by-location-panel) | BLP-001…003, 009…013, 024…025 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  |
+| [02](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-02--aggregate-into-systems-and-regions-sort-and-node-render) | BLP-004…008 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  |
+| [03](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-03--blueprint-location-catalog--spacelocationv1dto--spacelocationnodev1) | BLP-014…015, 018…020, 026…030 (back); BLP-016…017 (front) | 📦 `archived` → [`back-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-back-blueprint-list-processing/) + [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) |
+| [04](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-021…023 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (SSE approach A deferred via BLP-034) |
+| [01 interim](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#interim--park-front-sse-http-back-endpoints-def-blp-003) | BLP-031…033 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (DEF-BLP-003) |
+| [04](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-034 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (DEF-BLP-003) |
 
 ---
 
-## `05.EPIC-ESI-UNIVERSE.md`
 
-Epic id: EPIC-005 · Highest: ⚪ `none` · Last updated: 2026-10-19
+## `10.EPIC-INDUSTRY-BLUEPRINTS.md`
+
+Epic id: EPIC-010 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Release-0.1.0 archive) · **source-archived** → [`archive/10.EPIC-INDUSTRY-BLUEPRINTS.md`](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| — | (no Review register extracted yet; SDE / universe notes stay on L1) | ⚪ `none` |
+| [01](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-01--spec-model-strip-page) | IND-BP-001…007 (model-strip page) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [02](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-02--spec-featurev1-display-element) | IND-BP-010…012 (FeatureV1 / `v1-feature-button`) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [03](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-03--dashboard-feature-panel-procedural-population) | IND-BP-020…023 (Feature panel population) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [04](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-04--spec-v1-blueprint-by-location-page) | IND-BP-030…036 (v1-blueprint-by-location page) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [05](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-05--spec-v1-region-render) | IND-BP-060…063, 070…072 (v1-region render) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [06](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-06--spec-color-table-support-page) | IND-BP-040…042 (color-table support page) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [07](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-07--spec-shared-ui-definitions) | IND-BP-080…083, 088 (shared UI) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [07](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#expandable-items) | IND-BP-084…087 (expand/collaborate) | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
+| [08](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-08--spec-v1-blueprint-render) | IND-BP-090…095 (v1-blueprint render) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [09](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-09--spec-v1-system-render) | IND-BP-100…105 (v1-system render) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| [10](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-10--spec-process-blueprints-into-the-location-hierarchy) | IND-BP-110…118 (hierarchy aggregation / SSE feed) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
 
 ---
+
+
+## `09.EPIC-BACKEND-SERVICES.md`
+
+Epic id: EPIC-009 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Release-0.1.0 archive) · **source-archived** → [`archive/09.EPIC-BACKEND-SERVICES.md`](./archive/09.EPIC-BACKEND-SERVICES.md)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| 01–02 | BACK-SVC-001…004, 010…013 (layout / Record / V1) | 📤 `extracted` → 📦 `archived` (`domain-layout`) |
+| 03–04 | BACK-SVC-020…022, 030…032 (ports) | 📤 `extracted` → 📦 `archived` (`domain-ports`) |
+| 05–06 | BACK-SVC-040…042, 050…052 (deprecations) | 📤 `extracted` → 📦 `archived` (`domain-deprecations`) |
+| 07 | BACK-SVC-060…063 (OpenAPI) | 📤 `extracted` → 📦 `archived` (`back-openapi`) |
+| 08 | BACK-SVC-070…072 (industry blueprints API) | 📤 `extracted` → 📦 `archived` (`back-industry-blueprints`) |
+
+---
+
+
+## `08.EPIC-LOCATIONS.md`
+
+Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftover Lookup*/KnownSystem/§15 register; space-location-service archived)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| 01 | LOC-001 location kind | 📤 `extracted` → 📦 `archived` (`domain-locations` / `back-spacelocations`) |
+| 01 | LOC-002 ancestor place | 📤 `extracted` → 📦 `archived` |
+| 01 | LOC-003 planets/ships/holds | 🚫 `out of scope` |
+| 03 | SpaceLocation (LOC-010) | 📤 `extracted` → 📦 `archived` via OpenSpec |
+| 03 | LOC-011 callers use SpaceLocation | 🚫 `out of scope` |
+| 04 | Region (LOC-020) | 📤 `extracted` → 📦 `archived` via OpenSpec |
+| 05 | Constellation (LOC-030) | 📤 `extracted` → 📦 `archived` via OpenSpec |
+| 06 | Solar system (LOC-040) | 📤 `extracted` → 📦 `archived` via OpenSpec |
+| 07 | Station (LOC-050, LOC-051) | 📤 `extracted` → 📦 `archived` via OpenSpec |
+| 08 | Structure (LOC-060) | 📤 `extracted` → 📦 `archived` via OpenSpec |
+| 09 | LocationAssetContainer | 🚫 `out of scope` |
+| 10 | ShippingYardLocation | 🚫 `out of scope` |
+| 11 | LookupRegion (LOC-090) | ⏳ `to review` |
+| 12 | LookupSolarSystem (LOC-100) | ⏳ `to review` |
+| 13 | KnownSystem (LOC-110) | 📝 `registered` → `front-known-system` |
+| 14 | Front stubs (LOC-120, LOC-121) | 🚫 `out of scope` |
+| 15 | Space location service LOC-130…142 (BACK-229) | 📦 `archived` → `back-space-location-service`|
+| 15 | Space location service register row | ⏳ `to review` |
+
+---
+
+
+## `07.EPIC-NEOCOM-API.md`
+
+Epic id: EPIC-007 · Highest: ⚪ `none` (flows Review-gated; related back work under other epics) · Last updated: 2026-10-19
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| API flows | Flow 06 — GET industry blueprints (async) | 👀 `reviewed` |
+| API flows | Flow 07 — GET industry blueprints SSE | 👀 `reviewed` |
+
+---
+
 
 ## `06.EPIC-USER-INTERFACE.md`
 
@@ -181,146 +233,112 @@ Epic id: EPIC-006 · Highest: ✅ `applied` · Last updated: 2026-11-06 (UI-SHEL
 
 ---
 
-## `07.EPIC-NEOCOM-API.md`
 
-Epic id: EPIC-007 · Highest: ⚪ `none` (flows Review-gated; related back work under other epics) · Last updated: 2026-10-19
+## `05.EPIC-ESI-UNIVERSE.md`
 
-### Sections
-
-| Section | Item | Status |
-| --- | --- | --- |
-| API flows | Flow 06 — GET industry blueprints (async) | 👀 `reviewed` |
-| API flows | Flow 07 — GET industry blueprints SSE | 👀 `reviewed` |
-
----
-
-## `08.EPIC-LOCATIONS.md`
-
-Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftover Lookup*/KnownSystem/§15 register; space-location-service archived)
+Epic id: EPIC-005 · Highest: ⚪ `none` · Last updated: 2026-10-19
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| 01 | LOC-001 location kind | 📤 `extracted` → 📦 `archived` (`domain-locations` / `back-spacelocations`) |
-| 01 | LOC-002 ancestor place | 📤 `extracted` → 📦 `archived` |
-| 01 | LOC-003 planets/ships/holds | 🚫 `out of scope` |
-| 03 | SpaceLocation (LOC-010) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 03 | LOC-011 callers use SpaceLocation | 🚫 `out of scope` |
-| 04 | Region (LOC-020) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 05 | Constellation (LOC-030) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 06 | Solar system (LOC-040) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 07 | Station (LOC-050, LOC-051) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 08 | Structure (LOC-060) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 09 | LocationAssetContainer | 🚫 `out of scope` |
-| 10 | ShippingYardLocation | 🚫 `out of scope` |
-| 11 | LookupRegion (LOC-090) | ⏳ `to review` |
-| 12 | LookupSolarSystem (LOC-100) | ⏳ `to review` |
-| 13 | KnownSystem (LOC-110) | 📝 `registered` → `front-known-system` |
-| 14 | Front stubs (LOC-120, LOC-121) | 🚫 `out of scope` |
-| 15 | Space location service LOC-130…142 (BACK-229) | 📦 `archived` → `back-space-location-service`|
-| 15 | Space location service register row | ⏳ `to review` |
+| — | (no Review register extracted yet; SDE / universe notes stay on L1) | ⚪ `none` |
 
 ---
 
-## `09.EPIC-BACKEND-SERVICES.md`
 
-Epic id: EPIC-009 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Release-0.1.0 archive) · **source-archived** → [`archive/09.EPIC-BACKEND-SERVICES.md`](./archive/09.EPIC-BACKEND-SERVICES.md)
+## `04.EPIC-MODELS.md`
+
+Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (§04 EveLocationV1 + §11–17 ProcessedBlueprint/BOM → EPIC-012)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| 01–02 | BACK-SVC-001…004, 010…013 (layout / Record / V1) | 📤 `extracted` → 📦 `archived` (`domain-layout`) |
-| 03–04 | BACK-SVC-020…022, 030…032 (ports) | 📤 `extracted` → 📦 `archived` (`domain-ports`) |
-| 05–06 | BACK-SVC-040…042, 050…052 (deprecations) | 📤 `extracted` → 📦 `archived` (`domain-deprecations`) |
-| 07 | BACK-SVC-060…063 (OpenAPI) | 📤 `extracted` → 📦 `archived` (`back-openapi`) |
-| 08 | BACK-SVC-070…072 (industry blueprints API) | 📤 `extracted` → 📦 `archived` (`back-industry-blueprints`) |
+| 03 | PricedItemV1Dto | ➡️ moved → [EPIC-013 §04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) |
+| 04 | EveLocationV1Dto | ➡️ moved → [EPIC-012 §09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) |
+| 05 | EveAssetV1 | ⏳ `to review` |
+| 06 | PublicPilotV1 | ✅ `applied` |
+| 07 | PilotV2 | ✅ `applied` |
+| 08 | ShipV1 | ⏳ `to review` |
+| 09 | PilotShipV1 | ⏳ `to review` |
+| 10 | BlueprintV1 | ✅ `applied` (✅ `duplicated`) / DOM-BP-001) |
+| 11–17 | Processed blueprint / BOM stack | ➡️ moved → [EPIC-012](./12.EPIC-PROCESSED-BLUEPRINT.md) |
+| 18 | ApplicationInfoV1 | ✅ `applied` |
+| 19 | ServerStatusV1 | ✅ `applied` (✅ `duplicated`, ✅ `to review`) |
+| 20 | SpaceLocationV1 | ✅ `applied` |
+| 21 | neocom-domain deploy | 📦 `archived` (`domain-module`) |
+| 22 | `jsonClass` interchange | ✅ `applied` (✅ `duplicated`)) |
+| — | EveItem / ESI type → EveItemV1Dto | ➡️ moved → [EPIC-013](./13.EPIC-EVE-ITEMS.md) |
+| — | ESI corp / alliance / race | 🚫 `out of scope` |
 
 ---
 
-## `10.EPIC-INDUSTRY-BLUEPRINTS.md`
 
-Epic id: EPIC-010 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Release-0.1.0 archive) · **source-archived** → [`archive/10.EPIC-INDUSTRY-BLUEPRINTS.md`](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md)
+## `03.EPIC-TESTING.md`
+
+Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-11-06 (Domain node unit tests DNODE-001…004 `[ ] to review`)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| [01](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-01--spec-model-strip-page) | IND-BP-001…007 (model-strip page) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [02](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-02--spec-featurev1-display-element) | IND-BP-010…012 (FeatureV1 / `v1-feature-button`) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [03](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-03--dashboard-feature-panel-procedural-population) | IND-BP-020…023 (Feature panel population) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [04](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-04--spec-v1-blueprint-by-location-page) | IND-BP-030…036 (v1-blueprint-by-location page) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [05](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-05--spec-v1-region-render) | IND-BP-060…063, 070…072 (v1-region render) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [06](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-06--spec-color-table-support-page) | IND-BP-040…042 (color-table support page) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [07](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-07--spec-shared-ui-definitions) | IND-BP-080…083, 088 (shared UI) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [07](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#expandable-items) | IND-BP-084…087 (expand/collaborate) | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
-| [08](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-08--spec-v1-blueprint-render) | IND-BP-090…095 (v1-blueprint render) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [09](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-09--spec-v1-system-render) | IND-BP-100…105 (v1-system render) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
-| [10](./archive/10.EPIC-INDUSTRY-BLUEPRINTS.md#section-10--spec-process-blueprints-into-the-location-hierarchy) | IND-BP-110…118 (hierarchy aggregation / SSE feed) | 📦 `archived` → [`front-industry-blueprints`](../../openspec/changes/archive/2026-11-06-front-industry-blueprints/) ·  |
+| Cypress UI and content validation | BDD / Cypress | 📝 `registered` (`front-bdd-cypress` 0/4) |
+| Mock data from real runs | Fixtures | 📝 `registered` (`front-mock-fixtures` 0/4) |
+| Coverage control and quality gates | Sonar / coverage | 📝 `registered` (`cicd-coverage-sonar` 0/5) |
+| CI/CD test jobs and Sonar gate order | Testing gates | 📝 `registered` (`cicd-testing-gates` 0/3) |
+| Testing command catalog | Shared TDD/BDD/SDD commands | 📝 `registered` (`infra-test-commands` 0/5) |
+| Backend testing | Back guidelines / WireMock / Gherkin | 📝 `registered` (`back-testing` 0/5) |
+| [Domain node unit tests](./03.EPIC-TESTING.md#domain-node-unit-tests) | DNODE-001…004 (review + create Vitest for NeoCom nodes) | ⏳ `[ ] to review` |
 
 ---
 
-## `11.EPIC-BLUEPRINT-LIST-PROCESSING.md`
 
-Epic id: EPIC-011 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Release-0.1.0 archive) · **source-archived** → [`archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md)
+## `02.EPIC-ANGULAR-CODIFICATION.md`
+
+Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-06 (Domain module ANG-DOM-001…006 `[ ] to review`; innovative-core deprecated)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| [01](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-01--pilot-blueprint-feed-into-blueprint-by-location-panel) | BLP-001…003, 009…013, 024…025 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  |
-| [02](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-02--aggregate-into-systems-and-regions-sort-and-node-render) | BLP-004…008 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  |
-| [03](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-03--blueprint-location-catalog--spacelocationv1dto--spacelocationnodev1) | BLP-014…015, 018…020, 026…030 (back); BLP-016…017 (front) | 📦 `archived` → [`back-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-back-blueprint-list-processing/) + [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) |
-| [04](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-021…023 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (SSE approach A deferred via BLP-034) |
-| [01 interim](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#interim--park-front-sse-http-back-endpoints-def-blp-003) | BLP-031…033 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (DEF-BLP-003) |
-| [04](./archive/11.EPIC-BLUEPRINT-LIST-PROCESSING.md#section-04--real-time-provider--panel-integration-design) | BLP-034 | 📦 `archived` → [`front-blueprint-list-processing`](../../openspec/changes/archive/2026-11-06-front-blueprint-list-processing/) ·  (DEF-BLP-003) |
+| Division / structure | Pages, panels, section modules | 📦 `archived` (`front-angular-structure`) |
+| Node | Node MVC, render registry, viewer | 📦 `archived` (`front-node-render`) |
+| Synchronous processing / asynchronous rendering | Front async SSE + adapter cache | 📦 `archived` (`front-async-sse`) |
+| Async infra (extract `.async-infra`) | Persistence / Redis companion | 📦 `archived` (`infra-async-persistence`, `back-async-sse`) |
+| Related — pilot panel | `v1-pilot-panel` / HEADER variants | 📦 `archived` (`front-pilot-panel`) |
+| Related — pilot definition | NeoCom pilot nodes | 📦 `archived` (`front-pilot`) |
+| Related — app shell | Canvas chrome | 📝 `registered` (`front-app-shell` 0/3) |
+| Related — dashboard | Dashboard feature | 📦 `archived` (`front-dashboard-shell`) |
+| Related — infrastructure | Toolchain / WireMock | 📦 `archived` (`front-infrastructure`) |
+| [Domain module](./02.EPIC-ANGULAR-CODIFICATION.md#domain-module-neocom-nodes) | ANG-DOM-001…006 (`modules/domain`, flat nodes, deprecate innovative-core) | ⏳ `[ ] to review` |
 
 ---
 
-## `12.EPIC-PROCESSED-BLUEPRINT.md`
 
-Epic id: EPIC-012 · Highest: ⚪ `none` · Last updated: 2026-11-06 (ProcessedBlueprintV1 rename; former BOM detail discarded; Jita market §02)
+## `01.EPIC-LOGIN-PROCEDURE.md`
+
+Epic id: EPIC-001 · Highest: ✅ `applied` · Last updated: 2026-11-03
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| [01](./12.EPIC-PROCESSED-BLUEPRINT.md#section-01--processedblueprintv1) | ProcessedBlueprintV1 / IND-BP-001, 005…012 · `v1-processed-blueprint-render` | ⏳ `[ ] to review` (was Summary; name reassigned; model-strip specimen) |
-| [02](./12.EPIC-PROCESSED-BLUEPRINT.md#section-02--market-pricing-jita-buy--sell) | MKT-001…007 Jita buy/sell | ⏳ `[ ] to review` |
-| [03](./12.EPIC-PROCESSED-BLUEPRINT.md#section-03--resourcev1) | ResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §13) |
-| [04](./12.EPIC-PROCESSED-BLUEPRINT.md#section-04--industryresourcev1) | IndustryResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §14) |
-| [05](./12.EPIC-PROCESSED-BLUEPRINT.md#section-05--bomresourcev1) | BOMResourceV1 | ⏳ `[ ] to review` (from EPIC-004 §15) |
-| [06](./12.EPIC-PROCESSED-BLUEPRINT.md#section-06--buildactiondtov1) | BuildActionDtoV1 | ⏳ `[ ] to review` (from EPIC-004 §16) |
-| [07](./12.EPIC-PROCESSED-BLUEPRINT.md#section-07--bomgroupv1) | BOMGroupV1 / IND-BP-003…004 | ⏳ `[ ] to review` (from EPIC-004 §17) |
-| [08](./12.EPIC-PROCESSED-BLUEPRINT.md#section-08--blueprint-render-runs-v1-blueprint-render) | UI-BP-001…003 | ⏳ `[ ] to review` (from EPIC-006) |
-| [09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) | EveLocationV1Dto / ELOC-001…008 (back Dto; front mapper WIP) | ⏳ `[ ] to review` |
-| — | Former §02 BOM ProcessedBlueprint / IND-BP-002 | 🚫 `discarded` |
-| — | Flow 06 / 07 (EPIC-007) | 👀 `reviewed` — pending move confirm |
-| — | EPIC-002 ProcessedBlueprint prose | applied narrative — pending move confirm |
+| Login flow | SSO / Authorization Code procedure | 📦 `archived` (`login`) |
+| Development registration | Dev app registration + callback | 📦 `archived` (`login`) |
+| Environment | Front/back env for SSO | 📦 `archived` (`login`); related `nestjs-sso-config` 📝 `registered` |
+| Proposed solution | Token storage / refresh on back | 📦 `archived` (`login`) |
+| State flow | Auth state machine | 📦 `archived` (`login`) |
+| How the code follows the states | Implementation mapping | 📦 `archived` (`login`) |
+| Login page | Front login UI | 📦 `archived` (`login`) |
+| Login progress | Progress / callback UX | 📦 `archived` (`login`) |
 
 ---
 
-## `13.EPIC-EVE-ITEMS.md`
-
-Epic id: EPIC-013 · Highest: 📝 `registered` · Last updated: 2026-11-06 (`/epic:extract` → `back-eve-items`)
-
-### Sections
-
-| Section | Item | Status |
-| --- | --- | --- |
-| [01](./13.EPIC-EVE-ITEMS.md#section-01--hierarchy-esi-type--eveitemv1dto--priceditemv1dto) | Hierarchy ESI → EveItemV1Dto → PricedItemV1Dto | 📝 `registered` → `back-eve-items` |
-| [02](./13.EPIC-EVE-ITEMS.md#section-02--esi-universe-type-fields) | ESI universe type fields / ITEM-001…002 | 📝 `registered` → `back-eve-items` |
-| [03](./13.EPIC-EVE-ITEMS.md#section-03--eveitemv1dto-back-interchange) | EveItemV1Dto / ITEM-003…007 (group→category ESI; iconUrl) | 📝 `registered` → `back-eve-items` |
-| [04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) | PricedItemV1Dto extends EveItemV1Dto / ITEM-010…013 | 📝 `registered` → `back-eve-items` |
-| [05](./13.EPIC-EVE-ITEMS.md#section-05--back-use-cases-get-by-item-id) | eveitems + pricedeveitems (auth HTTP + authenticated GetPricedItemById UC); Redis; compose / ITEM-014…021 | ⏳ `[ ] to review` |
-| — | EveAssetV1 / ShipV1 | stay EPIC-004 — pending move confirm if desired |
-
----
 
 ## How agents update this file
 
-1. **`/epic`:** add a new `## \`NN.EPIC-NAME.md\`` section (Highest ⚪ `none`), empty **Sections** placeholder only, Last updated today; **refresh the Table of contents** row for that epic. Do **not** add `### L2 delivery`.
+1. **`/epic`:** add a new `## \`NN.EPIC-NAME.md\`` section (Highest ⚪ `none`) **at the top of the epic list** (reverse number order — newest `NN` first), empty **Sections** placeholder only, Last updated today; **refresh the Table of contents** row at the top (recompute **Sections** icon counts). Do **not** add `### L2 delivery`.
 2. **`/epic:extract`:** upsert **Sections** rows (Review → 📝 `registered` or 🔁 `duplicated`) and name the OpenSpec change on the row; sync epic `## Spec traceability` and `openspec/CHANGE-STATUS.md`. Do **not** recreate `### L2 delivery` or `sources/L2/`. Do not update `SPEC-EPIC-INDEX.md`.
 3. **Apply start (`/neocom-code`):** bump epic **Highest** / Spec traceability to 🔨 `applying` when that is the furthest status; sync Sections as needed. Delivery evidence → `DELIVERY-INDEX.md` / `CHANGE-STATUS.md`.
 4. **PR merge → develop (`/neocom-git`):** Sections / Highest → ✅ `applied` where appropriate; record Delivery in `DELIVERY-INDEX.md`; sync Spec traceability Highest.

@@ -14,10 +14,10 @@ Related epics: [EPIC-006](../sources/L1/06.EPIC-USER-INTERFACE.md).
 ## How defects resolve (intended programme flow)
 
 1. **Record here** — `/defect` targeting this page (or move from a feature register); status `open` (or `prep`).
-2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic. **Checking this checklist item assumes Review is accepted** → set the L1 cell to **`[x] reviewed`**. Prefer **not** inventing behaviour beyond what the defect states.
+2. **Register the spec on the epic** — author or amend the L1 requirement on the owning epic. **Checking this checklist item assumes Review is accepted** → set the L1 cell to `[x] reviewed`. Prefer **not** inventing behaviour beyond what the defect states.
 3. **Mark to run the process** (developer, manual) — authorizes `/fix:defect` (Review is already `[x] reviewed` from step 2 when that item is checked).
-4. **`/fix:defect`** — list defects + actions; wait for go-ahead; then implement Expected. Status `applying`. No commit.
-5. **Developer validates** the product fix — then **`/defect:fixed DEF-…`** moves the defect to [`FIXED-DEFECTS.md`](./FIXED-DEFECTS.md) and removes it from this page.
+4. `/fix:defect` — list defects + actions; wait for go-ahead; then implement Expected. Status `applying`. No commit.
+5. **Developer validates** the product fix — then `/defect:fixed DEF-…` moves the defect to [`FIXED-DEFECTS.md`](./FIXED-DEFECTS.md) and removes it from this page.
 
 Statuses: `open` · `prep` · `in openspec` · `applying` · `fixed` · `closed` · `wontfix`.
 
@@ -49,7 +49,7 @@ When a hierarchy node is **expandable**, `v2-node-container` places the **expand
 
 ### Expected
 
-1. For expandable nodes, the **expand / collapse button SHALL sit on the right**, **inside** the row’s **`neocom-panel`** (the panel that hosts the render), not as a sibling outside that panel.
+1. For expandable nodes, the **expand / collapse button SHALL sit on the right**, **inside** the row’s `neocom-panel` (the panel that hosts the render), not as a sibling outside that panel.
 2. Expandable and non-expandable rows SHALL keep **left-aligned** node content (no left gutter reserved only for expandable rows).
 3. Non-expandable rows SHALL not show an expand control (unchanged).
 4. Prefer **reusing** the existing expand-toggle markup / styles in `v2-node-container` (move the control into `.neocom-panel.node-body` trailing the outlet) rather than copying the button HTML into each expandable render (`v1-region-render`, `v1-system-render`, …).
@@ -88,14 +88,13 @@ Do **not** duplicate the arrow button into each `v*-render` unless a later Appea
 
 ### Prep for resolution (checklist)
 
-- [ ] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
-- [ ] Mark to run the process — authorizes `/fix:defect`
+- [x] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
+- [x] Mark to run the process — authorizes `/fix:defect`
 - [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 
-Was **DEF-BLP-016** → briefly **DEF-IB-011** → **DEF-UI-001**. Follow-on to DEF-BLP-014 (toggle size / body fill): placement is **inside panel + trailing right** for alignment and chrome.
----
+## Was **DEF-BLP-016** → briefly **DEF-IB-011** → **DEF-UI-001**. Follow-on to DEF-BLP-014 (toggle size / body fill): placement is **inside panel + trailing right** for alignment and chrome.
 
 ## DEF-UI-002 — Corporation panel: single flex row 3·2·1 with double column gap
 
@@ -130,7 +129,7 @@ The corporation panel lays out its content across **multiple lines** (lines **1*
 
 - [x] Register the spec on the owning epic (L1 requirement row; Review starts `[x] to review`)
 - [x] Mark to run the process — sets Review to `[x] reviewed` and authorizes `/fix:defect`
-- [ ] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
 
 ### Notes
 

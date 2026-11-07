@@ -94,7 +94,7 @@ On `/epic`, write the `## Search criteria` section **empty** (only its placehold
 
 ## Register the epic in TRACEABILITY.md
 
-During epic creation, append a new epic section to `neocom-meta/sources/L1/TRACEABILITY.md` (see `.dsh/METHODOLOGY.md` §4.1), at Highest ⚪ `none`:
+During epic creation, insert a new epic section **at the top of the epic list** in `neocom-meta/sources/L1/TRACEABILITY.md` (reverse `NN` order — see `.dsh/METHODOLOGY.md` §4.1), at Highest ⚪ `none`:
 
 ```markdown
 ## `NN.EPIC-NAME.md`

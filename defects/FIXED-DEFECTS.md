@@ -25,6 +25,9 @@ Archive of defects whose product fix the developer has **validated**. Entries ar
 - [DEF-IB-006 — Pilot row spacing must use default panel gap](#def-ib-006-pilot-row-spacing-must-use-default-panel-gap)
 - [DEF-IB-008 — Breadcrumb: small Elemental in full-width white panel, flush to neighbours](#def-ib-008-breadcrumb-small-elemental-in-full-width-white-panel)
 - [DEF-IB-009 — Feature list flex layout + icon border + Elemental white name](#def-ib-009-feature-list-flex-layout-icon-name-appearance)
+- [DEF-EI-001 — EveItem paired to ESI types (not an ESI eve-item resource)](#def-ei-001--eveitem-paired-to-esi-types-not-an-esi-eve-item-resource)
+- [DEF-EI-002 — Outbound adapters grouped by function, not result type](#def-ei-002--outbound-adapters-grouped-by-function-not-result-type)
+- [DEF-EI-003 — Market data SHALL use ESI The Forge region orders at Jita 4-4](#def-ei-003--market-data-shall-use-esi-the-forge-region-orders-at-jita-4-4)
 
 ## How entries land here
 
@@ -60,6 +63,9 @@ Statuses on this page: `fixed` · `closed` · (rarely) `wontfix`.
 | DEF-IB-006 | Pilot row spacing must use default panel gap | `fixed` | EPIC-006 · **UI-GEO-001** + **UI-DASH-015** `[ ]` | after review → extract / amend `front-dashboard-shell` | 2026-11-03 | feature/industry-blueprints |
 | DEF-IB-008 | Breadcrumb: small Elemental in full-width white panel, flush to neighbours | `fixed` | EPIC-006 · UI-DASH breadcrumb Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 | feature/industry-blueprints |
 | DEF-IB-009 | Feature list flex layout + icon border + Elemental white name | `fixed` | EPIC-006 · UI-DASH feature list / feature button Appearance | TBD — `front-dashboard-shell` amend or follow-up fix | 2026-11-03 | feature/industry-blueprints |
+| DEF-EI-001 | EveItem source SHALL be ESI universe types (not eve-item) | `fixed` | EPIC-013 · EveItemV1Dto / GetEveItemById | `back-eve-items` | 2026-11-07 | feature/eve-items |
+| DEF-EI-002 | Outbound adapters grouped by function, not result type | `fixed` | EPIC-013 · hexagonal outbound layout | `back-eve-items` (layout) | 2026-11-07 | feature/eve-items |
+| DEF-EI-003 | Market data SHALL use ESI The Forge region orders at Jita 4-4 | `fixed` | EPIC-013 · PricedItem / MarketHubPrice | `back-eve-items` | 2026-11-07 | feature/eve-items |
 
 ---
 
@@ -1104,3 +1110,170 @@ Not in this L1 batch (prep Author L1 still unchecked). Distinct from DEF-IB-008 
 
 ---
 
+
+## DEF-EI-001 — EveItem paired to ESI types (not an ESI eve-item resource)
+
+| Field | Value |
+| --- | --- |
+| Status | `fixed` |
+| Severity | Contract / source pairing (wrong ESI resource association) |
+| Surfaces | Back outbound EveItem resolve; L1 / OpenSpec wording; HTTP `eveitems` remains programme resource |
+| Found on | Validating EveItem miss path vs ESI `GET /universe/types/{type_id}/` (sample type `20` Kernite 200 OK) |
+| Branch tip | `neocom-back` `feature/eve-items` |
+| L1 | [`13.EPIC-EVE-ITEMS.md`](../sources/L1/13.EPIC-EVE-ITEMS.md) §01–§02 · ITEM-022 |
+
+### Observed
+
+EveItem was **wrongly paired** to an “eve item” ESI concept / adapter naming (`EsiEveItemSource`, client id `neocom-back-eveitems`) as if ESI exposed an eve-items resource.
+
+The correct ESI source for EveItem data is **universe types**. Example validated ESI type **200 OK** for `type_id=20` (Kernite) includes `type_id`, `name`, `description`, `published`, `group_id`, dogma attributes, `icon_id`, market/mass/volume fields — that payload is what `EveItemV1Dto` SHALL map from.
+
+### Expected
+
+1. **Pairing:** programme `EveItemV1Dto` / GetEveItemById miss path SHALL bind to ESI `GET /universe/types/{type_id}/` (plus group/category expansions already required), **not** to any ESI “eve item” resource.
+2. **Adapters:** remove the old eve-item-named ESI source adapter; keep / wire `EsiUniverseTypeSource` (or equivalent types-named adapter) as the only ESI implementation of the EveItem source port.
+3. **Requirements:** L1 / OpenSpec wording SHALL state the EveItem ← ESI **types** association explicitly (HTTP path `…/eveitems/{itemId}` may stay as the programme public resource name).
+
+### Likely sources to amend
+
+| Layer | Path / id | Notes |
+| --- | --- | --- |
+| L1 | [`13.EPIC-EVE-ITEMS.md`](../sources/L1/13.EPIC-EVE-ITEMS.md) Goals + ITEM-022 | Clarify Goals; register pairing requirement |
+| OpenSpec | `back-eve-items` | Delta: types-only ESI source; no eve-item ESI adapter |
+| Code | `esi-universe-type-source.adapter.ts`, `eveitem.module.ts`; remove `esi-eve-item-source.adapter.ts` | Types client id + class name |
+
+### Prep for resolution (checklist)
+
+- [x] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
+- [x] Mark to run the process — authorizes `/fix:defect`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
+
+### Notes
+
+Sample ESI type payload used for validation: Kernite `type_id=20` (dogma_attributes present). Tritanium `34` remains a valid public Postman happy-path id. Programme HTTP resource name `eveitems` is unchanged.
+
+2026-11-07 `/fix:defect`: verified `EsiUniverseTypeSource` only; `esi-eve-item-source` absent; ITEM-022 / OpenSpec already registered.
+
+2026-11-07 `/fix:defect` (re-run): re-verified types adapter only; left `applying` pending developer validation.
+
+Validated 2026-11-07 — moved to FIXED-DEFECTS.md
+
+---
+
+## DEF-EI-002 — Outbound adapters grouped by function, not result type
+
+| Field | Value |
+| --- | --- |
+| Status | `fixed` |
+| Severity | Architecture / hexagonal layout |
+| Surfaces | `neocom-back` `src/infrastructure/adapters/outbound/**` (eve-items work and peers) |
+| Found on | Eve-items outbound folder layout under hexagonal ports & adapters |
+| Branch tip | `neocom-back` `feature/eve-items` |
+| L1 | [`13.EPIC-EVE-ITEMS.md`](../sources/L1/13.EPIC-EVE-ITEMS.md) §01 · ITEM-023 |
+
+### Observed
+
+Ports and adapters are intended to follow hexagonal convention, but **outbound adapters are grouped by result type returned** (e.g. `outbound/eveitem/` holding ESI type source + EveItem Redis/memory caches + Jita market hub prices together). That mixes unrelated functions (ESI universe access, cache, persistence, market) under the DTO/product name.
+
+### Expected
+
+Outbound adapters SHALL be **grouped by function / infrastructure concern**, not by the domain result type they help produce:
+
+| Folder (under `adapters/outbound`) | Role |
+| --- | --- |
+| **universe** | ESI **universe** API (types, groups, categories, **locations**) |
+| **persistence** | **Redis** and other persistence databases / stores |
+| **market** | Market hub price adapters |
+| **industry** | Industry / **blueprint-list** outbound (not a separate result-type folder) |
+
+EveItem (and other) use cases keep hexagonal **ports**; adapter **packages** follow the function buckets above. Result-type folders (`outbound/eveitem/`, `outbound/blueprint-list/`, `outbound/spacelocation/` as a type bucket) SHALL be reorganised. Deprecated in-memory universe-type cache SHALL be removed; Redis SHALL NOT live under a `cache/` package.
+
+### Likely sources to amend
+
+| Layer | Path / id | Notes |
+| --- | --- | --- |
+| L1 | [`13.EPIC-EVE-ITEMS.md`](../sources/L1/13.EPIC-EVE-ITEMS.md) ITEM-023 | Outbound by function |
+| OpenSpec | `back-eve-items` | Layout requirement + task |
+| Code | `outbound/universe`, `outbound/persistence`, `outbound/market`, `outbound/industry` | Redis → persistence; blueprint-list → industry |
+
+### Prep for resolution (checklist)
+
+- [x] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
+- [x] Mark to run the process — authorizes `/fix:defect`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
+
+### Notes
+
+2026-11-07 `/fix:defect`: moved eve-items adapters — `universe/esi-universe-type-source`, `cache/*-eve-item-cache`, `market/jita-market-hub-price`; `persistence/` unchanged for node stores; removed `outbound/eveitem/`. Spacelocation peers left for a later pass. ITEM-023 registered.
+
+2026-11-07 `/fix:defect` (re-run): re-verified function packages; left `applying` pending developer validation.
+
+2026-11-07 developer feedback: incomplete — moved `blueprint-list` → `industry/`; Redis type/price/location caches → `persistence/`; location ESI catalog/resolver → `universe/`; removed deprecated `memory-universe-type-cache` and empty `cache/` + `spacelocation/` packages.
+
+2026-11-07: removed deprecated `memory-location-cache` — location cache is Redis-only; catalog specs use an in-test stub.
+
+2026-11-07: replaced deprecated `BlueprintListService` with `BlueprintListPort` + `BlueprintListAdapter` (industry outbound).
+
+Validated 2026-11-07 — moved to FIXED-DEFECTS.md
+
+---
+
+## DEF-EI-003 — Market data SHALL use ESI The Forge region orders at Jita 4-4
+
+| Field | Value |
+| --- | --- |
+| Status | `fixed` |
+| Severity | Source pairing / data architecture |
+| Surfaces | PricedItem / `MarketHubPricePort`; outbound market adapters |
+| Found on | Validating priced EveItem path vs ESI market data |
+| Branch tip | `neocom-back` `feature/eve-items` |
+| L1 | [`13.EPIC-EVE-ITEMS.md`](../sources/L1/13.EPIC-EVE-ITEMS.md) §04 / §05 · ITEM-019 (TBD amend); EPIC-012 MKT hub ids |
+
+### Observed
+
+Market data is **not tied to a single place**. The priced-item path uses a seedable / hub-local price table (`JitaMarketHubPriceAdapter.priceByTypeId`) instead of live ESI market orders for the programme Jita hub.
+
+Universe `GET /markets/prices` (adjusted/average) is **not** the source for this hub buy/sell path.
+
+### Expected
+
+Market buy/sell for PricedItem SHALL come from ESI **region market orders** for the programme Jita hub, not from seedable tables:
+
+| Id | Value |
+| --- | --- |
+| Region (The Forge) | `10000002` |
+| Solar system (Jita) | `30000142` |
+| Station (Jita 4-4 — Caldari Navy Assembly Plant) | `60003760` — **search / filter location** |
+| ESI | `GET https://esi.evetech.net/markets/{region_id}/orders` → `GET /markets/10000002/orders` |
+
+Orders are rows with `is_buy_order`, `price`, `location_id`, `type_id`, `system_id`, etc. The hub search SHALL use orders whose `**location_id` is `60003760**`.
+
+- `**buyPrice**` — from buy orders at that station (`is_buy_order: true`)
+- `**sellPrice**` — from sell orders at that station (`is_buy_order: false`)
+- `**marketHub**` — EveLocation for station `60003760` (region `10000002`, system `30000142`)
+
+Aggregation of many orders into a single buy/sell number (e.g. best bid / best ask) follows EPIC-012 market buy/sell meaning unless a later requirement names another rule.
+
+### Likely sources to amend
+
+| Layer | Path / id | Notes |
+| --- | --- | --- |
+| L1 | [`13.EPIC-EVE-ITEMS.md`](../sources/L1/13.EPIC-EVE-ITEMS.md) §04–§05; EPIC-012 MKT-007 | Region orders + Jita 4-4 filter; close MKT source gap |
+| OpenSpec | `back-eve-items` | Delta for ESI orders source |
+| Code | `market-hub-price.port.ts`, `jita-market-hub-price.adapter.ts`, `eveitem.module.ts` | Replace seed map with ESI `/markets/10000002/orders` + filter `location_id=60003760` |
+
+### Prep for resolution (checklist)
+
+- [x] Register the spec on the owning epic (L1 requirement row; selecting this assumes Review accepted → `[x] reviewed`)
+- [x] Mark to run the process — authorizes `/fix:defect`
+- [x] Developer validates the fix — then `/defect:fixed` moves this entry to `FIXED-DEFECTS.md`
+
+### Notes
+
+2026-11-07: requirement **changed** from `GET /markets/prices` to region orders at Jita 4-4 (`60003760` / region `10000002` / system `30000142`). Sample order rows for `type_id=20` (Kernite) show `location_id` varies across the region — hub filter is mandatory.
+
+2026-11-07 `/fix:defect`: ITEM-024 registered on EPIC-013 / `back-eve-items`; `JitaMarketHubPriceAdapter` now calls ESI `GET /markets/10000002/orders?type_id=…`, filters `location_id=60003760`, best bid/ask; seed map removed.
+
+Validated 2026-11-07 — moved to FIXED-DEFECTS.md
+
+---
