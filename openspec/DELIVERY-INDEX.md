@@ -6,7 +6,7 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-07 (`/git:pr neocom-back` — `back-eve-items` PR [#8](https://github.com/AdamAntinoo/neocom-back/pull/8) @ `56d5144`).
+Last refreshed: 2026-11-07 (`/git:commit neocom-meta` — `back-eve-items` meta tip @ `8cc7de6`; back PR [#8](https://github.com/AdamAntinoo/neocom-back/pull/8) @ `56d5144`).
 
 Previous Last refreshed: 2026-11-05 (`/git:pr` — front `#5`, back `#5`, meta `#4` opened into `develop`).
 
@@ -45,7 +45,7 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 
 | OpenSpec | Repos | Branch | Commits | PR | PR state | Develop tip | Validated | Updated |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `back-eve-items` | meta, back | `feature/eve-items` | `neocom-meta@f94068c` (register); `neocom-back@56d5144` (EveItem / priced hub / Redis TTL) | [AdamAntinoo/neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) | open | — | — | 2026-11-07 |
+| `back-eve-items` | meta, back | `feature/process-epics` (meta) · `feature/eve-items` (back) | `neocom-meta@8cc7de6` (OpenSpec ITEM-024…026 + TRACEABILITY); `neocom-back@56d5144` (EveItem / priced hub / Redis TTL) | [AdamAntinoo/neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) | open | — | — | 2026-11-07 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
