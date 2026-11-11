@@ -74,9 +74,10 @@ jobs:
           npm run start:server &
           npx --yes wait-on http://127.0.0.1:6001/app/ -t 120000
       - name: Cypress acceptance
-        run: npm run test:bdd
+        run: npm run test:bdd:run
         env:
           CYPRESS_baseUrl: http://127.0.0.1:6001
+          BDD_EXTERNAL_SERVERS: "1"
 
   sonar:
     needs: [unit, acceptance]
