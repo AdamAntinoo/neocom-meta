@@ -71,23 +71,33 @@ jobs:
           key: cypress-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}
           restore-keys: |
             cypress-${{ runner.os }}-
-      - name: Start WireMock
+      - name: Start WireMock and front (Docker)
         run: |
-          docker run -d --name wiremock -p 8080:8080 \
+          set -euo pipefail
+          docker network create neocom-bdd >/dev/null
+          docker run -d --name wiremock --network neocom-bdd \
+            -p 8080:8080 \
             -v "$PWD/support/wiremock:/home/wiremock" \
             wiremock/wiremock:3.13.1
-      - name: Start app server
-        env:
-          PORT: '6001'
-        run: |
-          # Prefer PATH node from setup-node (nvm alias "neocom" is not on runners).
-          node server.js &
+          docker build -t neocom-front:bdd .
+          docker run -d --name neocom-front-bdd --network neocom-bdd \
+            -p 6001:6001 \
+            -e PORT=6001 \
+            -e WIREMOCK_URL=http://wiremock:8080 \
+            neocom-front:bdd
+          echo "Waiting for front container on :6001…"
           npx --yes wait-on http://127.0.0.1:6001/app/ -t 120000
+          docker logs neocom-front-bdd 2>&1 | tail -30
       - name: Cypress acceptance
         run: npm run test:bdd:run
         env:
           CYPRESS_baseUrl: http://127.0.0.1:6001
           BDD_EXTERNAL_SERVERS: "1"
+      - name: Stop WireMock and front containers
+        if: always()
+        run: |
+          docker rm -f neocom-front-bdd wiremock 2>/dev/null || true
+          docker network rm neocom-bdd 2>/dev/null || true
 
   sonar:
     needs: [unit, acceptance]

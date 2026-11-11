@@ -62,13 +62,13 @@ Pipeline: `none` → `registered` → `applying` → `applied` → `archived`. L
 
 ## `17.EPIC-CICD.md`
 
-Epic id: EPIC-017 · Highest: 🔨 `applying` · Last updated: 2026-11-11 (`front-cicd` applying 83/87 on `feature/cicd`; `back-cicd` 0/72 registered)
+Epic id: EPIC-017 · Highest: 🔨 `applying` · Last updated: 2026-11-11 (`front-cicd` applying 87/87 on `feature/cicd`; `back-cicd` 0/72 registered)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| OpenSpec sets | `front-cicd` (`CICD-F-*`) | 🔨 `applying` 83/87 |
+| OpenSpec sets | `front-cicd` (`CICD-F-*`) | 🔨 `applying` 87/87 |
 | OpenSpec sets | `back-cicd` (`CICD-B-*`) | 📝 `registered` 0/72 |
 | [01](./17.EPIC-CICD.md#section-01--cypress-ui-and-content-validation) | CICD-F-001…004 (was BDD-001…004) | 📝 `registered` → `front-cicd` |
 | [02](./17.EPIC-CICD.md#section-02--mock-data-from-real-runs) | CICD-F-010…016 | 📝 `registered` → `front-cicd` |

@@ -107,10 +107,10 @@
 
 ## Domain NeoCom node unit tests (CICD-F-050…053)
 
-- [ ] The testing process SHALL review all front domain NeoCom node classes for unit-test cov… (CICD-F-050)
-- [ ] For each domain node lacking adequate unit tests, the process SHALL create Vitest unit … (CICD-F-051)
-- [ ] New domain NeoCom nodes SHALL include unit tests in the same delivery as the node class… (CICD-F-052)
-- [ ] Domain-node unit tests SHALL live with the domain module (co-located `*.spec.ts` or an … (CICD-F-053)
+- [x] The testing process SHALL review all front domain NeoCom node classes for unit-test cov… (CICD-F-050)
+- [x] For each domain node lacking adequate unit tests, the process SHALL create Vitest unit … (CICD-F-051)
+- [x] New domain NeoCom nodes SHALL include unit tests in the same delivery as the node class… (CICD-F-052)
+- [x] Domain-node unit tests SHALL live with the domain module (co-located `*.spec.ts` or an … (CICD-F-053)
 
 ## Logging note (CICD-F-124)
 
