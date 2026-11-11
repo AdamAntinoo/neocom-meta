@@ -28,11 +28,15 @@
 - [ ] Environment setup per entry (CICD-B-043)
 - [ ] Run-all sequence command (CICD-B-044)
 
-## 5. Deployment / CD (080–082)
+## 5. Deployment / CD (080–082, 130–133)
 
 - [ ] Back CI/CD is in scope: implement back deployment / promotion workflows for `dev` → `st… (CICD-B-080)
 - [ ] Back artifact publication SHALL come from the GitHub workflow to GitHub Packages / GHCR… (CICD-B-081)
 - [ ] Back `staging` and `prod` deployments SHALL target a Docker engine (Docker deployment f… (CICD-B-082)
+- [ ] Back SemVer: patch on develop merge; minor on default main merge; annotated tag MajorMinorPatch on every main merge (CICD-B-130)
+- [ ] Back named release: `release/X.Y.Z` from main, merge develop; set version+tag X.Y.Z only on main merge (CICD-B-131)
+- [ ] Back named release→main uses branch-named version instead of default minor bump (CICD-B-132)
+- [ ] Back feature/non-main commitTag ≡ imageTag SemVer string; on main both are MajorMinorPatch (CICD-B-133)
 
 ## 6. Logging (110+)
 

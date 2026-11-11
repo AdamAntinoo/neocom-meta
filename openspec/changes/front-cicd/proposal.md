@@ -32,3 +32,7 @@ Registered previously L1-only units into this change:
 - Domain node unit tests CICD-F-050…053
 - Logging F-124
 - Front step catalog + cy-* CICD-F-060…067
+
+## Extract 2026-11-11c
+
+- SemVer bump / named release / feature≡image naming CICD-F-130…133

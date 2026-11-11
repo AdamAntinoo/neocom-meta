@@ -29,3 +29,7 @@ Registered previously L1-only units into this change:
 - OpenAPI Gherkin CICD-B-006…009
 - Mock catalog CICD-B-010…017
 - Back step catalog CICD-B-060…061
+
+## Extract 2026-11-11c
+
+- SemVer bump / named release / feature≡image naming CICD-B-130…133

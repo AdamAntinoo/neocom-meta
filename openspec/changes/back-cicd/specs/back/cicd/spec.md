@@ -197,6 +197,42 @@ Back `**staging**` and `**prod**` deployments SHALL target a **Docker engine** (
 - **WHEN** the corresponding CI/CD or product behaviour is implemented
 - **THEN** the requirement stated for CICD-B-082 holds
 
+### Requirement: Back SemVer patch on develop merge, minor on default main merge, tag on main
+
+Back SemVer: when a merge into `develop` completes, increment **patch**; when a merge into `main` completes on the default path, increment **minor** (reset patch); on every completed `main` merge, create an annotated git tag equal to the resulting `MajorMinorPatch` (CICD-B-130; EPIC-017).
+
+#### Scenario: CICD-B-130 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-B-130 holds
+
+### Requirement: Back named release/X.Y.Z from main; version+tag only on main merge
+
+Back named release: create `release/X.Y.Z` **from `main`**, merge `develop` into that branch; do **not** set version to `X.Y.Z` until the release merges to `main`; on that `main` merge, set version to the branch-named `X.Y.Z` and create git tag `X.Y.Z` (CICD-B-131; EPIC-017).
+
+#### Scenario: CICD-B-131 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-B-131 holds
+
+### Requirement: Back named release merge uses branch-named version not default minor bump
+
+Back: a named `release/X.Y.Z` → `main` merge SHALL use the branch-named version instead of the default minor bump for that merge (CICD-B-132; EPIC-017).
+
+#### Scenario: CICD-B-132 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-B-132 holds
+
+### Requirement: Back feature commit versioning equals artifact/image SemVer string
+
+Back feature (and other non-`main`) versioning SHALL use the same SemVer-derived string as artifact / image naming for that commit (`commitTag` ≡ `imageTag` = `{majorMinorPatch}-{commits}.{channel}.{shortSha}`); on `main`, both are plain `MajorMinorPatch` (CICD-B-133; EPIC-017).
+
+#### Scenario: CICD-B-133 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-B-133 holds
+
 ### Requirement: `neocom-back` SHALL provide logging that application / adapter / domain code uses for p…
 
 `neocom-back` SHALL provide logging that application / adapter / domain code uses for programme logs under a shared logging API (CICD-B-110; EPIC-017).

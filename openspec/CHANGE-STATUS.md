@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-09 (EPIC-017: removed deprecated CICD-F-090 / CICD-F-091; `back-service` archived; `front-universe` applying).
+Last refreshed: 2026-11-11 (`front-cicd` applying on `neocom-front` `feature/cicd` stacked on `feature/universe`; 83/87).
 
 ## Status legend
 
@@ -34,8 +34,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `back-eve-item-dogma-drop` | back / eve-item-dogma-drop | 0/3 | registered | EPIC-016 OPT-001…003; drop unused dogma from `EveItemV1Dto` (modifies `back/eve-items`) |
 | `front-known-system` | front / known-system | 0/2 | registered | EPIC-008 LOC-110 KnownSystem card. L2 `FRONT/22.KNOWN-SYSTEM.md` |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |
-| `front-cicd` | front / cicd | 0/83 | registered | EPIC-017 `CICD-F-*`; extracts 2026-11-11 + 11b (domain nodes, F-124, step catalog 060–067) |
-| `back-cicd` | back / cicd | 0/68 | registered | EPIC-017 `CICD-B-*`; extracts 2026-11-11 + 11b (OpenAPI 006–009, catalog 010–017, steps 060–061) |
+| `back-cicd` | back / cicd | 0/72 | registered | EPIC-017 `CICD-B-*`; extract 11c SemVer B-130…133 |
 ## Deferred
 
 | Change | System / feature | Tasks | Status | Notes |
@@ -46,6 +45,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
+| `front-cicd` | front / cicd | 83/87 | applying | `neocom-front` `feature/cicd` stacked on `feature/universe`; meta Actions on `feature/cicd` worktree; remaining F-050…053 domain-node unit coverage |
 | `front-universe` | front / universe | 4/4 | applying | `neocom-front` `feature/universe` from `develop`; Universe ESI adapter + client cache + WireMock stubs; stop before commit for review |
 
 ## Applied
@@ -124,7 +124,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`                                                                                     | Node/Angular stack, canvas chrome; install/local WireMock config → EPIC-017 §12/§13                  |
 | **Auth / SSO**                          | `login` (multi-system; archived)                                                                                              | Session unified; obsolete `nestjs-sso-config` removed 2026-11-09                                     |
 | **Angular codification (EPIC-002)**     | `front-angular-structure`, `front-node-render`, `front-async-sse`, `back-async-sse`, `infra-async-persistence`                | Structure → node/viewer/registry → async SSE enrichment with Nest + PostgreSQL/Redis                 |
-| **CI/CD (EPIC-017)**                    | `front-cicd`, `back-cicd` | Nearly complete registered set (2026-11-11b); L1 leftover `[ ]`: SDD CICD-F-045…047 only |
+| **CI/CD (EPIC-017)**                    | `front-cicd`, `back-cicd` | Registered set incl. SemVer 130–133 (2026-11-11c); L1 leftover `[ ]`: SDD CICD-F-045…047 only |
 
 
 `login` is the template: one change folder, several capability specs (`front/login`, `back/login`, `esi/sso`, `esi/login`).
@@ -404,25 +404,26 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/infra-async-persistence/`                                                |
 
 
-### `front-cicd` — registered · 0/83
+### `front-cicd` — applying · 83/87
 
 
 |                    |                                                                 |
 | ------------------ | --------------------------------------------------------------- |
-| **Why**            | EPIC-017 front CI/CD set (`CICD-F-*`): BDD/fixtures, coverage/Sonar, gates, catalog, deploy/GHCR, logging, CI pipeline, install, local-config, domain-node tests, Cypress step families + `cy-*` |
+| **Why**            | EPIC-017 front CI/CD set (`CICD-F-*`): BDD/fixtures, coverage/Sonar, gates, catalog, deploy/GHCR, SemVer bump/release/naming, logging, CI pipeline, install, local-config, domain-node tests, Cypress step families + `cy-*` |
 | **Capabilities**   | `front/cicd`                                                    |
 | **Owners**         | `neocom-front`                                                  |
 | **Integrate with** | `back-cicd` |
-| **Paths**          | `changes/front-cicd/`                                           |
+| **Paths**          | `changes/front-cicd/` · `neocom-front` `feature/cicd` · meta `.github` on `feature/cicd` |
 | **Supersedes**     | `front-bdd-cypress`, `front-mock-fixtures`; front half of coverage/gates/commands |
+| **Remaining**      | CICD-F-050…053 domain NeoCom node unit-test coverage review |
 
 
-### `back-cicd` — registered · 0/68
+### `back-cicd` — registered · 0/72
 
 
 |                    |                                                                 |
 | ------------------ | --------------------------------------------------------------- |
-| **Why**            | EPIC-017 back CI/CD set (`CICD-B-*`): guidelines, WireMock, Gherkin, OpenAPI scenarios + mock catalog, coverage/Sonar, gates, deploy/GHCR, logging, CI pipeline, step catalog |
+| **Why**            | EPIC-017 back CI/CD set (`CICD-B-*`): guidelines, WireMock, Gherkin, OpenAPI scenarios + mock catalog, coverage/Sonar, gates, deploy/GHCR, SemVer bump/release/naming, logging, CI pipeline, step catalog |
 | **Capabilities**   | `back/cicd`                                                     |
 | **Owners**         | `neocom-back`                                                   |
 | **Integrate with** | `front-cicd` |

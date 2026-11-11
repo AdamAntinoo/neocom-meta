@@ -7,3 +7,4 @@ graphify-out/
 # macOS Finder / sync conflict copies ("Name 2.ext") — never commit
 * 2.*
 * 2
+.worktrees/
