@@ -6,9 +6,9 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-11 (`front-universe` apply commit on `feature/universe` @ `a9ffcc0`).
+Last refreshed: 2026-11-11 (`front-cicd` OpenSpec @ `b36299b`; meta Actions @ `827807f` on `feature/cicd`).
 
-Previous Last refreshed: 2026-11-11 (`front-cicd` / `back-cicd` registered on meta `feature/process-epics` @ `f985257`).
+Previous Last refreshed: 2026-11-11 (`front-universe` apply commit on `feature/universe` @ `a9ffcc0`).
 
 ## When `/neocom-git` must update this file
 
@@ -48,8 +48,8 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 | `front-assets-by-location` | front | `feature/assets-by-location` | `neocom-front@d1fed92` (on develop) | [AdamAntinoo/neocom-front#7](https://github.com/AdamAntinoo/neocom-front/pull/7) | merged | `d1fed92` | openspec validate passed 2026-11-09 | 2026-11-09 |
 | `back-assets` | back | `feature/assets` | `neocom-back@63a2098` (on develop) | [AdamAntinoo/neocom-back#9](https://github.com/AdamAntinoo/neocom-back/pull/9) | merged | `63a2098` | openspec validate passed 2026-11-09 | 2026-11-09 |
 | `back-eve-items` | meta, back | `feature/eve-items` → `feature/assets` tip | `neocom-back@b72ff05`…`63a2098` (on develop) | [AdamAntinoo/neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) + [#9](https://github.com/AdamAntinoo/neocom-back/pull/9) | merged | `63a2098` | openspec validate passed 2026-11-09 | 2026-11-09 |
-| `front-cicd` | meta, front | `feature/cicd` (front stacked on `feature/universe`; meta Actions on `feature/cicd`) | `neocom-meta@f985257` (register); front apply uncommitted on `feature/cicd` | — | none | — | — | 2026-11-11 |
-| `back-cicd` | meta | `feature/process-epics` | `neocom-meta@f985257` (L1 extract / OpenSpec register) | — | none | — | — | 2026-11-11 |
+| `front-cicd` | meta, front | `feature/process-epics` + `feature/cicd` | `neocom-meta@b36299b` (SemVer extract / applying); `neocom-meta@827807f` (front-ci Actions); front apply still uncommitted | — | none | — | — | 2026-11-11 |
+| `back-cicd` | meta | `feature/process-epics` | `neocom-meta@b36299b` (SemVer B-130…133 extract) | — | none | — | — | 2026-11-11 |
 | `front-universe` | front | `feature/universe` | `neocom-front@a9ffcc0` (Universe ESI adapter + WireMock) | — | none | — | — | 2026-11-11 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
