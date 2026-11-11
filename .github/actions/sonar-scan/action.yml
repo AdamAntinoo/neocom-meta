@@ -30,7 +30,7 @@ runs:
           echo "::warning::Disable manually: https://sonarcloud.io/project/analysis_method?id=${SONAR_PROJECT_KEY}"
         fi
     - name: SonarCloud Scan
-      uses: SonarSource/sonarqube-scan-action@v5
+      uses: SonarSource/sonarqube-scan-action@v6
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
       with:

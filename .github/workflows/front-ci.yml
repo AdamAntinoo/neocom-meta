@@ -25,9 +25,9 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
@@ -37,16 +37,16 @@ jobs:
 
   unit:
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
         with:
           node-version: ${{ inputs.node-version }}
       - uses: AdamAntinoo/neocom-meta/.github/actions/front-unit-test@feature/cicd
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: front-coverage
           path: coverage
@@ -54,9 +54,9 @@ jobs:
 
   acceptance:
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
@@ -65,7 +65,7 @@ jobs:
       - name: Production build (no live neocom-back)
         uses: AdamAntinoo/neocom-meta/.github/actions/front-production-build@feature/cicd
       - name: Cache Cypress binary
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}
@@ -105,15 +105,15 @@ jobs:
 
   sonar:
     needs: [unit, acceptance]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
         with:
           node-version: ${{ inputs.node-version }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           name: front-coverage
           path: coverage
@@ -125,12 +125,12 @@ jobs:
 
   publish:
     needs: sonar
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
@@ -141,7 +141,7 @@ jobs:
       - name: Production build
         uses: AdamAntinoo/neocom-meta/.github/actions/front-production-build@feature/cicd
       - name: Upload dist package artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: neocom-front-dist-${{ steps.gv.outputs.commitTag }}
           path: dist/neocom-front
