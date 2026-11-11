@@ -71,6 +71,8 @@ jobs:
           key: cypress-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}
           restore-keys: |
             cypress-${{ runner.os }}-
+      - name: Ensure Cypress binary
+        run: npx cypress install
       - name: Start WireMock and front (Docker)
         run: |
           set -euo pipefail
