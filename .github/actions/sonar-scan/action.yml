@@ -1,0 +1,20 @@
+name: SonarCloud scan
+description: Upload analysis to SonarCloud and fail when the quality gate fails.
+inputs:
+  sonar-token:
+    description: SONAR_TOKEN secret value
+    required: true
+  project-key:
+    description: SonarCloud project key (e.g. AdamAntinoo_neocom-front)
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarqube-scan-action@v5
+      env:
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+      with:
+        args: >
+          -Dsonar.projectKey=${{ inputs.project-key }}
+          -Dsonar.qualitygate.wait=true

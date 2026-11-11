@@ -1,0 +1,11 @@
+name: Front lint and format
+description: Run lint and Prettier check for neocom-front (first stage after setup).
+runs:
+  using: composite
+  steps:
+    - name: Lint
+      shell: bash
+      run: npm run lint
+    - name: Format check
+      shell: bash
+      run: npm run format:check

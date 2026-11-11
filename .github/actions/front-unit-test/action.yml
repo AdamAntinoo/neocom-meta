@@ -1,0 +1,10 @@
+name: Front unit tests
+description: Run Vitest unit tests with coverage for neocom-front (non-watch).
+runs:
+  using: composite
+  steps:
+    - name: Unit test with coverage
+      shell: bash
+      env:
+        NG_BUILD_SASS_EMBEDDED: "0"
+      run: npm run test:coverage
