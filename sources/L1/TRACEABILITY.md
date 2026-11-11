@@ -6,7 +6,7 @@ Delivery SHAs / PR numbers live in [`openspec/DELIVERY-INDEX.md`](../../openspec
 
 Companions: `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). **Removed (do not recreate):** `sources/L2/`, `SPEC-EPIC-INDEX.md`, and **`### L2 delivery`**.
 
-Last refreshed: 2026-11-11 (`/epic:extract 17` → `front-cicd` 0/83 + `back-cicd` 0/68; leftover `[ ]` only F-045…047).
+Last refreshed: 2026-11-11 (`/epic:extract 17` → SemVer F/B-130…133; `front-cicd` 0/87 + `back-cicd` 0/72; leftover `[ ]` only F-045…047).
 
 ## Table of contents
 
@@ -62,14 +62,14 @@ Pipeline: `none` → `registered` → `applying` → `applied` → `archived`. L
 
 ## `17.EPIC-CICD.md`
 
-Epic id: EPIC-017 · Highest: 📝 `registered` · Last updated: 2026-11-11 (`/epic:extract 17` → `front-cicd` 0/83 + `back-cicd` 0/68)
+Epic id: EPIC-017 · Highest: 🔨 `applying` · Last updated: 2026-11-11 (`front-cicd` applying 83/87 on `feature/cicd`; `back-cicd` 0/72 registered)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| OpenSpec sets | `front-cicd` (`CICD-F-*`) | 📝 `registered` 0/83 |
-| OpenSpec sets | `back-cicd` (`CICD-B-*`) | 📝 `registered` 0/68 |
+| OpenSpec sets | `front-cicd` (`CICD-F-*`) | 🔨 `applying` 83/87 |
+| OpenSpec sets | `back-cicd` (`CICD-B-*`) | 📝 `registered` 0/72 |
 | [01](./17.EPIC-CICD.md#section-01--cypress-ui-and-content-validation) | CICD-F-001…004 (was BDD-001…004) | 📝 `registered` → `front-cicd` |
 | [02](./17.EPIC-CICD.md#section-02--mock-data-from-real-runs) | CICD-F-010…016 | 📝 `registered` → `front-cicd` |
 | [03](./17.EPIC-CICD.md#section-03--coverage-control-and-quality-gates) | CICD-F/B-020…024 (was COV-001…005) | 📝 `registered` → `front-cicd` + `back-cicd` |
@@ -78,7 +78,7 @@ Epic id: EPIC-017 · Highest: 📝 `registered` · Last updated: 2026-11-11 (`/e
 | [05](./17.EPIC-CICD.md#section-05--testing-command-catalog) | CICD-F-045…047 (SDD: full integration on development deployment; Gherkin; one feature file per page initially) | ⏳ `[ ] to review` |
 | [06](./17.EPIC-CICD.md#section-06--backend-testing) | CICD-B-001…017 | 📝 `registered` → `back-cicd` |
 | [07](./17.EPIC-CICD.md#section-07--domain-node-unit-tests) | CICD-F-050…053 | 📝 `registered` → `front-cicd` |
-| [08](./17.EPIC-CICD.md#section-08--deployment) | CICD-F/B-080…082 | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [08](./17.EPIC-CICD.md#section-08--deployment) | CICD-F/B-080…082 + F/B-130…133 (SemVer) | 📝 `registered` → `front-cicd` + `back-cicd` |
 | [09](./17.EPIC-CICD.md#section-09--logging) | CICD-F-110…122 + F-124 / CICD-B-110…111 + B-113…127 | 📝 `registered` → `front-cicd` + `back-cicd` |
 | [10](./17.EPIC-CICD.md#section-10--gherkin-step-catalogs-front-and-back) | CICD-F-060…067 / CICD-B-060…061 | 📝 `registered` → `front-cicd` + `back-cicd` |
 | [11](./17.EPIC-CICD.md#section-11--continuous-integration-pipeline) | CICD-F/B-070…079 + F/B-083…089 | 📝 `registered` → `front-cicd` + `back-cicd` |

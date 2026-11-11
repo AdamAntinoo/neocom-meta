@@ -252,6 +252,42 @@ Front `**staging**` and `**prod**` deployments SHALL target a **Docker engine** 
 - **WHEN** the corresponding CI/CD or product behaviour is implemented
 - **THEN** the requirement stated for CICD-F-082 holds
 
+### Requirement: Front SemVer patch on develop merge, minor on default main merge, tag on main
+
+Front SemVer: when a merge into `develop` completes, increment **patch**; when a merge into `main` completes on the default path, increment **minor** (reset patch); on every completed `main` merge, create an annotated git tag equal to the resulting `MajorMinorPatch` (CICD-F-130; EPIC-017).
+
+#### Scenario: CICD-F-130 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-F-130 holds
+
+### Requirement: Front named release/X.Y.Z from main; version+tag only on main merge
+
+Front named release: create `release/X.Y.Z` **from `main`**, merge `develop` into that branch; do **not** set version to `X.Y.Z` until the release merges to `main`; on that `main` merge, set version to the branch-named `X.Y.Z` and create git tag `X.Y.Z` (CICD-F-131; EPIC-017).
+
+#### Scenario: CICD-F-131 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-F-131 holds
+
+### Requirement: Front named release merge uses branch-named version not default minor bump
+
+Front: a named `release/X.Y.Z` → `main` merge SHALL use the branch-named version instead of the default minor bump for that merge (CICD-F-132; EPIC-017).
+
+#### Scenario: CICD-F-132 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-F-132 holds
+
+### Requirement: Front feature commit versioning equals artifact/image SemVer string
+
+Front feature (and other non-`main`) versioning SHALL use the same SemVer-derived string as artifact / image naming for that commit (`commitTag` ≡ `imageTag` = `{majorMinorPatch}-{commits}.{channel}.{shortSha}`); on `main`, both are plain `MajorMinorPatch` (CICD-F-133; EPIC-017).
+
+#### Scenario: CICD-F-133 satisfied
+
+- **WHEN** the corresponding CI/CD or product behaviour is implemented
+- **THEN** the requirement stated for CICD-F-133 holds
+
 ### Requirement: `neocom-front` SHALL provide logging through a provider API that application code uses …
 
 `neocom-front` SHALL provide logging through a **provider API** that application code uses for all programme logs (not ad-hoc console calls) (CICD-F-110; EPIC-017).
