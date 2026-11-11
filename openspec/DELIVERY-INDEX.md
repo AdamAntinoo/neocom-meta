@@ -6,9 +6,9 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-09 (`back-service` archived — already on `neocom-back` develop @ `63a2098`).
+Last refreshed: 2026-11-11 (`front-cicd` / `back-cicd` registered on meta `feature/process-epics` @ `f985257`).
 
-Previous Last refreshed: 2026-11-09 (removed obsolete `nestjs-sso-config`; EPIC-001 L1 source-archived).
+Previous Last refreshed: 2026-11-09 (`back-service` archived — already on `neocom-back` develop @ `63a2098`).
 
 ## When `/neocom-git` must update this file
 
@@ -48,6 +48,8 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 | `front-assets-by-location` | front | `feature/assets-by-location` | `neocom-front@d1fed92` (on develop) | [AdamAntinoo/neocom-front#7](https://github.com/AdamAntinoo/neocom-front/pull/7) | merged | `d1fed92` | openspec validate passed 2026-11-09 | 2026-11-09 |
 | `back-assets` | back | `feature/assets` | `neocom-back@63a2098` (on develop) | [AdamAntinoo/neocom-back#9](https://github.com/AdamAntinoo/neocom-back/pull/9) | merged | `63a2098` | openspec validate passed 2026-11-09 | 2026-11-09 |
 | `back-eve-items` | meta, back | `feature/eve-items` → `feature/assets` tip | `neocom-back@b72ff05`…`63a2098` (on develop) | [AdamAntinoo/neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) + [#9](https://github.com/AdamAntinoo/neocom-back/pull/9) | merged | `63a2098` | openspec validate passed 2026-11-09 | 2026-11-09 |
+| `front-cicd` | meta | `feature/process-epics` | `neocom-meta@f985257` (L1 extract / OpenSpec register) | — | none | — | — | 2026-11-11 |
+| `back-cicd` | meta | `feature/process-epics` | `neocom-meta@f985257` (L1 extract / OpenSpec register) | — | none | — | — | 2026-11-11 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
@@ -56,7 +58,6 @@ Registered / deferred changes appear in CHANGE-STATUS only until `/git:commit` o
 | OpenSpec | Notes |
 | --- | --- |
 | `esi-character-api` | deferred (`neocom-esi` aside) |
-| EPIC-017 `front-cicd` + `back-cicd` (`CICD-F-*` / `CICD-B-*`) | registered — no delivery row yet |
 | `front-app-shell` | registered — no delivery row yet |
 
 ## Archived delivery (historical)
