@@ -1,0 +1,97 @@
+## 1. Backend testing guidelines (CICD-B-001…005)
+
+- [ ] Back follows same testing guidelines as front (CICD-B-001)
+- [ ] WireMock (or equivalent) for stable upstream mocks (CICD-B-002)
+- [ ] Universe ESI MAY use real feeds when acceptable (CICD-B-003)
+- [ ] Other sources case-by-case mock vs live, recorded (CICD-B-004)
+- [ ] Backend BDD via Gherkin + Cucumber (or equivalent) (CICD-B-005)
+
+## 2. Coverage / Sonar (CICD-B-020…024)
+
+- [ ] Back coverage tool local + CI (CICD-B-020)
+- [ ] Back quality-gate rules on coverage/outcomes (CICD-B-021)
+- [ ] Record back thresholds and suites (CICD-B-022)
+- [ ] Back reports to SonarCloud (CICD-B-023)
+- [ ] Back CI upload; Sonar fail blocks completeness (CICD-B-024)
+
+## 3. CI job order (CICD-B-030…032)
+
+- [ ] Back unit and acceptance MAY run in parallel (CICD-B-030)
+- [ ] Both pass before Sonar (CICD-B-031)
+- [ ] Sonar waits for tests/artifacts (CICD-B-032)
+
+## 4. Test command catalog (CICD-B-040…044)
+
+- [ ] Back implements shared command catalog names (CICD-B-040)
+- [ ] Align names/intent with front (CICD-B-041)
+- [ ] Cover TDD/BDD/SDD entries (CICD-B-042)
+- [ ] Environment setup per entry (CICD-B-043)
+- [ ] Run-all sequence command (CICD-B-044)
+
+## 5. Deployment / CD (080–082)
+
+- [ ] Back CI/CD is in scope: implement back deployment / promotion workflows for `dev` → `st… (CICD-B-080)
+- [ ] Back artifact publication SHALL come from the GitHub workflow to GitHub Packages / GHCR… (CICD-B-081)
+- [ ] Back `staging` and `prod` deployments SHALL target a Docker engine (Docker deployment f… (CICD-B-082)
+
+## 6. Logging (110+)
+
+- [ ] `neocom-back` SHALL provide logging that application / adapter / domain code uses for p… (CICD-B-110)
+- [ ] Back logging SHALL be driven by a configuration file that sets the log level for differ… (CICD-B-111)
+- [ ] Every back log call SHALL include log level, section, and message (CICD-B-113)
+- [ ] The back logger SHALL emit a log only when the call’s level is allowed for that section… (CICD-B-114)
+- [ ] Back logging configuration file ownership SHALL stay in `neocom-back`; secrets SHALL NO… (CICD-B-115)
+- [ ] Back sections used in log calls SHALL be stable named identifiers documented for the back (CICD-B-116)
+- [ ] Emitted back log lines that pass the filter SHALL retain level, section, and message so… (CICD-B-117)
+- [ ] Back log messages MAY include placeholders; when additional parameters are supplied on … (CICD-B-118)
+- [ ] Back programme log call levels SHALL be `DEBUG`, `INFO`, and `PRODUCTION`; section conf… (CICD-B-119)
+- [ ] Back logs at level `PRODUCTION` SHALL not be filtered out even when the application run… (CICD-B-120)
+- [ ] On a production environment, back section log levels SHALL default to `NONE`, meaning t… (CICD-B-121)
+- [ ] When a back section’s configured level is `NONE`, that section SHALL not emit `DEBUG` o… (CICD-B-122)
+- [ ] Emitted back log lines SHALL be properly formatted in a Spring Boot–like style, includi… (CICD-B-123)
+- [ ] Every inbound HTTP request to `neocom-back` SHALL create a new `trace-id` that represen… (CICD-B-124)
+- [ ] Back log lines produced while handling a request SHALL include that request’s `trace-id` (CICD-B-125)
+- [ ] The request `trace-id` SHALL be stored in a request-scoped context (Nest/Node equivalen… (CICD-B-126)
+- [ ] The back request-scoped context SHALL use Node `AsyncLocalStorage` (directly or via a N… (CICD-B-127)
+
+## 7. CI pipeline (070–089)
+
+- [ ] Back CI SHALL run with a documented Node version that matches `.nvmrc`, preferring the … (CICD-B-070)
+- [ ] Back CI SHALL run unit tests (project unit runner, non-watch) as part of the back CI wo… (CICD-B-071)
+- [ ] Back CI SHALL run lint and format checks as the first pipeline step after setup and bef… (CICD-B-072)
+- [ ] Back CI SHALL produce a production build and SHALL fail the pipeline on build errors (CICD-B-073)
+- [ ] Back acceptance (Gherkin / Cucumber, including OpenAPI scenarios) SHALL run in CI on a … (CICD-B-074)
+- [ ] Back SHALL keep a thin caller workflow in `neocom-back`; reusable composite actions and… (CICD-B-076)
+- [ ] Back CI/CD secrets SHALL use the host secret store and SHALL NOT be committed (was INFR… (CICD-B-077)
+- [ ] Back CI SHALL upload analysis to the Sonar project and validate the quality gate only a… (CICD-B-078)
+- [ ] After the back Sonar gate passes, back CI SHALL publish the versioned artifact to GitHu… (CICD-B-079)
+- [ ] Back CI SHALL generate a Docker deployable image configured for a Docker engine and pus… (CICD-B-083)
+- [ ] Loading / running the back image on the local Docker engine SHALL not run on github-hos… (CICD-B-084)
+- [ ] `neocom-back` GitHub Actions SHALL be configured with secret `SONAR_TOKEN` and SHALL us… (CICD-B-085)
+- [ ] Back non-secret CI config SHALL be committed: Node / `.nvmrc`, meta `uses` `@ref`, GHCR… (CICD-B-086)
+- [ ] Back CI callers SHALL declare the workflow `permissions` required for the stages they r… (CICD-B-087)
+- [ ] `neocom-meta` Actions access SHALL allow `neocom-back` (and `neocom-front`) to use its … (CICD-B-088)
+- [ ] The same developer documentation SHALL cover back CI manual GitHub setup (secrets + Act… (CICD-B-089)
+
+## OpenAPI Gherkin + test data (CICD-B-006…009)
+
+- [ ] `neocom-back` SHALL provide Gherkin feature files that validate behaviour against the p… (CICD-B-006)
+- [ ] OpenAPI Gherkin scenarios SHALL prefer defining test data on the scenario (Examples / D… (CICD-B-007)
+- [ ] When an ESI API mock (WireMock or equivalent) supplies OpenAPI scenario data instead of… (CICD-B-008)
+- [ ] OpenAPI Gherkin scenarios MAY use real ESI API results for a pilot whose data is valid,… (CICD-B-009)
+
+## Mock catalog original/trimmed (CICD-B-010…017)
+
+- [ ] When OpenAPI specs and the corresponding endpoint implementations are committed via `/g… (CICD-B-010)
+- [ ] `neocom-back` SHALL maintain a catalog of test mock data that is always ready and is th… (CICD-B-011)
+- [ ] Sample outputs produced on those `/git:commit` deliveries SHALL be added or updated in … (CICD-B-012)
+- [ ] For testing purposes, back mock data of each type SHALL be reducible to 2 samples; rema… (CICD-B-013)
+- [ ] The trimmed mock data SHALL be stored along with the original full mock data in the cat… (CICD-B-014)
+- [ ] Automated tests / Gherkin scenarios SHALL be able to select whether to use the original… (CICD-B-015)
+- [ ] When defining test data inside the scenario would be complex, the scenario SHALL use st… (CICD-B-016)
+- [ ] A scenario that uses stored mocks under CICD-B-016 SHALL still name which catalog entry… (CICD-B-017)
+
+## Back Gherkin step catalog (CICD-B-060…061)
+
+- [ ] `neocom-back` SHALL maintain a separate catalog of Gherkin steps used by back acceptanc… (CICD-B-060)
+- [ ] The back step catalog SHALL stay small; variation SHALL be achieved by parametrization … (CICD-B-061)

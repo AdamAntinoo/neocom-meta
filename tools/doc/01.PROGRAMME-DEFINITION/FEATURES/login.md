@@ -3,10 +3,10 @@
 | Field | Value |
 | --- | --- |
 | ID | `FEAT-LOGIN` |
-| Status | registered in OpenSpec |
+| Status | archived in OpenSpec (Release-0.1.0) |
 | Owners | `neocom-front`, `neocom-back` (ESI-012 may touch `neocom-esi`) |
-| Related L2 | , , , , INFRA-041…042 |
-| OpenSpec | `login` (capabilities `front/login`, `back/login`, `esi/sso`, `esi/login`); related `nestjs-sso-config` |
+| Related L2 | LOGIN / BACK / ESI login ids (see OpenSpec) |
+| OpenSpec | `login` archived (`front/login`, `back/login`, `esi/sso`, `esi/login`); obsolete `nestjs-sso-config` removed |
 | Sources | https://developers.eveonline.com/docs/services/sso/ |
 
 ## Intent
@@ -26,11 +26,11 @@ Authenticate to NEOCOM with **EVE Online SSO**. The app path is **Authorization 
 
 - Non-EVE identity providers
 - Full character/corporation authorization matrix beyond establishing a session
-- Env / Kubernetes secret wiring (`nestjs-sso-config`, NestJS Config)
 
 ## Notes
 
 - Former OpenSpec changes `front-login`, `back-login`, `esi-sso`, and `esi-login` were merged into `login`.
+- Obsolete registered change `nestjs-sso-config` (and earlier `back-nestjs-sso-config` / `infra-sso-config`) was removed 2026-11-09 — not archived.
 - Callback URL for dev-watch: `http://localhost:6001/app/login-callback`
 - Client id (public): `4664722d6bd0415683a04519e738a5fc`. Client secret is not written in specs.
-- Delivery branch: `feature/login` from `develop`
+- Delivery: archived with Release-0.1.0 (`openspec/changes/archive/2026-11-06-login/`)

@@ -1,6 +1,6 @@
 # MPV-Prepare
 
-_64 card(s) · Trello list `MPV-Prepare` · source: board `neocom-infinity` (2026-10-30)._
+_58 card(s) · Trello list `MPV-Prepare` · source: board `neocom-infinity` (2026-10-30)._
 
 ## [STORY-NIB] Functions should not return null in any case. Non existent values should be supported and replaced by default elements easy to identifícate on Frontend or on other functions. Use the MOCK code to identify such cases.
 
@@ -9,6 +9,8 @@ _64 card(s) · Trello list `MPV-Prepare` · source: board `neocom-infinity` (202
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -21,12 +23,16 @@ _No description._
 
 ---
 
+---
+
 ## [FEATURE] Upgrade the processed blueprints URL to version 2 and then move it to the new Wiremock server.
 
 - URL: https://trello.com/c/Lti23goS/1142-feature-upgrade-the-processed-blueprints-url-to-version-2-and-then-move-it-to-the-new-wiremock-server
 - Card ID: `666367ac2c41f06bdfc78f9c`
 
 _No description._
+
+---
 
 ---
 
@@ -39,12 +45,16 @@ _No description._
 
 ---
 
+---
+
 ## [REFACTOR] Copy the Axios response to the adapter global state so it can be checked on caller if required.
 
 - URL: https://trello.com/c/qAkz98Nx/1131-refactor-copy-the-axios-response-to-the-adapter-global-state-so-it-can-be-checked-on-caller-if-required
 - Card ID: `6655d3d9d966cbbf934f2495`
 
 _No description._
+
+---
 
 ---
 
@@ -58,12 +68,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Fix the command to generate the Esi model form OpenApi spec and to add it automatically to NIN.
 
 - URL: https://trello.com/c/ua6lUp1S/1088-project-fix-the-command-to-generate-the-esi-model-form-openapi-spec-and-to-add-it-automatically-to-nin
 - Card ID: `6617b67f23b59eef6d34e0d1`
 
 _No description._
+
+---
 
 ---
 
@@ -76,6 +90,8 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] NIB date and schedule date is set to GMT time.
 
 - URL: https://trello.com/c/IS7zIG3B/1121-fix-nib-date-and-schedule-date-is-set-to-gmt-time
@@ -84,13 +100,6 @@ _No description._
 _No description._
 
 ---
-
-## [PROJECT] To avoid problems with containers and docker or Kubernetes, the locahost name is not allowed. Use a neocom name for referencing.
-
-- URL: https://trello.com/c/8NCS7sD2/1065-project-to-avoid-problems-with-containers-and-docker-or-kubernetes-the-locahost-name-is-not-allowed-use-a-neocom-name-for-refere
-- Card ID: `660ed137c0b81262fba08bc5`
-
-_No description._
 
 ---
 
@@ -103,6 +112,8 @@ _No description._
 
 ---
 
+---
+
 ## [REFACTOR] Remove version from DTO objects since dot versioning should be disallowed.
 
 - URL: https://trello.com/c/fZUAmkC0/1107-refactor-remove-version-from-dto-objects-since-dot-versioning-should-be-disallowed
@@ -111,14 +122,6 @@ _No description._
 _No description._
 
 ---
-
-## [RESEARCH] Use Kubernetes Config Maps to parametrize applications and reduce the number os images generated.
-
-- URL: https://trello.com/c/To6otIAC/1068-research-use-kubernetes-config-maps-to-parametrize-applications-and-reduce-the-number-os-images-generated
-- Card ID: `660f0a843945a03b4e83d19e`
-- Labels: WIP (purple)
-
-_No description._
 
 ---
 
@@ -131,13 +134,6 @@ _No description._
 
 ---
 
-## [PROJECT] Deploy Backend on Docker and try to get it on Kubernetes.
-
-- URL: https://trello.com/c/jheBOkE6/1085-project-deploy-backend-on-docker-and-try-to-get-it-on-kubernetes
-- Card ID: `661688bb17f805fb9e8d6d3c`
-
-_No description._
-
 ---
 
 ## [PROJECT] Deploy the Java backend to Docker for Stage.
@@ -147,6 +143,8 @@ _No description._
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -169,12 +167,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Define the architecture for the service at the Stage level.
 
 - URL: https://trello.com/c/Gc19VK6l/1050-project-define-the-architecture-for-the-service-at-the-stage-level
 - Card ID: `660bc52f6b2cb71919dff768`
 
 _No description._
+
+---
 
 ---
 
@@ -188,12 +190,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Continue renaming files to the new nomenclature.
 
 - URL: https://trello.com/c/ZZiTDbZS/1012-project-continue-renaming-files-to-the-new-nomenclature
 - Card ID: `65e96f4e7e2bd0bb8f4f83a8`
 
 _No description._
+
+---
 
 ---
 
@@ -206,12 +212,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Prepare one new OpenApi service to publish the OpenApi definition for Nest endpoints.
 
 - URL: https://trello.com/c/DgNrMpGu/1036-project-prepare-one-new-openapi-service-to-publish-the-openapi-definition-for-nest-endpoints
 - Card ID: `65f42f8e511fb10383a6240f`
 
 _No description._
+
+---
 
 ---
 
@@ -224,12 +234,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Create new interfaces for render components that help to identify the required methods to be created/overrided.
 
 - URL: https://trello.com/c/pgnFsTlW/1034-project-create-new-interfaces-for-render-components-that-help-to-identify-the-required-methods-to-be-created-overrided
 - Card ID: `65f2da4b420cd6100f4133d0`
 
 _No description._
+
+---
 
 ---
 
@@ -242,12 +256,16 @@ _No description._
 
 ---
 
+---
+
 ## [FEAT-FRONT] Create an spacer to separate text items.
 
 - URL: https://trello.com/c/aUdnqeX3/1021-feat-front-create-an-spacer-to-separate-text-items
 - Card ID: `65eb23abb8b1737e285e88cd`
 
 _No description._
+
+---
 
 ---
 
@@ -260,12 +278,16 @@ _No description._
 
 ---
 
+---
+
 ## [BACK-STORY] Replace Redis by a memory cache temporarily until Redis is fixed.
 
 - URL: https://trello.com/c/qYGTyv13/1064-back-story-replace-redis-by-a-memory-cache-temporarily-until-redis-is-fixed
 - Card ID: `660eb92021d0aa9f6ec09f14`
 
 _No description._
+
+---
 
 ---
 
@@ -279,6 +301,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Upgrade npm scripts to prepare the environment for testing being no intrusive.
 
 - URL: https://trello.com/c/EXpZO2pZ/1033-project-upgrade-npm-scripts-to-prepare-the-environment-for-testing-being-no-intrusive
@@ -286,6 +310,8 @@ _No description._
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -300,12 +326,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Activate code coverage for Nest application.
 
 - URL: https://trello.com/c/hnOCEGmK/1096-project-activate-code-coverage-for-nest-application
 - Card ID: `661915211426461f4773ec14`
 
 _No description._
+
+---
 
 ---
 
@@ -318,12 +348,16 @@ _No description._
 
 ---
 
+---
+
 ## [REFACTOR] Upgrade backend to use Cucumber with JUnit 5 and integrated test running.
 
 - URL: https://trello.com/c/YfwGPTxb/1123-refactor-upgrade-backend-to-use-cucumber-with-junit-5-and-integrated-test-running
 - Card ID: `662bfcf2741a34f0ba9dde63`
 
 _No description._
+
+---
 
 ---
 
@@ -336,12 +370,16 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Check if the ESI authentication token is available at the frontend.
 
 - URL: https://trello.com/c/ZhayyqmP/1117-fix-check-if-the-esi-authentication-token-is-available-at-the-frontend
 - Card ID: `662b983e1c9cefd7aaf0a1a2`
 
 _No description._
+
+---
 
 ---
 
@@ -355,6 +393,8 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Fix the deployment configuration to solve the problems identified.
 
 - URL: https://trello.com/c/syDhBjN0/1116-fix-fix-the-deployment-configuration-to-solve-the-problems-identified
@@ -364,12 +404,16 @@ _No description._
 
 ---
 
+---
+
 ## [DOCUMENTATION] Document the deployment process and the branch model.
 
 - URL: https://trello.com/c/Zi1kiyKl/1119-documentation-document-the-deployment-process-and-the-branch-model
 - Card ID: `662b9b4494dbda834e78ccae`
 
 _No description._
+
+---
 
 ---
 
@@ -384,6 +428,8 @@ _No description._
 
 ---
 
+---
+
 ## [STORY-NIF] System information should provide the Region->Constellation->System. The hover over each of the localtion path names should provide the location unique identifier.
 
 - URL: https://trello.com/c/YkE6PeOP/1113-story-nif-system-information-should-provide-the-region-constellation-system-the-hover-over-each-of-the-localtion-path-names-shou
@@ -391,6 +437,8 @@ _No description._
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -403,6 +451,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Setup a automatic test platform so every commit is checked and tested. Use PR to validate end to end tests.
 
 - URL: https://trello.com/c/nVoQLHja/1108-project-setup-a-automatic-test-platform-so-every-commit-is-checked-and-tested-use-pr-to-validate-end-to-end-tests
@@ -412,12 +462,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Reconfigure the development project to run from a similar configuration as the production.
 
 - URL: https://trello.com/c/XHMpt4a8/1075-project-reconfigure-the-development-project-to-run-from-a-similar-configuration-as-the-production
 - Card ID: `66140d285a1d786ff1c9615f`
 
 _No description._
+
+---
 
 ---
 
@@ -443,6 +497,8 @@ Mining operations are grouped by date and the profit should be evaluated based o
 
 ---
 
+---
+
 ## [RESEARCH] search for a Nest logger similar to the one used on java.
 
 - URL: https://trello.com/c/U6dXFipV/1093-research-search-for-a-nest-logger-similar-to-the-one-used-on-java
@@ -450,6 +506,8 @@ Mining operations are grouped by date and the profit should be evaluated based o
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -462,12 +520,16 @@ _No description._
 
 ---
 
+---
+
 ## [CHORE] Backend services usually return a subscription that is managed automatically by the Panel.
 
 - URL: https://trello.com/c/OxB85Nl5/1077-chore-backend-services-usually-return-a-subscription-that-is-managed-automatically-by-the-panel
 - Card ID: `66152447fabf0f8c3206b454`
 
 _No description._
+
+---
 
 ---
 
@@ -480,6 +542,8 @@ _No description._
 
 ---
 
+---
+
 ## [STORY] Add Volume and Market data to the core element called Stack.
 
 - URL: https://trello.com/c/hWt0prxw/1103-story-add-volume-and-market-data-to-the-core-element-called-stack
@@ -488,31 +552,6 @@ _No description._
 _No description._
 
 ---
-
-## [PROJECT] Deploy the Frontend and the Java Backend to Kubernetes for a first Stage full version.
-
-- URL: https://trello.com/c/HOP9xVbP/1061-project-deploy-the-frontend-and-the-java-backend-to-kubernetes-for-a-first-stage-full-version
-- Card ID: `660e6051f4e1e14882874398`
-
-_No description._
-
----
-
-## [CHORE] Add additional logs to frontend to display the configuration in use on the startup to check for values on Kubernetes.
-
-- URL: https://trello.com/c/t7UyuYeG/1070-chore-add-additional-logs-to-frontend-to-display-the-configuration-in-use-on-the-startup-to-check-for-values-on-kubernetes
-- Card ID: `660fbb7cbb6fa55cd69a8f05`
-
-_No description._
-
----
-
-## [CONFIG] Fix the Staging configuration to use the pods available on Kubernetes. Use NodePorts if required.
-
-- URL: https://trello.com/c/pnbNdeNf/1083-config-fix-the-staging-configuration-to-use-the-pods-available-on-kubernetes-use-nodeports-if-required
-- Card ID: `6616879f531cddc5c64cb4b0`
-
-_No description._
 
 ---
 
@@ -525,12 +564,16 @@ _No description._
 
 ---
 
+---
+
 ## [CONFIG] Simplify the backend service configuration and use only a subset of the environment properties to be consistent.
 
 - URL: https://trello.com/c/8ujqMjnp/1086-config-simplify-the-backend-service-configuration-and-use-only-a-subset-of-the-environment-properties-to-be-consistent
 - Card ID: `6616b4e027a6d6dc12577e3d`
 
 _No description._
+
+---
 
 ---
 
@@ -543,12 +586,16 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Add caching to Nest backend to speed up all the requests that should be cached as ESI caches their responses.
 
 - URL: https://trello.com/c/gUp0Cuzz/1100-project-add-caching-to-nest-backend-to-speed-up-all-the-requests-that-should-be-cached-as-esi-caches-their-responses
 - Card ID: `661be6d70ce4125cced629e1`
 
 _No description._
+
+---
 
 ---
 
@@ -561,12 +608,16 @@ _No description._
 
 ---
 
+---
+
 ## [TEST] Create a integrattion testing for the authentication flow on the new NIN backend.
 
 - URL: https://trello.com/c/wxI8O2WB/1118-test-create-a-integrattion-testing-for-the-authentication-flow-on-the-new-nin-backend
 - Card ID: `662b98a56de20d181eb4beaf`
 
 _No description._
+
+---
 
 ---
 
@@ -579,6 +630,8 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Automate the POM version so the jar name and the deployment use the same version configuration. Update the version with gitversion and the Gradle tool.
 
 - URL: https://trello.com/c/v31ljbYJ/1122-fix-automate-the-pom-version-so-the-jar-name-and-the-deployment-use-the-same-version-configuration-update-the-version-with-gitve
@@ -588,12 +641,16 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Fix startup for the acceptance environment to create a running application. Use the docker file for the deployment.
 
 - URL: https://trello.com/c/1D0gHYsE/1124-fix-fix-startup-for-the-acceptance-environment-to-create-a-running-application-use-the-docker-file-for-the-deployment
 - Card ID: `662c065e64cf26bcc160cbae`
 
 _No description._
+
+---
 
 ---
 
@@ -609,11 +666,15 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Add a live and a ready endpoints to application services running on pods.
 
 - URL: https://trello.com/c/njKj14Fx/1150-project-add-a-live-and-a-ready-endpoints-to-application-services-running-on-pods
 - Card ID: `6678a57eabd800e108e73631`
 
 _No description._
+
+---
 
 ---

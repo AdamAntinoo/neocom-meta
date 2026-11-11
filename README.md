@@ -6,13 +6,14 @@ Full guide: **[PROGRAMME.md](./PROGRAMME.md)** (methodology, commands, developer
 
 OpenSpec change status: **[openspec/CHANGE-STATUS.md](./openspec/CHANGE-STATUS.md)**.
 
-| Repository | Purpose |
-| --- | --- |
-| [neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git) | This repo: onboarding, programme docs, Cursor agents, OpenSpec, Graphify |
-| [neocom-front](https://github.com/AdamAntinoo/neocom-front.git) | Angular frontend. The dev server proxies pilot requests to `neocom-back` |
-| [neocom-back](https://github.com/AdamAntinoo/neocom-back.git) | NestJS API. Public pilot data is read from ESI through `@lgriffin/esi.ts` |
+| Repository | Clone URL | Purpose |
+| --- | --- | --- |
+| [neocom-meta](https://github.com/AdamAntinoo/neocom-meta) | `https://github.com/AdamAntinoo/neocom-meta.git` | This repo: onboarding, programme docs, Cursor agents, OpenSpec, Graphify |
+| [neocom-front](https://github.com/AdamAntinoo/neocom-front) | `https://github.com/AdamAntinoo/neocom-front.git` | Angular frontend. The dev server proxies pilot requests to `neocom-back` |
+| [neocom-back](https://github.com/AdamAntinoo/neocom-back) | `https://github.com/AdamAntinoo/neocom-back.git` | NestJS API. Public pilot data is read from ESI through `@lgriffin/esi.ts` |
+| [neocom-domain](https://github.com/AdamAntinoo/neocom-domain) | `https://github.com/AdamAntinoo/neocom-domain.git` | Published Node domain library on npm |
 
-Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git) and [neocom-esi](https://github.com/AdamAntinoo/neocom-esi.git). They are not required to run or integration-test the service chain.
+Left aside for now: [neocom-esi](https://github.com/AdamAntinoo/neocom-esi). Full programme guide: [PROGRAMME.md](./PROGRAMME.md) §1.
 
 ## Documentation
 
@@ -93,6 +94,7 @@ Clone the active projects as siblings:
 git clone https://github.com/AdamAntinoo/neocom-meta.git
 git clone https://github.com/AdamAntinoo/neocom-front.git
 git clone https://github.com/AdamAntinoo/neocom-back.git
+git clone https://github.com/AdamAntinoo/neocom-domain.git
 ```
 
 ### 2. Node version
@@ -108,7 +110,11 @@ node -v
 ### 3. Install
 
 ```bash
-cd neocom-back
+cd neocom-domain
+nvm use
+npm install
+
+cd ../neocom-back
 nvm use
 npm install
 
@@ -169,15 +175,6 @@ Integration across the chain is the running dashboard: the pilot panel shows the
 
 ---
 
-## Local Kubernetes
+## Docker deployment (`staging` / `prod`)
 
-Cluster scripts in this repository start a local Kubernetes cluster. They do not deploy the front, the back, or the ESI client. Use the service chain above for integration testing.
-
-```bash
-npm run k8s:start       # prefer minikube; else Docker Desktop / kind guidance
-npm run k8s:dashboard   # minikube dashboard (Docker Desktop: use Docker UI)
-npm run k8s:status      # kubectl cluster-info + nodes
-npm run k8s:stop        # minikube stop / kind delete (Docker Desktop: UI)
-```
-
-Scripts live under `scripts/k8s/`. No Helm charts or app deploy manifests yet.
+Programme **`staging`** and **`prod`** deploy to a **Docker engine** (`develop` → `staging`, `main` → `prod`). See `PROGRAMME.md` §7 and EPIC-017 §08. Local integration testing uses the service chain above; shared Postgres/Redis for local async use Docker Compose in the product repos.

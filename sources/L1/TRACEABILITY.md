@@ -6,7 +6,7 @@ Delivery SHAs / PR numbers live in [`openspec/DELIVERY-INDEX.md`](../../openspec
 
 Companions: `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). **Removed (do not recreate):** `sources/L2/`, `SPEC-EPIC-INDEX.md`, and **`### L2 delivery`**.
 
-Last refreshed: 2026-11-07 (`openspec-apply-change back-eve-items` → ITEM-025…026 applied; 22/22).
+Last refreshed: 2026-11-11 (`/epic:extract 17` → `front-cicd` 0/83 + `back-cicd` 0/68; leftover `[ ]` only F-045…047).
 
 ## Table of contents
 
@@ -16,23 +16,25 @@ Epic sections and the Table of contents are listed in **reverse epic number orde
 
 | Epic | Sections |
 | --- | --- |
-| [`13.EPIC-EVE-ITEMS.md`](#13epic-eve-itemsmd) | 📝 5 |
+| [`17.EPIC-CICD.md`](#17epic-cicdmd) | 📝 2 · ⏳ 10 · ⚪ 1 |
+| [`16.EPIC-OPTIMIZATIONS.md`](#16epic-optimizationsmd) | 📝 1 |
+| [`15.EPIC-FRONT-PAGE-ASSETS-BY-LOCATION.md`](#15epic-front-page-assets-by-locationmd) | ✅ 4 |
+| [`14.EPIC-ASSETS.md`](#14epic-assetsmd) | ✅ 3 · ⚪ 1 · ⏳ 1 |
+| [`13.EPIC-EVE-ITEMS.md`](#13epic-eve-itemsmd) | ✅ 5 · ➡️ 1 |
 | [`12.EPIC-PROCESSED-BLUEPRINT.md`](#12epic-processed-blueprintmd) | 👀 1 · ⏳ 9 · 🚫 1 |
 | [`11.EPIC-BLUEPRINT-LIST-PROCESSING.md`](#11epic-blueprint-list-processingmd) | 📦 6 |
 | [`10.EPIC-INDUSTRY-BLUEPRINTS.md`](#10epic-industry-blueprintsmd) | 📦 10 · 🔁 1 |
 | [`09.EPIC-BACKEND-SERVICES.md`](#09epic-backend-servicesmd) | 📦 5 |
-| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | 📝 1 · ⏳ 3 · 📦 9 · 🚫 5 |
-| [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | 👀 2 |
-| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | ⏳ 6 · 📦 11 · 🔁 2 · ➡️ 1 |
+| [`08.EPIC-LOCATIONS.md`](#08epic-locationsmd) | 📝 1 · ⏳ 3 · 📦 9 · ➡️ 2 · 🚫 3 |
+| [`07.EPIC-NEOCOM-API.md`](#07epic-neocom-apimd) | ⏳ 2 · 📦 2 · ⚪ 1 |
+| [`06.EPIC-USER-INTERFACE.md`](#06epic-user-interfacemd) | ⏳ 6 · 📦 11 · 🔁 2 · ➡️ 1 · 📥 2 |
 | [`05.EPIC-ESI-UNIVERSE.md`](#05epic-esi-universemd) | ⚪ 1 |
-| [`04.EPIC-MODELS.md`](#04epic-modelsmd) | ⏳ 3 · ✅ 7 · 📦 1 · ➡️ 4 · 🚫 1 |
-| [`03.EPIC-TESTING.md`](#03epic-testingmd) | 📝 6 · ⏳ 1 |
+| [`04.EPIC-MODELS.md`](#04epic-modelsmd) | ⏳ 2 · ✅ 7 · 📦 1 · ➡️ 5 · 🚫 1 |
+| [`03.EPIC-TESTING.md`](#03epic-testingmd) | ➡️ 7 |
 | [`02.EPIC-ANGULAR-CODIFICATION.md`](#02epic-angular-codificationmd) | 📝 1 · ⏳ 1 · 📦 8 |
-| [`01.EPIC-LOGIN-PROCEDURE.md`](#01epic-login-proceduremd) | 📝 1 · 📦 7 |
+| [`01.EPIC-LOGIN-PROCEDURE.md`](#01epic-login-proceduremd) | 📦 8 |
 
 Also: [How to read](#how-to-read) · [How agents update this file](#how-agents-update-this-file)
-
-
 
 ## How to read
 
@@ -45,7 +47,7 @@ Each epic is a section headed with the L1 filename (for example `## \`01.EPIC-LO
 | --- | --- |
 | **Section** | L1 section id or heading slice |
 | **Item** | Register row / requirement group under that section |
-| **Status** | ⏳ `to review` · 👀 `reviewed` · 📤 `extracted` · 📝 `registered` · 🔨 `applying` · ✅ `applied` · 📦 `archived` · 🚫 `out of scope` · ⚪ `none` · 🔁 `duplicated` |
+| **Status** | ⏳ `to review` · 👀 `reviewed` · 📤 `extracted` · 📝 `registered` · 🔨 `applying` · ✅ `applied` · 📦 `archived` · 🚫 `out of scope` · ⚪ `none` · 🔁 `duplicated` · 📥 `imported` |
 
 Pipeline: `none` → `registered` → `applying` → `applied` → `archived`. Legacy rows may still say `extracted` (the removed L2 copy). `/epic:extract` does not write that status.
 
@@ -58,20 +60,90 @@ Pipeline: `none` → `registered` → `applying` → `applied` → `archived`. L
 | `neocom-domain` | `477ee33` | tip commit |
 
 
-## `13.EPIC-EVE-ITEMS.md`
+## `17.EPIC-CICD.md`
 
-Epic id: EPIC-013 · Highest: 🔨 `applying` · Last updated: 2026-11-07 (ITEM-025…026 apply complete on `feature/eve-items`)
+Epic id: EPIC-017 · Highest: 📝 `registered` · Last updated: 2026-11-11 (`/epic:extract 17` → `front-cicd` 0/83 + `back-cicd` 0/68)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| [01](./13.EPIC-EVE-ITEMS.md#section-01--hierarchy-esi-type--eveitemv1dto--priceditemv1dto) | Hierarchy ESI → EveItemV1Dto → PricedItemV1Dto · ITEM-023 outbound by function | 📝 `registered` → `back-eve-items` |
-| [02](./13.EPIC-EVE-ITEMS.md#section-02--esi-universe-type-fields) | ESI universe type fields / ITEM-001…002 · ITEM-022 types pairing | 📝 `registered` → `back-eve-items` |
-| [03](./13.EPIC-EVE-ITEMS.md#section-03--eveitemv1dto-back-interchange) | EveItemV1Dto / ITEM-003…007 (group→category ESI; iconUrl) | 📝 `registered` → `back-eve-items` |
-| [04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) | PricedItemV1Dto extends EveItemV1Dto / ITEM-010…013 | 📝 `registered` → `back-eve-items` |
-| [05](./13.EPIC-EVE-ITEMS.md#section-05--back-use-cases-get-by-item-id) | eveitems (public) + pricedeveitems (auth); Redis; compose / ITEM-014…021 · ITEM-024 Jita orders · ITEM-025…026 TTL caches | 📝 `registered` → `back-eve-items` |
-| — | EveAssetV1 / ShipV1 | stay EPIC-004 — pending move confirm if desired |
+| OpenSpec sets | `front-cicd` (`CICD-F-*`) | 📝 `registered` 0/83 |
+| OpenSpec sets | `back-cicd` (`CICD-B-*`) | 📝 `registered` 0/68 |
+| [01](./17.EPIC-CICD.md#section-01--cypress-ui-and-content-validation) | CICD-F-001…004 (was BDD-001…004) | 📝 `registered` → `front-cicd` |
+| [02](./17.EPIC-CICD.md#section-02--mock-data-from-real-runs) | CICD-F-010…016 | 📝 `registered` → `front-cicd` |
+| [03](./17.EPIC-CICD.md#section-03--coverage-control-and-quality-gates) | CICD-F/B-020…024 (was COV-001…005) | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [04](./17.EPIC-CICD.md#section-04--cicd-test-jobs-and-sonar-gate-order) | CICD-F/B-030…032 (was GATE-001…003) | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [05](./17.EPIC-CICD.md#section-05--testing-command-catalog) | CICD-F/B-040…044 (was INFRA-060…064) | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [05](./17.EPIC-CICD.md#section-05--testing-command-catalog) | CICD-F-045…047 (SDD: full integration on development deployment; Gherkin; one feature file per page initially) | ⏳ `[ ] to review` |
+| [06](./17.EPIC-CICD.md#section-06--backend-testing) | CICD-B-001…017 | 📝 `registered` → `back-cicd` |
+| [07](./17.EPIC-CICD.md#section-07--domain-node-unit-tests) | CICD-F-050…053 | 📝 `registered` → `front-cicd` |
+| [08](./17.EPIC-CICD.md#section-08--deployment) | CICD-F/B-080…082 | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [09](./17.EPIC-CICD.md#section-09--logging) | CICD-F-110…122 + F-124 / CICD-B-110…111 + B-113…127 | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [10](./17.EPIC-CICD.md#section-10--gherkin-step-catalogs-front-and-back) | CICD-F-060…067 / CICD-B-060…061 | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [11](./17.EPIC-CICD.md#section-11--continuous-integration-pipeline) | CICD-F/B-070…079 + F/B-083…089 | 📝 `registered` → `front-cicd` + `back-cicd` |
+| [12](./17.EPIC-CICD.md#section-12--developer-install) | CICD-F-092…095 + F-097…098 | 📝 `registered` → `front-cicd` |
+| [13](./17.EPIC-CICD.md#section-13--local-configuration) | CICD-F-101…103 + F-105…108 | 📝 `registered` → `front-cicd` |
+
+---
+
+## `16.EPIC-OPTIMIZATIONS.md`
+
+Epic id: EPIC-016 · Highest: 📝 `registered` · Last updated: 2026-11-09 (`/epic:extract` → `back-eve-item-dogma-drop`)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./16.EPIC-OPTIMIZATIONS.md#section-01--drop-unused-dogma-fields-from-eveitemv1dto) | Drop unused dogma fields from EveItemV1Dto (OPT-001…003) | 📝 `registered` → `back-eve-item-dogma-drop` |
+
+---
+
+## `15.EPIC-FRONT-PAGE-ASSETS-BY-LOCATION.md`
+
+Epic id: EPIC-015 · Highest: ✅ `applied` · Last updated: 2026-11-09 ([neocom-front#7](https://github.com/AdamAntinoo/neocom-front/pull/7) merged; develop @ `d1fed92`; openspec validate passed)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./15.EPIC-FRONT-PAGE-ASSETS-BY-LOCATION.md#section-01--dashboard-feature-entry--icon) | Dashboard Feature entry + icon (FAL-001…003) | ✅ `applied` → `front-assets-by-location` |
+| [02](./15.EPIC-FRONT-PAGE-ASSETS-BY-LOCATION.md#section-02--assets-by-location-page) | Assets by location page + pilot module (FAL-010…015) | ✅ `applied` → `front-assets-by-location` |
+| [03](./15.EPIC-FRONT-PAGE-ASSETS-BY-LOCATION.md#section-03--pilot-assets-feed-and-region--system-aggregation) | Pilot assets feed + aggregate via locationId + spacelocations service (FAL-020…029, 033…035) | ✅ `applied` → `front-assets-by-location` |
+| [04](./15.EPIC-FRONT-PAGE-ASSETS-BY-LOCATION.md#section-04--asset-render-v1-asset-render) | Asset render `v1-asset-render` (FAL-030…032, 036…037) | ✅ `applied` → `front-assets-by-location` |
+
+---
+
+## `14.EPIC-ASSETS.md`
+
+Epic id: EPIC-014 · Highest: ✅ `applied` · Last updated: 2026-11-09 ([neocom-back#9](https://github.com/AdamAntinoo/neocom-back/pull/9) merged; develop @ `63a2098`; openspec validate passed)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./14.EPIC-ASSETS.md#section-01--esi-character-assets-specimen) | ESI character assets specimen + related ESI outputs | ⚪ `none` |
+| [02](./14.EPIC-ASSETS.md#section-02--eveassetv1) | EveAssetV1 / expansions / AST-001…006 | ✅ `applied` → `back-assets` |
+| [02](./14.EPIC-ASSETS.md#section-02--eveassetv1) | Programme HTTP list + by-location + Redis `pilot/asset` TTL 60m / AST-007…009, AST-013…014 | ✅ `applied` → `back-assets` |
+| [03](./14.EPIC-ASSETS.md#section-03--locatedassetcontainerv1) | LocatedAssetContainerV1 / AST-010…012 (was LocationAssetContainer / LOC-070) | ✅ `applied` → `back-assets` |
+| [04](./14.EPIC-ASSETS.md#section-04--shippingyardlocation) | ShippingYardLocation / LOC-080 (from EPIC-008 §10) | ⏳ `[ ] to review` |
+
+---
+
+## `13.EPIC-EVE-ITEMS.md`
+
+Epic id: EPIC-013 · Highest: ✅ `applied` · Last updated: 2026-11-09 ([neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8)+[#9](https://github.com/AdamAntinoo/neocom-back/pull/9) merged; develop @ `63a2098`; openspec validate passed)
+
+### Sections
+
+| Section | Item | Status |
+| --- | --- | --- |
+| [01](./13.EPIC-EVE-ITEMS.md#section-01--hierarchy-esi-type--eveitemv1dto--priceditemv1dto) | Hierarchy ESI → EveItemV1Dto → PricedItemV1Dto · ITEM-023 outbound by function | ✅ `applied` → `back-eve-items` |
+| [02](./13.EPIC-EVE-ITEMS.md#section-02--esi-universe-type-fields) | ESI universe type fields / ITEM-001…002 · ITEM-022 types pairing | ✅ `applied` → `back-eve-items` |
+| [03](./13.EPIC-EVE-ITEMS.md#section-03--eveitemv1dto-back-interchange) | EveItemV1Dto / ITEM-003…007 (group→category ESI; iconUrl) | ✅ `applied` → `back-eve-items` |
+| [04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) | PricedItemV1Dto extends EveItemV1Dto / ITEM-010…013 | ✅ `applied` → `back-eve-items` |
+| [05](./13.EPIC-EVE-ITEMS.md#section-05--back-use-cases-get-by-item-id) | eveitems (public) + pricedeveitems (auth); Redis; compose / ITEM-014…021 · ITEM-024 Jita orders · ITEM-025…026 TTL caches | ✅ `applied` → `back-eve-items` |
+| — | EveAssetV1 | ➡️ moved → [EPIC-014 §02](./14.EPIC-ASSETS.md#section-02--eveassetv1) |
 
 ---
 
@@ -159,7 +231,7 @@ Epic id: EPIC-009 · Highest: 📦 `archived` · Last updated: 2026-11-06 (Relea
 
 ## `08.EPIC-LOCATIONS.md`
 
-Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftover Lookup*/KnownSystem/§15 register; space-location-service archived)
+Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-07 (LocatedAssetContainerV1 + ShippingYard → EPIC-014)
 
 ### Sections
 
@@ -175,8 +247,8 @@ Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftove
 | 06 | Solar system (LOC-040) | 📤 `extracted` → 📦 `archived` via OpenSpec |
 | 07 | Station (LOC-050, LOC-051) | 📤 `extracted` → 📦 `archived` via OpenSpec |
 | 08 | Structure (LOC-060) | 📤 `extracted` → 📦 `archived` via OpenSpec |
-| 09 | LocationAssetContainer | 🚫 `out of scope` |
-| 10 | ShippingYardLocation | 🚫 `out of scope` |
+| 09 | LocationAssetContainer → LocatedAssetContainerV1 | ➡️ moved → [EPIC-014 §03](./14.EPIC-ASSETS.md#section-03--locatedassetcontainerv1) |
+| 10 | ShippingYardLocation | ➡️ moved → [EPIC-014 §04](./14.EPIC-ASSETS.md#section-04--shippingyardlocation) |
 | 11 | LookupRegion (LOC-090) | ⏳ `to review` |
 | 12 | LookupSolarSystem (LOC-100) | ⏳ `to review` |
 | 13 | KnownSystem (LOC-110) | 📝 `registered` → `front-known-system` |
@@ -189,47 +261,49 @@ Epic id: EPIC-008 · Highest: ✅ `applied` · Last updated: 2026-11-06 (leftove
 
 ## `07.EPIC-NEOCOM-API.md`
 
-Epic id: EPIC-007 · Highest: ⚪ `none` (flows Review-gated; related back work under other epics) · Last updated: 2026-10-19
+Epic id: EPIC-007 · Highest: ⚪ `none` · Last updated: 2026-11-09 (section model + Review normalize; leftovers `[ ] to review`)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| API flows | Flow 06 — GET industry blueprints (async) | 👀 `reviewed` |
-| API flows | Flow 07 — GET industry blueprints SSE | 👀 `reviewed` |
+| [01](./07.EPIC-NEOCOM-API.md#section-01--contract-inventory-and-flow-rules) | API-BASE-001…003 | ⏳ `[ ] to review` |
+| [02](./07.EPIC-NEOCOM-API.md#section-02--authentication-flows-0104) | API-AUTH-001…002, Flows 01–04, cookies / 401 | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| [03](./07.EPIC-NEOCOM-API.md#section-03--pilot-data-access-flow-05) | API-PILOT-001…002 (Nest GET pilot + private ESI gap) | ⏳ `[ ] to review` |
+| [04](./07.EPIC-NEOCOM-API.md#section-04--industry-blueprints-list-and-events-flows-0607) | API-IND-BP-001…002 (Flows 06–07) | 📦 `archived` → industry-blueprints / async-sse |
+| [05](./07.EPIC-NEOCOM-API.md#section-05--further-flows) | Further flows (Flow 08+) | ⚪ `none` (placeholder) |
 
 ---
 
 
 ## `06.EPIC-USER-INTERFACE.md`
 
-Epic id: EPIC-006 · Highest: ✅ `applied` · Last updated: 2026-11-06 (UI-SHELL / UI-VAR / UI-BP / UI-STYLE / UI-MS `[ ] to review`; leftover UI-DASH to review; prior OpenSpec archived)
+Epic id: EPIC-006 · Highest: 📦 `archived` · Last updated: 2026-11-09 (section model + Review normalize; leftovers `[ ] to review`)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Dashboard | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
-| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Feature dashboard | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
-| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Model strip | ⏳ `[ ] to review` |
-| [Page register](./06.EPIC-USER-INTERFACE.md#page-register) | Authentication pages | imported (not extractable) |
-| [Page geometry](./06.EPIC-USER-INTERFACE.md#page-geometry-shared-styles) | UI-GEO-001 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  (DEF-IB-006 token) |
-| [Page geometry](./06.EPIC-USER-INTERFACE.md#page-geometry-shared-styles) | UI-GEO-002 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  (DEF-BLP-005) |
-| [Secured page chrome](./06.EPIC-USER-INTERFACE.md#secured-page-chrome-pilot--corporation) | UI-SHELL-001…002 | ⏳ `[ ] to review` |
-| [Variant naming](./06.EPIC-USER-INTERFACE.md#variant-naming) / [Render variant templates](./06.EPIC-USER-INTERFACE.md#render-variant-templates) | UI-VAR-001…002 | ⏳ `[ ] to review` |
-| [Versioned panels](./06.EPIC-USER-INTERFACE.md#versioned-panels-and-renders-vn-) | UI-VER-001…004 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
-| [Front domain NeoCom nodes](./06.EPIC-USER-INTERFACE.md#front-domain-neocom-nodes-file-alias-render-key) | UI-DOM-001…005 | 📦 `archived` → [`front-domain-nodes`](../../openspec/changes/archive/2026-11-06-front-domain-nodes/) ·  (`@domain`) |
-| [Media (EVE Image Server)](./06.EPIC-USER-INTERFACE.md#media-from-the-eve-image-server) | UI-MED-001…008 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
-| [Common header](./06.EPIC-USER-INTERFACE.md#common-header-element-app-page-header) | UI-HDR-001…011 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
-| [Application info panel](./06.EPIC-USER-INTERFACE.md#application-info-panel-v1-application-info-render) | UI-AIP-001…006 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
-| [Server status panel](./06.EPIC-USER-INTERFACE.md#server-status-panel-v1-server-status-render) | UI-SSP-001…007 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
-| [Corporation panel](./06.EPIC-USER-INTERFACE.md#corporation-panel-v1-corporation-render) | UI-CORP-001…014 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  (014 = DEF-BLP-004) |
-| [Blueprint render](./06.EPIC-USER-INTERFACE.md#blueprint-render-v1-blueprint-render) | UI-BP-001…003 | ➡️ moved → [EPIC-012 §08](./12.EPIC-PROCESSED-BLUEPRINT.md#section-08--blueprint-render-runs-v1-blueprint-render) |
-| [Style catalog](./06.EPIC-USER-INTERFACE.md#style-catalog-programme) | UI-STYLE-001…005 | ⏳ `[ ] to review` |
-| [Model strip](./06.EPIC-USER-INTERFACE.md#model-strip-model-strip-page) | UI-MS-001…007 | ⏳ `[ ] to review` (007 = catalog specimens under font sample) |
-| [Dashboard](./06.EPIC-USER-INTERFACE.md#dashboard-landing-page) | UI-DASH-001…005, 007…010, 012…015 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
-| [Dashboard requirements](./06.EPIC-USER-INTERFACE.md#dashboard-requirements) | UI-DASH-006, 011 | ⏳ `[ ] to review` |
-| [Character selection](./06.EPIC-USER-INTERFACE.md#character-selection-login-006--ui) | UI-CHAR-002 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) ·  |
+| [01](./06.EPIC-USER-INTERFACE.md#section-01--page-register) | Page register — Dashboard / Feature dashboard | 🔁 `duplicated` → [00.DUPLICATES](./00.DUPLICATES.md) |
+| [01](./06.EPIC-USER-INTERFACE.md#section-01--page-register) | Page register — Model strip | ⏳ `[ ] to review` |
+| [01](./06.EPIC-USER-INTERFACE.md#section-01--page-register) | Page register — Authentication pages | 📥 imported (not extractable) |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-SHELL-001…002 | ⏳ `[ ] to review` |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-VAR-001…002 | ⏳ `[ ] to review` |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-GEO-001…002 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-VER-001…004 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-DOM-001…005 | 📦 `archived` → [`front-domain-nodes`](../../openspec/changes/archive/2026-11-06-front-domain-nodes/) |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-MED-001…008 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [02](./06.EPIC-USER-INTERFACE.md#section-02--shell-and-page-header) | UI-HDR-001…011 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [03](./06.EPIC-USER-INTERFACE.md#section-03--application-info-panel-v1-application-info-render) | UI-AIP-001…006 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [04](./06.EPIC-USER-INTERFACE.md#section-04--server-status-panel-v1-server-status-render) | UI-SSP-001…007 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [05](./06.EPIC-USER-INTERFACE.md#section-05--corporation-panel-v1-corporation-render) | UI-CORP-001…014 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [06](./06.EPIC-USER-INTERFACE.md#section-06--blueprint-render-v1-blueprint-render) | UI-BP-001…003 | ➡️ moved → [EPIC-012 §08](./12.EPIC-PROCESSED-BLUEPRINT.md#section-08--blueprint-render-runs-v1-blueprint-render) |
+| [07](./06.EPIC-USER-INTERFACE.md#section-07--style-catalog-programme) | UI-STYLE-001…005 | ⏳ `[ ] to review` |
+| [08](./06.EPIC-USER-INTERFACE.md#section-08--model-strip-model-strip-page) | UI-MS-001…007 | ⏳ `[ ] to review` |
+| [09](./06.EPIC-USER-INTERFACE.md#section-09--authentication-and-login-pages-imported) | Auth / login / callback / exception / UI-CHAR-001 | 📥 imported (not extractable) |
+| [09](./06.EPIC-USER-INTERFACE.md#character-selection-login-006--ui) | UI-CHAR-002 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [10](./06.EPIC-USER-INTERFACE.md#section-10--dashboard-landing-page) | UI-DASH-001…005, 007…010, 012…015 | 📦 `archived` → [`front-dashboard-shell`](../../openspec/changes/archive/2026-11-06-front-dashboard-shell/) |
+| [10](./06.EPIC-USER-INTERFACE.md#dashboard-requirements) | UI-DASH-006, 011 | ⏳ `[ ] to review` |
 
 ---
 
@@ -249,7 +323,7 @@ Epic id: EPIC-005 · Highest: ⚪ `none` · Last updated: 2026-10-19
 
 ## `04.EPIC-MODELS.md`
 
-Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (§04 EveLocationV1 + §11–17 ProcessedBlueprint/BOM → EPIC-012)
+Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-07 (EveAssetV1 → EPIC-014)
 
 ### Sections
 
@@ -257,7 +331,7 @@ Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (§04 Ev
 | --- | --- | --- |
 | 03 | PricedItemV1Dto | ➡️ moved → [EPIC-013 §04](./13.EPIC-EVE-ITEMS.md#section-04--priceditemv1dto-extends-eveitemv1dto) |
 | 04 | EveLocationV1Dto | ➡️ moved → [EPIC-012 §09](./12.EPIC-PROCESSED-BLUEPRINT.md#section-09--evelocationv1dto) |
-| 05 | EveAssetV1 | ⏳ `to review` |
+| 05 | EveAssetV1 | ➡️ moved → [EPIC-014 §02](./14.EPIC-ASSETS.md#section-02--eveassetv1) |
 | 06 | PublicPilotV1 | ✅ `applied` |
 | 07 | PilotV2 | ✅ `applied` |
 | 08 | ShipV1 | ⏳ `to review` |
@@ -277,19 +351,19 @@ Epic id: EPIC-004 · Highest: ✅ `applied` · Last updated: 2026-11-06 (§04 Ev
 
 ## `03.EPIC-TESTING.md`
 
-Epic id: EPIC-003 · Highest: 📝 `registered` · Last updated: 2026-11-06 (Domain node unit tests DNODE-001…004 `[ ] to review`)
+Epic id: EPIC-003 · Highest: 📦 `archived` · Last updated: 2026-11-09 · **source-archived** → [`archive/03.EPIC-TESTING.md`](./archive/03.EPIC-TESTING.md) · contents → [`17.EPIC-CICD.md`](./17.EPIC-CICD.md)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| Cypress UI and content validation | BDD / Cypress | 📝 `registered` (`front-bdd-cypress` 0/4) |
-| Mock data from real runs | Fixtures | 📝 `registered` (`front-mock-fixtures` 0/4) |
-| Coverage control and quality gates | Sonar / coverage | 📝 `registered` (`cicd-coverage-sonar` 0/5) |
-| CI/CD test jobs and Sonar gate order | Testing gates | 📝 `registered` (`cicd-testing-gates` 0/3) |
-| Testing command catalog | Shared TDD/BDD/SDD commands | 📝 `registered` (`infra-test-commands` 0/5) |
-| Backend testing | Back guidelines / WireMock / Gherkin | 📝 `registered` (`back-testing` 0/5) |
-| [Domain node unit tests](./03.EPIC-TESTING.md#domain-node-unit-tests) | DNODE-001…004 (review + create Vitest for NeoCom nodes) | ⏳ `[ ] to review` |
+| Cypress UI and content validation | BDD-001…004 | ➡️ moved → [EPIC-017 §01](./17.EPIC-CICD.md#section-01--cypress-ui-and-content-validation) |
+| Mock data from real runs | FIX-001…004 | ➡️ moved → [EPIC-017 §02](./17.EPIC-CICD.md#section-02--mock-data-from-real-runs) |
+| Coverage control and quality gates | COV-001…005 | ➡️ moved → [EPIC-017 §03](./17.EPIC-CICD.md#section-03--coverage-control-and-quality-gates) |
+| CI/CD test jobs and Sonar gate order | GATE-001…003 | ➡️ moved → [EPIC-017 §04](./17.EPIC-CICD.md#section-04--cicd-test-jobs-and-sonar-gate-order) |
+| Testing command catalog | INFRA-060…064 | ➡️ moved → [EPIC-017 §05](./17.EPIC-CICD.md#section-05--testing-command-catalog) |
+| Backend testing | BTEST-001…005 | ➡️ moved → [EPIC-017 §06](./17.EPIC-CICD.md#section-06--backend-testing) |
+| Domain node unit tests | DNODE-001…004 | ➡️ moved → [EPIC-017 §07](./17.EPIC-CICD.md#section-07--domain-node-unit-tests) |
 
 ---
 
@@ -318,20 +392,20 @@ Epic id: EPIC-002 · Highest: ✅ `applied` · Last updated: 2026-11-06 (Domain 
 
 ## `01.EPIC-LOGIN-PROCEDURE.md`
 
-Epic id: EPIC-001 · Highest: ✅ `applied` · Last updated: 2026-11-03
+Epic id: EPIC-001 · Highest: 📦 `archived` · Last updated: 2026-11-09 · **source-archived** → [`archive/01.EPIC-LOGIN-PROCEDURE.md`](./archive/01.EPIC-LOGIN-PROCEDURE.md)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
-| Login flow | SSO / Authorization Code procedure | 📦 `archived` (`login`) |
-| Development registration | Dev app registration + callback | 📦 `archived` (`login`) |
-| Environment | Front/back env for SSO | 📦 `archived` (`login`); related `nestjs-sso-config` 📝 `registered` |
-| Proposed solution | Token storage / refresh on back | 📦 `archived` (`login`) |
-| State flow | Auth state machine | 📦 `archived` (`login`) |
-| How the code follows the states | Implementation mapping | 📦 `archived` (`login`) |
-| Login page | Front login UI | 📦 `archived` (`login`) |
-| Login progress | Progress / callback UX | 📦 `archived` (`login`) |
+| Login flow | SSO / Authorization Code procedure | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| Development registration | Dev app registration + callback | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| Environment | Front/back env for SSO | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| Proposed solution | Token storage / refresh on back | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| State flow | Auth state machine | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| How the code follows the states | Implementation mapping | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| Login page | Front login UI | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
+| Login progress | Progress / callback UX | 📦 `archived` → [`login`](../../openspec/changes/archive/2026-11-06-login/) |
 
 ---
 

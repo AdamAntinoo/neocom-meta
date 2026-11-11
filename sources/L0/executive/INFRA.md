@@ -31,7 +31,6 @@
 - [ ] `INFRA-005` [The annotation library does not go with the library so any external service cannot locate the local maven packages. Use integrated deployment or project dependency to solve integration exceptions.](https://trello.com/c/8avIZvpH/17-ci-the-annotation-library-does-not-go-with-the-library-so-any-external-service-cannot-locate-the-local-maven-packages-use-integr) · _CI_ · `BACKLOG`
 - [ ] `INFRA-006` [Get the version to be published from a central version definition point. This requires some research about Gradle.](https://trello.com/c/PnMweys1/294-configuration-get-the-version-to-be-published-from-a-central-version-definition-point-this-requires-some-research-about-gradle) · _CONFIGURATION_ · `BACKLOG`
 - [ ] `INFRA-007` [Make the Configuration Provider be able to identify profiles so each profile(dev, stage, prod) can have its own set of configuration files and properties.](https://trello.com/c/bEOebvsD/183-configuration-make-the-configuration-provider-be-able-to-identify-profiles-so-each-profiledev-stage-prod-can-have-its-own-set-of) · _CONFIGURATION_ · `BACKLOG`
-- [ ] `INFRA-009` [Fix the Staging configuration to use the pods available on Kubernetes. Use NodePorts if required.](https://trello.com/c/pnbNdeNf/1083-config-fix-the-staging-configuration-to-use-the-pods-available-on-kubernetes-use-nodeports-if-required) · _CONFIG_ · `MPV-Prepare`
 - [ ] `INFRA-010` [Simplify the backend service configuration and use only a subset of the environment properties to be consistent.](https://trello.com/c/8ujqMjnp/1086-config-simplify-the-backend-service-configuration-and-use-only-a-subset-of-the-environment-properties-to-be-consistent) · _CONFIG_ · `MPV-Prepare`
 - [ ] `INFRA-011` [Use environment configuration for NIN.](https://trello.com/c/AXSbXNg9/1084-config-use-environment-configuration-for-nin) · _CONFIG_ · `MPV-Prepare`
 - [ ] `INFRA-012` [Add back the LiquiBase database features to control the table and database record management on production.](https://trello.com/c/2ajoaabW/39-deploy-add-back-the-liquibase-database-features-to-control-the-table-and-database-record-management-on-production) · _DEPLOY_ · `BACKLOG`
@@ -83,12 +82,10 @@
 - [ ] `INFRA-051` [Remove the need to use port 80 for the application since there are no external hosts on the service.](https://trello.com/c/BDbR20lC/982-projectremove-the-need-to-use-port-80-for-the-application-since-there-are-no-external-hosts-on-the-service) · _PROJECT_ · `BACKLOG`
 - [ ] `INFRA-052` [Research how to reset and endpoint to return the first answer of a set.](https://trello.com/c/nlTtcUim/970-projectresearch-how-to-reset-and-endpoint-to-return-the-first-answer-of-a-set) · _PROJECT_ · `BACKLOG`
 - [ ] `INFRA-053` [Research how to return different outputs for a same endpoint in sequence.](https://trello.com/c/ApJMzRdU/969-projectresearch-how-to-return-different-outputs-for-a-same-endpoint-in-sequence) · _PROJECT_ · `BACKLOG`
-- [ ] `INFRA-054` [Use Kubernetes Config Maps to parametrize applications and reduce the number os images generated.](https://trello.com/c/To6otIAC/1068-research-use-kubernetes-config-maps-to-parametrize-applications-and-reduce-the-number-os-images-generated) · _RESEARCH_ · `MPV-Prepare`
 
 ### In progress (2)
 
 - [~] `INFRA-055` [NIF Page review and change to show the list of processed blueprints.](https://trello.com/c/kGI8sDjp/1134-epic-029-nif-page-review-and-change-to-show-the-list-of-processed-blueprints) · _EPIC-0.29_ · `WIP-P`
-- [~] `INFRA-056` [Move secret and encrypted values to Kubernetes secrets.](https://trello.com/c/wTOBTaTk/1148-project-move-secret-and-encrypted-values-to-kubernetes-secrets) · _PROJECT_ · `WIP-P`
 
 ### In testing (8)
 
@@ -109,7 +106,6 @@
 - [ ] `INFRA-066` [Add the system name to the mining extraction published information.](https://trello.com/c/cZOLZ2kW/341-add-the-system-name-to-the-mining-extraction-published-information) · `BACKLOG`
 - [ ] `INFRA-067` [Create a process to keep the server running once I have started mining.](https://trello.com/c/p7DWnGPM/340-create-a-process-to-keep-the-server-running-once-i-have-started-mining) · `BACKLOG`
 - [ ] `INFRA-071` [Add a builder to the NeoComException](https://trello.com/c/KlDNZXbN/1080-chore-add-a-builder-to-the-neocomexception) · _CHORE_ · `MPV-Prepare`
-- [ ] `INFRA-072` [Add additional logs to frontend to display the configuration in use on the startup to check for values on Kubernetes.](https://trello.com/c/t7UyuYeG/1070-chore-add-additional-logs-to-frontend-to-display-the-configuration-in-use-on-the-startup-to-check-for-values-on-kubernetes) · _CHORE_ · `MPV-Prepare`
 - [ ] `INFRA-073` [Backend services usually return a subscription that is managed automatically by the Panel.](https://trello.com/c/OxB85Nl5/1077-chore-backend-services-usually-return-a-subscription-that-is-managed-automatically-by-the-panel) · _CHORE_ · `MPV-Prepare`
 - [ ] `INFRA-074` [Mining extractions schedule should be the one recommended by ESI but only on production.](https://trello.com/c/667VJWFI/47-deploy-mining-extractions-schedule-should-be-the-one-recommended-by-esi-but-only-on-production) · _DEPLOY_ · `BACKLOG`
 - [ ] `INFRA-075` [Add the feature of the list of mining operations, the current if available and all last operations ordered by date descending.](https://trello.com/c/bZyVzsKP/981-epicv0210-add-the-feature-of-the-list-of-mining-operations-the-current-if-available-and-all-last-operations-ordered-by-date-desc) · _EPICv0.21.0_ · `MPV-Prepare`
@@ -163,12 +159,9 @@
 
 - [ ] `INFRA-115` [Resolve unmanaged dependencies.](https://trello.com/c/FrTmECHp/232-heroku-resolve-unmanaged-dependencies) · _HEROKU_ · `BACKLOG`
 - [ ] `INFRA-117` [Start to develop a deployment process for already compiled and prepared code to deply the first Production version to the public. There should be no compilation because some modules and libraries are not available outside IntelliJ. Also it should only contain backend or frontend code. No single app at this time.](https://trello.com/c/w8n7DG36/525-heroku-start-to-develop-a-deployment-process-for-already-compiled-and-prepared-code-to-deply-the-first-production-version-to-the) · _HEROKU_ · `BACKLOG`
-- [ ] `INFRA-119` [Deploy Backend on Docker and try to get it on Kubernetes.](https://trello.com/c/jheBOkE6/1085-project-deploy-backend-on-docker-and-try-to-get-it-on-kubernetes) · _PROJECT_ · `MPV-Prepare`
-- [ ] `INFRA-120` [Deploy the Frontend and the Java Backend to Kubernetes for a first Stage full version.](https://trello.com/c/HOP9xVbP/1061-project-deploy-the-frontend-and-the-java-backend-to-kubernetes-for-a-first-stage-full-version) · _PROJECT_ · `MPV-Prepare`
 - [ ] `INFRA-121` [Deploy the Java backend to Docker for Stage.](https://trello.com/c/M9u51sBc/1062-project-deploy-the-java-backend-to-docker-for-stage) · _PROJECT_ · `MPV-Prepare`
 - [ ] `INFRA-122` [Normalise again the endpoint urls. There should be a differentiation by backend service and the difference by version.](https://trello.com/c/O0ryqk09/1141-project-normalise-again-the-endpoint-urls-there-should-be-a-differentiation-by-backend-service-and-the-difference-by-version) · _PROJECT_ · `MPV-Prepare`
 - [ ] `INFRA-123` [Replace the BitBucket pipelines by a CircleCI CD implementation.](https://trello.com/c/PlM6BJ5R/571-project-replace-the-bitbucket-pipelines-by-a-circleci-cd-implementation) · _PROJECT_ · `BACKLOG`
-- [ ] `INFRA-124` [To avoid problems with containers and docker or Kubernetes, the locahost name is not allowed. Use a neocom name for referencing.](https://trello.com/c/8NCS7sD2/1065-project-to-avoid-problems-with-containers-and-docker-or-kubernetes-the-locahost-name-is-not-allowed-use-a-neocom-name-for-refere) · _PROJECT_ · `MPV-Prepare`
 - [ ] `INFRA-125` [Update frontend application package dependencies.](https://trello.com/c/aR61dWgc/1027-project-update-frontend-application-package-dependencies) · _PROJECT_ · `MPV-Prepare`
 - [ ] `INFRA-126` [Check and configure docker for the NeoCom project.](https://trello.com/c/ByeomwA7/965-projectcheck-and-configure-docker-for-the-neocom-project) · _PROJECT_ · `BACKLOG`
 - [ ] `INFRA-127` [Remove version from DTO objects since dot versioning should be disallowed.](https://trello.com/c/fZUAmkC0/1107-refactor-remove-version-from-dto-objects-since-dot-versioning-should-be-disallowed) · _REFACTOR_ · `MPV-Prepare`
@@ -177,7 +170,6 @@
 ### In testing (4)
 
 - [ ] `INFRA-129` [Add CI to the current project state under CircleCI. Stop deployment.](https://trello.com/c/tqtEu0GZ/1044-project-add-ci-to-the-current-project-state-under-circleci-stop-deployment) · _PROJECT_ · `to TEST`
-- [ ] `INFRA-130` [Automate the deployment process on the local Kubernetes.](https://trello.com/c/WN9479vp/1052-project-automate-the-deployment-process-on-the-local-kubernetes) · _PROJECT_ · `to TEST`
 - [ ] `INFRA-131` [Evaluate TeamCity on local as the CI/CD tool to create deployments in local.](https://trello.com/c/zoDjbtPo/1054-project-evaluate-teamcity-on-local-as-the-ci-cd-tool-to-create-deployments-in-local) · _PROJECT_ · `to TEST`
 - [ ] `INFRA-132` [Research the build pattern on Typescript.](https://trello.com/c/rM883omH/1060-research-research-the-build-pattern-on-typescript) · _RESEARCH_ · `to TEST`
 

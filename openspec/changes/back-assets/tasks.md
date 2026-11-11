@@ -1,0 +1,16 @@
+# Tasks
+
+- [x] Define programme EveAssetV1 as instanced pilot-owned item on a location; keep raw ESI payloads server-internal (AST-001)
+- [x] Define back `EveAssetV1Dto` with `jsonClass`, `itemId`, `typeId`, `quantity`, `locationId`, `locationType`, `locationFlag`, `isSingleton`, optional `isBlueprintCopy`, optional `name`, `ownerPilotId` (AST-002)
+- [x] Expand ESI `type_id` into nested `EveAssetV1Dto.item` as `PricedItemV1Dto` JSON object (AST-003)
+- [x] Expand ESI `location_id` into nested `EveAssetV1Dto.location` as `EveLocationV1Dto` when `location_type` ≠ `item`; omit location nest when `location_type` = `item` (AST-004)
+- [x] Join ESI `POST /characters/{character_id}/assets/names` `{ item_id, name }` by `item_id` onto `EveAssetV1Dto.name` (AST-005)
+- [x] Obtain character asset list from ESI `GET /characters/{character_id}/assets` and map into `EveAssetV1Dto` / located containers (AST-006)
+- [x] Define LocatedAssetContainerV1 as EveAssetV1 in a location that contains other assets (AST-010)
+- [x] Define `LocatedAssetContainerV1Dto` with EveAssetV1Dto fields plus `contents` array of nested asset/container objects (AST-011)
+- [x] When `location_type` = `item`, hang child under parent `LocatedAssetContainerV1Dto.contents` keyed by parent `itemId` (AST-012)
+- [x] Expose authenticated programme HTTP endpoint returning the pilot’s full asset list; reject unauthenticated callers (AST-007)
+- [x] Add new use case to retrieve the pilot’s assets (ESI → mapped asset / located-container list) (AST-008)
+- [x] Add new `PilotPort` entry for pilot assets and extend `V1PilotController` for the authenticated list-assets endpoint (AST-009)
+- [x] Expose secondary authenticated by-location endpoint that filters the full list to assets matching that location (AST-013)
+- [x] After obtain/expand, write-through cache expanded EveAsset in Redis under `pilot/asset` key space with TTL 60 minutes (AST-014)

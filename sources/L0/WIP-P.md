@@ -1,6 +1,6 @@
 # WIP-P
 
-_14 card(s) · Trello list `WIP-P` · source: board `neocom-infinity` (2026-10-30)._
+_13 card(s) · Trello list `WIP-P` · source: board `neocom-infinity` (2026-10-30)._
 
 ## [REFACTOR] Implement a better LogWrapper that does not fail while processing stack traces.
 
@@ -8,6 +8,8 @@ _14 card(s) · Trello list `WIP-P` · source: board `neocom-infinity` (2026-10-3
 - Card ID: `6677efd518b38fd1b4a983ba`
 
 _No description._
+
+---
 
 ---
 
@@ -21,6 +23,8 @@ _No description._
 
 ---
 
+---
+
 ## [REFACTOR] NIN. Check the response from Axios and reject the request if the result is a string. This is a parse error that should be fixed.
 
 - URL: https://trello.com/c/gP9xvUU6/1130-refactor-nin-check-the-response-from-axios-and-reject-the-request-if-the-result-is-a-string-this-is-a-parse-error-that-should-be
@@ -28,6 +32,8 @@ _No description._
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -40,12 +46,16 @@ _No description._
 
 ---
 
+---
+
 ## [STORY-NIF] Upgrade the current bluepint page to get the new Processed Blueprint data.
 
 - URL: https://trello.com/c/cyUU7h2W/1140-story-nif-upgrade-the-current-bluepint-page-to-get-the-new-processed-blueprint-data
 - Card ID: `6662b17a4d1463e95fdc3b03`
 
 _No description._
+
+---
 
 ---
 
@@ -58,12 +68,16 @@ _No description._
 
 ---
 
+---
+
 ## [STORY] Create a selector to return the corresponding Market Hut for any location. If there is no data for the selected region then use the Jita region selector.
 
 - URL: https://trello.com/c/nk1l5Pin/1143-story-create-a-selector-to-return-the-corresponding-market-hut-for-any-location-if-there-is-no-data-for-the-selected-region-then
 - Card ID: `666419e1ac0fe6759c44d1be`
 
 _No description._
+
+---
 
 ---
 
@@ -76,12 +90,16 @@ _No description._
 
 ---
 
+---
+
 ## [EPIC-0.27] New Authorization token refresh flow.
 
 - URL: https://trello.com/c/APeF40bB/1128-epic-027-new-authorization-token-refresh-flow
 - Card ID: `6640a84170f51ea9664e3db3`
 
 _No description._
+
+---
 
 ---
 
@@ -94,12 +112,16 @@ _No description._
 
 ---
 
+---
+
 ## [STORY-NIB] Start to replace the use of cookies for authentication and use instead Headers. This will allow to use different characters from the same interface.
 
 - URL: https://trello.com/c/C9BfXYOu/1144-story-nib-start-to-replace-the-use-of-cookies-for-authentication-and-use-instead-headers-this-will-allow-to-use-different-charac
 - Card ID: `66641b68cdb3074fbd855d09`
 
 _No description._
+
+---
 
 ---
 
@@ -112,13 +134,6 @@ _No description._
 
 ---
 
-## [PROJECT] Move secret and encrypted values to Kubernetes secrets.
-
-- URL: https://trello.com/c/wTOBTaTk/1148-project-move-secret-and-encrypted-values-to-kubernetes-secrets
-- Card ID: `667867d0592b512d9601f680`
-
-_No description._
-
 ---
 
 ## [REFACTOR] Remove NEOCOM_DATABASE_URL and use instead the definitions for the SpringBoot JPA.
@@ -127,5 +142,7 @@ _No description._
 - Card ID: `66786888be8bf074da0672d9`
 
 _No description._
+
+---
 
 ---

@@ -6,9 +6,9 @@ Graphify indexes this path under `neocom-meta` (`graphify update .`). Prefer `gr
 
 **Do not** treat this file as a substitute for CHANGE-STATUS or L1 TRACEABILITY. Cross-link only.
 
-Last refreshed: 2026-11-07 (`/git:commit neocom-meta` — `back-eve-items` meta tip @ `8cc7de6`; back PR [#8](https://github.com/AdamAntinoo/neocom-back/pull/8) @ `56d5144`).
+Last refreshed: 2026-11-09 (`back-service` archived — already on `neocom-back` develop @ `63a2098`).
 
-Previous Last refreshed: 2026-11-05 (`/git:pr` — front `#5`, back `#5`, meta `#4` opened into `develop`).
+Previous Last refreshed: 2026-11-09 (removed obsolete `nestjs-sso-config`; EPIC-001 L1 source-archived).
 
 ## When `/neocom-git` must update this file
 
@@ -45,7 +45,9 @@ If GitHub API / `gh` is unavailable, still write what local git knows (`repo@sha
 
 | OpenSpec | Repos | Branch | Commits | PR | PR state | Develop tip | Validated | Updated |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `back-eve-items` | meta, back | `feature/process-epics` (meta) · `feature/eve-items` (back) | `neocom-meta@8cc7de6` (OpenSpec ITEM-024…026 + TRACEABILITY); `neocom-back@56d5144` (EveItem / priced hub / Redis TTL) | [AdamAntinoo/neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) | open | — | — | 2026-11-07 |
+| `front-assets-by-location` | front | `feature/assets-by-location` | `neocom-front@d1fed92` (on develop) | [AdamAntinoo/neocom-front#7](https://github.com/AdamAntinoo/neocom-front/pull/7) | merged | `d1fed92` | openspec validate passed 2026-11-09 | 2026-11-09 |
+| `back-assets` | back | `feature/assets` | `neocom-back@63a2098` (on develop) | [AdamAntinoo/neocom-back#9](https://github.com/AdamAntinoo/neocom-back/pull/9) | merged | `63a2098` | openspec validate passed 2026-11-09 | 2026-11-09 |
+| `back-eve-items` | meta, back | `feature/eve-items` → `feature/assets` tip | `neocom-back@b72ff05`…`63a2098` (on develop) | [AdamAntinoo/neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) + [#9](https://github.com/AdamAntinoo/neocom-back/pull/9) | merged | `63a2098` | openspec validate passed 2026-11-09 | 2026-11-09 |
 
 ## Not yet delivered (no commit/PR required in index until apply commits)
 
@@ -53,9 +55,8 @@ Registered / deferred changes appear in CHANGE-STATUS only until `/git:commit` o
 
 | OpenSpec | Notes |
 | --- | --- |
-| `nestjs-sso-config` | registered 0/2 — no delivery row yet |
 | `esi-character-api` | deferred (`neocom-esi` aside) |
-| EPIC-003 cluster (`front-bdd-cypress`, …) | registered — no delivery row yet |
+| EPIC-017 `front-cicd` + `back-cicd` (`CICD-F-*` / `CICD-B-*`) | registered — no delivery row yet |
 | `front-app-shell` | registered — no delivery row yet |
 
 ## Archived delivery (historical)
@@ -64,6 +65,7 @@ When a change is OpenSpec-archived, **move** its row here (keep PR/SHA forever).
 
 | OpenSpec | Repos | PR / commits | Archived | Updated |
 | --- | --- | --- | --- | --- |
+| `back-service` | back | already on develop (`EsiPilotSource` / `GetPilotUseCase` / `PILOT_NOT_FOUND`); tip `neocom-back@63a2098`; archive `2026-11-09-back-service` → `specs/back/service` | 2026-11-09 | 2026-11-09 |
 | `domain-module` | domain, front, back | develop tips; Release-0.1.0 set | 2026-11-06 Release-0.1.0 | 2026-11-06 |
 | `login` | front, back | —; commits: `neocom-front@e3356db`; `neocom-back@3317849` (SSO commits on develop; distinct login PR id not recorded locally); develop `front `e3356db` · back `3317849`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
 | `front-infrastructure` | front | —; commits: `neocom-front@e3356db`; develop ``e3356db`` | 2026-11-06 Release-0.1.0 | 2026-11-03 |
