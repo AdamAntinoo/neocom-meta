@@ -10,6 +10,8 @@ Each repository is one independent project. The parent `neocom` repository is de
 2. [Documentation](#2-documentation)
 3. [Commands](#3-commands)
 4. [Configuration](#4-configuration)
+   1. [Ports](#41-ports)
+   2. [External services (Docker)](#42-external-services-docker)
 5. [Methodology](#5-methodology)
    1. [Stages](#51-stages)
    2. [Open an epic](#52-open-an-epic)
@@ -23,19 +25,23 @@ Each repository is one independent project. The parent `neocom` repository is de
    2. [Download the repositories](#62-download-the-repositories)
    3. [Node version](#63-node-version)
    4. [Install](#64-install)
-   5. [Start the service chain](#65-start-the-service-chain)
-   6. [Tests](#66-tests)
-7. [Local Kubernetes](#7-local-kubernetes)
+   5. [External services](#65-external-services)
+   6. [Start the service chain](#66-start-the-service-chain)
+   7. [Tests](#67-tests)
+7. [Docker deployment (`staging` / `prod`)](#7-docker-deployment-staging--prod)
 
 ## 1. Active projects
 
-| Repository | Purpose |
-| --- | --- |
-| [neocom-meta](https://github.com/AdamAntinoo/neocom-meta.git) | This repo: onboarding, programme docs, Cursor agents, OpenSpec, Graphify |
-| [neocom-front](https://github.com/AdamAntinoo/neocom-front.git) | Angular frontend. The dev server proxies pilot requests to `neocom-back` |
-| [neocom-back](https://github.com/AdamAntinoo/neocom-back.git) | NestJS API. Public pilot data is read from ESI through `@lgriffin/esi.ts` |
+Four independent GitHub projects. Clone URLs below are the `origin` remotes used by the programme.
 
-Left aside for now: [neocom-domain](https://github.com/AdamAntinoo/neocom-domain.git) and [neocom-esi](https://github.com/AdamAntinoo/neocom-esi.git). They are not required to run or integration-test the service chain.
+| Repository | Clone URL | Purpose |
+| --- | --- | --- |
+| [neocom-meta](https://github.com/AdamAntinoo/neocom-meta) | `https://github.com/AdamAntinoo/neocom-meta.git` | This repo: onboarding, programme docs, agent harness (`.dsh/`), OpenSpec, Graphify |
+| [neocom-front](https://github.com/AdamAntinoo/neocom-front) | `https://github.com/AdamAntinoo/neocom-front.git` | Angular frontend. The dev server proxies pilot requests to `neocom-back` |
+| [neocom-back](https://github.com/AdamAntinoo/neocom-back) | `https://github.com/AdamAntinoo/neocom-back.git` | NestJS API. Public pilot data is read from ESI through `@lgriffin/esi.ts` |
+| [neocom-domain](https://github.com/AdamAntinoo/neocom-domain) | `https://github.com/AdamAntinoo/neocom-domain.git` | Published Node domain library on npm. Package version is npm-led (`npm run version:sync` from latest publish); git tags follow publish |
+
+Left aside for now: [neocom-esi](https://github.com/AdamAntinoo/neocom-esi) (`https://github.com/AdamAntinoo/neocom-esi.git`). The deprecated parent [neocom](https://github.com/AdamAntinoo/neocom) repository is not an active project — do not clone it for new work.
 
 ## 2. Documentation
 
@@ -76,6 +82,8 @@ A pull request into `develop` uses a Conventional Commit title. A pull request f
 
 ## 4. Configuration
 
+### 4.1 Ports
+
 NEOCOM project code is **60**. A service port is that code, then the setup digit, then the service digit.
 
 | Digit | Meaning |
@@ -90,7 +98,7 @@ NEOCOM project code is **60**. A service port is that code, then the setup digit
 | Dev watch | **6001** | **6002** | **6003** | **6004** |
 | Stable testing | **6011** | **6012** | **6013** | **6014** |
 
-Use one setup for both services. The front proxy for `/v1/pilots` in `neocom-front/config/backends.json` must target the back port of that same setup. After the back port, Postgres takes the next number and Redis the one after that.
+Use one setup for both app processes. The front proxy for `/v1/pilots` in `neocom-front/config/backends.json` must target the back port of that same setup. After the back port, Postgres takes the next number and Redis the one after that.
 
 | Setup | Where the port is set |
 | --- | --- |
@@ -101,6 +109,26 @@ Use one setup for both services. The front proxy for `/v1/pilots` in `neocom-fro
 | Stable, front | `server.port` in `neocom-front/config/backends.json` is `6011`. The `/v1/pilots` route targets `http://127.0.0.1:6012` |
 
 `neocom-back` also reads `ENVIRONMENT`, `LOGLEVEL`, `VERSION` (from `.env.version`), and an optional `BANNER` file. Those do not change the port.
+
+### 4.2 External services (Docker)
+
+Required **external services** for a full local back stack live under `neocom-back/tools/docker/` (`docker-compose.yml`). Reviewed against that compose file:
+
+| Service | Image | Container | Host port (dev-watch) | Container port | Role |
+| --- | --- | --- | --- | --- | --- |
+| PostgreSQL | `postgres:16-alpine` | `neocom-back-postgres` | **6003** | `5432` | Async persistence (processed / calculated nodes). DB `neocom_async`, user/password `neocom` / `neocom` |
+| Redis | `redis:7-alpine` | `neocom-back-redis` | **6004** | `6379` | BullMQ enrichment queue and optional SSE fan-out |
+
+Nest connects with `.env.async` (defaults match compose):
+
+| Variable | Default |
+| --- | --- |
+| `DATABASE_URL` | `postgresql://neocom:neocom@localhost:6003/neocom_async` |
+| `REDIS_URL` | `redis://localhost:6004` |
+
+Start / stop from `neocom-back` root: `npm run docker:up` / `npm run docker:down` / `npm run docker:ps` (compose file `tools/docker/docker-compose.yml`). After Postgres is healthy, apply schema with Flyway (`npm run db:migrate`; see `neocom-back/tools/db/`). Without `DATABASE_URL` / `REDIS_URL`, Nest falls back to in-memory store and in-process enrichment (unit tests / offline).
+
+**Not** in `tools/docker`: WireMock (front mocks; optional for the ESI pilot chain). App **`staging`** / **`prod`** deploy is Docker (§7 / EPIC-017 §08).
 
 ## 5. Methodology
 
@@ -253,19 +281,23 @@ WireMock remains available for front routes that are still mocked (`/api`, `/nin
 
 - Git
 - [nvm](https://github.com/nvm-sh/nvm)
+- [Docker](https://docs.docker.com/get-docker/) — required for [§4.2 External services](#42-external-services-docker) (PostgreSQL + Redis via `neocom-back/tools/docker`)
 - Network access so `neocom-back` can reach ESI
-- Optional: Java or Docker only when you also start WireMock
+- Optional: Java or a second Docker use when you also start WireMock for front mocks
 - Optional: OpenSpec and Graphify when you work on specs or knowledge graphs in this repository
 
 ### 6.2 Download the repositories
 
-Clone the active projects as siblings:
+Clone every **active** project from [§1 Active projects](#1-active-projects) as siblings (same parent directory). Use the Clone URL column:
 
 ```bash
 git clone https://github.com/AdamAntinoo/neocom-meta.git
 git clone https://github.com/AdamAntinoo/neocom-front.git
 git clone https://github.com/AdamAntinoo/neocom-back.git
+git clone https://github.com/AdamAntinoo/neocom-domain.git
 ```
+
+Do not clone aside or deprecated repositories (`neocom-esi`, parent `neocom`) unless you have an explicit reason.
 
 ### 6.3 Node version
 
@@ -279,8 +311,14 @@ node -v
 
 ### 6.4 Install
 
+Install dependencies in each code repository (with `nvm use neocom` / `nvm use` active):
+
 ```bash
-cd neocom-back
+cd neocom-domain
+nvm use
+npm install
+
+cd ../neocom-back
 nvm use
 npm install
 
@@ -289,9 +327,23 @@ nvm use
 npm install
 ```
 
-In `neocom-back`, set `PORT=6002` in `.env.application` for the dev-watch setup.
+In `neocom-back`, set `PORT=6002` in `.env.application` for the dev-watch setup. Confirm `.env.async` has the `DATABASE_URL` / `REDIS_URL` defaults from [§4.2](#42-external-services-docker).
 
-### 6.5 Start the service chain
+### 6.5 External services
+
+Bring up the required Docker services from [§4.2](#42-external-services-docker):
+
+```bash
+cd neocom-back
+nvm use
+npm run docker:up      # PostgreSQL :6003, Redis :6004
+npm run docker:ps      # both healthy
+npm run db:migrate     # Flyway schema once Postgres is up
+```
+
+Stop with `npm run docker:down` when finished.
+
+### 6.6 Start the service chain
 
 Start the dev-watch setup. Start the back first. It listens on port 6002 and uses `@lgriffin/esi.ts` for public character, corporation, portrait, race, ancestry, and bloodline data.
 
@@ -321,7 +373,7 @@ For a stable integration run, bind the back to `6012` and the front to `6011` in
 | ESI | Reached by the back through `@lgriffin/esi.ts`. No separate ESI process |
 | WireMock on port 8080 | Only for front routes that are still mocked |
 
-### 6.6 Tests
+### 6.7 Tests
 
 Unit and end-to-end tests stay inside each repository:
 
@@ -339,15 +391,6 @@ npm run e2e
 
 Integration across the chain is the running dashboard: the pilot panel shows the public pilot returned by `neocom-back` from ESI. With the dev-watch processes up, `GET http://127.0.0.1:6001/v1/pilots/93813310` is the same request the panel makes. The stable pair answers that request on port 6011.
 
-## 7. Local Kubernetes
+## 7. Docker deployment (`staging` / `prod`)
 
-Cluster scripts in this repository start a local Kubernetes cluster. They do not deploy the front, the back, or the ESI client. Use [section 6](#6-for-developers) for integration testing.
-
-```bash
-npm run k8s:start       # prefer minikube; else Docker Desktop / kind guidance
-npm run k8s:dashboard   # minikube dashboard (Docker Desktop: use Docker UI)
-npm run k8s:status      # kubectl cluster-info + nodes
-npm run k8s:stop        # minikube stop / kind delete (Docker Desktop: UI)
-```
-
-Scripts live under `scripts/k8s/`. No Helm charts or app deploy manifests yet.
+Programme **`staging`** and **`prod`** deployments target a **Docker engine** (see EPIC-017 §08): `develop` → `staging`, `main` → `prod`. Local developer work uses `dev` (`start:dev`) and the service chain in [section 6](#6-for-developers). Shared data services for local async (Postgres / Redis) use Docker Compose under the product repos (`neocom-back` `tools/docker/`). App image / compose manifests for full `staging`/`prod` stacks are owned by the product repositories and the CD workflows — not a separate cluster bootstrap in this meta repo.

@@ -9,15 +9,16 @@ Index of features recognized in the programme. Update this file when a feature b
 | Pilot | recorded | [pilot.md](./pilot.md) | front, domain |
 | Pilot panel | recorded | [pilot-panel.md](./pilot-panel.md) | front |
 | Backend hexagonal | recorded | [back-hexagonal.md](./back-hexagonal.md) | neocom-back |
-| Backend service | recorded | [back-service.md](./back-service.md) | neocom-back |
+| Backend service | archived (`specs/back/service`) | [back-service.md](./back-service.md) | neocom-back |
 | ESI login | merged into Login | [esi-login.md](./esi-login.md) → [login.md](./login.md) | neocom-esi |
 | Universe | recorded | [universe.md](./universe.md) | front, domain |
 | ESI character API | recorded | [esi-character-api.md](./esi-character-api.md) | domain, front |
 | ESI client | recorded | [esi-client.md](./esi-client.md) | neocom-back |
 | neocom-domain | recorded | [neocom-domain.md](./neocom-domain.md) | domain, front, back |
-| Developer install | recorded | OpenSpec `infra-developer-install` | meta, front |
-| Local config | recorded | OpenSpec `infra-local-config` | front, meta |
-| CI/CD pipeline | recorded | OpenSpec `cicd-pipeline` | front, meta |
+| Developer install | L1 EPIC-017 §12 (`CICD-F-092…098`) · §1 clones + docker Postgres/Redis from `PROGRAMME.md` §4.2 | [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | meta, front |
+| Local config | L1 EPIC-017 §13 (`CICD-F-100…106`) · former OpenSpec `infra-local-config` removed | [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | front, meta |
+| CI/CD pipeline | registered (`front-cicd` / `back-cicd`) EPIC-017 §08/§11 + install/local-config/logging | [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) · [cicd-github-setup.md](./cicd-github-setup.md) | front, back, meta |
+| CI/CD GitHub setup | registered (`front-cicd` / `back-cicd`) CICD-F/B-085…089 | [cicd-github-setup.md](./cicd-github-setup.md) | meta, front, back |
 | App shell | recorded | [app-shell.md](./app-shell.md) | front |
 | Dashboard shell (fold) | registered (`front-dashboard-shell`) | [dashboard.md](./dashboard.md) (+ page-header, eve-media, corporation, character-selection) | front |
 | Dashboard | registered (`front-dashboard-shell` / `front/dashboard`) | [dashboard.md](./dashboard.md) | front |
@@ -36,12 +37,12 @@ Index of features recognized in the programme. Update this file when a feature b
 | Async SSE (front) | registered (`front-async-sse`) | [async-sse.md](./async-sse.md) | front |
 | Async SSE (back) | registered (`back-async-sse`) | [async-sse.md](./async-sse.md) | back |
 | Async persistence | registered (`infra-async-persistence`) | [async-persistence.md](./async-persistence.md) | infra, back |
-| BDD / Cypress | registered (`front-bdd-cypress`) | [bdd-cypress.md](./bdd-cypress.md) | front |
-| Mock fixtures | registered (`front-mock-fixtures`) | [mock-fixtures.md](./mock-fixtures.md) | front |
-| Coverage / Sonar | registered (`cicd-coverage-sonar`) | [coverage-sonar.md](./coverage-sonar.md) | cicd, front, back |
-| Testing gates | registered (`cicd-testing-gates`) | [testing-gates.md](./testing-gates.md) | cicd |
-| Test commands | registered (`infra-test-commands`) | [test-commands.md](./test-commands.md) | infra, front, back |
-| Backend testing | registered (`back-testing`) | [back-testing.md](./back-testing.md) | back |
+| BDD / Cypress | folded into `front-cicd` (EPIC-017) | [bdd-cypress.md](./bdd-cypress.md) · [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | front |
+| Mock fixtures | folded into `front-cicd` (EPIC-017) | [mock-fixtures.md](./mock-fixtures.md) · [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | front |
+| Coverage / Sonar | folded into `front-cicd` + `back-cicd` (EPIC-017) | [coverage-sonar.md](./coverage-sonar.md) · [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | front, back |
+| Testing gates | folded into `front-cicd` + `back-cicd` (EPIC-017) | [testing-gates.md](./testing-gates.md) · [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | front, back |
+| Test commands | folded into `front-cicd` + `back-cicd` (EPIC-017) | [test-commands.md](./test-commands.md) · [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | front, back |
+| Backend testing | folded into `back-cicd` (EPIC-017) | [back-testing.md](./back-testing.md) · [17.EPIC-CICD.md](../../../../sources/L1/17.EPIC-CICD.md) | back |
 | Domain layout | registered (`domain-layout`) | [domain-layout.md](./domain-layout.md) | domain |
 | Domain ports | registered (`domain-ports`) | [domain-ports.md](./domain-ports.md) | domain, back |
 | Domain deprecations | registered (`domain-deprecations`) | [domain-deprecations.md](./domain-deprecations.md) | domain, back |
@@ -49,5 +50,8 @@ Index of features recognized in the programme. Update this file when a feature b
 | Back Industry blueprints | registered (`back-industry-blueprints`) | [back-industry-blueprints.md](./back-industry-blueprints.md) | back |
 | KnownSystem | registered (`front-known-system`) | [known-system.md](./known-system.md) | front |
 | Space location service | registered (`back-space-location-service`) | [space-location-service.md](./space-location-service.md) | back |
+| Assets | registered (`back-assets`) | [assets.md](./assets.md) | back |
+| Assets by location | registered (`front-assets-by-location`) | [assets-by-location.md](./assets-by-location.md) | front |
+| Eve items | applying (`back-eve-items`) | [eve-items.md](./eve-items.md) | back |
 
 Status values: `recorded` (documented, not necessarily implemented) · `in-progress` · `done` · `deferred`.

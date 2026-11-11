@@ -1,6 +1,6 @@
 # to TEST
 
-_47 card(s) · Trello list `to TEST` · source: board `neocom-infinity` (2026-10-30)._
+_45 card(s) · Trello list `to TEST` · source: board `neocom-infinity` (2026-10-30)._
 
 ## [FIX] Update the resulting link for mining operations space location.
 
@@ -9,6 +9,8 @@ _47 card(s) · Trello list `to TEST` · source: board `neocom-infinity` (2026-10
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -22,6 +24,8 @@ _No description._
 
 ---
 
+---
+
 ## [EPIC-0.22] Create aggregated data models for the EsiType and complementaty data.
 
 - URL: https://trello.com/c/rEKrHmxP/1104-epic-022-create-aggregated-data-models-for-the-esitype-and-complementaty-data
@@ -29,6 +33,8 @@ _No description._
 - Labels: STORY (orange), DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -42,6 +48,8 @@ _No description._
 
 ---
 
+---
+
 ## [STORY-NIN] Create on additional endpoint to access the EsiType structure removing hierarchy data for Group and Category.
 
 - URL: https://trello.com/c/V3zBAlUX/1105-story-nin-create-on-additional-endpoint-to-access-the-esitype-structure-removing-hierarchy-data-for-group-and-category
@@ -49,6 +57,8 @@ _No description._
 - Labels: STORY (orange), DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -62,6 +72,8 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Cucumber tests at NIN require that the configuration uses mocked destinations and not the real external endpoints.
 
 - URL: https://trello.com/c/LhQD3uhb/1109-fix-cucumber-tests-at-nin-require-that-the-configuration-uses-mocked-destinations-and-not-the-real-external-endpoints
@@ -69,6 +81,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -82,6 +96,8 @@ _No description._
 
 ---
 
+---
+
 ## [NIN02.01]-Check that any endpoint request has a valid token.
 
 - URL: https://trello.com/c/5PLmw270/1043-nin0201-check-that-any-endpoint-request-has-a-valid-token
@@ -89,6 +105,8 @@ _No description._
 - Labels: STORY (orange), DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -102,6 +120,8 @@ _No description._
 
 ---
 
+---
+
 ## [STORY-NIN] The backend should get the ESI data and aggregate it by system and date. For each system-date pair we generate a single Mining Operation that will contain the list of resources mined for that combination.
 
 - URL: https://trello.com/c/DpM1gEe3/1087-story-nin-the-backend-should-get-the-esi-data-and-aggregate-it-by-system-and-date-for-each-system-date-pair-we-generate-a-single
@@ -109,6 +129,8 @@ _No description._
 - Labels: STORY (orange), DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -122,6 +144,8 @@ _No description._
 
 ---
 
+---
+
 ## [CHORE] Add ESI generated code to the NIN to replace all the classes that mimic the ESI data model.
 
 - URL: https://trello.com/c/1s9UD7W9/1091-chore-add-esi-generated-code-to-the-nin-to-replace-all-the-classes-that-mimic-the-esi-data-model
@@ -129,6 +153,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -148,6 +174,8 @@ TeamCity needs a Postgres database that is configured as a docker container at p
 
 ---
 
+---
+
 ## [TEST] Create unit tests and acceptance test for the OAuth authentication. It is one of the most delicate elements of the architecture.
 
 - URL: https://trello.com/c/QNbN9jQa/1074-test-create-unit-tests-and-acceptance-test-for-the-oauth-authentication-it-is-one-of-the-most-delicate-elements-of-the-architect
@@ -155,6 +183,8 @@ TeamCity needs a Postgres database that is configured as a docker container at p
 - Labels: DONE (green), NOT IMPLEMENTED (red)
 
 _No description._
+
+---
 
 ---
 
@@ -168,6 +198,8 @@ _No description._
 
 ---
 
+---
+
 ## [NIF10.02]-Check the contents of a single mining operation.
 
 - URL: https://trello.com/c/0wRTH31l/1078-nif1002-check-the-contents-of-a-single-mining-operation
@@ -175,6 +207,8 @@ _No description._
 - Labels: ACCEPTANCE (blue), DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -188,6 +222,8 @@ _No description._
 
 ---
 
+---
+
 ## [CHORE] Expand the callback link for ESI authentication into a list of editable or configurable elements.
 
 - URL: https://trello.com/c/CBpGtttO/1069-chore-expand-the-callback-link-for-esi-authentication-into-a-list-of-editable-or-configurable-elements
@@ -195,6 +231,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -208,6 +246,8 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Add additional privileges to the ESI scope to add the mining operations.
 
 - URL: https://trello.com/c/q8x3XlVG/1066-fix-add-additional-privileges-to-the-esi-scope-to-add-the-mining-operations
@@ -215,6 +255,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -228,6 +270,8 @@ _No description._
 
 ---
 
+---
+
 ## [FIX] Fix the callback url when authenticating to ESI.
 
 - URL: https://trello.com/c/IWmKGsu6/1067-fix-fix-the-callback-url-when-authenticating-to-esi
@@ -235,6 +279,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -248,6 +294,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Add CI to the current project state under CircleCI. Stop deployment.
 
 - URL: https://trello.com/c/tqtEu0GZ/1044-project-add-ci-to-the-current-project-state-under-circleci-stop-deployment
@@ -257,14 +305,6 @@ _No description._
 _No description._
 
 ---
-
-## [PROJECT] Automate the deployment process on the local Kubernetes.
-
-- URL: https://trello.com/c/WN9479vp/1052-project-automate-the-deployment-process-on-the-local-kubernetes
-- Card ID: `660bd01be0b9e36b66e4e4ef`
-- Labels: DONE (green)
-
-_No description._
 
 ---
 
@@ -278,6 +318,8 @@ _No description._
 
 ---
 
+---
+
 ## [RESEARCH] Research the build pattern on Typescript.
 
 - URL: https://trello.com/c/rM883omH/1060-research-research-the-build-pattern-on-typescript
@@ -285,6 +327,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -298,6 +342,8 @@ _No description._
 
 ---
 
+---
+
 ## [STORY] Detect and process exceptions is a way similar to SB GlobalExceptionHandler.
 
 - URL: https://trello.com/c/5YS5ocIe/1056-story-detect-and-process-exceptions-is-a-way-similar-to-sb-globalexceptionhandler
@@ -305,6 +351,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -318,6 +366,8 @@ _No description._
 
 ---
 
+---
+
 ## [STORY] Add Esi security to the esi backend calls to make them operative
 
 - URL: https://trello.com/c/0VQ67DcU/1041-story-add-esi-security-to-the-esi-backend-calls-to-make-them-operative
@@ -325,6 +375,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -338,6 +390,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Add environment configuration to the Nest backend.
 
 - URL: https://trello.com/c/m9Gfms17/1053-project-add-environment-configuration-to-the-nest-backend
@@ -345,6 +399,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -368,23 +424,6 @@ After downloading the agent zip ([http://localhost:8111/update/buildAgentFull-Li
 
 ---
 
-## [PROJECT] Check that a service can be accessed from the host and that the pods can access the host mocks.
-
-- URL: https://trello.com/c/HBxhaN9c/1051-project-check-that-a-service-can-be-accessed-from-the-host-and-that-the-pods-can-access-the-host-mocks
-- Card ID: `660bc54e778865e38a8b509a`
-- Labels: DONE (green)
-
-```
-apiVersion: v1
-kind: Service
-metadata:
-  name: esi-data-tst
-  namespace: neocom
-spec:
-  type: ExternalName
-  externalName: host.minikube.internal
-```
-
 ---
 
 ## [PROJECT] Clean unused files from the Nest backend. Just publish what is in use.
@@ -394,6 +433,8 @@ spec:
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -407,6 +448,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Create a shared library with the ESI domain classes. This is shared on the frontend and the nest backend.
 
 - URL: https://trello.com/c/BTvA6e0C/1028-project-create-a-shared-library-with-the-esi-domain-classes-this-is-shared-on-the-frontend-and-the-nest-backend
@@ -414,6 +457,8 @@ _No description._
 - Labels: STORY (orange), DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -427,6 +472,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Create a shared module because now the code that is valid for the front end is also valid for the backend. Put that code into a library that can be set as a NPM dependency.
 
 - URL: https://trello.com/c/hIptdltU/1039-project-create-a-shared-module-because-now-the-code-that-is-valid-for-the-front-end-is-also-valid-for-the-backend-put-that-code
@@ -434,6 +481,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -447,6 +496,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] Check if it is possible to move cypress configuration to the NeoCom Frontend project so dependencies can remove duplications.
 
 - URL: https://trello.com/c/ejfg51lC/1032-project-check-if-it-is-possible-to-move-cypress-configuration-to-the-neocom-frontend-project-so-dependencies-can-remove-duplicat
@@ -454,6 +505,8 @@ _No description._
 - Labels: DONE (green)
 
 _No description._
+
+---
 
 ---
 
@@ -467,6 +520,8 @@ _No description._
 
 ---
 
+---
+
 ## [PROJECT] All literals should be written in english. Spanish should be considered localization.
 
 - URL: https://trello.com/c/lhWMpbTj/983-project-all-literals-should-be-written-in-english-spanish-should-be-considered-localization
@@ -474,6 +529,8 @@ _No description._
 - Labels: WIP (purple)
 
 _No description._
+
+---
 
 ---
 
@@ -487,6 +544,8 @@ _No description._
 
 ---
 
+---
+
 ## [NIN01.04] Check that the Mining Resources are properly generated.
 
 - URL: https://trello.com/c/59Q7o4kf/1098-nin0104-check-that-the-mining-resources-are-properly-generated
@@ -494,5 +553,7 @@ _No description._
 - Labels: DONE (green), ACCEPTANCE (blue)
 
 _No description._
+
+---
 
 ---

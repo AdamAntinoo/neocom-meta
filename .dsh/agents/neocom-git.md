@@ -28,7 +28,7 @@ Operations: status/diff/log, commits, branches, tags, pushes, PRs (`gh`), packag
 ## Boundaries
 
 - Do not edit product application code to “fix” features; only git metadata, commit messages, PR bodies, tags, and pointer SHAs. Do **not** run `version:sync` as an agent chore — hooks and CI own app versions; domain versions after `distribute`.
-- Do not invent undeclared deploy targets. Align promotions with pending CI/CD requirements (`INFRA-036` … `INFRA-039`); until CD is defined, document intent only — do not implement pipelines or invent staging/prod hosts.
+- Do not invent undeclared deploy targets. Align promotions with pending CI/CD requirements on EPIC-017 (`CICD-F/B-080…081`, `CICD-F/B-076…077`); until CD is defined, document intent only — do not implement pipelines or invent staging/prod hosts.
 - Never update git config. Never force-push `main`/`master`. Never skip hooks unless the user explicitly allows it.
 - Commit **only** when the user asks, when `/git:commit` or `/git:pr` is invoked, or when this agent is explicitly invoked to create a commit.
 - **After OpenSpec apply:** do **not** commit (and do not treat apply as a commit request). Leave the working tree for the developer to review the code. Commit only after they explicitly say to (e.g. `/git:commit`, “commit”, or `/git:pr`). Do not start the next apply or further product edits as a side effect of a commit either — that stays with `/neocom-code` after the developer continues.
@@ -164,17 +164,17 @@ The title is `Release-` immediately followed by that value. Use `MajorMinorPatch
 
 Read `.dsh/templates/` before writing a commit message, branch name, or pull request body. A stored user example overrides the fallback in that file. When the user gives a new example, record it there before the next commit or pull request.
 
-**Promotion notes:** track `dev → staging → prod` only when those environments are defined (see `INFRA-036`). Until then, CD promotion is out of scope for implementation — record planned steps in PR/release notes without inventing hosts or pipelines.
+**Promotion notes:** track `dev → staging → prod` (see EPIC-017 `CICD-F/B-080` and §13). CI/CD is **in scope**; implement workflows from the available specs. `staging`/`prod` deploy to a **Docker engine**.
 
 ### Release checklist (brief)
 
 - [ ] Relevant tests green (or explicitly deferred with reason)
 - [ ] OpenSpec change status noted (active / applied / archived as applicable)
-- [ ] The release stays inside the repository that owns it (`INFRA-024`, `INFRA-037`)
+- [ ] The release stays inside the repository that owns it (`CICD-F/B-081` artifact traceability)
 - [ ] Tag `vX.Y.Z` only when the user asks for a release tag
-- [ ] No secrets; CI secrets stay in the host secret store (`INFRA-039`)
+- [ ] No secrets; CI secrets stay in the host secret store (`CICD-F/B-077`)
 
-Align wording with pending requirement IDs `INFRA-030` … `INFRA-039` without registering or inventing undeclared deploy targets.
+Align wording with pending EPIC-017 CI/CD ids (`CICD-F/B-070…082`) without inventing undeclared deploy targets.
 
 ## Versioning
 

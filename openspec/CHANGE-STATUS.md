@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-07 (`/git:pr neocom-back` — `back-eve-items` [PR #8](https://github.com/AdamAntinoo/neocom-back/pull/8) @ `56d5144`; 22/22 applying).
+Last refreshed: 2026-11-09 (EPIC-017: removed deprecated CICD-F-090 / CICD-F-091; `back-service` archived; `front-universe` applying).
 
 ## Status legend
 
@@ -31,20 +31,11 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
+| `back-eve-item-dogma-drop` | back / eve-item-dogma-drop | 0/3 | registered | EPIC-016 OPT-001…003; drop unused dogma from `EveItemV1Dto` (modifies `back/eve-items`) |
 | `front-known-system` | front / known-system | 0/2 | registered | EPIC-008 LOC-110 KnownSystem card. L2 `FRONT/22.KNOWN-SYSTEM.md` |
-| `nestjs-sso-config` | back / nestjs-sso-config | 0/2 | registered | INFRA-041…042; NestJS SSO env/config; related to `login`. Renamed from `back-nestjs-sso-config` (earlier `infra-sso-config`) |
-| `front-universe` | front / universe | 0/4 | registered | |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |
-| `back-service` | back / service | 0/3 | registered | |
-| `infra-developer-install` | infra / developer-install | 0/4 | registered | |
-| `infra-local-config` | infra / local-config | 0/7 | registered | |
-| `cicd-pipeline` | cicd / pipeline | 0/8 | registered | |
-| `front-bdd-cypress` | front / bdd-cypress | 0/4 | registered | EPIC-003; BDD-001…004. SDD→BDD→TDD + Cypress `cy-*` UI/content validation |
-| `front-mock-fixtures` | front / mock-fixtures | 0/4 | registered | EPIC-003; FIX-001…004. Fixtures from real runs; Gherkin-selectable |
-| `cicd-coverage-sonar` | cicd / coverage-sonar | 0/5 | registered | EPIC-003; COV-001…005. Coverage tools, quality gates, SonarCloud |
-| `cicd-testing-gates` | cicd / testing-gates | 0/3 | registered | EPIC-003; GATE-001…003. Parallel unit/acceptance before Sonar |
-| `infra-test-commands` | infra / test-commands | 0/5 | registered | EPIC-003; INFRA-060…064. Shared TDD/BDD/SDD command catalog |
-| `back-testing` | back / testing | 0/5 | registered | EPIC-003; BTEST-001…005. Back guidelines, WireMock, Gherkin |
+| `front-cicd` | front / cicd | 0/83 | registered | EPIC-017 `CICD-F-*`; extracts 2026-11-11 + 11b (domain nodes, F-124, step catalog 060–067) |
+| `back-cicd` | back / cicd | 0/68 | registered | EPIC-017 `CICD-B-*`; extracts 2026-11-11 + 11b (OpenAPI 006–009, catalog 010–017, steps 060–061) |
 ## Deferred
 
 | Change | System / feature | Tasks | Status | Notes |
@@ -55,18 +46,21 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `back-eve-items` | back / eve-items | 22/22 | applying | EPIC-013 ITEM-001…026; [neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) `feature/eve-items` @ `56d5144` → `develop` |
+| `front-universe` | front / universe | 4/4 | applying | `neocom-front` `feature/universe` from `develop`; Universe ESI adapter + client cache + WireMock stubs; stop before commit for review |
 
 ## Applied
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| — | — | — | — | None — Release-0.1.0 set archived 2026-11-06 |
+| `front-assets-by-location` | front / assets-by-location | 14/14 | applied | EPIC-015; [neocom-front#7](https://github.com/AdamAntinoo/neocom-front/pull/7) merged 2026-11-09; develop @ `d1fed92`; `openspec validate` passed (warnings only: long requirement text) |
+| `back-assets` | back / assets | 14/14 | applied | EPIC-014; [neocom-back#9](https://github.com/AdamAntinoo/neocom-back/pull/9) merged 2026-11-09; develop @ `63a2098`; `openspec validate` passed |
+| `back-eve-items` | back / eve-items | 22/22 | applied | EPIC-013; [neocom-back#8](https://github.com/AdamAntinoo/neocom-back/pull/8) merged + included in [#9](https://github.com/AdamAntinoo/neocom-back/pull/9); develop @ `b72ff05`…`63a2098`; `openspec validate` passed |
 
 ## Archived
 
 | Archive folder | Main spec |
 | --- | --- |
+| `2026-11-09-back-service` | `specs/back/service/spec.md` |
 | `2026-10-15-back-esi-client` | `specs/back/esi-client/spec.md` |
 | `2026-10-15-back-hexagonal` | `specs/back/hexagonal/spec.md` |
 | `2026-10-15-infra-style-modules` | `specs/infra/style-modules/spec.md` |
@@ -123,13 +117,14 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Front domain NeoCom nodes (EPIC-006)** | `front-domain-nodes` | File naming, `@domain` alias, render≡jsonClass, hierarchy children, BlueprintV1DtoWire |
 | **Domain models (EPIC-004)**            | `domain-pilot`, `domain-blueprint`, `domain-application-info`, `domain-server-status`, `domain-spacelocation`, `domain-jsonclass` (+ `domain-module`) | Published programme models in `neocom-domain`; header ApplicationInfo/ServerStatus stay under domain; `jsonClass` wire interchange |
 | **Locations (EPIC-008)**                | `domain-locations`, `back-spacelocations`, `domain-spacelocation`, `front-known-system`, `back-space-location-service` | Hierarchy + lookup API + KnownSystem card + Nest ESI/Redis space-location service (BACK-229) |
-| **Eve items (EPIC-013)**                | `back-eve-items` | ESI type → EveItemV1Dto → PricedItemV1Dto; get-by-id / Redis; Jita hub prices; 5‑min market TTL caches (ITEM-025…026) |
+| **Eve items (EPIC-013)**                | `back-eve-items`, `back-eve-item-dogma-drop` | ESI type → EveItemV1Dto → PricedItemV1Dto; get-by-id / Redis; Jita hub prices; OPT drop unused dogma (EPIC-016) |
+| **Assets (EPIC-014)**                   | `back-assets` | EveAssetV1Dto + LocatedAssetContainerV1Dto; ESI + authenticated pilot HTTP (full/by-location); PilotPort/UC; Redis TTL 60m |
+| **Assets by location (EPIC-015)**       | `front-assets-by-location` | Dashboard Feature + `pilot` module page + locationId aggregation / Unidentified roots + `v1-asset-render` |
 | **Backend services (EPIC-009)**         | `domain-layout`, `domain-ports`, `domain-deprecations`, `back-openapi`, `back-industry-blueprints` | Domain truth/ports/deprecations → OpenAPI rules → Industry pilot blueprints |
-| **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`, `infra-developer-install`, `infra-local-config`                                    | Install, Node/Angular stack, canvas chrome, local WireMock config                                    |
-| **Auth / SSO**                          | `login` (already multi-system), `nestjs-sso-config`                                                                           | Session already unified; NestJS SSO env/config still separate                                        |
+| **Front shell & toolchain**             | `front-infrastructure`, `front-app-shell`                                                                                     | Node/Angular stack, canvas chrome; install/local WireMock config → EPIC-017 §12/§13                  |
+| **Auth / SSO**                          | `login` (multi-system; archived)                                                                                              | Session unified; obsolete `nestjs-sso-config` removed 2026-11-09                                     |
 | **Angular codification (EPIC-002)**     | `front-angular-structure`, `front-node-render`, `front-async-sse`, `back-async-sse`, `infra-async-persistence`                | Structure → node/viewer/registry → async SSE enrichment with Nest + PostgreSQL/Redis                 |
-| **Delivery**                            | `cicd-pipeline`                                                                                                               | CI/CD boundary; keep separate unless a release feature needs it                                      |
-| **Testing (EPIC-003)**                  | `front-bdd-cypress`, `front-mock-fixtures`, `cicd-coverage-sonar`, `cicd-testing-gates`, `infra-test-commands`, `back-testing` | TDD/BDD/SDD commands, Cypress UI/`cy-*`, fixtures, coverage/Sonar, CI job order, back guidelines   |
+| **CI/CD (EPIC-017)**                    | `front-cicd`, `back-cicd` | Nearly complete registered set (2026-11-11b); L1 leftover `[ ]`: SDD CICD-F-045…047 only |
 
 
 `login` is the template: one change folder, several capability specs (`front/login`, `back/login`, `esi/sso`, `esi/login`).
@@ -148,21 +143,8 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**         | `front/login`, `back/login`, `esi/sso`, `esi/login`                                                                                                                                                                                                          |
 | **Owners**               | `neocom-front`, `neocom-back` (ESI-012 noted for `neocom-esi`)                                                                                                                                                                                               |
 | **Requirements (short)** | Guard + return cookie; scopes; authorize link; SSO state; readable access cookie; character switch; login page; callback; token file storage; code exchange; multi-character; refresh/401; Authorization Code; three cookies; PKCE (fulfilled outside apply) |
-| **Related**              | Keep `nestjs-sso-config` separate unless folding env var names into this feature                                                                                                                                                                             |
-| **Paths**                | `changes/login/`                                                                                                                                                                                                                                             |
-
-
-### `nestjs-sso-config` — registered · 0/2
-
-
-|                    |                                                                                       |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| **Why**            | NestJS SSO env vars and K8s secrets for client id/secret                              |
-| **Capabilities**   | `back/nestjs-sso-config`                                                              |
-| **Owners**         | `neocom-back` (NestJS Config); docs in `neocom-meta`; local values also on front      |
-| **Requirements**   | `EVE_SSO_`* variables; Kubernetes secrets at deploy                                   |
-| **Integrate with** | `login` (optional fold)                                                               |
-| **Paths**          | `changes/nestjs-sso-config/` (formerly `back-nestjs-sso-config` / `infra-sso-config`) |
+| **Related**              | Former `nestjs-sso-config` / `back-nestjs-sso-config` / `infra-sso-config` removed as obsolete (2026-11-09); env contract lives with `login`                                                                                                                                                                             |
+| **Paths**                | `changes/archive/2026-11-06-login/`                                                                                                                                                                                                                                             |
 
 
 ### `front-infrastructure` — archived · 8/8
@@ -174,7 +156,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**   | `front-toolchain`                                                                                            |
 | **Owners**         | `neocom-front`, programme docs                                                                               |
 | **Branch**         | `feature/infrastructure` from `develop` @ `90a9e42`                                                          |
-| **Integrate with** | `front-app-shell`, `infra-developer-install`, `infra-local-config`                                           |
+| **Integrate with** | `front-app-shell`; EPIC-017 §12/§13 (former install/local-config)                                            |
 | **Paths**          | `changes/front-infrastructure/`                                                                              |
 
 
@@ -254,7 +236,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/front-pilot-panel/`                                      |
 
 
-### `front-universe` — registered · 0/4
+### `front-universe` — applying · 4/4
 
 
 |                    |                                                                                  |
@@ -263,10 +245,10 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**   | `front/universe`                                                                 |
 | **Owners**         | front + domain Pilot model                                                       |
 | **Integrate with** | `front-pilot`, `domain-module`                                                   |
-| **Paths**          | `changes/front-universe/`                                                        |
+| **Paths**          | `changes/front-universe/` · `neocom-front` `feature/universe`                    |
 
 
-### `back-service` — registered · 0/3
+### `back-service` — archived · 3/3
 
 
 |                    |                                                                                   |
@@ -275,10 +257,25 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**   | `back/service`                                                                    |
 | **Owners**         | `neocom-back`                                                                     |
 | **Integrate with** | `front-pilot`, `esi-character-api`, archived `back-esi-client` / `back-hexagonal` |
-| **Paths**          | `changes/back-service/`                                                           |
+| **Paths**          | `changes/archive/2026-11-09-back-service/` · main `specs/back/service/spec.md`    |
+| **Evidence**       | Already on `neocom-back` `develop` @ `63a2098` (`EsiPilotSource` + `GetPilotUseCase` + `ExceptionCatalog.PILOT_NOT_FOUND`) |
 
 
-### `back-eve-items` — applying · 22/22
+### `back-eve-item-dogma-drop` — registered · 0/3
+
+
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | Drop unused `dogmaAttributes` / `dogmaEffects` from `EveItemV1Dto` wire |
+| **Capabilities**   | `back/eve-items` (MODIFIED)                                     |
+| **Owners**         | `neocom-back`                                                   |
+| **Requirements**   | OPT-001…003 (EPIC-016)                                          |
+| **Branch**         | `feature/eve-item-dogma-drop` from `develop` (suggested)        |
+| **Integrate with** | `back-eve-items`; nested asset `item` payloads                  |
+| **Paths**          | `changes/back-eve-item-dogma-drop/`                             |
+
+
+### `back-eve-items` — applied · 22/22
 
 
 |                    |                                                                 |
@@ -287,9 +284,38 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**   | `back/eve-items`                                                |
 | **Owners**         | `neocom-back`                                                   |
 | **Requirements**   | ITEM-001…007, ITEM-010…026; DEF-EI-001/002/003                  |
-| **Branch**         | `feature/eve-items` from `develop`                              |
-| **Integrate with** | EPIC-012 EveLocation / market (hub buy/sell from The Forge orders @ Jita 4-4) |
+| **Branch**         | tip on `feature/assets` (was `feature/eve-items`); PR [#9](https://github.com/AdamAntinoo/neocom-back/pull/9) |
+| **Integrate with** | EPIC-012 EveLocation / market (hub buy/sell from The Forge orders @ Jita 4-4); follow-on `back-eve-item-dogma-drop` |
 | **Paths**          | `changes/back-eve-items/`                                       |
+
+
+### `front-assets-by-location` — applied · 14/14
+
+
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | Dashboard Feature + pilot assets-by-location page (Region/Unidentified → System → Asset/Container) + `v1-asset-render` |
+| **Capabilities**   | `front/assets-by-location`                                      |
+| **Owners**         | `neocom-front`                                                  |
+| **Requirements**   | FAL-001…003, 010…015, 020…037 (EPIC-015)                        |
+| **Branch**         | `feature/assets-by-location` from `develop`                     |
+| **Integrate with** | `back-assets` (pilot assets HTTP); spacelocations lookup; `v1-region-render` / `v1-system-render` |
+| **Paths**          | `changes/front-assets-by-location/`                             |
+| **Apply notes**    | Committed `bd179c7`; PR [#7](https://github.com/AdamAntinoo/neocom-front/pull/7) open for develop validation. Unidentified icon (FAL-025) still deferred. |
+
+
+### `back-assets` — applied · 14/14
+
+
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | ESI character assets → EveAsset DTOs + authenticated pilot HTTP + Redis |
+| **Capabilities**   | `back/assets`                                                   |
+| **Owners**         | `neocom-back` only (new models/ports; domain deprecated for new) |
+| **Requirements**   | AST-001…014 (EPIC-014)                                          |
+| **Branch**         | `feature/assets` @ `9e2c297` → `develop` via PR [#9](https://github.com/AdamAntinoo/neocom-back/pull/9) |
+| **Integrate with** | `back-eve-items` (nested PricedItem); EPIC-012 EveLocationV1Dto |
+| **Paths**          | `changes/back-assets/`                                          |
 
 
 ### `domain-module` — archived · 3/3
@@ -316,40 +342,6 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Integrate with** | `back-service`, pilot cluster                                                       |
 | **Paths**          | `changes/esi-character-api/`                                                        |
 | **Blocker**        | Remaining ESI-011; programme leaves `neocom-esi` aside (2026-11-03)               |
-
-
-### `infra-developer-install` — registered · 0/4
-
-
-|                    |                                                                                          |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| **Why**            | Repeatable clone/install: recursive clone, nvm, front npm install, WireMock without back |
-| **Capabilities**   | `infra/developer-install`                                                                |
-| **Integrate with** | `front-infrastructure`, `infra-local-config`                                             |
-| **Paths**          | `changes/infra-developer-install/`                                                       |
-
-
-### `infra-local-config` — registered · 0/7
-
-
-|                    |                                                                               |
-| ------------------ | ----------------------------------------------------------------------------- |
-| **Why**            | WireMock base URL, local UI URL, env/secrets, submodule pins, Sass workaround |
-| **Capabilities**   | `infra/local-config`                                                          |
-| **Integrate with** | `front-infrastructure`, `infra-developer-install`                             |
-| **Paths**          | `changes/infra-local-config/`                                                 |
-
-
-### `cicd-pipeline` — registered · 0/8
-
-
-|                    |                                                                                                                                                    |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Why**            | Front CI jobs, Node pin, Cypress without live back, CD deferred, local K8s target                                                                  |
-| **Capabilities**   | `cicd/pipeline`                                                                                                                                    |
-| **Owners**         | GitHub Actions in front (and later ecosystem)                                                                                                      |
-| **Integrate with** | Usually alone; optionally a “delivery” meta feature; will align with EPIC-003 (parallel unit/acceptance before Sonar) when that epic is registered |
-| **Paths**          | `changes/cicd-pipeline/`                                                                                                                           |
 
 
 ### `front-angular-structure` — archived · 0/7
@@ -412,76 +404,30 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/infra-async-persistence/`                                                |
 
 
-### `front-bdd-cypress` — registered · 0/4
-
-
-|                    |                                                                              |
-| ------------------ | ---------------------------------------------------------------------------- |
-| **Why**            | SDD→BDD→TDD; Cypress validates content/UI via documented `cy-*` attributes |
-| **Capabilities**   | `front/bdd-cypress`                                                          |
-| **Owners**         | `neocom-front`                                                               |
-| **Integrate with** | `front-mock-fixtures`, `front-infrastructure`, `infra-test-commands`         |
-| **Paths**          | `changes/front-bdd-cypress/`                                                 |
-
-
-### `front-mock-fixtures` — registered · 0/4
-
-
-|                    |                                                                    |
-| ------------------ | ------------------------------------------------------------------ |
-| **Why**            | Real-run fixtures (errors/stale/incorrect); replaceable adapters |
-| **Capabilities**   | `front/mock-fixtures`                                              |
-| **Owners**         | `neocom-front`                                                     |
-| **Integrate with** | `front-bdd-cypress`, `cicd-pipeline`                               |
-| **Paths**          | `changes/front-mock-fixtures/`                                     |
-
-
-### `cicd-coverage-sonar` — registered · 0/5
-
-
-|                    |                                                         |
-| ------------------ | ------------------------------------------------------- |
-| **Why**            | Coverage tools, quality-gate rules, SonarCloud reporting |
-| **Capabilities**   | `cicd/coverage-sonar`                                   |
-| **Owners**         | front/back CI; meta docs                                |
-| **Integrate with** | `cicd-testing-gates`, `cicd-pipeline`                   |
-| **Paths**          | `changes/cicd-coverage-sonar/`                          |
-
-
-### `cicd-testing-gates` — registered · 0/3
-
-
-|                    |                                                              |
-| ------------------ | ------------------------------------------------------------ |
-| **Why**            | Parallel unit+acceptance before SonarCloud analysis          |
-| **Capabilities**   | `cicd/testing-gates`                                         |
-| **Owners**         | front/back CI                                                |
-| **Integrate with** | `cicd-coverage-sonar`, `cicd-pipeline`                       |
-| **Paths**          | `changes/cicd-testing-gates/`                                |
-
-
-### `infra-test-commands` — registered · 0/5
-
-
-|                    |                                                          |
-| ------------------ | -------------------------------------------------------- |
-| **Why**            | Shared TDD/BDD/SDD command catalog and run-all sequence  |
-| **Capabilities**   | `infra/test-commands`                                    |
-| **Owners**         | meta docs; front/back scripts                            |
-| **Integrate with** | `front-bdd-cypress`, `back-testing`                      |
-| **Paths**          | `changes/infra-test-commands/`                           |
-
-
-### `back-testing` — registered · 0/5
+### `front-cicd` — registered · 0/83
 
 
 |                    |                                                                 |
 | ------------------ | --------------------------------------------------------------- |
-| **Why**            | Back mirrors front testing guidelines; WireMock; Gherkin BDD  |
-| **Capabilities**   | `back/testing`                                                  |
+| **Why**            | EPIC-017 front CI/CD set (`CICD-F-*`): BDD/fixtures, coverage/Sonar, gates, catalog, deploy/GHCR, logging, CI pipeline, install, local-config, domain-node tests, Cypress step families + `cy-*` |
+| **Capabilities**   | `front/cicd`                                                    |
+| **Owners**         | `neocom-front`                                                  |
+| **Integrate with** | `back-cicd` |
+| **Paths**          | `changes/front-cicd/`                                           |
+| **Supersedes**     | `front-bdd-cypress`, `front-mock-fixtures`; front half of coverage/gates/commands |
+
+
+### `back-cicd` — registered · 0/68
+
+
+|                    |                                                                 |
+| ------------------ | --------------------------------------------------------------- |
+| **Why**            | EPIC-017 back CI/CD set (`CICD-B-*`): guidelines, WireMock, Gherkin, OpenAPI scenarios + mock catalog, coverage/Sonar, gates, deploy/GHCR, logging, CI pipeline, step catalog |
+| **Capabilities**   | `back/cicd`                                                     |
 | **Owners**         | `neocom-back`                                                   |
-| **Integrate with** | `front-bdd-cypress`, `cicd-coverage-sonar`, `infra-test-commands` |
-| **Paths**          | `changes/back-testing/`                                         |
+| **Integrate with** | `front-cicd` |
+| **Paths**          | `changes/back-cicd/`                                            |
+| **Supersedes**     | `back-testing`; back half of coverage/gates/commands |
 
 
 ---
@@ -491,11 +437,11 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 
 | Capability path           | Change                    |
 | ------------------------- | ------------------------- |
+| `back/assets`             | `back-assets`             |
 | `front/login`             | `login`                   |
 | `back/login`              | `login`                   |
 | `esi/sso`                 | `login`                   |
 | `esi/login`               | `login`                   |
-| `back/nestjs-sso-config`  | `nestjs-sso-config`       |
 | `front-toolchain`         | `front-infrastructure`    |
 | `front/app-shell`         | `front-app-shell`         |
 | `front/dashboard`         | `front-dashboard-shell`         |
@@ -509,27 +455,21 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | `front/feature-button`    | `front-industry-blueprints`    |
 | `front/blueprint-by-location` | `front-industry-blueprints` |
 | `front/shared-ui`         | `front-industry-blueprints`         |
+| `front/assets-by-location` | `front-assets-by-location` |
 | `front/pilot`             | `front-pilot`             |
 | `front/pilot-panel`       | `front-pilot-panel`       |
 | `front/universe`          | `front-universe`          |
-| `back/service`            | `back-service`            |
-| `back/eve-items`          | `back-eve-items`          |
+| `back/service`            | `back-service` (archived → `specs/back/service`) |
+| `back/eve-items`          | `back-eve-items` (+ delta `back-eve-item-dogma-drop`) |
 | `domain/neocom-domain`    | `domain-module`           |
 | `esi/character-api`       | `esi-character-api`       |
-| `infra/developer-install` | `infra-developer-install` |
-| `infra/local-config`      | `infra-local-config`      |
-| `cicd/pipeline`           | `cicd-pipeline`           |
 | `front/angular-structure` | `front-angular-structure` |
 | `front/node-render`       | `front-node-render`       |
 | `front/async-sse`         | `front-async-sse`         |
 | `back/async-sse`          | `back-async-sse`          |
 | `infra/async-persistence` | `infra-async-persistence` |
-| `front/bdd-cypress`       | `front-bdd-cypress`       |
-| `front/mock-fixtures`     | `front-mock-fixtures`     |
-| `cicd/coverage-sonar`     | `cicd-coverage-sonar`     |
-| `cicd/testing-gates`      | `cicd-testing-gates`      |
-| `infra/test-commands`     | `infra-test-commands`     |
-| `back/testing`            | `back-testing`            |
+| `front/cicd`              | `front-cicd`              |
+| `back/cicd`               | `back-cicd`               |
 
 
 ## How to update this file

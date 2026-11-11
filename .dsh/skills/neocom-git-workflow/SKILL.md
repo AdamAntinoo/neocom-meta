@@ -122,9 +122,9 @@ Do not write GitVersion `SemVer` on apps or domain. Do not use bare `npm version
 - [ ] Relevant tests green (or deferred with reason)
 - [ ] OpenSpec change status noted
 - [ ] The release stays inside the repository that owns it
-- [ ] No secrets in tree or CI config (`INFRA-039`)
+- [ ] No secrets in tree or CI config (`CICD-F/B-077`)
 
-**Promotions:** note `dev → staging → prod` only when defined. Pending `INFRA-036` … `INFRA-039` — do not invent undeclared deploy targets or CD pipelines until `/epic:extract` registers them.
+**Promotions:** note `dev → staging → prod` only when defined. Pending EPIC-017 `CICD-F/B-080…081` / `CICD-F/B-076…077` — do not invent undeclared deploy targets or CD pipelines until `/epic:extract` registers them.
 
 ## Versioning
 

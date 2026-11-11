@@ -23,3 +23,16 @@ Deleted cards from `sources/L0/executive/INFRA.md`. Unavailable to every epic.
 - [deleted] `INFRA-188` [Use the Singularity for the mock configuration and ESI mocked data server.](https://trello.com/c/q5ayQN3M/476-configuration-use-the-singularity-for-the-mock-configuration-and-esi-mocked-data-server) · _CONFIGURATION_ · `BACKLOG`
 - [deleted] `INFRA-197` [Document the frontend application navigation map.](https://trello.com/c/ctr6paiP/408-documentation-document-the-frontend-application-navigation-map) · _DOCUMENTATION_ · `BACKLOG`
 - [deleted] `INFRA-199` [Move a documentation file from the obsolete Documentation folder to the project wiki.](https://trello.com/c/FjWfWrMw/457-documentation-move-a-documentation-file-from-the-obsolete-documentation-folder-to-the-project-wiki) · _DOCUMENTATION_ · `BACKLOG`
+
+## Out of scope — Kubernetes (superseded by Docker / EPIC-017 §08)
+
+Unavailable to epic collection (`/epic collect`). Programme deploy is Docker for `staging`/`prod`.
+
+- [out of scope] `INFRA-009` [Fix the Staging configuration to use the pods available on Kubernetes. Use NodePorts if required.](https://trello.com/c/pnbNdeNf/1083-config-fix-the-staging-configuration-to-use-the-pods-available-on-kubernetes-use-nodeports-if-required) · _CONFIG_ · `MPV-Prepare`
+- [out of scope] `INFRA-054` [Use Kubernetes Config Maps to parametrize applications and reduce the number os images generated.](https://trello.com/c/To6otIAC/1068-research-use-kubernetes-config-maps-to-parametrize-applications-and-reduce-the-number-os-images-generated) · _RESEARCH_ · `MPV-Prepare`
+- [out of scope] `INFRA-056` [Move secret and encrypted values to Kubernetes secrets.](https://trello.com/c/wTOBTaTk/1148-project-move-secret-and-encrypted-values-to-kubernetes-secrets) · _PROJECT_ · `WIP-P`
+- [out of scope] `INFRA-072` [Add additional logs to frontend to display the configuration in use on the startup to check for values on Kubernetes.](https://trello.com/c/t7UyuYeG/1070-chore-add-additional-logs-to-frontend-to-display-the-configuration-in-use-on-the-startup-to-check-for-values-on-kubernetes) · _CHORE_ · `MPV-Prepare`
+- [out of scope] `INFRA-119` [Deploy Backend on Docker and try to get it on Kubernetes.](https://trello.com/c/jheBOkE6/1085-project-deploy-backend-on-docker-and-try-to-get-it-on-kubernetes) · _PROJECT_ · `MPV-Prepare`
+- [out of scope] `INFRA-120` [Deploy the Frontend and the Java Backend to Kubernetes for a first Stage full version.](https://trello.com/c/HOP9xVbP/1061-project-deploy-the-frontend-and-the-java-backend-to-kubernetes-for-a-first-stage-full-version) · _PROJECT_ · `MPV-Prepare`
+- [out of scope] `INFRA-124` [To avoid problems with containers and docker or Kubernetes, the locahost name is not allowed. Use a neocom name for referencing.](https://trello.com/c/8NCS7sD2/1065-project-to-avoid-problems-with-containers-and-docker-or-kubernetes-the-locahost-name-is-not-allowed-use-a-neocom-name-for-refere) · _PROJECT_ · `MPV-Prepare`
+- [out of scope] `INFRA-130` [Automate the deployment process on the local Kubernetes.](https://trello.com/c/WN9479vp/1052-project-automate-the-deployment-process-on-the-local-kubernetes) · _PROJECT_ · `to TEST`
