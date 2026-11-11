@@ -10,6 +10,25 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Disable SonarCloud Automatic Analysis
+      shell: bash
+      env:
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+        SONAR_PROJECT_KEY: ${{ inputs.project-key }}
+      run: |
+        set -euo pipefail
+        # CI analysis conflicts with Automatic Analysis (SonarCloud). Prefer CI (CICD-F/B-078).
+        code="$(curl -sS -o /tmp/sonar-autoscan.json -w '%{http_code}' \
+          -u "${SONAR_TOKEN}:" \
+          -X POST 'https://sonarcloud.io/api/autoscan/activation' \
+          -d "projectKey=${SONAR_PROJECT_KEY}&enable=false" || true)"
+        body="$(cat /tmp/sonar-autoscan.json 2>/dev/null || true)"
+        if [[ "$code" == "204" || "$code" == "200" ]]; then
+          echo "Automatic Analysis disabled for ${SONAR_PROJECT_KEY}."
+        else
+          echo "::warning::Could not disable Automatic Analysis (HTTP ${code}): ${body}"
+          echo "::warning::Disable manually: https://sonarcloud.io/project/analysis_method?id=${SONAR_PROJECT_KEY}"
+        fi
     - name: SonarCloud Scan
       uses: SonarSource/sonarqube-scan-action@v5
       env:
