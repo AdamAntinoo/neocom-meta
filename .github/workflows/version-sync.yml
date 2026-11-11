@@ -1,5 +1,6 @@
 # Reusable: write GitVersion MajorMinorPatch via npm run version:sync and push if dirty.
 # Called by neocom-front / neocom-back. Does not run on commits to neocom-meta itself.
+# Does NOT rewrite package.json version (stays 0.0.0 so node_modules CI cache stays stable).
 name: Version sync
 
 on:
@@ -31,19 +32,10 @@ jobs:
         with:
           versionSpec: '5.x'
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Node and dependencies
+        uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
         with:
           node-version: ${{ inputs.node-version }}
-          cache: npm
-
-      - name: Install dependencies
-        run: |
-          if [[ -f package-lock.json ]]; then
-            npm ci
-          else
-            npm install
-          fi
 
       - name: Sync MajorMinorPatch into version files
         run: npm run version:sync
@@ -53,11 +45,10 @@ jobs:
         with:
           commit_message: 'ci(version): sync GitVersion MajorMinorPatch'
           file_pattern: >-
-            package.json
             .env.version
             .app-banner.txt
             src/environments/environment.ts
             src/environments/environment.development.ts
             src/index.html
-            cypress/e2e/features/app-info-panel.feature
-
+            cypress/e2e/features/login.feature
+            cypress/e2e/features/industry-blueprints-by-location.feature

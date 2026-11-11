@@ -1,5 +1,8 @@
 name: Setup Node environment
-description: Install a Node.js version and the npm dependencies from the lockfile.
+description: >-
+  Install Node.js and restore node_modules from cache when package.json (and the
+  lockfile) are unchanged. Only runs a full install when the cache misses or
+  node_modules is absent — so start:server / build always have dependencies.
 inputs:
   node-version:
     description: Node.js version to install. The local nvm alias neocom is not a version GitHub can download.
@@ -11,8 +14,29 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
+        # Speeds registry downloads when a full install is still required.
         cache: npm
 
-    - name: Install dependencies
+    - name: Restore node_modules cache
+      id: cache-node-modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        # Exact key only (no restore-keys) so we never skip install on a partial/wrong tree.
+        # package.json version stays 0.0.0 so SemVer sync does not bust this key.
+        key: node-modules-${{ runner.os }}-node${{ inputs.node-version }}-${{ hashFiles('package.json', 'package-lock.json') }}
+
+    - name: Install dependencies if node_modules missing
       shell: bash
-      run: npm ci
+      run: |
+        set -euo pipefail
+        if [[ -d node_modules && -d node_modules/.bin ]]; then
+          echo "node_modules present (cache-hit=${{ steps.cache-node-modules.outputs.cache-hit }}) — skipping install"
+          exit 0
+        fi
+        echo "node_modules missing — running full install (cache-hit=${{ steps.cache-node-modules.outputs.cache-hit }})"
+        if [[ -f package-lock.json ]]; then
+          npm ci
+        else
+          npm install
+        fi
