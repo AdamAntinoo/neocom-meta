@@ -89,12 +89,13 @@ jobs:
             neocom-front:bdd
           echo "Waiting for front container on :6001…"
           # wait-on defaults to HEAD; Express SPA fallback is GET-only → use http-get.
-          npx --yes wait-on http-get://127.0.0.1:6001/app/ -t 120000
+          # localhost (not 127.0.0.1) — must match EVE SSO redirectUri / Cypress origin.
+          npx --yes wait-on http-get://localhost:6001/app/ -t 120000
           docker logs neocom-front-bdd 2>&1 | tail -30
       - name: Cypress acceptance
         run: npm run test:bdd:run
         env:
-          CYPRESS_baseUrl: http://127.0.0.1:6001
+          CYPRESS_baseUrl: http://localhost:6001
           BDD_EXTERNAL_SERVERS: "1"
       - name: Stop WireMock and front containers
         if: always()
