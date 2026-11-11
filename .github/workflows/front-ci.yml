@@ -86,7 +86,8 @@ jobs:
             -e WIREMOCK_URL=http://wiremock:8080 \
             neocom-front:bdd
           echo "Waiting for front container on :6001…"
-          npx --yes wait-on http://127.0.0.1:6001/app/ -t 120000
+          # wait-on defaults to HEAD; Express SPA fallback is GET-only → use http-get.
+          npx --yes wait-on http-get://127.0.0.1:6001/app/ -t 120000
           docker logs neocom-front-bdd 2>&1 | tail -30
       - name: Cypress acceptance
         run: npm run test:bdd:run
