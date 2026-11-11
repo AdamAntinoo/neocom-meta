@@ -64,12 +64,21 @@ jobs:
           node-version: ${{ inputs.node-version }}
       - name: Production build (no live neocom-back)
         uses: AdamAntinoo/neocom-meta/.github/actions/front-production-build@feature/cicd
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
       - name: Start WireMock
         run: |
           docker run -d --name wiremock -p 8080:8080 \
             -v "$PWD/support/wiremock:/home/wiremock" \
             wiremock/wiremock:3.13.1
       - name: Start app server
+        env:
+          PORT: '6001'
         run: |
           npm run start:server &
           npx --yes wait-on http://127.0.0.1:6001/app/ -t 120000
