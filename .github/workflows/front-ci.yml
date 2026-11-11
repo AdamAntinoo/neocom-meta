@@ -80,7 +80,8 @@ jobs:
         env:
           PORT: '6001'
         run: |
-          npm run start:server &
+          # Prefer PATH node from setup-node (nvm alias "neocom" is not on runners).
+          node server.js &
           npx --yes wait-on http://127.0.0.1:6001/app/ -t 120000
       - name: Cypress acceptance
         run: npm run test:bdd:run
