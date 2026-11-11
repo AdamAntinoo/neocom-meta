@@ -11,15 +11,17 @@ runs:
   using: composite
   steps:
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: ${{ inputs.node-version }}
         # Speeds registry downloads when a full install is still required.
         cache: npm
+        # Keep our explicit node_modules cache; avoid setup-node v5 auto packageManager cache.
+        package-manager-cache: false
 
     - name: Restore node_modules cache
       id: cache-node-modules
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: node_modules
         # Exact key only (no restore-keys) so we never skip install on a partial/wrong tree.
