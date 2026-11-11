@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - uses: AdamAntinoo/neocom-meta/.github/actions/front-unit-test@feature/cicd
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: front-coverage
           path: coverage
@@ -113,7 +113,7 @@ jobs:
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
         with:
           node-version: ${{ inputs.node-version }}
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v8
         with:
           name: front-coverage
           path: coverage
@@ -141,7 +141,7 @@ jobs:
       - name: Production build
         uses: AdamAntinoo/neocom-meta/.github/actions/front-production-build@feature/cicd
       - name: Upload dist package artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: neocom-front-dist-${{ steps.gv.outputs.commitTag }}
           path: dist/neocom-front
