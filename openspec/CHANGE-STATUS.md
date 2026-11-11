@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-11 (`front-cicd` applying on `neocom-front` `feature/cicd` stacked on `feature/universe`; 83/87).
+Last refreshed: 2026-11-11 (`front-cicd` applying 87/87 — domain-node suite complete; stop before commit).
 
 ## Status legend
 
@@ -45,7 +45,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `front-cicd` | front / cicd | 83/87 | applying | `neocom-front` `feature/cicd` stacked on `feature/universe`; meta Actions on `feature/cicd` worktree; remaining F-050…053 domain-node unit coverage |
+| `front-cicd` | front / cicd | 87/87 | applying | `neocom-front` `feature/cicd` stacked on `feature/universe`; all tasks done; stop before commit for review |
 | `front-universe` | front / universe | 4/4 | applying | `neocom-front` `feature/universe` from `develop`; Universe ESI adapter + client cache + WireMock stubs; stop before commit for review |
 
 ## Applied
@@ -404,7 +404,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Paths**          | `changes/infra-async-persistence/`                                                |
 
 
-### `front-cicd` — applying · 83/87
+### `front-cicd` — applying · 87/87
 
 
 |                    |                                                                 |
@@ -413,9 +413,9 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**   | `front/cicd`                                                    |
 | **Owners**         | `neocom-front`                                                  |
 | **Integrate with** | `back-cicd` |
-| **Paths**          | `changes/front-cicd/` · `neocom-front` `feature/cicd` · meta `.github` on `feature/cicd` |
+| **Paths**          | `changes/front-cicd/` · `neocom-front` `feature/cicd` · meta `feature/cicd` Actions |
 | **Supersedes**     | `front-bdd-cypress`, `front-mock-fixtures`; front half of coverage/gates/commands |
-| **Remaining**      | CICD-F-050…053 domain NeoCom node unit-test coverage review |
+| **Remaining**      | none — review uncommitted front apply, then `/git:commit` |
 
 
 ### `back-cicd` — registered · 0/72
