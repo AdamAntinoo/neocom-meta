@@ -254,7 +254,7 @@ Front `**staging**` and `**prod**` deployments SHALL target a **Docker engine** 
 
 ### Requirement: Front SemVer patch on develop merge, minor on default main merge, tag on main
 
-Front SemVer: when a merge into `develop` completes, increment **patch**; when a merge into `main` completes on the default path, increment **minor** (reset patch); on every completed `main` merge, create an annotated git tag equal to the resulting `MajorMinorPatch` (CICD-F-130; EPIC-017).
+Front SemVer: when a merge into `develop` completes, increment **patch**; when a merge into `main` completes on the default path, increment **minor** (reset patch); on every completed `main` merge, create an annotated git tag `v` + `MajorMinorPatch` (e.g. `v0.5.0`; GitVersion `tag-prefix: v`) (CICD-F-130; EPIC-017).
 
 #### Scenario: CICD-F-130 satisfied
 
@@ -263,7 +263,7 @@ Front SemVer: when a merge into `develop` completes, increment **patch**; when a
 
 ### Requirement: Front named release/X.Y.Z from main; version+tag only on main merge
 
-Front named release: create `release/X.Y.Z` **from `main`**, merge `develop` into that branch; do **not** set version to `X.Y.Z` until the release merges to `main`; on that `main` merge, set version to the branch-named `X.Y.Z` and create git tag `X.Y.Z` (CICD-F-131; EPIC-017).
+Front named release: create `release/X.Y.Z` **from `main`**, merge `develop` into that branch; do **not** set version to `X.Y.Z` until the release merges to `main`; on that `main` merge, set version to the branch-named `X.Y.Z` and create git tag `vX.Y.Z` (CICD-F-131; EPIC-017).
 
 #### Scenario: CICD-F-131 satisfied
 
@@ -281,7 +281,7 @@ Front: a named `release/X.Y.Z` → `main` merge SHALL use the branch-named versi
 
 ### Requirement: Front feature commit versioning equals artifact/image SemVer string
 
-Front feature (and other non-`main`) versioning SHALL use the same SemVer-derived string as artifact / image naming for that commit (`commitTag` ≡ `imageTag` = `{majorMinorPatch}-{commits}.{channel}.{shortSha}`); on `main`, both are plain `MajorMinorPatch` (CICD-F-133; EPIC-017).
+Front feature (and other non-`main`) versioning SHALL use the same SemVer-derived string as artifact / image naming for that commit (`commitTag` ≡ `imageTag` = `{majorMinorPatch}{preReleaseLabelWithDash}.{shortSha}`); on `main`, both are plain `MajorMinorPatch` (CICD-F-133; EPIC-017).
 
 #### Scenario: CICD-F-133 satisfied
 

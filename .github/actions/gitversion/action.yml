@@ -1,61 +1,62 @@
 name: GitVersion version
 description: >-
-  Compute MajorMinorPatch, imageTag, and commitTag for NEOCOM front/back.
-  imageTag is always {majorMinorPatch}-{commits}.{channel}.{shortSha}.
-  On main/master, commitTag is majorMinorPatch; otherwise commitTag equals imageTag.
+  Get the correct version from the GitVersion process and return the calculated
+  version names and tags. Only merges to main will use the majorMinorPatch.
+
 outputs:
   majorMinorPatch:
-    description: MajorMinorPatch (X.Y.Z)
+    description: The majorMinorPatch version string.
     value: ${{ steps.export_tags.outputs.majorMinorPatch }}
   commitTag:
-    description: Package/app version for this commit
+    description: The tag version for this commit. It is the major-minor-patch version.
     value: ${{ steps.export_tags.outputs.commitTag }}
   imageTag:
-    description: Docker/GHCR tag
+    description: The image version to be generated for docker image.
     value: ${{ steps.export_tags.outputs.imageTag }}
   appVersion:
-    description: Infrastructure-friendly label
+    description: >-
+      The application version label to be used to identify the deployed revision
+      at the infrastructure environment.
     value: ${{ steps.export_tags.outputs.appVersion }}
+
 runs:
   using: composite
   steps:
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v4.7.0
+      uses: gittools/actions/gitversion/setup@v3.1.11
       with:
+        versionSpec: '6.0.x'
         preferLatestVersion: true
     - name: Determine Version
       id: version_step
-      uses: gittools/actions/gitversion/execute@v4.7.0
+      uses: gittools/actions/gitversion/execute@v3.1.11
     - name: Publish calculated versions
       id: export_tags
       shell: bash
       run: |
         set -euo pipefail
-        REF_NAME="$(echo '${{ github.ref_name }}' | tr '[:upper:]' '[:lower:]')"
-        SHORT_SHA="$(echo '${{ steps.version_step.outputs.shortSha }}' | tr '[:upper:]' '[:lower:]')"
-        COMMITS='${{ steps.version_step.outputs.commitsSinceVersionSource }}'
-        MMP='${{ steps.version_step.outputs.majorMinorPatch }}'
-        case "$REF_NAME" in
-          main|master) CHANNEL=release ;;
-          feature/*) CHANNEL=feature ;;
-          develop) CHANNEL=dev ;;
-          fix/*) CHANNEL=fix ;;
-          hotfix/*) CHANNEL=hotfix ;;
-          release/*) CHANNEL=release ;;
-          *)
-            CHANNEL="$(echo "$REF_NAME" | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9._-' '-' | sed 's/--*/-/g; s/^-//; s/-$//')"
-            [[ -z "$CHANNEL" ]] && CHANNEL=other
-            ;;
-        esac
-        IMAGE_TAG="${MMP}-${COMMITS}.${CHANNEL}.${SHORT_SHA}"
-        if [[ "$REF_NAME" == "main" || "$REF_NAME" == "master" ]]; then
-          COMMIT_TAG="$MMP"
+        echo ">>> Versions"
+        echo "majorMinorPatch=${{ env.majorMinorPatch }}" >> "$GITHUB_OUTPUT"
+        if [[ "${{ env.branchName }}" == "main" || "${{ env.branchName }}" == "master" ]]; then
+          echo "commitTag=${{ env.majorMinorPatch }}" >> "$GITHUB_OUTPUT"
+          echo "imageTag=${{ env.majorMinorPatch }}" >> "$GITHUB_OUTPUT"
+          echo "appVersion=$(echo '${{ env.majorMinorPatch }}' | tr '[:upper:]' '[:lower:]' | tr '+' '.' | tr '.' '_')" >> "$GITHUB_OUTPUT"
         else
-          COMMIT_TAG="$IMAGE_TAG"
+          echo "commitTag=${{ env.majorMinorPatch }}${{ env.preReleaseLabelWithDash }}.${{ env.shortSha }}" >> "$GITHUB_OUTPUT"
+          echo "imageTag=$(echo '${{ env.majorMinorPatch }}${{ env.preReleaseLabelWithDash }}.${{ env.shortSha }}' | tr '[:upper:]' '[:lower:]' | tr '+' '-')" >> "$GITHUB_OUTPUT"
+          echo "appVersion=$(echo '${{ env.majorMinorPatch }}${{ env.preReleaseLabelWithDash }}.${{ env.shortSha }}' | tr '[:upper:]' '[:lower:]' | tr '+' '.' | tr '.' '_')" >> "$GITHUB_OUTPUT"
         fi
-        APP_VERSION="$(echo "$IMAGE_TAG" | tr '+' '.' | tr '.' '_')"
-        echo "majorMinorPatch=${MMP}" >> "$GITHUB_OUTPUT"
-        echo "commitTag=${COMMIT_TAG}" >> "$GITHUB_OUTPUT"
-        echo "imageTag=${IMAGE_TAG}" >> "$GITHUB_OUTPUT"
-        echo "appVersion=${APP_VERSION}" >> "$GITHUB_OUTPUT"
-        echo "MajorMinorPatch=${MMP} commitTag=${COMMIT_TAG} imageTag=${IMAGE_TAG}"
+
+        echo "MajorMinorPatch (env.majorMinorPatch)  : ${{ env.majorMinorPatch }}"
+        echo "SemVer (env.semVer)                    : ${{ env.semVer }}"
+        echo "FullSemVer (env.fullSemVer)            : ${{ env.fullSemVer }}"
+        if [[ "${{ env.branchName }}" == "main" || "${{ env.branchName }}" == "master" ]]; then
+          echo "Commit Tag                           : ${{ env.majorMinorPatch }}"
+          echo "Image Tag                            : ${{ env.majorMinorPatch }}"
+          echo "Application Version                  : $(echo '${{ env.majorMinorPatch }}' | tr '[:upper:]' '[:lower:]' | tr '+' '.' | tr '.' '_')"
+        else
+          echo "Commit Tag                           : ${{ env.majorMinorPatch }}${{ env.preReleaseLabelWithDash }}.${{ env.shortSha }}"
+          echo "Image Tag                            : $(echo '${{ env.majorMinorPatch }}${{ env.preReleaseLabelWithDash }}.${{ env.shortSha }}' | tr '[:upper:]' '[:lower:]' | tr '+' '-')"
+          echo "Application Version                  : $(echo '${{ env.majorMinorPatch }}${{ env.preReleaseLabelWithDash }}.${{ env.shortSha }}' | tr '[:upper:]' '[:lower:]' | tr '+' '.' | tr '.' '_')"
+        fi
+        echo "<<<"

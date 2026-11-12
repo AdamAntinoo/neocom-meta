@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-12 (`back-cicd` applying 38/72 — CI parity; logging/Cucumber/mock catalog deferred).
+Last refreshed: 2026-11-12 (`back-cicd` applying 72/72 — WireMock/Gherkin/mock catalog done; stop before commit).
 
 ## Status legend
 
@@ -44,7 +44,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `back-cicd` | back / cicd | 38/72 | applying | CI parity on `neocom-back` `feature/cicd` + meta `back-ci`; logging/Cucumber/WireMock/mock catalog still open; stop before commit |
+| `back-cicd` | back / cicd | 72/72 | applying | All tasks done on `neocom-back` `feature/cicd` (CI + logging + WireMock/Gherkin/mock catalog); stop before commit for review |
 | `front-cicd` | front / cicd | 87/87 | applying | `neocom-front` `feature/cicd` stacked on `feature/universe`; all tasks done; stop before commit for review |
 | `front-universe` | front / universe | 4/4 | applying | `neocom-front` `feature/universe` from `develop`; Universe ESI adapter + client cache + WireMock stubs; stop before commit for review |
 
@@ -418,7 +418,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Remaining**      | none — review uncommitted front apply, then `/git:commit` |
 
 
-### `back-cicd` — applying · 38/72
+### `back-cicd` — applying · 72/72
 
 
 |                    |                                                                 |
@@ -429,7 +429,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Integrate with** | `front-cicd` |
 | **Paths**          | `changes/back-cicd/` · `neocom-back` `feature/cicd` · meta `feature/cicd` `back-ci` |
 | **Supersedes**     | `back-testing`; back half of coverage/gates/commands |
-| **Remaining**      | B-002 WireMock; B-005…017 / B-060…061 / B-074 Gherkin+mocks; B-110…127 programme logging |
+| **Remaining**      | none — review uncommitted back apply, then `/git:commit` |
 
 
 ---

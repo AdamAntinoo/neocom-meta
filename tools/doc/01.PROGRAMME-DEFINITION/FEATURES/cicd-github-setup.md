@@ -83,7 +83,7 @@ In `neocom-front` and `neocom-back` `.github/workflows/`:
 2. Pin **Node** version (or read `.nvmrc`).
 3. Pin **meta** `@ref` on every `uses: AdamAntinoo/neocom-meta/…`.
 4. Declare `permissions` (`contents: read` or `write` if needed; `packages: write` for Packages/GHCR; PR/check write only if Sonar decorates PRs).
-5. Set `**artifactName**` (short image name, e.g. `neocom-front` / `neocom-back`) in the caller workflow. Image tags come from GitVersion: `{majorMinorPatch}-{commits}.{channel}.{shortSha}` (see EPIC-017 §08); GHCR path is `ghcr.io/{owner}/{artifactName}`.
+5. Set `**artifactName**` (short image name, e.g. `neocom-front` / `neocom-back`) in the caller workflow. Image tags come from GitVersion: on `main` plain `majorMinorPatch`; otherwise `{majorMinorPatch}{preReleaseLabelWithDash}.{shortSha}` (see meta `gitversion` action). Release git tags use `v` prefix (`vX.Y.Z`). GHCR path is `ghcr.io/{owner}/{artifactName}`.
 6. Pass `secrets: inherit` (or map `SONAR_TOKEN`) into reusable workflows that need the Sonar secret.
 
 ### 6. Packages / GHCR after first publish

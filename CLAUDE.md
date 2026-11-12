@@ -30,6 +30,7 @@ Agents and their entry points:
 | `neocom-backtrack`      | `/neo:backtrack <epic…>`                                           | Legacy backtrack **only on explicit request** (named epic required)       |
 | `neocom-defect`         | `/defect`, `/fix:defect`, `/defect:fixed`                          | Register; fix marked defects; archive validated ones to `FIXED-DEFECTS.md` |
 | `neocom-code`           | `/neocom-code`                                                     | Product coding for front and back (destination-selected rules); OpenSpec apply in product repos |
+| `neocom-openapi`        | `/neocom-openapi`, `/openapi`                                      | OpenAPI writing/versioning for **neocom-back** only (`tools/openapi/`; minor bump + copy-rename; reverse-chrono CHANGELOG) |
 | `neocom-git`            | `/neocom-git`, `/git:commit`, `/git:pr`, `/git:release`, `/git:release-done` | Commits, branches, PRs, releases, versions, and `openspec/DELIVERY-INDEX.md`; the only owner of git operations |
 | `program-verifier`      | `/program-verifier`                                                | Read-only verification of the `program/` knowledge                        |
 
