@@ -1,8 +1,8 @@
 name: Publish npm package to GitHub Packages
 description: >-
-  Stage the Node production dist (static build + server.js + config) as a scoped
-  npm package and publish it to GitHub Packages (npm.pkg.github.com).
-  Does not mutate the repo package.json (kept private / 0.0.0 for cache).
+  Stage a production Node package and publish it to GitHub Packages
+  (npm.pkg.github.com). Does not mutate the repo package.json (kept private /
+  0.0.0 for cache). Supports spa (front dist + server) and nest (back dist).
 inputs:
   package-name:
     description: Unscoped package short name (e.g. neocom-front)
@@ -10,16 +10,20 @@ inputs:
   version:
     description: SemVer / commitTag from gitversion
     required: true
+  layout:
+    description: Package layout — spa (default) or nest
+    required: false
+    default: spa
   dist-path:
-    description: Built Angular output directory relative to workspace
+    description: Built output directory relative to workspace
     required: false
     default: dist/neocom-front
   server-file:
-    description: Production Node server entry (relative to workspace)
+    description: SPA layout — production Node server entry
     required: false
     default: server.js
   config-dir:
-    description: Runtime config directory (relative to workspace)
+    description: SPA layout — runtime config directory
     required: false
     default: config
 runs:
@@ -34,6 +38,7 @@ runs:
         OWNER="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
         NAME="${{ inputs.package-name }}"
         VERSION="${{ inputs.version }}"
+        LAYOUT="${{ inputs.layout }}"
         SCOPE="@${OWNER}"
         FULL_NAME="${SCOPE}/${NAME}"
         DIST="${{ inputs.dist-path }}"
@@ -44,23 +49,60 @@ runs:
           echo "::error::Missing dist at ${DIST}"
           exit 1
         fi
-        if [[ ! -f "$SERVER" ]]; then
-          echo "::error::Missing server file ${SERVER}"
-          exit 1
-        fi
-        if [[ ! -d "$CONFIG" ]]; then
-          echo "::error::Missing config dir ${CONFIG}"
-          exit 1
-        fi
 
         STAGING="$(mktemp -d)"
         mkdir -p "${STAGING}/${DIST}"
         cp -R "${DIST}/." "${STAGING}/${DIST}/"
-        cp "$SERVER" "${STAGING}/"
-        cp -R "${CONFIG}" "${STAGING}/config"
 
-        STAGING_DIR="$STAGING" PKG_NAME="$FULL_NAME" PKG_VERSION="$VERSION" DIST_PATH="$DIST" \
-          node <<'NODE'
+        if [[ "$LAYOUT" == "nest" ]]; then
+          STAGING_DIR="$STAGING" PKG_NAME="$FULL_NAME" PKG_VERSION="$VERSION" DIST_PATH="$DIST" PKG_LAYOUT=nest \
+            node <<'NODE'
+        const fs = require('fs');
+        const path = require('path');
+        const staging = process.env.STAGING_DIR;
+        const fullName = process.env.PKG_NAME;
+        const version = process.env.PKG_VERSION;
+        const distPath = process.env.DIST_PATH;
+        const rootPkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+        const pkg = {
+          name: fullName,
+          version,
+          description: 'NEOCOM Back production Nest build',
+          private: false,
+          type: rootPkg.type || 'module',
+          main: `${distPath}/main.js`,
+          files: [distPath],
+          imports: rootPkg.imports,
+          scripts: {
+            start: `node ${distPath}/main.js`,
+          },
+          engines: rootPkg.engines || undefined,
+          license: rootPkg.license,
+          dependencies: rootPkg.dependencies || {},
+          publishConfig: {
+            registry: 'https://npm.pkg.github.com',
+          },
+          repository: {
+            type: 'git',
+            url: `git+https://github.com/${process.env.GITHUB_REPOSITORY}.git`,
+          },
+        };
+        fs.writeFileSync(path.join(staging, 'package.json'), JSON.stringify(pkg, null, 2) + '\n');
+        NODE
+        else
+          if [[ ! -f "$SERVER" ]]; then
+            echo "::error::Missing server file ${SERVER}"
+            exit 1
+          fi
+          if [[ ! -d "$CONFIG" ]]; then
+            echo "::error::Missing config dir ${CONFIG}"
+            exit 1
+          fi
+          cp "$SERVER" "${STAGING}/"
+          cp -R "${CONFIG}" "${STAGING}/config"
+
+          STAGING_DIR="$STAGING" PKG_NAME="$FULL_NAME" PKG_VERSION="$VERSION" DIST_PATH="$DIST" \
+            node <<'NODE'
         const fs = require('fs');
         const path = require('path');
         const staging = process.env.STAGING_DIR;
@@ -103,13 +145,14 @@ runs:
         };
         fs.writeFileSync(path.join(staging, 'package.json'), JSON.stringify(pkg, null, 2) + '\n');
         NODE
+        fi
 
         {
           echo "@${OWNER}:registry=https://npm.pkg.github.com"
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}"
         } > "${STAGING}/.npmrc"
 
-        echo "Publishing ${FULL_NAME}@${VERSION} to GitHub Packages…"
+        echo "Publishing ${FULL_NAME}@${VERSION} (layout=${LAYOUT}) to GitHub Packages…"
         if NPM_CONFIG_USERCONFIG="${STAGING}/.npmrc" \
           npm view "${FULL_NAME}@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
           echo "Already published ${FULL_NAME}@${VERSION} — skip"

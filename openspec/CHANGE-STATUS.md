@@ -8,7 +8,7 @@ Manual register of OpenSpec changes in this repository. OpenSpec itself does not
 cd neocom-meta && nvm use && npx openspec list --json
 ```
 
-Last refreshed: 2026-11-11 (`front-cicd` applying 87/87 — domain-node suite complete; stop before commit).
+Last refreshed: 2026-11-12 (`back-cicd` applying 38/72 — CI parity; logging/Cucumber/mock catalog deferred).
 
 ## Status legend
 
@@ -34,7 +34,6 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 | `back-eve-item-dogma-drop` | back / eve-item-dogma-drop | 0/3 | registered | EPIC-016 OPT-001…003; drop unused dogma from `EveItemV1Dto` (modifies `back/eve-items`) |
 | `front-known-system` | front / known-system | 0/2 | registered | EPIC-008 LOC-110 KnownSystem card. L2 `FRONT/22.KNOWN-SYSTEM.md` |
 | `front-app-shell` | front / app-shell | 0/3 | registered | |
-| `back-cicd` | back / cicd | 0/72 | registered | EPIC-017 `CICD-B-*`; extract 11c SemVer B-130…133 |
 ## Deferred
 
 | Change | System / feature | Tasks | Status | Notes |
@@ -45,6 +44,7 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
+| `back-cicd` | back / cicd | 38/72 | applying | CI parity on `neocom-back` `feature/cicd` + meta `back-ci`; logging/Cucumber/WireMock/mock catalog still open; stop before commit |
 | `front-cicd` | front / cicd | 87/87 | applying | `neocom-front` `feature/cicd` stacked on `feature/universe`; all tasks done; stop before commit for review |
 | `front-universe` | front / universe | 4/4 | applying | `neocom-front` `feature/universe` from `develop`; Universe ESI adapter + client cache + WireMock stubs; stop before commit for review |
 
@@ -418,7 +418,7 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Remaining**      | none — review uncommitted front apply, then `/git:commit` |
 
 
-### `back-cicd` — registered · 0/72
+### `back-cicd` — applying · 38/72
 
 
 |                    |                                                                 |
@@ -427,8 +427,9 @@ Use these clusters when deciding what belongs in one `feature/<name>` branch and
 | **Capabilities**   | `back/cicd`                                                     |
 | **Owners**         | `neocom-back`                                                   |
 | **Integrate with** | `front-cicd` |
-| **Paths**          | `changes/back-cicd/`                                            |
+| **Paths**          | `changes/back-cicd/` · `neocom-back` `feature/cicd` · meta `feature/cicd` `back-ci` |
 | **Supersedes**     | `back-testing`; back half of coverage/gates/commands |
+| **Remaining**      | B-002 WireMock; B-005…017 / B-060…061 / B-074 Gherkin+mocks; B-110…127 programme logging |
 
 
 ---
