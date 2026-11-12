@@ -44,8 +44,8 @@ Task progress comes from checkboxes in each change’s `tasks.md` (`openspec lis
 
 | Change | System / feature | Tasks | Status | Notes |
 | --- | --- | --- | --- | --- |
-| `back-cicd` | back / cicd | 72/72 | applying | All tasks done on `neocom-back` `feature/cicd` (CI + logging + WireMock/Gherkin/mock catalog); stop before commit for review |
-| `front-cicd` | front / cicd | 87/87 | applying | `neocom-front` `feature/cicd` stacked on `feature/universe`; all tasks done; stop before commit for review |
+| `back-cicd` | back / cicd | 72/72 | applying | Meta artefacts on `develop` via [neocom-meta#4](https://github.com/AdamAntinoo/neocom-meta/pull/4) @ `431bf26`. Product apply still on `neocom-back` `feature/cicd` (tasks 72/72; stop before commit) |
+| `front-cicd` | front / cicd | 87/87 | applying | Meta artefacts on `develop` via [neocom-meta#4](https://github.com/AdamAntinoo/neocom-meta/pull/4) @ `431bf26`. Product apply still on `neocom-front` `feature/cicd` stacked on `feature/universe` (tasks 87/87) |
 | `front-universe` | front / universe | 4/4 | applying | `neocom-front` `feature/universe` from `develop`; Universe ESI adapter + client cache + WireMock stubs; stop before commit for review |
 
 ## Applied
