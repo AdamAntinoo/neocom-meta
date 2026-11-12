@@ -70,7 +70,7 @@ For multi-destination changes, each repo has its own `feature/<feature>` (or sha
 1. `cd` to the destination repo; `nvm use`.
 2. Match existing patterns (neighbours in the same folder). Prefer small diffs.
 3. **Front-only:** Angular + Vitest + Cypress/Cucumber as applicable; `vn-` renders / `jsonClass` when painting domain nodes; page header/panel patterns when building pages.
-4. **Back-only:** NestJS hexagonal neighbours; emit `jsonClass` on published domain payloads when specs require it. **Exceptions (first rule):** `throw ExceptionCatalog.ENTRY.doThrow(messageParams, payload)` — catalog entry = `catalogEntry(code, message, httpStatus)` (status on the entry, **no** secondary code→status map); **builder builds payload only**; **`doThrow` returns** `NeocomBackendError(httpStatus, …)`; call site uses **`throw`**. See agent Destination `back`.
+4. **Back-only:** NestJS hexagonal neighbours; emit `jsonClass` on published domain payloads when specs require it. **Exceptions (first rule):** `throw ExceptionCatalog.ENTRY.doThrow(messageParams, payload)` — catalog entry = `catalogEntry(code, message, httpStatus)` (status on the entry, **no** secondary code→status map); **builder builds payload only**; **`doThrow` returns** `NeocomBackendError(httpStatus, …)`; call site uses **`throw`**. See agent Destination `back`. **OpenAPI YAML** under `tools/openapi/` is owned by **`/neocom-openapi`** (minor bump + copy-rename + reverse-chrono CHANGELOG) — invoke that agent when the HTTP contract changes; do not rewrite shipped OpenAPI files in place from this skill.
 5. **Domain-only:** library exports only; no Nest/Angular bootstrap.
 
 ### 5. Verify

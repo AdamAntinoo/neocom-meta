@@ -6,7 +6,7 @@ Delivery SHAs / PR numbers live in [`openspec/DELIVERY-INDEX.md`](../../openspec
 
 Companions: `openspec/CHANGE-STATUS.md` (OpenSpec programme status), `openspec/DELIVERY-INDEX.md` (commits/PRs). **Removed (do not recreate):** `sources/L2/`, `SPEC-EPIC-INDEX.md`, and **`### L2 delivery`**.
 
-Last refreshed: 2026-11-12 (`back-cicd` applying 38/72 CI parity on `feature/cicd`; leftover `[ ]` only F-045…047).
+Last refreshed: 2026-11-12 (`back-cicd` applying 72/72 on `feature/cicd`; leftover `[ ]` only F-045…047).
 
 ## Table of contents
 
@@ -62,14 +62,14 @@ Pipeline: `none` → `registered` → `applying` → `applied` → `archived`. L
 
 ## `17.EPIC-CICD.md`
 
-Epic id: EPIC-017 · Highest: 🔨 `applying` · Last updated: 2026-11-12 (`front-cicd` 87/87; `back-cicd` applying 38/72 CI parity on `neocom-back` `feature/cicd`)
+Epic id: EPIC-017 · Highest: 🔨 `applying` · Last updated: 2026-11-12 (`front-cicd` 87/87; `back-cicd` applying 72/72 on `neocom-back` `feature/cicd`)
 
 ### Sections
 
 | Section | Item | Status |
 | --- | --- | --- |
 | OpenSpec sets | `front-cicd` (`CICD-F-*`) | 🔨 `applying` 87/87 |
-| OpenSpec sets | `back-cicd` (`CICD-B-*`) | 🔨 `applying` 38/72 (CI parity; logging/Cucumber/mocks open) |
+| OpenSpec sets | `back-cicd` (`CICD-B-*`) | 🔨 `applying` 72/72 (all tasks; stop before commit) |
 | [01](./17.EPIC-CICD.md#section-01--cypress-ui-and-content-validation) | CICD-F-001…004 (was BDD-001…004) | 📝 `registered` → `front-cicd` |
 | [02](./17.EPIC-CICD.md#section-02--mock-data-from-real-runs) | CICD-F-010…016 | 📝 `registered` → `front-cicd` |
 | [03](./17.EPIC-CICD.md#section-03--coverage-control-and-quality-gates) | CICD-F/B-020…024 (was COV-001…005) | 📝 `registered` → `front-cicd` + `back-cicd` |

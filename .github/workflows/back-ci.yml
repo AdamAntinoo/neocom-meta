@@ -86,12 +86,17 @@ jobs:
       - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
         with:
           node-version: ${{ inputs.node-version }}
-      # Interim acceptance: Vitest e2e (Nest in-process). Gherkin/Cucumber is a later back-cicd apply.
       - name: Vitest e2e acceptance
         run: npm run test:e2e
         env:
           REDIS_URL: redis://localhost:6004
           DATABASE_URL: postgresql://neocom:neocom@localhost:6003/neocom_async
+      - name: Gherkin / Cucumber BDD acceptance
+        run: npm run test:bdd
+        env:
+          REDIS_URL: redis://localhost:6004
+          DATABASE_URL: postgresql://neocom:neocom@localhost:6003/neocom_async
+          MOCK_CATALOG_SET: trimmed
 
   sonar:
     needs: [unit, acceptance]
@@ -149,7 +154,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          TAG="${{ steps.gv.outputs.majorMinorPatch }}"
+          TAG="v${{ steps.gv.outputs.majorMinorPatch }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "$TAG" -m "Release $TAG" || true
