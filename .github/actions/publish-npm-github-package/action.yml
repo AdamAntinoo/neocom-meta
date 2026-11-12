@@ -157,6 +157,22 @@ runs:
           npm view "${FULL_NAME}@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
           echo "Already published ${FULL_NAME}@${VERSION} — skip"
         else
-          (cd "$STAGING" && npm publish)
+          # npm refuses the default "latest" dist-tag for SemVer prereleases
+          # (e.g. 0.0.1-32.feature.abc1234 from gitversion commitTag).
+          PUBLISH_ARGS=()
+          if [[ "$VERSION" == *-* ]]; then
+            REF_NAME="$(echo "${GITHUB_REF_NAME:-}" | tr '[:upper:]' '[:lower:]')"
+            case "$REF_NAME" in
+              feature/*) DIST_TAG=feature ;;
+              develop) DIST_TAG=dev ;;
+              fix/*) DIST_TAG=fix ;;
+              hotfix/*) DIST_TAG=hotfix ;;
+              release/*) DIST_TAG=release ;;
+              *) DIST_TAG=ci ;;
+            esac
+            PUBLISH_ARGS+=(--tag "$DIST_TAG")
+            echo "Prerelease version — using npm dist-tag ${DIST_TAG}"
+          fi
+          (cd "$STAGING" && npm publish "${PUBLISH_ARGS[@]}")
           echo "Published ${FULL_NAME}@${VERSION}"
         fi
