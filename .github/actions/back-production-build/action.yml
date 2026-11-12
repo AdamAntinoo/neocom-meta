@@ -1,0 +1,8 @@
+name: Back production build
+description: Production Nest build of neocom-back (`npm run build`).
+runs:
+  using: composite
+  steps:
+    - name: Build
+      shell: bash
+      run: npm run build

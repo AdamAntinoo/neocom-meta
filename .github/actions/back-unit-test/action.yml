@@ -1,0 +1,8 @@
+name: Back unit tests
+description: Run Vitest unit tests with coverage for neocom-back (non-watch).
+runs:
+  using: composite
+  steps:
+    - name: Unit test with coverage
+      shell: bash
+      run: npm run test:coverage

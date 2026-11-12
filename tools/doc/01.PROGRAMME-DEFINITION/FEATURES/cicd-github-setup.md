@@ -154,16 +154,33 @@ Github-hosted jobs cannot reach your local Docker engine. After CI pushes to GHC
 2. `docker pull ghcr.io/AdamAntinoo/<artifactName>:<imageTag>` (names from the committed workflow / §08).
 3. Run / compose as documented when the deploy script lands (EPIC-017 §11 CICD-F/B-084).
 
+## Back CI caller (parity with front)
+
+Committed in `neocom-back` (CICD-B-076 / B-085…089):
+
+| Item | Value |
+| --- | --- |
+| Caller | `.github/workflows/build.yml` → `neocom-meta/.github/workflows/back-ci.yml@feature/cicd` |
+| Node | `24.21.0` |
+| Sonar key | `AdamAntinoo_neocom-back` (input `sonar-project-key`) |
+| Artifact / GHCR name | `neocom-back` |
+| Permissions | `contents`, `packages`, `pull-requests`, `checks`: write |
+| Secret | `SONAR_TOKEN` (host secret store only) |
+| Version sync | `workflow_dispatch` only (same as front) |
+
+Github-hosted CI publishes npm to GitHub Packages and the Docker image to GHCR. Loading the image onto a local Docker engine is **not** a github-hosted job (CICD-B-084) — use §6 / Local Docker pull above.
+
 ## Verification
 
 - [x] Sonar projects `AdamAntinoo_neocom-front` / `AdamAntinoo_neocom-back` exist; each repo has `sonar-project.properties` with org `adamantinoo`.
-- [x] Caller workflows set the matching `SONAR_PROJECT_KEY`; a run reaches Sonar with `SONAR_TOKEN`.
-- [ ] Meta reusable workflow/action resolves from front and back callers.
-- [ ] Packages/GHCR publish succeeds with `packages: write` on the caller.
+- [x] Caller workflows set the matching `SONAR_PROJECT_KEY` / `sonar-project-key`; a run reaches Sonar with `SONAR_TOKEN`.
+- [x] Front and back thin callers commit meta `uses` `@feature/cicd` (Actions access on meta still required in UI — §2).
+- [ ] Packages/GHCR publish succeeds with `packages: write` on the caller (verify after first green publish).
 - [ ] No CI-required values were added under Actions → Variables (unless an exception is documented here later).
 
 ## Related
 
 - L1: [EPIC-017 §11](../../../../sources/L1/17.EPIC-CICD.md#section-11--continuous-integration-pipeline)
 - Coverage / Sonar requirements: [coverage-sonar.md](./coverage-sonar.md)
+- Back gate table: `neocom-back/docs/ci-gates.md` (product repo)
 - Pipeline / CD boundary: EPIC-017 §08

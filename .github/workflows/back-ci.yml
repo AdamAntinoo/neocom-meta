@@ -1,0 +1,134 @@
+# Called by neocom-back. Does not run on commits to neocom-meta.
+# Stages: setup → lint → (unit ‖ acceptance) → sonar → publish Packages → GHCR image.
+name: Back CI
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node.js version (must match .nvmrc / engines)
+        required: true
+        type: string
+      artifact-name:
+        description: GHCR short image name
+        required: false
+        type: string
+        default: neocom-back
+      sonar-project-key:
+        description: SonarCloud project key
+        required: false
+        type: string
+        default: AdamAntinoo_neocom-back
+    secrets:
+      SONAR_TOKEN:
+        required: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
+        with:
+          node-version: ${{ inputs.node-version }}
+      - uses: AdamAntinoo/neocom-meta/.github/actions/back-lint@feature/cicd
+
+  unit:
+    needs: lint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
+        with:
+          node-version: ${{ inputs.node-version }}
+      - uses: AdamAntinoo/neocom-meta/.github/actions/back-unit-test@feature/cicd
+      - uses: actions/upload-artifact@v7
+        with:
+          name: back-coverage
+          path: coverage
+          if-no-files-found: warn
+
+  acceptance:
+    needs: lint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
+        with:
+          node-version: ${{ inputs.node-version }}
+      # Interim acceptance: Vitest e2e (Nest in-process). Gherkin/Cucumber is a later back-cicd apply.
+      - name: Vitest e2e acceptance
+        run: npm run test:e2e
+
+  sonar:
+    needs: [unit, acceptance]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
+        with:
+          node-version: ${{ inputs.node-version }}
+      - uses: actions/download-artifact@v8
+        with:
+          name: back-coverage
+          path: coverage
+        continue-on-error: true
+      - uses: AdamAntinoo/neocom-meta/.github/actions/sonar-scan@feature/cicd
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          project-key: ${{ inputs.sonar-project-key }}
+
+  publish:
+    needs: sonar
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: AdamAntinoo/neocom-meta/.github/actions/setup-node-environment@feature/cicd
+        with:
+          node-version: ${{ inputs.node-version }}
+      - uses: AdamAntinoo/neocom-meta/.github/actions/gitversion@feature/cicd
+        id: gv
+      - name: Production build
+        uses: AdamAntinoo/neocom-meta/.github/actions/back-production-build@feature/cicd
+      - name: Upload dist package artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: neocom-back-dist-${{ steps.gv.outputs.commitTag }}
+          path: dist
+          if-no-files-found: error
+      - name: Publish npm package to GitHub Packages
+        uses: AdamAntinoo/neocom-meta/.github/actions/publish-npm-github-package@feature/cicd
+        with:
+          package-name: ${{ inputs.artifact-name }}
+          version: ${{ steps.gv.outputs.commitTag }}
+          layout: nest
+          dist-path: dist
+      - name: Create annotated version tag on main
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.gv.outputs.majorMinorPatch }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG" || true
+          git push origin "refs/tags/$TAG" || true
+      - name: Build and push GHCR image
+        uses: AdamAntinoo/neocom-meta/.github/actions/push-ghcr-image@feature/cicd
+        with:
+          artifact-name: ${{ inputs.artifact-name }}
+          image-tag: ${{ steps.gv.outputs.imageTag }}
