@@ -1,0 +1,119 @@
+name: Publish npm package to GitHub Packages
+description: >-
+  Stage the Node production dist (static build + server.js + config) as a scoped
+  npm package and publish it to GitHub Packages (npm.pkg.github.com).
+  Does not mutate the repo package.json (kept private / 0.0.0 for cache).
+inputs:
+  package-name:
+    description: Unscoped package short name (e.g. neocom-front)
+    required: true
+  version:
+    description: SemVer / commitTag from gitversion
+    required: true
+  dist-path:
+    description: Built Angular output directory relative to workspace
+    required: false
+    default: dist/neocom-front
+  server-file:
+    description: Production Node server entry (relative to workspace)
+    required: false
+    default: server.js
+  config-dir:
+    description: Runtime config directory (relative to workspace)
+    required: false
+    default: config
+runs:
+  using: composite
+  steps:
+    - name: Stage and publish GitHub npm package
+      shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        OWNER="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+        NAME="${{ inputs.package-name }}"
+        VERSION="${{ inputs.version }}"
+        SCOPE="@${OWNER}"
+        FULL_NAME="${SCOPE}/${NAME}"
+        DIST="${{ inputs.dist-path }}"
+        SERVER="${{ inputs.server-file }}"
+        CONFIG="${{ inputs.config-dir }}"
+
+        if [[ ! -d "$DIST" ]]; then
+          echo "::error::Missing dist at ${DIST}"
+          exit 1
+        fi
+        if [[ ! -f "$SERVER" ]]; then
+          echo "::error::Missing server file ${SERVER}"
+          exit 1
+        fi
+        if [[ ! -d "$CONFIG" ]]; then
+          echo "::error::Missing config dir ${CONFIG}"
+          exit 1
+        fi
+
+        STAGING="$(mktemp -d)"
+        mkdir -p "${STAGING}/${DIST}"
+        cp -R "${DIST}/." "${STAGING}/${DIST}/"
+        cp "$SERVER" "${STAGING}/"
+        cp -R "${CONFIG}" "${STAGING}/config"
+
+        STAGING_DIR="$STAGING" PKG_NAME="$FULL_NAME" PKG_VERSION="$VERSION" DIST_PATH="$DIST" \
+          node <<'NODE'
+        const fs = require('fs');
+        const path = require('path');
+        const staging = process.env.STAGING_DIR;
+        const fullName = process.env.PKG_NAME;
+        const version = process.env.PKG_VERSION;
+        const distPath = process.env.DIST_PATH;
+        const rootPkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+        const runtimeDeps = [
+          'compression',
+          'dotenv',
+          'express',
+          'http-proxy-middleware',
+        ];
+        const dependencies = {};
+        for (const dep of runtimeDeps) {
+          if (!rootPkg.dependencies?.[dep]) {
+            throw new Error(`Missing runtime dependency ${dep} in package.json`);
+          }
+          dependencies[dep] = rootPkg.dependencies[dep];
+        }
+        const pkg = {
+          name: fullName,
+          version,
+          description: 'NEOCOM Front production dist (static + Node server)',
+          private: false,
+          main: 'server.js',
+          files: [distPath, 'server.js', 'config'],
+          scripts: {
+            start: 'node server.js',
+          },
+          engines: rootPkg.engines || undefined,
+          dependencies,
+          publishConfig: {
+            registry: 'https://npm.pkg.github.com',
+          },
+          repository: {
+            type: 'git',
+            url: `git+https://github.com/${process.env.GITHUB_REPOSITORY}.git`,
+          },
+        };
+        fs.writeFileSync(path.join(staging, 'package.json'), JSON.stringify(pkg, null, 2) + '\n');
+        NODE
+
+        {
+          echo "@${OWNER}:registry=https://npm.pkg.github.com"
+          echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}"
+        } > "${STAGING}/.npmrc"
+
+        echo "Publishing ${FULL_NAME}@${VERSION} to GitHub Packages…"
+        if NPM_CONFIG_USERCONFIG="${STAGING}/.npmrc" \
+          npm view "${FULL_NAME}@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+          echo "Already published ${FULL_NAME}@${VERSION} — skip"
+        else
+          (cd "$STAGING" && npm publish)
+          echo "Published ${FULL_NAME}@${VERSION}"
+        fi

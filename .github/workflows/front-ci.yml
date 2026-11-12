@@ -146,6 +146,11 @@ jobs:
           name: neocom-front-dist-${{ steps.gv.outputs.commitTag }}
           path: dist/neocom-front
           if-no-files-found: error
+      - name: Publish npm package to GitHub Packages
+        uses: AdamAntinoo/neocom-meta/.github/actions/publish-npm-github-package@feature/cicd
+        with:
+          package-name: ${{ inputs.artifact-name }}
+          version: ${{ steps.gv.outputs.commitTag }}
       - name: Create annotated version tag on main
         if: github.ref_name == 'main' || github.ref_name == 'master'
         env:
